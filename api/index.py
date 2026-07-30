@@ -7,7 +7,7 @@ from jinja2 import Template
 app = FastAPI(
     title="YD Protección - Sitio Web Oficial",
     description="Plataforma Web Corporativa de YD Protección",
-    version="3.1.0"
+    version="3.2.0"
 )
 
 # Catálogo oficial de la Tienda de YD Protección
@@ -241,7 +241,7 @@ h1, h2, h3, h4, h5 { font-family: 'Montserrat', -apple-system, BlinkMacSystemFon
 
 .container { max-width: 1240px; margin: 0 auto; padding: 0 20px; }
 
-/* HEADER / NAVBAR ELEGANTE Y FLOTANTE CON RUTAS DE PÁGINAS */
+/* HEADER / NAVBAR ELEGANTE Y FLOTANTE CON BOTÓN DEDICADO DE CATEGORÍAS */
 .top-bar {
     background: rgba(5, 14, 26, 0.96);
     backdrop-filter: blur(14px);
@@ -282,9 +282,9 @@ h1, h2, h3, h4, h5 { font-family: 'Montserrat', -apple-system, BlinkMacSystemFon
 }
 .brand-title span { color: var(--orange); }
 
-.nav-links { display: flex; gap: 28px; align-items: center; }
+.nav-links { display: flex; gap: 22px; align-items: center; }
 .nav-link-btn {
-    color: #E2E8F0; text-decoration: none; font-weight: 700; font-size: 0.95rem;
+    color: #E2E8F0; text-decoration: none; font-weight: 700; font-size: 0.92rem;
     transition: all 0.3s ease; position: relative; padding: 6px 4px; background: none; border: none; cursor: pointer;
 }
 .nav-link-btn:hover, .nav-link-btn.active-page { color: var(--orange); }
@@ -307,7 +307,7 @@ h1, h2, h3, h4, h5 { font-family: 'Montserrat', -apple-system, BlinkMacSystemFon
 }
 .btn-analytics:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255,102,0,0.5); }
 
-/* SISTEMA DE VISTAS / PÁGINAS DEDICADAS (HOME, QUIENES SOMOS, TIENDA, SERVICIOS, CONTACTO) */
+/* SISTEMA DE VISTAS / PÁGINAS DEDICADAS (HOME, QUIENES SOMOS, CATEGORÍAS, TIENDA, SERVICIOS, CONTACTO) */
 .page-view {
     display: none;
     opacity: 0;
@@ -388,7 +388,7 @@ section { padding: 80px 0; }
 }
 .section-subtitle { text-align: center; font-size: 1.18em; color: var(--text-muted); margin-bottom: 50px; }
 
-/* TARJETAS DE DESGLOSE DE CATEGORÍAS */
+/* TARJETAS DE DESGLOSE DE CATEGORÍAS (DESTACADO Y ULTRA PROMINENTE) */
 .category-breakdown-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
@@ -463,7 +463,7 @@ section { padding: 80px 0; }
 .card-box:hover { transform: translateY(-8px); box-shadow: var(--hover-shadow); }
 .card-box h4 { color: var(--navy); margin-bottom: 14px; font-size: 1.35em; }
 
-/* CATEGORÍAS */
+/* CATEGORÍAS GRID */
 .categories-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 24px; }
 .category-item {
     background-color: var(--navy);
@@ -558,25 +558,6 @@ section { padding: 80px 0; }
 }
 .modal-close:hover { background: #E2E8F0; }
 
-/* BANNER DOTACIÓN */
-.dotacion-banner {
-    background: linear-gradient(135deg, var(--orange) 0%, #E65C00 100%);
-    color: var(--white);
-    padding: 80px 20px;
-    text-align: center;
-}
-.dotacion-banner h2 { font-size: 2.5em; margin-bottom: 14px; }
-.dotacion-list {
-    list-style: none; display: flex; flex-wrap: wrap; justify-content: center;
-    gap: 16px; margin-top: 38px; max-width: 950px; margin-left: auto; margin-right: auto;
-}
-.dotacion-list li {
-    background-color: rgba(255,255,255,0.18);
-    padding: 12px 28px; border-radius: 50px; font-weight: 700; border: 1px solid rgba(255,255,255,0.3);
-    transition: all 0.3s ease;
-}
-.dotacion-list li:hover { background-color: var(--white); color: var(--orange); transform: translateY(-3px); }
-
 /* CONTÁCTENOS PÁGINA DEDICADA */
 .contact-section-wrapper {
     display: grid; grid-template-columns: 1fr 1fr; gap: 45px;
@@ -611,7 +592,7 @@ footer .contact-info span { font-weight: 800; color: var(--orange); margin-right
 .mt-5 { margin-top: 50px; }
 """
 
-# HTML Estructurado exactamente con el menú de 5 páginas + Sección de Desglose Detallado de Categorías
+# Template HTML con la pestaña/página DEDICADA DE CATEGORÍAS + DESGLOSE DETALLADO
 INDEX_HTML = """<!DOCTYPE html>
 <html lang="es">
 <head>
@@ -623,7 +604,7 @@ INDEX_HTML = """<!DOCTYPE html>
 </head>
 <body>
 
-    <!-- TOPBAR / MENU DE NAVEGACIÓN PRINCIPAL -->
+    <!-- TOPBAR CON BOTÓN DEDICADO "CATEGORÍAS" EN EL MENÚ PRINCIPAL -->
     <header class="top-bar">
         <div class="container top-bar-content">
             <div class="brand-logo-group" onclick="navigateToPage('home')">
@@ -633,6 +614,7 @@ INDEX_HTML = """<!DOCTYPE html>
             <nav class="nav-links">
                 <button class="nav-link-btn active-page" id="nav-home" onclick="navigateToPage('home')">Home</button>
                 <button class="nav-link-btn" id="nav-quienes-somos" onclick="navigateToPage('quienes-somos')">Quiénes Somos</button>
+                <button class="nav-link-btn" id="nav-categorias" onclick="navigateToPage('categorias')">Categorías</button>
                 <button class="nav-link-btn" id="nav-tienda" onclick="navigateToPage('tienda')">Tienda</button>
                 <button class="nav-link-btn" id="nav-servicios" onclick="navigateToPage('servicios')">Servicios</button>
                 <button class="nav-link-btn" id="nav-contacto" onclick="navigateToPage('contacto')">Contacto</button>
@@ -656,9 +638,9 @@ INDEX_HTML = """<!DOCTYPE html>
                 </div>
 
                 <div style="margin-top: 35px; display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
-                    <button class="btn-analytics" style="padding: 14px 32px; font-size: 1rem; border-radius: 8px;" onclick="navigateToPage('tienda')">Ir a la Tienda</button>
-                    <button class="btn-detail" style="padding: 14px 32px; font-size: 1rem; border-radius: 8px;" onclick="navigateToPage('servicios')">Ver Servicios</button>
-                    <button class="btn-detail" style="padding: 14px 32px; font-size: 1rem; border-radius: 8px; background: rgba(255,255,255,0.1); color:#FFF; border-color:var(--orange);" onclick="navigateToPage('contacto')">Contactar Asesor</button>
+                    <button class="btn-analytics" style="padding: 14px 32px; font-size: 1rem; border-radius: 8px;" onclick="navigateToPage('categorias')">Ver Categorías y Desglose</button>
+                    <button class="btn-analytics" style="padding: 14px 32px; font-size: 1rem; border-radius: 8px; background: linear-gradient(135deg, var(--navy), #112844);" onclick="navigateToPage('tienda')">Ir a la Tienda</button>
+                    <button class="btn-detail" style="padding: 14px 32px; font-size: 1rem; border-radius: 8px;" onclick="navigateToPage('contacto')">Contactar Asesor</button>
                 </div>
             </div>
         </section>
@@ -762,7 +744,180 @@ INDEX_HTML = """<!DOCTYPE html>
         </section>
     </div>
 
-    <!-- ==================== PÁGINA 3: TIENDA (CON CATEGORÍAS + SECCIÓN DESGLOSE DETALLADO) ==================== -->
+    <!-- ==================== PÁGINA 3: CATEGORÍAS (PANEL OFICIAL + SECCIÓN DESGLOSE DETALLADO) ==================== -->
+    <div id="page-categorias" class="page-view">
+        <div class="page-header-banner">
+            <div class="container">
+                <h1>Nuestras Categorías y Desglose Detallado</h1>
+                <p>Explora el catálogo por líneas de protección y conoce los insumos, elementos y certificaciones específicas que incluye cada una</p>
+            </div>
+        </div>
+
+        <section class="bg-white" style="padding-top: 10px;">
+            <div class="container">
+                <!-- 1. BLOQUE DE NUESTRAL CATEGORÍAS TAL Y COMO ESTABA -->
+                <h2 class="section-title">Nuestras Categorías</h2>
+                <p class="section-subtitle">Selecciona una categoría para filtrar los productos al instante en la tienda</p>
+
+                <div class="categories-grid" style="margin-bottom: 70px;">
+                    <div class="category-item active" onclick="navigateToPage('tienda', 'todos')">
+                        <span class="number">00</span>
+                        <div>
+                            <h4>TODOS LOS PRODUCTOS</h4>
+                            <p>Catálogo general completo.</p>
+                        </div>
+                    </div>
+                    <div class="category-item" onclick="navigateToPage('tienda', 'proteccion_personal')">
+                        <span class="number">01</span>
+                        <div>
+                            <h4>PROTECCIÓN PERSONAL</h4>
+                            <p>Cascos dieléctricos, gafas UV, guantes tácticos y protección auditiva.</p>
+                        </div>
+                    </div>
+                    <div class="category-item" onclick="navigateToPage('tienda', 'emergencias_rescate')">
+                        <span class="number">02</span>
+                        <div>
+                            <h4>EMERGENCIAS Y RESCATE</h4>
+                            <p>Botiquines A/B/C, linternas tácticas, kits de rescate y cuerdas estáticas.</p>
+                        </div>
+                    </div>
+                    <div class="category-item" onclick="navigateToPage('tienda', 'defensa_civil')">
+                        <span class="number">03</span>
+                        <div>
+                            <h4>DEFENSA CIVIL</h4>
+                            <p>Dotación reglamentaria, chalecos 3M y elementos para brigadas.</p>
+                        </div>
+                    </div>
+                    <div class="category-item" onclick="navigateToPage('tienda', 'senalizacion_seguridad')">
+                        <span class="number">04</span>
+                        <div>
+                            <h4>SEÑALIZACIÓN Y SEGURIDAD</h4>
+                            <p>Conos flexibles de 90cm, cintas de prevención y paletas de control.</p>
+                        </div>
+                    </div>
+                    <div class="category-item" onclick="navigateToPage('tienda', 'equipos_brigadas')">
+                        <span class="number">05</span>
+                        <div>
+                            <h4>EQUIPOS PARA BRIGADAS</h4>
+                            <p>Megáfonos de 50W, estaciones lavaojos y equipos de evacuación.</p>
+                        </div>
+                    </div>
+                    <div class="category-item" onclick="navigateToPage('tienda', 'dotacion_personalizada')">
+                        <span class="number">06</span>
+                        <div>
+                            <h4>DOTACIÓN PERSONALIZADA</h4>
+                            <p>Uniformes normativos, parches bordados y marcas corporativas.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. NUEVA SECCIÓN DE DESGLOSE DETALLADO DENTRO DE CATEGORÍAS -->
+                <div style="border-top: 3px solid var(--orange); padding-top: 60px;">
+                    <h2 class="section-title">Desglose Detallado por Categoría</h2>
+                    <p class="section-subtitle">Conoce los insumos, elementos y certificaciones específicas que incluye cada línea de protección</p>
+
+                    <div class="category-breakdown-grid">
+                        <!-- CATEGORÍA 01 -->
+                        <div class="category-breakdown-card">
+                            <span class="breakdown-num">Categoría 01</span>
+                            <h3 class="breakdown-title">Protección Personal (EPP)</h3>
+                            <p style="color: var(--text-muted); font-size: 0.94rem;">Elementos de protección individual para resguardar la salud e integridad física del trabajador.</p>
+                            
+                            <ul class="breakdown-list">
+                                <li><strong>Protección de Cabeza:</strong> Cascos dieléctricos Tipo I y II Clase E (hasta 20.000V), barboquejos de 4 puntos y arneses de trinquete.</li>
+                                <li><strong>Protección Visual & Facial:</strong> Gafas de policarbonato UV400, monogafas herméticas anti-empañantes y caretas de esmerilar.</li>
+                                <li><strong>Protección Auditiva:</strong> Tapones de silicona con cordón reutilizables y protectores de copa tipo fono adaptables a casco.</li>
+                                <li><strong>Protección Respiratoria:</strong> Respiradores de media cara de doble cartucho para vapores y mascarillas N95 / FFP2.</li>
+                                <li><strong>Protección Manual:</strong> Guantes tácticos anti-corte Nivel 5, dieléctricos, nitrilo industrial y vaqueta.</li>
+                            </ul>
+
+                            <button class="btn-detail" style="width: 100%; margin-top: 10px;" onclick="navigateToPage('tienda', 'proteccion_personal')">Ver Productos EPP en Tienda</button>
+                        </div>
+
+                        <!-- CATEGORÍA 02 -->
+                        <div class="category-breakdown-card" style="border-top-color: var(--navy);">
+                            <span class="breakdown-num" style="background: rgba(11,28,48,0.12); color: var(--navy);">Categoría 02</span>
+                            <h3 class="breakdown-title">Emergencias y Rescate</h3>
+                            <p style="color: var(--text-muted); font-size: 0.94rem;">Equipamiento médico y operativo especializado para respuesta en contingencias y desastres.</p>
+                            
+                            <ul class="breakdown-list">
+                                <li><strong>Primeros Auxilios:</strong> Botiquines reglamentarios Tipo A, B y C confeccionados en lona tifón impermeable con insumos de curación.</li>
+                                <li><strong>Inmovilización & Transporte:</strong> Camillas espinales rígidas plásticas en polietileno HDPE, inmovilizadores laterales y cuellos cervicales.</li>
+                                <li><strong>Iluminación Operativa:</strong> Linternas tácticas LED 2000 lúmenes recargables por USB, contra impactos y certificación IPX8.</li>
+                                <li><strong>Rescate Vertical:</strong> Cuerdas estáticas 11mm certificadas, arneses de cuerpo entero, mosquetones forjados 50kN y poleas.</li>
+                            </ul>
+
+                            <button class="btn-detail" style="width: 100%; margin-top: 10px;" onclick="navigateToPage('tienda', 'emergencias_rescate')">Ver Productos Rescate en Tienda</button>
+                        </div>
+
+                        <!-- CATEGORÍA 03 -->
+                        <div class="category-breakdown-card">
+                            <span class="breakdown-num">Categoría 03</span>
+                            <h3 class="breakdown-title">Defensa Civil & Socorrismo</h3>
+                            <p style="color: var(--text-muted); font-size: 0.94rem;">Dotación institucional y prendaje oficial para integrantes de brigadas y organismos de atención.</p>
+                            
+                            <ul class="breakdown-list">
+                                <li><strong>Indumentaria Operativa:</strong> Uniformes de trabajo y prendas en tela Ripstop antidesgarro de alta durabilidad.</li>
+                                <li><strong>Visibilidad & Seguridad:</strong> Chalecos tácticos multibolsillos con cintas reflectivas microesféricas 3M de 2 pulgadas.</li>
+                                <li><strong>Identificación Institucional:</strong> Parches bordados en velcro, insignias removibles de cargo y rotulación corporativa en cascos.</li>
+                                <li><strong>Equipamiento de Campo:</strong> Fundas para radio de comunicación, mochilas de socorrista y cinturones de reata reforzados.</li>
+                            </ul>
+
+                            <button class="btn-detail" style="width: 100%; margin-top: 10px;" onclick="navigateToPage('tienda', 'defensa_civil')">Ver Productos Defensa Civil en Tienda</button>
+                        </div>
+
+                        <!-- CATEGORÍA 04 -->
+                        <div class="category-breakdown-card" style="border-top-color: var(--navy);">
+                            <span class="breakdown-num" style="background: rgba(11,28,48,0.12); color: var(--navy);">Categoría 04</span>
+                            <h3 class="breakdown-title">Señalización & Seguridad Vial</h3>
+                            <p style="color: var(--text-muted); font-size: 0.94rem;">Dispositivos físicos para delimitación, prevención y control de áreas de peligro.</p>
+                            
+                            <ul class="breakdown-list">
+                                <li><strong>Canalización Vial:</strong> Conos de PVC virgen flexible de 90 cm indeformables con doble cinta reflectiva High Intensity.</li>
+                                <li><strong>Control de Tránsito:</strong> Paletas manuales Pare / Siga reflectivas y linternas de canalización para tráfico nocturno.</li>
+                                <li><strong>Demarcación de Áreas:</strong> Cintas de señalización de peligro "Peligro No Pase" y "Precaución Obras".</li>
+                                <li><strong>Señalización Fotoluminiscente:</strong> Avisos de rutas de evacuación, salidas de emergencia y extintores.</li>
+                            </ul>
+
+                            <button class="btn-detail" style="width: 100%; margin-top: 10px;" onclick="navigateToPage('tienda', 'senalizacion_seguridad')">Ver Productos Señalización en Tienda</button>
+                        </div>
+
+                        <!-- CATEGORÍA 05 -->
+                        <div class="category-breakdown-card">
+                            <span class="breakdown-num">Categoría 05</span>
+                            <h3 class="breakdown-title">Equipos para Brigadas</h3>
+                            <p style="color: var(--text-muted); font-size: 0.94rem;">Soluciones integrales de comunicación y control de contingencias en empresas e industrias.</p>
+                            
+                            <ul class="breakdown-list">
+                                <li><strong>Comunicación & Evacuación:</strong> Megáfonos profesionales de 50W con sirena de emergencia, grabador y alcance de 1000m.</li>
+                                <li><strong>Higiene Industrial:</strong> Estaciones lavaojos portátiles por gravedad de 32 litros según norma ANSI Z358.1.</li>
+                                <li><strong>Protección Incendio:</strong> Extintores multipropósito ABC, CO2 y Gabinetes de manguera contra incendio.</li>
+                            </ul>
+
+                            <button class="btn-detail" style="width: 100%; margin-top: 10px;" onclick="navigateToPage('tienda', 'equipos_brigadas')">Ver Productos Brigadas en Tienda</button>
+                        </div>
+
+                        <!-- CATEGORÍA 06 -->
+                        <div class="category-breakdown-card" style="border-top-color: var(--navy);">
+                            <span class="breakdown-num" style="background: rgba(11,28,48,0.12); color: var(--navy);">Categoría 06</span>
+                            <h3 class="breakdown-title">Dotación Personalizada</h3>
+                            <p style="color: var(--text-muted); font-size: 0.94rem;">Servicio completo de bordado, estampado e identidad de marca institucional.</p>
+                            
+                            <ul class="breakdown-list">
+                                <li><strong>Bordados Computarizados:</strong> Bordados en 3D de alta definición para camisetas, gorras, chaquetas y mochilas.</li>
+                                <li><strong>Marcación de Cascos:</strong> Rotulación con vinilos reflectivos de alta adherencia y logos institucionales.</li>
+                                <li><strong>Uniformes Corporativos:</strong> Overalls industriales, camisas y jeans de trabajo en dril normativo.</li>
+                            </ul>
+
+                            <button class="btn-detail" style="width: 100%; margin-top: 10px;" onclick="navigateToPage('contacto')">Solicitar Personalización</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ==================== PÁGINA 4: TIENDA ==================== -->
     <div id="page-tienda" class="page-view">
         <div class="page-header-banner">
             <div class="container">
@@ -778,11 +933,8 @@ INDEX_HTML = """<!DOCTYPE html>
 
         <section class="bg-white" style="padding-top: 10px;">
             <div class="container">
-                <!-- SECCIÓN DE CATEGORÍAS (TAL COMO ESTÁ SOLICITADO) -->
-                <h2 class="section-title">Nuestras Categorías</h2>
-                <p class="section-subtitle">Selecciona una categoría para filtrar los productos al instante</p>
-
-                <div class="categories-grid" id="categoriesGrid" style="margin-bottom: 60px;">
+                <h3 style="color: var(--navy); margin-bottom: 25px; text-align: center;">Filtrar Productos en Tienda</h3>
+                <div class="categories-grid" id="categoriesGrid" style="margin-bottom: 45px;">
                     <div class="category-item active" data-category="todos" onclick="filterCatalogCategory('todos', this)">
                         <span class="number">00</span>
                         <div>
@@ -827,9 +979,7 @@ INDEX_HTML = """<!DOCTYPE html>
                     </div>
                 </div>
 
-                <!-- GRILLA DE PRODUCTOS -->
-                <h3 style="color: var(--navy); margin-bottom: 25px; font-size: 1.6em; text-align: center;">Productos Disponibles</h3>
-                <div class="product-grid" id="productGrid" style="margin-bottom: 70px;">
+                <div class="product-grid" id="productGrid">
                     {% for product in products %}
                     <article class="product-card" data-id="{{ product.id }}" data-category="{{ product.category }}">
                         <div class="product-image-box">
@@ -860,114 +1010,11 @@ INDEX_HTML = """<!DOCTYPE html>
                     </article>
                     {% endfor %}
                 </div>
-
-                <!-- NUEVA SECCIÓN SOLICITADA: DESGLOSE DETALLADO DE CADA CATEGORÍA -->
-                <div style="border-top: 2px solid #E2E8F0; padding-top: 60px;">
-                    <h2 class="section-title">Desglose Detallado por Categoría</h2>
-                    <p class="section-subtitle">Conoce los insumos, elementos y certificaciones específicas que incluye cada línea de protección</p>
-
-                    <div class="category-breakdown-grid">
-                        <!-- CATEGORÍA 01 -->
-                        <div class="category-breakdown-card">
-                            <span class="breakdown-num">Categoría 01</span>
-                            <h3 class="breakdown-title">Protección Personal (EPP)</h3>
-                            <p style="color: var(--text-muted); font-size: 0.94rem;">Elementos de protección individual para resguardar la salud e integridad física del trabajador.</p>
-                            
-                            <ul class="breakdown-list">
-                                <li><strong>Protección de Cabeza:</strong> Cascos dieléctricos Tipo I y II Clase E (hasta 20.000V), barboquejos de 4 puntos y arneses de trinquete.</li>
-                                <li><strong>Protección Visual & Facial:</strong> Gafas de policarbonato UV400, monogafas herméticas anti-empañantes y caretas de esmerilar.</li>
-                                <li><strong>Protección Auditiva:</strong> Tapones de silicona con cordón reutilizables y protectores de copa tipo fono adaptables a casco.</li>
-                                <li><strong>Protección Respiratoria:</strong> Respiradores de media cara de doble cartucho para vapores y mascarillas N95 / FFP2.</li>
-                                <li><strong>Protección Manual:</strong> Guantes tácticos anti-corte Nivel 5, dieléctricos, nitrilo industrial y vaqueta.</li>
-                            </ul>
-
-                            <button class="btn-detail" style="width: 100%; margin-top: 10px;" onclick="filterCatalogCategory('proteccion_personal')">Ver Productos EPP</button>
-                        </div>
-
-                        <!-- CATEGORÍA 02 -->
-                        <div class="category-breakdown-card" style="border-top-color: var(--navy);">
-                            <span class="breakdown-num" style="background: rgba(11,28,48,0.12); color: var(--navy);">Categoría 02</span>
-                            <h3 class="breakdown-title">Emergencias y Rescate</h3>
-                            <p style="color: var(--text-muted); font-size: 0.94rem;">Equipamiento médico y operativo especializado para respuesta en contingencias y desastres.</p>
-                            
-                            <ul class="breakdown-list">
-                                <li><strong>Primeros Auxilios:</strong> Botiquines reglamentarios Tipo A, B y C confeccionados en lona tifón impermeable con insumos de curación.</li>
-                                <li><strong>Inmovilización & Transporte:</strong> Camillas espinales rígidas plásticas en polietileno HDPE, inmovilizadores laterales y cuellos cervicales.</li>
-                                <li><strong>Iluminación Operativa:</strong> Linternas tácticas LED 2000 lúmenes recargables por USB, contra impactos y certificación IPX8.</li>
-                                <li><strong>Rescate Vertical:</strong> Cuerdas estáticas 11mm certificadas, arneses de cuerpo entero, mosquetones forjados 50kN y poleas.</li>
-                            </ul>
-
-                            <button class="btn-detail" style="width: 100%; margin-top: 10px;" onclick="filterCatalogCategory('emergencias_rescate')">Ver Productos Rescate</button>
-                        </div>
-
-                        <!-- CATEGORÍA 03 -->
-                        <div class="category-breakdown-card">
-                            <span class="breakdown-num">Categoría 03</span>
-                            <h3 class="breakdown-title">Defensa Civil & Socorrismo</h3>
-                            <p style="color: var(--text-muted); font-size: 0.94rem;">Dotación institucional y prendaje oficial para integrantes de brigadas y organismos de atención.</p>
-                            
-                            <ul class="breakdown-list">
-                                <li><strong>Indumentaria Operativa:</strong> Uniformes de trabajo y prendas en tela Ripstop antidesgarro de alta durabilidad.</li>
-                                <li><strong>Visibilidad & Seguridad:</strong> Chalecos tácticos multibolsillos con cintas reflectivas microesféricas 3M de 2 pulgadas.</li>
-                                <li><strong>Identificación Institucional:</strong> Parches bordados en velcro, insignias removibles de cargo y rotulación corporativa en cascos.</li>
-                                <li><strong>Equipamiento de Campo:</strong> Fundas para radio de comunicación, mochilas de socorrista y cinturones de reata reforzados.</li>
-                            </ul>
-
-                            <button class="btn-detail" style="width: 100%; margin-top: 10px;" onclick="filterCatalogCategory('defensa_civil')">Ver Productos Defensa Civil</button>
-                        </div>
-
-                        <!-- CATEGORÍA 04 -->
-                        <div class="category-breakdown-card" style="border-top-color: var(--navy);">
-                            <span class="breakdown-num" style="background: rgba(11,28,48,0.12); color: var(--navy);">Categoría 04</span>
-                            <h3 class="breakdown-title">Señalización & Seguridad Vial</h3>
-                            <p style="color: var(--text-muted); font-size: 0.94rem;">Dispositivos físicos para delimitación, prevención y control de áreas de peligro.</p>
-                            
-                            <ul class="breakdown-list">
-                                <li><strong>Canalización Vial:</strong> Conos de PVC virgen flexible de 90 cm indeformables con doble cinta reflectiva High Intensity.</li>
-                                <li><strong>Control de Tránsito:</strong> Paletas manuales Pare / Siga reflectivas y linternas de canalización para tráfico nocturno.</li>
-                                <li><strong>Demarcación de Áreas:</strong> Cintas de señalización de peligro "Peligro No Pase" y "Precaución Obras".</li>
-                                <li><strong>Señalización Fotoluminiscente:</strong> Avisos de rutas de evacuación, salidas de emergencia y extintores.</li>
-                            </ul>
-
-                            <button class="btn-detail" style="width: 100%; margin-top: 10px;" onclick="filterCatalogCategory('senalizacion_seguridad')">Ver Productos Señalización</button>
-                        </div>
-
-                        <!-- CATEGORÍA 05 -->
-                        <div class="category-breakdown-card">
-                            <span class="breakdown-num">Categoría 05</span>
-                            <h3 class="breakdown-title">Equipos para Brigadas</h3>
-                            <p style="color: var(--text-muted); font-size: 0.94rem;">Soluciones integrales de comunicación y control de contingencias en empresas e industrias.</p>
-                            
-                            <ul class="breakdown-list">
-                                <li><strong>Comunicación & Evacuación:</strong> Megáfonos profesionales de 50W con sirena de emergencia, grabador y alcance de 1000m.</li>
-                                <li><strong>Higiene Industrial:</strong> Estaciones lavaojos portátiles por gravedad de 32 litros según norma ANSI Z358.1.</li>
-                                <li><strong>Protección Incendio:</strong> Extintores multipropósito ABC, CO2 y Gabinetes de manguera contra incendio.</li>
-                            </ul>
-
-                            <button class="btn-detail" style="width: 100%; margin-top: 10px;" onclick="filterCatalogCategory('equipos_brigadas')">Ver Productos Brigadas</button>
-                        </div>
-
-                        <!-- CATEGORÍA 06 -->
-                        <div class="category-breakdown-card" style="border-top-color: var(--navy);">
-                            <span class="breakdown-num" style="background: rgba(11,28,48,0.12); color: var(--navy);">Categoría 06</span>
-                            <h3 class="breakdown-title">Dotación Personalizada</h3>
-                            <p style="color: var(--text-muted); font-size: 0.94rem;">Servicio completo de bordado, estampado e identidad de marca institucional.</p>
-                            
-                            <ul class="breakdown-list">
-                                <li><strong>Bordados Computarizados:</strong> Bordados en 3D de alta definición para camisetas, gorras, chaquetas y mochilas.</li>
-                                <li><strong>Marcación de Cascos:</strong> Rotulación con vinilos reflectivos de alta adherencia y logos institucionales.</li>
-                                <li><strong>Uniformes Corporativos:</strong> Overalls industriales, camisas y jeans de trabajo en dril normativo.</li>
-                            </ul>
-
-                            <button class="btn-detail" style="width: 100%; margin-top: 10px;" onclick="navigateToPage('contacto')">Solicitar Personalización</button>
-                        </div>
-                    </div>
-                </div>
             </div>
         </section>
     </div>
 
-    <!-- ==================== PÁGINA 4: SERVICIOS ==================== -->
+    <!-- ==================== PÁGINA 5: SERVICIOS ==================== -->
     <div id="page-servicios" class="page-view">
         <div class="page-header-banner">
             <div class="container">
@@ -1025,7 +1072,7 @@ INDEX_HTML = """<!DOCTYPE html>
         </section>
     </div>
 
-    <!-- ==================== PÁGINA 5: CONTACTO ==================== -->
+    <!-- ==================== PÁGINA 6: CONTACTO ==================== -->
     <div id="page-contacto" class="page-view">
         <div class="page-header-banner">
             <div class="container">
@@ -1301,6 +1348,7 @@ METRICS_DATA = {"total_views": 0, "total_quotes": 0}
 @app.get("/")
 @app.get("/home")
 @app.get("/quienes-somos")
+@app.get("/categorias")
 @app.get("/tienda")
 @app.get("/servicios")
 @app.get("/contacto")
