@@ -1,0 +1,204 @@
+[
+  {
+    "id": "prod-001",
+    "title": "Casco de Seguridad Industrial Tipo II",
+    "category": "proteccion_personal",
+    "category_name": "Protección Personal",
+    "short_description": "Casco de protección dieléctrico con suspensión de 4 puntos y ajuste de perilla.",
+    "description": "Casco de seguridad de alta resistencia contra impactos y descargas eléctricas. Diseñado bajo normativa ANSI Z89.1. Incluye arnés con perilla de ajuste rápido, barboquejo de 4 puntos y ranuras laterales para protectores auditivos.",
+    "price": "Cotizar",
+    "badge": "Más Vendido",
+    "image": "/static/images/casco_seguridad.jpg",
+    "specs": [
+      "Norma: ANSI Z89.1 Tipo II Clase E",
+      "Material: Polietileno de alta densidad (HDPE)",
+      "Ajuste: Perilla de trinquete micrométrico",
+      "Resistencia eléctrica: Hasta 20.000 voltios"
+    ]
+  },
+  {
+    "id": "prod-002",
+    "title": "Gafas de Seguridad Policarbonato UV400",
+    "category": "proteccion_personal",
+    "category_name": "Protección Personal",
+    "short_description": "Lentes de seguridad antiempañantes y antirrayaduras con protección UV.",
+    "description": "Gafas de protección ocular ergonómicas con marco ultraliviano y brazos ajustables. Ideales para operaciones en interiores y exteriores con exposición a partículas o radiación UV.",
+    "price": "Cotizar",
+    "badge": "Popular",
+    "image": "/static/images/gafas_seguridad.jpg",
+    "specs": [
+      "Norma: ANSI Z87.1+",
+      "Protección: UV400 (99.9% filtros radiación)",
+      "Recubrimiento: Anti-fog (antiempañante)",
+      "Peso: 24 gramos"
+    ]
+  },
+  {
+    "id": "prod-003",
+    "title": "Guantes Tácticos y de Rescate Multipropósito",
+    "category": "proteccion_personal",
+    "category_name": "Protección Personal",
+    "short_description": "Guantes reforzados anti-corte y anti-impacto con agarre sintético.",
+    "description": "Guantes diseñados para operaciones de rescate, brigadas y manipulación de equipos. Cuentan con refuerzo de caucho termoplástico (TPR) en nudillos y dorso, y palma de alta fricción antideslizante.",
+    "price": "Cotizar",
+    "badge": "Recomendado",
+    "image": "/static/images/guantes_tacticos.jpg",
+    "specs": [
+      "Nivel de corte: EN388 Nivel 5 / ANSI A4",
+      "Material: Microfibra sintética y TPR",
+      "Cierre: Ajuste de velcro reforzado en muñeca",
+      "Tallas disponibles: S, M, L, XL"
+    ]
+  },
+  {
+    "id": "prod-004",
+    "title": "Botiquín Tipo B de Primeros Auxilios con Lona Resistente",
+    "category": "emergencias_rescate",
+    "category_name": "Emergencias y Rescate",
+    "short_description": "Botiquín reglamentario para empresas, vehículos y brigadas de emergencia.",
+    "description": "Equipamiento completo de atención inmediata para emergencias médicas e insumos de primeros auxilios. Fabricado en lona impermeable de alta resistencia con divisiones internas organizadas.",
+    "price": "Cotizar",
+    "badge": "Esencial",
+    "image": "/static/images/botiquin_rescate.jpg",
+    "specs": [
+      "Normativa: Cumple resolución de primeros auxilios",
+      "Contenido: Insumos de curación, inmovilización y antisépticos",
+      "Material bolso: Lona tifón impermeable reflectiva",
+      "Portabilidad: Manijas reforzadas y reata de hombro"
+    ]
+  },
+  {
+    "id": "prod-005",
+    "title": "Camilla Rígida de Inmovilización con Inmovilizador de Cabeza",
+    "category": "emergencias_rescate",
+    "category_name": "Emergencias y Rescate",
+    "short_description": "Camilla espinal plástica de alta flotabilidad con sujetadores de correa.",
+    "description": "Camilla de rescate de una sola pieza en polietileno de alta resistencia. Translúcida a rayos X, lavable, desinfectable y compatible con inmovilizadores cervicales y de cabeza.",
+    "price": "Cotizar",
+    "badge": "Equipo Clave",
+    "image": "/static/images/camilla_rigida.jpg",
+    "specs": [
+      "Capacidad de carga: 180 kg",
+      "Material: Polietileno HDPE soplado",
+      "Incluye: Inmovilizador lateral de cabeza y 3 arneses de sujeción",
+      "Radiolúcida: 100% compatible con rayos X"
+    ]
+  },
+  {
+    "id": "prod-006",
+    "title": "Linterna Táctica LED Recargable de Alta Potencia",
+    "category": "emergencias_rescate",
+    "category_name": "Emergencias y Rescate",
+    "short_description": "Linterna recargable de 2000 lúmenes contra agua e impactos.",
+    "description": "Linterna profesional para operaciones nocturnas de rescate y patrullaje. Fabricada en aluminio aeronáutico anodizado, con 5 modos de iluminación (Alto, Medio, Bajo, Estroboscópico y SOS).",
+    "price": "Cotizar",
+    "badge": "Pro",
+    "image": "/static/images/linterna_tactica.jpg",
+    "specs": [
+      "Potencia: 2000 Lúmenes CREE LED",
+      "Batería: Litio recargable 18650 USB",
+      "Resistencia al agua: Certificación IPX8",
+      "Autonomía: Hasta 12 horas seguidas"
+    ]
+  },
+  {
+    "id": "prod-007",
+    "title": "Chaleco Táctico Operativo para Defensa Civil y Brigadas",
+    "category": "defensa_civil",
+    "category_name": "Defensa Civil & Brigadas",
+    "short_description": "Chaleco multibolsillos con cintas reflectivas 3M y parches removibles.",
+    "description": "Chaleco de alta visibilidad para personal socorrista y brigadistas. Confeccionado en tela ripstop antidesgarro con múltiples compartimentos para radios, botiquín de bolsillo y linterna.",
+    "price": "Cotizar",
+    "badge": "Destacado",
+    "image": "/static/images/chaleco_tactico.jpg",
+    "specs": [
+      "Material: Tela Ripstop 65% poliéster 35% algodón",
+      "Reflectivo: Cintas de microesferas de vidrio de 2 pulgadas",
+      "Compartimentos: 8 bolsillos frontales y portarradio",
+      "Personalización: Velcros porta-nombres y porta-escudos"
+    ]
+  },
+  {
+    "id": "prod-008",
+    "title": "Kit de Dotación Institucional Defensa Civil",
+    "category": "defensa_civil",
+    "category_name": "Defensa Civil & Brigadas",
+    "short_description": "Conjunto de gorra, camiseta, parches bordados y reata operativa.",
+    "description": "Kit oficial para socorristas e integrantes de brigadas de atención de desastres. Incluye prendaje de identificación de alto impacto visual y acabados de primera calidad.",
+    "price": "Cotizar",
+    "badge": "Completo",
+    "image": "/static/images/kit_dotacion.jpg",
+    "specs": [
+      "Incluye: Gorra bordada, camiseta dry-fit, parches y reata",
+      "Bordados: Alta definición con hilos de resistencia UV",
+      "Color: Naranja reglamentario / Azul marino"
+    ]
+  },
+  {
+    "id": "prod-009",
+    "title": "Cono de Señalización Flexible 90 cm Reflectivo",
+    "category": "senalizacion_seguridad",
+    "category_name": "Señalización y Seguridad",
+    "short_description": "Cono vial indeformable de PVC naranja con doble cinta reflectiva.",
+    "description": "Cono de tráfico de 90 cm con base pesada de caucho para excelente estabilidad con viento o tráfico pesado. Soporta atropellamientos sin fracturarse y vuelve a su forma original.",
+    "price": "Cotizar",
+    "badge": "Normativo",
+    "image": "/static/images/cono_senalizacion.jpg",
+    "specs": [
+      "Altura: 90 cm (36 pulgadas)",
+      "Material: PVC virgen flexible de alta resistencia",
+      "Cintas reflectivas: Doble banda Grado Ingeniería High Intensity",
+      "Base: Caucho pesado reciclado antideslizante"
+    ]
+  },
+  {
+    "id": "prod-010",
+    "title": "Megáfono de Emergencia Profesional 50W con Sirena",
+    "category": "equipos_brigadas",
+    "category_name": "Equipos para Brigadas",
+    "short_description": "Megáfono de alto alcance con micrófono de mano y sonido de alarma.",
+    "description": "Equipo de amplificación de voz esencial para evacuación de edificios, manejo de masas y coordinación de emergencias. Alcance auditivo de hasta 1000 metros en campo abierto.",
+    "price": "Cotizar",
+    "badge": "Evacuación",
+    "image": "/static/images/megafono_emergencia.jpg",
+    "specs": [
+      "Potencia máxima: 50 Watts Peak",
+      "Alcance eficaz: 800 - 1000 metros",
+      "Funciones: Hablar, Sirena de emergencia, Grabador de voz",
+      "Alimentación: Batería recargable o pilas tipo C"
+    ]
+  },
+  {
+    "id": "prod-011",
+    "title": "Estación Lavaojos Portátil de Emergencia 32 Litros",
+    "category": "equipos_brigadas",
+    "category_name": "Equipos para Brigadas",
+    "short_description": "Dispositivo lavaojos por gravedad de accionamiento rápido.",
+    "description": "Lavaojos autónomo por gravedad para lugares de trabajo donde no se dispone de suministro continuo de agua. Proporciona lavado continuo de ambos ojos por más de 15 minutos.",
+    "price": "Cotizar",
+    "badge": "Seguridad Industrial",
+    "image": "/static/images/estacion_lavaojos.jpg",
+    "specs": [
+      "Capacidad: 32 Litros / 8 Galones",
+      "Norma: ANSI Z358.1-2014",
+      "Tiempo de lavado: 15 minutos continuo",
+      "Material: Polietileno virgen aprobado por la FDA"
+    ]
+  },
+  {
+    "id": "prod-012",
+    "title": "Servicio de Bordado y Personalización de Dotación",
+    "category": "dotacion_personalizada",
+    "category_name": "Dotación Personalizada",
+    "short_description": "Bordados institucionales, parches en velcro y estampado de logos.",
+    "description": "Personalización completa para empresas, brigadas privadas e instituciones de socorro. Bordamos chaquetas, gorras, camisetas, cascos y mochilas con la identidad de tu organización.",
+    "price": "Cotizar",
+    "badge": "Personalizado",
+    "image": "/static/images/dotacion_personalizada.jpg",
+    "specs": [
+      "Técnicas: Bordado computarizado 3D, DTF, Vinilo textil y Serigrafía",
+      "Resistencia: Soportan lavados industriales intensos",
+      "Diseño: Matrizado digital personalizado a partir de tu logo"
+    ]
+  }
+]
