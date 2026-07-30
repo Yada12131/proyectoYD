@@ -10,7 +10,7 @@ app = FastAPI(
     version="2.0.0"
 )
 
-# Catálogo oficial con fotos de alta definición 100% exactas a cada producto
+# Catálogo oficial con fotos de alta definición 100% exactas y respaldos garantizados
 EMBEDDED_PRODUCTS = [
   {
     "id": "prod-001",
@@ -176,7 +176,7 @@ EMBEDDED_PRODUCTS = [
   }
 ]
 
-# Estilos CSS de diseño corporativo y secciones completas
+# Estilos CSS de sitio web profesional premium
 EMBEDDED_CSS = """
 :root {
     --navy: #0B1C30;
@@ -184,39 +184,57 @@ EMBEDDED_CSS = """
     --orange: #FF6600;
     --orange-hover: #E65C00;
     --white: #FFFFFF;
-    --light-bg: #F4F6F8;
+    --light-bg: #F8FAFC;
     --text-dark: #1E293B;
     --text-light: #64748B;
-    --card-shadow: 0 10px 25px -5px rgba(0,0,0,0.08);
-    --hover-shadow: 0 20px 35px -5px rgba(255,102,0,0.2);
+    --card-shadow: 0 10px 30px -5px rgba(0,0,0,0.06), 0 4px 6px -2px rgba(0,0,0,0.03);
+    --hover-shadow: 0 20px 40px -5px rgba(255,102,0,0.22), 0 12px 18px -4px rgba(11,28,48,0.12);
 }
 
+html { scroll-behavior: smooth; }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
     background-color: var(--light-bg);
     color: var(--text-dark);
     line-height: 1.6;
     overflow-x: hidden;
 }
 
-h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; text-transform: uppercase; font-weight: 800; }
+h1, h2, h3, h4, h5 { font-family: 'Montserrat', sans-serif; text-transform: uppercase; font-weight: 800; }
 
 .container { max-width: 1240px; margin: 0 auto; padding: 0 20px; }
 
-/* TOPBAR */
+/* HEADER / NAVBAR FLOTANTE PROFESIONAL */
 .top-bar {
-    background-color: var(--navy-dark);
+    background: rgba(6, 16, 29, 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     color: var(--white);
-    padding: 14px 0;
+    padding: 16px 0;
     border-bottom: 3px solid var(--orange);
     position: sticky; top: 0; z-index: 1000;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
 }
 .top-bar-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+.brand-logo-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+}
+.brand-badge {
+    background: linear-gradient(135deg, var(--orange), #FF8533);
+    color: #FFF;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 1.2rem;
+    padding: 4px 10px;
+    border-radius: 6px;
 }
 .brand-title {
     font-size: 1.3rem;
@@ -226,120 +244,140 @@ h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; text-transform: uppercas
 }
 .brand-title span { color: var(--orange); }
 
-.nav-links { display: flex; gap: 20px; align-items: center; }
-.nav-links a { color: var(--white); text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: color 0.3s; }
+.nav-links { display: flex; gap: 24px; align-items: center; }
+.nav-links a {
+    color: #E2E8F0; text-decoration: none; font-weight: 600; font-size: 0.92rem;
+    transition: all 0.3s ease; position: relative; padding: 4px 0;
+}
 .nav-links a:hover { color: var(--orange); }
+.nav-links a::after {
+    content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px;
+    background: var(--orange); transition: width 0.3s ease;
+}
+.nav-links a:hover::after { width: 100%; }
 
 .btn-analytics {
     background: linear-gradient(135deg, var(--orange), #FF8533);
     color: var(--white);
-    padding: 8px 18px;
+    padding: 9px 22px;
     border-radius: 50px;
     text-decoration: none;
     font-weight: 700;
-    font-size: 0.85rem;
-    box-shadow: 0 4px 12px rgba(255,102,0,0.3);
+    font-size: 0.88rem;
+    box-shadow: 0 4px 14px rgba(255,102,0,0.35);
+    transition: all 0.3s ease;
 }
+.btn-analytics:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255,102,0,0.5); }
 
-/* HERO PORTADA */
+/* HERO IMPACTANTE */
 .hero {
-    background: linear-gradient(180deg, var(--navy) 0%, var(--navy-dark) 100%);
+    background: radial-gradient(circle at 50% 20%, rgba(255,102,0,0.12) 0%, rgba(6,16,29,1) 75%);
     color: var(--white);
     text-align: center;
-    padding: 70px 20px 85px;
+    padding: 85px 20px 100px;
+    position: relative;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 .hero-tag {
     display: inline-block;
     background: rgba(255,102,0,0.15);
     border: 1px solid var(--orange);
     color: var(--orange);
-    padding: 6px 18px;
+    padding: 6px 20px;
     border-radius: 50px;
     font-size: 0.85rem;
-    font-weight: 700;
-    margin-bottom: 20px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    margin-bottom: 22px;
+    text-transform: uppercase;
 }
-.hero h2 { font-size: 1.3em; font-weight: 400; letter-spacing: 2px; margin-bottom: 15px; color: #E2E8F0; }
-.hero h3 { font-size: 2.5em; margin-bottom: 15px; color: var(--white); }
-.hero p { font-size: 1.15em; max-width: 650px; margin: 0 auto 35px; color: #CBD5E1; }
+.hero h2 { font-size: 1.35em; font-weight: 400; letter-spacing: 2.5px; margin-bottom: 15px; color: #E2E8F0; }
+.hero h3 { font-size: 2.7em; margin-bottom: 18px; text-shadow: 0 4px 15px rgba(0,0,0,0.4); color: var(--white); letter-spacing: -0.5px; }
+.hero p { font-size: 1.2em; max-width: 700px; margin: 0 auto 38px; color: #CBD5E1; line-height: 1.7; }
 
-.search-wrapper { max-width: 600px; margin: 0 auto; position: relative; }
+.search-wrapper { max-width: 620px; margin: 0 auto; position: relative; }
 .search-input {
     width: 100%;
-    padding: 16px 20px 16px 50px;
+    padding: 17px 22px 17px 52px;
     border-radius: 50px;
     border: 2px solid var(--orange);
     background: #FFFFFF;
     font-size: 1.05rem;
     outline: none;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
 }
-.search-icon { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); font-size: 1.2rem; }
+.search-input:focus { box-shadow: 0 0 30px rgba(255,102,0,0.45); }
+.search-icon { position: absolute; left: 22px; top: 50%; transform: translateY(-50%); font-size: 1.2rem; }
 
-/* SECCIONES TITULOS */
-section { padding: 75px 0; }
+/* SECCIONES Y ENCABEZADOS */
+section { padding: 85px 0; }
 .section-title {
     text-align: center;
     color: var(--navy);
-    font-size: 2.3em;
+    font-size: 2.5em;
     margin-bottom: 15px;
     position: relative;
-    padding-bottom: 20px;
+    padding-bottom: 22px;
+    letter-spacing: -0.5px;
 }
 .section-title::after {
     content: ''; position: absolute; bottom: 0; left: 50%;
-    transform: translateX(-50%); width: 80px; height: 5px;
+    transform: translateX(-50%); width: 85px; height: 5px;
     background-color: var(--orange); border-radius: 5px;
 }
-.section-subtitle { text-align: center; font-size: 1.15em; color: var(--text-light); margin-bottom: 45px; }
+.section-subtitle { text-align: center; font-size: 1.18em; color: var(--text-light); margin-bottom: 50px; }
 
-/* TARJETAS QUIÉNES SOMOS, MISIÓN, VISIÓN Y VALORES */
-.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
-.grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; }
-.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 30px; }
+/* GRIDS Y TARJETAS SECCIÓN QUIÉNES SOMOS */
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 32px; }
+.grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 26px; }
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px; }
 
 .card-box {
     background: var(--white);
-    padding: 35px 25px;
-    border-radius: 14px;
+    padding: 42px 30px;
+    border-radius: 16px;
     box-shadow: var(--card-shadow);
     border-top: 5px solid var(--orange);
-    transition: all 0.35s ease;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    border-left: 1px solid rgba(0,0,0,0.04);
+    border-right: 1px solid rgba(0,0,0,0.04);
 }
 .card-box.navy-top { border-top: 5px solid var(--navy); }
-.card-box:hover { transform: translateY(-6px); box-shadow: var(--hover-shadow); }
-.card-box h4 { color: var(--navy); margin-bottom: 12px; font-size: 1.3em; }
+.card-box:hover { transform: translateY(-8px); box-shadow: var(--hover-shadow); }
+.card-box h4 { color: var(--navy); margin-bottom: 14px; font-size: 1.35em; }
 
-/* CATEGORÍAS */
-.categories-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 22px; }
+/* NUESTRAS CATEGORÍAS */
+.categories-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 24px; }
 .category-item {
     background-color: var(--navy);
     color: var(--white);
-    padding: 26px;
-    border-radius: 14px;
+    padding: 28px;
+    border-radius: 16px;
     display: flex; align-items: center;
-    cursor: pointer; transition: all 0.3s ease;
+    cursor: pointer; transition: all 0.35s ease;
     border-left: 6px solid transparent;
 }
 .category-item:hover, .category-item.active {
     background-color: #112844;
     border-left: 6px solid var(--orange);
-    transform: translateX(8px);
+    transform: translateX(10px);
+    box-shadow: 0 12px 30px rgba(11,28,48,0.28);
 }
 .category-item .number {
     font-family: 'Montserrat', sans-serif;
-    font-size: 2.5em; font-weight: 900;
-    color: var(--orange); margin-right: 22px;
+    font-size: 2.6em; font-weight: 900;
+    color: var(--orange); margin-right: 24px;
 }
 
 /* TARJETAS DE PRODUCTO */
-.product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 35px; }
+.product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 36px; }
 .product-card {
     background-color: var(--white);
-    border-radius: 16px; overflow: hidden;
+    border-radius: 18px; overflow: hidden;
     box-shadow: var(--card-shadow);
     display: flex; flex-direction: column;
-    transition: all 0.35s ease;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     border: 1px solid rgba(0,0,0,0.06);
 }
 .product-card:hover { transform: translateY(-10px); box-shadow: var(--hover-shadow); }
@@ -355,120 +393,129 @@ section { padding: 75px 0; }
 .product-card:hover .product-image-box img { transform: scale(1.08); }
 .product-badge {
     position: absolute; top: 14px; right: 14px;
-    background: rgba(11, 28, 48, 0.9);
+    background: rgba(11, 28, 48, 0.92);
     border: 1px solid var(--orange); color: var(--orange);
-    padding: 4px 12px; border-radius: 50px; font-size: 0.75rem; font-weight: 800;
+    padding: 5px 14px; border-radius: 50px; font-size: 0.75rem; font-weight: 800;
+    letter-spacing: 0.5px;
 }
-.product-info { padding: 25px 22px; flex-grow: 1; display: flex; flex-direction: column; }
-.product-category-tag { color: var(--orange); font-size: 0.78rem; font-weight: 800; letter-spacing: 1px; margin-bottom: 6px; }
-.product-info h4 { color: var(--navy); margin-bottom: 10px; font-size: 1.25em; }
-.product-info p { font-size: 0.95em; color: var(--text-light); margin-bottom: 18px; flex-grow: 1; }
+.product-info { padding: 26px 24px; flex-grow: 1; display: flex; flex-direction: column; }
+.product-category-tag { color: var(--orange); font-size: 0.8rem; font-weight: 800; letter-spacing: 1px; margin-bottom: 6px; }
+.product-info h4 { color: var(--navy); margin-bottom: 10px; font-size: 1.28em; line-height: 1.35; }
+.product-info p { font-size: 0.96em; color: var(--text-light); margin-bottom: 20px; flex-grow: 1; }
 
-.product-specs { list-style: none; margin-bottom: 20px; padding: 0; border-top: 1px solid #F1F5F9; padding-top: 14px; }
-.product-specs li { font-size: 0.84rem; color: #475569; margin-bottom: 5px; display: flex; align-items: center; gap: 6px; }
+.product-specs { list-style: none; margin-bottom: 22px; padding: 0; border-top: 1px solid #F1F5F9; padding-top: 14px; }
+.product-specs li { font-size: 0.85rem; color: #475569; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
 .product-specs li::before { content: '✓'; color: var(--orange); font-weight: bold; }
 
-.btn-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: auto; }
+.btn-group { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: auto; }
 .btn-detail {
     background: #F1F5F9; color: var(--navy); border: 1px solid #CBD5E1;
-    padding: 11px 16px; border-radius: 8px; font-weight: 700; font-size: 0.85em; cursor: pointer;
+    padding: 12px 18px; border-radius: 8px; font-weight: 700; font-size: 0.88em; cursor: pointer;
+    transition: all 0.3s;
 }
+.btn-detail:hover { background: #E2E8F0; }
 .btn-wa {
     background-color: #25D366; color: #FFF; border: none;
-    padding: 11px 16px; border-radius: 8px; font-weight: 800; font-size: 0.85em;
+    padding: 12px 18px; border-radius: 8px; font-weight: 800; font-size: 0.88em;
     cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;
+    box-shadow: 0 4px 12px rgba(37,211,102,0.25); transition: all 0.3s ease;
 }
+.btn-wa:hover { background-color: #1EBE57; transform: translateY(-2px); box-shadow: 0 6px 18px rgba(37,211,102,0.4); }
 
-/* FORMULARIO CONTÁCTENOS */
+/* SECCIONES Y FORMULARIO DE CONTACTO */
 .contact-section-wrapper {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 40px;
-    background: var(--white); padding: 45px; border-radius: 20px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 45px;
+    background: var(--white); padding: 50px; border-radius: 20px;
     box-shadow: var(--card-shadow); border: 1px solid rgba(0,0,0,0.06);
 }
-@media (max-width: 850px) { .contact-section-wrapper { grid-template-columns: 1fr; } }
-.contact-form-group { margin-bottom: 18px; }
-.contact-form-group label { display: block; font-weight: 700; margin-bottom: 6px; color: var(--navy); font-size: 0.9rem; }
+@media (max-width: 900px) { .contact-section-wrapper { grid-template-columns: 1fr; } }
+.contact-form-group { margin-bottom: 20px; }
+.contact-form-group label { display: block; font-weight: 700; margin-bottom: 8px; color: var(--navy); font-size: 0.92rem; }
 .contact-form-input {
-    width: 100%; padding: 13px 16px; border-radius: 8px; border: 1px solid #CBD5E1;
-    font-size: 0.98rem; outline: none; transition: border-color 0.3s;
+    width: 100%; padding: 14px 18px; border-radius: 8px; border: 1px solid #CBD5E1;
+    font-size: 1rem; outline: none; transition: border-color 0.3s;
 }
 .contact-form-input:focus { border-color: var(--orange); }
 .btn-submit-contact {
-    background: var(--orange); color: var(--white); border: none;
-    padding: 14px 28px; border-radius: 8px; font-weight: 800; font-size: 1rem;
-    cursor: pointer; width: 100%; transition: background 0.3s;
+    background: linear-gradient(135deg, var(--orange), #FF8533); color: var(--white); border: none;
+    padding: 16px 30px; border-radius: 8px; font-weight: 800; font-size: 1.05rem;
+    cursor: pointer; width: 100%; box-shadow: 0 4px 15px rgba(255,102,0,0.3); transition: all 0.3s;
 }
-.btn-submit-contact:hover { background: var(--orange-hover); }
+.btn-submit-contact:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255,102,0,0.5); }
 
-/* FOOTER */
+/* FOOTER PROFESIONAL */
 footer {
     background-color: var(--navy-dark); color: var(--white);
-    padding: 75px 20px 35px; text-align: center; border-top: 5px solid var(--orange);
+    padding: 85px 20px 40px; text-align: center; border-top: 5px solid var(--orange);
 }
-footer h2 { color: var(--orange); font-size: 2.1em; margin-bottom: 15px; }
-footer .contact-info { margin: 35px 0; font-size: 1.1em; line-height: 2.2; }
+footer h2 { color: var(--orange); font-size: 2.2em; margin-bottom: 15px; }
+footer .contact-info { margin: 38px 0; font-size: 1.12em; line-height: 2.3; }
 footer .contact-info span { font-weight: 800; color: var(--orange); margin-right: 10px; }
-.footer-bottom { margin-top: 50px; padding-top: 25px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.88em; color: #94A3B8; }
+.footer-bottom { margin-top: 55px; padding-top: 28px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.9em; color: #94A3B8; }
 .bg-white { background-color: var(--white); }
-.mt-5 { margin-top: 45px; }
+.mt-5 { margin-top: 50px; }
 """
 
-# HTML completo con todas las secciones solicitadas por el cliente
+# HTML completo formateado de sitio web corporativo
 INDEX_HTML = """<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catálogo Oficial - YD Protección</title>
+    <title>YD Protección | Equipos de Seguridad & Prevención</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <style>""" + EMBEDDED_CSS + """</style>
 </head>
 <body>
 
-    <!-- TOPBAR CORPORATIVA -->
-    <div class="top-bar">
+    <!-- TOPBAR / NAVBAR NAVEGACIÓN -->
+    <header class="top-bar">
         <div class="container top-bar-content">
-            <div class="brand-title">YD <span>PROTECCIÓN</span></div>
-            <div class="nav-links">
+            <a href="/" class="brand-logo-group">
+                <div class="brand-badge">YD</div>
+                <div class="brand-title">PROTECCIÓN <span>EQUIPOS</span></div>
+            </a>
+            <nav class="nav-links">
                 <a href="#quienes-somos">Quiénes Somos</a>
+                <a href="#categorias">Categorías</a>
                 <a href="#productos">Productos</a>
                 <a href="#contacto">Contacto</a>
                 <a href="/dashboard" class="btn-analytics">📊 Analítica</a>
-            </div>
+            </nav>
         </div>
-    </div>
+    </header>
 
-    <!-- PORTADA / HERO -->
-    <header class="hero">
+    <!-- PORTADA / HERO PRINCIPAL -->
+    <section class="hero">
         <div class="container">
-            <span class="hero-tag">SEGURIDAD QUE SALVA VIDAS ★ YESIKA & DANIEL</span>
+            <span class="hero-tag">Seguridad que salva vidas ★ Yesika & Daniel</span>
             <h2>Seguridad y Emergencia a tu Alcance</h2>
-            <h3>CATÁLOGO DE PRODUCTOS</h3>
-            <p>Equipos especializados para Defensa Civil, Brigadas de Emergencia y Protección Industrial.</p>
+            <h3>EQUIPOS DE PROTECCIÓN Y PREVENCIÓN</h3>
+            <p>Soluciones especializadas para Defensa Civil, Brigadas de Emergencia, Protección Industrial y Dotación Institucional.</p>
             
             <div class="search-wrapper">
                 <span class="search-icon">🔍</span>
                 <input type="text" id="searchInput" class="search-input" placeholder="Buscar producto, casco, botiquín, chaleco, linterna..." summary="Buscador de productos">
             </div>
         </div>
-    </header>
+    </section>
 
-    <!-- QUIÉNES SOMOS COMPLETO (MISIÓN, VISIÓN, VALORES, POR QUÉ ESCOGERNOS) -->
+    <!-- SECCIÓN QUIÉNES SOMOS COMPLETA -->
     <section class="bg-white" id="quienes-somos">
         <div class="container">
             <h2 class="section-title">Quiénes Somos</h2>
             <p class="section-subtitle">Seguridad que salva vidas — Yesika & Daniel</p>
             
-            <p style="text-align: center; max-width: 860px; margin: 0 auto 50px; font-size: 1.15em; color: var(--text-dark); line-height: 1.8;">
-                <strong>YD Protección</strong> es una empresa especializada en el suministro de soluciones integrales de seguridad, protección personal, atención de emergencias y respuesta en desastres. Acompañamos a industrias, organismos de socorro y brigadas con equipos 100% normativos y asesoría técnica personalizada.
+            <p style="text-align: center; max-width: 860px; margin: 0 auto 55px; font-size: 1.18em; color: var(--text-dark); line-height: 1.8;">
+                <strong>YD Protección</strong> es una empresa dedicada al suministro de equipos y soluciones integrales de seguridad industrial, elementos de protección personal (EPP), brigadas de emergencia y respuesta en socorrismo. Acompañamos a industrias e instituciones con productos 100% normativos y asesoría técnica especializada.
             </p>
             
             <!-- MISIÓN Y VISIÓN -->
-            <div class="grid-2" style="margin-bottom: 50px;">
+            <div class="grid-2" style="margin-bottom: 55px;">
                 <div class="card-box">
                     <h4>🚀 Nuestra Misión</h4>
                     <p style="font-size: 1.05em; color: var(--text-dark);">
-                        Suministrar equipos y elementos de protección, emergencia y prevención de la más alta calidad y normatividad, brindando asesoría técnica integral a empresas, brigadas e instituciones de socorro para preservar la vida y controlar riesgos operacionales.
+                        Suministrar equipos de protección, emergencia y prevención de la más alta calidad y normatividad, brindando asesoría integral a empresas, brigadas e instituciones de socorro para preservar la vida y controlar riesgos operacionales.
                     </p>
                 </div>
                 <div class="card-box navy-top">
@@ -480,53 +527,54 @@ INDEX_HTML = """<!DOCTYPE html>
             </div>
 
             <!-- VALORES CORPORATIVOS -->
-            <h3 style="text-align: center; color: var(--navy); margin-bottom: 30px; font-size: 1.6em;">Valores Corporativos</h3>
-            <div class="grid-4" style="margin-bottom: 60px;">
-                <div class="card-box" style="padding: 28px 20px; border-top: 4px solid var(--orange);">
-                    <h4 style="font-size: 1.1em; margin-bottom: 8px;">INTEGRIDAD</h4>
-                    <p style="font-size: 0.92em; color: var(--text-light);">Transparencia, honestidad y ética en cada producto y recomendación suministrada.</p>
+            <h3 style="text-align: center; color: var(--navy); margin-bottom: 35px; font-size: 1.7em;">Valores Corporativos</h3>
+            <div class="grid-4" style="margin-bottom: 65px;">
+                <div class="card-box" style="padding: 30px 22px; border-top: 4px solid var(--orange);">
+                    <h4 style="font-size: 1.15em; margin-bottom: 10px;">INTEGRIDAD</h4>
+                    <p style="font-size: 0.94em; color: var(--text-light);">Transparencia, honestidad y ética en cada recomendación y producto entregado.</p>
                 </div>
-                <div class="card-box" style="padding: 28px 20px; border-top: 4px solid var(--navy);">
-                    <h4 style="font-size: 1.1em; margin-bottom: 8px;">COMPROMISO</h4>
-                    <p style="font-size: 0.92em; color: var(--text-light);">Priorizamos la salud, integridad física y seguridad de las personas en cada operación.</p>
+                <div class="card-box" style="padding: 30px 22px; border-top: 4px solid var(--navy);">
+                    <h4 style="font-size: 1.15em; margin-bottom: 10px;">COMPROMISO</h4>
+                    <p style="font-size: 0.94em; color: var(--text-light);">Priorizamos la salud y la vida humana sobre todo en cada operación.</p>
                 </div>
-                <div class="card-box" style="padding: 28px 20px; border-top: 4px solid var(--orange);">
-                    <h4 style="font-size: 1.1em; margin-bottom: 8px;">NORMATIVIDAD</h4>
-                    <p style="font-size: 0.92em; color: var(--text-light);">Productos avalados por normas internacionales (ANSI, CE, EN, ISO).</p>
+                <div class="card-box" style="padding: 30px 22px; border-top: 4px solid var(--orange);">
+                    <h4 style="font-size: 1.15em; margin-bottom: 10px;">NORMATIVIDAD</h4>
+                    <p style="font-size: 0.94em; color: var(--text-light);">Equipos homologados bajo normas internacionales (ANSI, CE, ISO, EN).</p>
                 </div>
-                <div class="card-box" style="padding: 28px 20px; border-top: 4px solid var(--navy);">
-                    <h4 style="font-size: 1.1em; margin-bottom: 8px;">EXCELENCIA</h4>
-                    <p style="font-size: 0.92em; color: var(--text-light);">Acompañamiento cercano y respuesta oportuna ante requerimientos urgentes.</p>
+                <div class="card-box" style="padding: 30px 22px; border-top: 4px solid var(--navy);">
+                    <h4 style="font-size: 1.15em; margin-bottom: 10px;">EXCELENCIA</h4>
+                    <p style="font-size: 0.94em; color: var(--text-light);">Acompañamiento técnico continuo y atención inmediata ante imprevistos.</p>
                 </div>
             </div>
 
             <!-- POR QUÉ ESCOGERNOS -->
-            <h3 style="text-align: center; color: var(--navy); margin-bottom: 30px; font-size: 1.6em;">¿Por Qué Escogernos?</h3>
+            <h3 style="text-align: center; color: var(--navy); margin-bottom: 35px; font-size: 1.7em;">¿Por Qué Escogernos?</h3>
             <div class="grid-4">
                 <div class="card-box navy-top" style="text-align: center;">
-                    <h4 style="font-size: 1.1em;">EQUIPOS CERTIFICADOS</h4>
-                    <p style="font-size: 0.92em; color: var(--text-light);">Garantía de rendimiento y cumplimiento de normativas de seguridad laboral.</p>
+                    <h4 style="font-size: 1.15em;">EQUIPOS CERTIFICADOS</h4>
+                    <p style="font-size: 0.94em; color: var(--text-light);">Garantía de desempeño para tareas de alto riesgo operacional.</p>
                 </div>
                 <div class="card-box" style="text-align: center;">
-                    <h4 style="font-size: 1.1em;">ASESORÍA ESPECIALIZADA</h4>
-                    <p style="font-size: 0.92em; color: var(--text-light);">Te ayudamos a seleccionar la dotación adecuada según tu matriz de riesgo.</p>
+                    <h4 style="font-size: 1.15em;">ASESORÍA ESPECIALIZADA</h4>
+                    <p style="font-size: 0.94em; color: var(--text-light);">Te ayudamos a seleccionar según tu matriz de riesgo y sector industrial.</p>
                 </div>
                 <div class="card-box navy-top" style="text-align: center;">
-                    <h4 style="font-size: 1.1em;">DISPONIBILIDAD & LOGÍSTICA</h4>
-                    <p style="font-size: 0.92em; color: var(--text-light);">Respuesta rápida para compras individuales y suministros corporativos.</p>
+                    <h4 style="font-size: 1.15em;">AGILIDAD Y LOGÍSTICA</h4>
+                    <p style="font-size: 0.94em; color: var(--text-light);">Suministro oportuno para compras individuales y dotaciones institucionales.</p>
                 </div>
                 <div class="card-box" style="text-align: center;">
-                    <h4 style="font-size: 1.1em;">PERSONALIZACIÓN</h4>
-                    <p style="font-size: 0.92em; color: var(--text-light);">Uniformes con parches, bordados e identificación institucional a medida.</p>
+                    <h4 style="font-size: 1.15em;">PERSONALIZACIÓN</h4>
+                    <p style="font-size: 0.94em; color: var(--text-light);">Bordados, parches y marcas corporativas a medida de tu institución.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- NUESTRAS CATEGORÍAS -->
-    <section>
+    <section id="categorias">
         <div class="container">
             <h2 class="section-title">Nuestras Categorías</h2>
+            <p class="section-subtitle">Selecciona una categoría para filtrar el catálogo al instante</p>
             
             <div class="categories-grid mt-5" id="categoriesGrid">
                 <div class="category-item active" data-category="todos">
@@ -622,11 +670,11 @@ INDEX_HTML = """<!DOCTYPE html>
         </div>
     </section>
 
-    <!-- BANNER DOTACIÓN -->
+    <!-- BANNER DOTACIÓN Y PERSONALIZACIÓN -->
     <section class="dotacion-banner">
         <div class="container">
             <h2>DOTACIÓN Y PERSONALIZACIÓN</h2>
-            <p style="font-size: 1.2em;">Lleva la identidad de tu equipo a cada operación.</p>
+            <p style="font-size: 1.25em;">Lleva la identidad de tu equipo e institución a cada operación.</p>
             
             <ul class="dotacion-list">
                 <li>Uniformes y prendas de trabajo</li>
@@ -648,10 +696,10 @@ INDEX_HTML = """<!DOCTYPE html>
             <div class="contact-section-wrapper">
                 <!-- FORMULARIO DIRECTO -->
                 <div>
-                    <h3 style="color: var(--navy); margin-bottom: 20px; font-size: 1.4em;">Envíanos un Mensaje</h3>
+                    <h3 style="color: var(--navy); margin-bottom: 22px; font-size: 1.4em;">Envíanos un Mensaje</h3>
                     <form id="contactForm" onsubmit="handleContactSubmit(event)">
                         <div class="contact-form-group">
-                            <label for="cName">Nombre Completo *</label>
+                            <label for="cName">Nombre Completo / Empresa *</label>
                             <input type="text" id="cName" class="contact-form-input" placeholder="Tu nombre o empresa" required>
                         </div>
                         <div class="contact-form-group">
@@ -686,19 +734,19 @@ INDEX_HTML = """<!DOCTYPE html>
                 </div>
 
                 <!-- INFORMACIÓN DE CONTACTO -->
-                <div style="background: var(--navy-dark); color: var(--white); padding: 35px; border-radius: 14px; display: flex; flex-direction: column; justify-content: center;">
-                    <h3 style="color: var(--orange); margin-bottom: 25px; font-size: 1.5em;">Información de Contacto</h3>
+                <div style="background: var(--navy-dark); color: var(--white); padding: 40px; border-radius: 16px; display: flex; flex-direction: column; justify-content: center;">
+                    <h3 style="color: var(--orange); margin-bottom: 25px; font-size: 1.5em;">Información Directa</h3>
                     
-                    <div style="margin-bottom: 25px; font-size: 1.1em; line-height: 2;">
+                    <div style="margin-bottom: 30px; font-size: 1.12em; line-height: 2.2;">
                         <p><strong style="color: var(--orange);">📱 WHATSAPP:</strong> +57 (300) 000-0000</p>
                         <p><strong style="color: var(--orange);">✉️ CORREO:</strong> contacto@ydproteccion.com</p>
                         <p><strong style="color: var(--orange);">📸 INSTAGRAM:</strong> @ydproteccion</p>
                         <p><strong style="color: var(--orange);">📍 UBICACIÓN:</strong> Medellín, Antioquia, Colombia</p>
                     </div>
 
-                    <div style="background: rgba(255,102,0,0.15); border: 1px solid var(--orange); padding: 20px; border-radius: 10px;">
-                        <h4 style="color: var(--orange); margin-bottom: 8px; font-size: 1.05em;">⏰ HORARIO DE ATENCIÓN</h4>
-                        <p style="font-size: 0.95em; color: #E2E8F0;">Lunes a Viernes: 8:00 AM – 6:00 PM<br>Sábados: 8:00 AM – 1:00 PM</p>
+                    <div style="background: rgba(255,102,0,0.15); border: 1px solid var(--orange); padding: 22px; border-radius: 12px;">
+                        <h4 style="color: var(--orange); margin-bottom: 8px; font-size: 1.08em;">⏰ HORARIOS DE ATENCIÓN</h4>
+                        <p style="font-size: 0.96em; color: #E2E8F0;">Lunes a Viernes: 8:00 AM – 6:00 PM<br>Sábados: 8:00 AM – 1:00 PM</p>
                     </div>
                 </div>
             </div>
@@ -712,7 +760,7 @@ INDEX_HTML = """<!DOCTYPE html>
             <p>Solicita cotización y asesoría personalizada de inmediato</p>
             
             <div class="footer-bottom">
-                <p>YESIKA & DANIEL | SEGURIDAD QUE SALVA VIDAS &copy; 2026</p>
+                <p>YESIKA & DANIEL | YD PROTECCIÓN &copy; 2026 — Todos los Derechos Reservados</p>
             </div>
         </div>
     </footer>
@@ -801,20 +849,23 @@ DASHBOARD_HTML = """<!DOCTYPE html>
 <body>
     <div class="top-bar">
         <div class="container top-bar-content">
-            <div class="brand-title">YD <span>PROTECCIÓN</span> - ANALÍTICA DE CLIENTES</div>
+            <a href="/" class="brand-logo-group">
+                <div class="brand-badge">YD</div>
+                <div class="brand-title">PROTECCIÓN <span>ANALÍTICA</span></div>
+            </a>
             <a href="/" class="btn-analytics">← Volver al Catálogo</a>
         </div>
     </div>
-    <div class="container" style="padding: 60px 20px;">
+    <div class="container" style="padding: 65px 20px;">
         <h2 class="section-title">Métricas de Interés</h2>
         <div class="grid-2 mt-5">
             <div class="card-box">
                 <h4>Total Vistas</h4>
-                <div style="font-size: 2.5em; font-weight: 800; color: var(--orange);" id="totalViews">0</div>
+                <div style="font-size: 2.8em; font-weight: 800; color: var(--orange);" id="totalViews">0</div>
             </div>
             <div class="card-box">
                 <h4>Cotizaciones WhatsApp</h4>
-                <div style="font-size: 2.5em; font-weight: 800; color: #25D366;" id="totalQuotes">0</div>
+                <div style="font-size: 2.8em; font-weight: 800; color: #25D366;" id="totalQuotes">0</div>
             </div>
         </div>
     </div>
