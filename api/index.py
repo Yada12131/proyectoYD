@@ -99,7 +99,11 @@ def load_products():
             pass
     return FALLBACK_PRODUCTS
 
-@app.get("/", response_class=HTMLResponse)
+# Mapeo de rutas múltiples para Vercel Serverless Rewrites
+@app.get("/")
+@app.get("/api")
+@app.get("/api/index.py")
+@app.get("/api/index")
 async def home_page(request: Request):
     """Página principal del catálogo"""
     products = load_products()
@@ -118,10 +122,10 @@ async def home_page(request: Request):
             "products": products,
             "categories": categories
         })
-    # Fallback si por alguna razón no encuentra el directorio templates
-    return HTMLResponse(content="<h1>YD Protección Catálogo</h1><p>Sistema cargando...</p>")
+    return HTMLResponse(content="<h1>YD Protección Catálogo</h1><p>Cargando aplicación...</p>")
 
-@app.get("/dashboard", response_class=HTMLResponse)
+@app.get("/dashboard")
+@app.get("/api/dashboard")
 async def dashboard_page(request: Request):
     """Página de control y analítica de clientes"""
     if templates:
@@ -131,6 +135,7 @@ async def dashboard_page(request: Request):
     return HTMLResponse(content="<h1>Panel de Analítica YD Protección</h1>")
 
 @app.get("/api/products")
+@app.get("/products")
 async def get_products(category: Optional[str] = None, q: Optional[str] = None):
     """Endpoint API para obtener productos con búsqueda y filtros"""
     products = load_products()
@@ -153,6 +158,7 @@ async def get_products(category: Optional[str] = None, q: Optional[str] = None):
     return JSONResponse(content={"status": "success", "count": len(products), "products": products})
 
 @app.post("/api/track")
+@app.post("/track")
 async def track_event(payload: Dict):
     """Registra interacciones y eventos de interés de los usuarios"""
     event_type = payload.get("event")
@@ -174,6 +180,7 @@ async def track_event(payload: Dict):
     return JSONResponse(content={"status": "tracked", "event": event_type})
 
 @app.get("/api/analytics")
+@app.get("/analytics")
 async def get_analytics():
     """Devuelve las métricas de interés de los clientes para el Dashboard"""
     products = load_products()
@@ -197,6 +204,13 @@ async def get_analytics():
         "top_quoted": top_quoted,
         "recent_searches": METRICS_DATA["searches"][-10:]
     })
+
+# Ruta comodín para capturar cualquier ruta no encontrada y servir el catálogo
+@app.get("/{full_path:path}", response_class=HTMLResponse)
+async def catch_all(request: Request, full_path: str):
+    if full_path.startswith("api/"):
+        return JSONResponse(status_code=404, content={"detail": f"Path '{full_path}' not found"})
+    return await home_page(request)
 
 # Handler para Vercel
 handler = app
