@@ -7,7 +7,7 @@ from jinja2 import Template
 app = FastAPI(
     title="YD Protección - Sitio Web Oficial",
     description="Plataforma Web Corporativa de YD Protección",
-    version="3.2.0"
+    version="3.3.0"
 )
 
 # Catálogo oficial de la Tienda de YD Protección
@@ -210,7 +210,7 @@ SERVICES_LIST = [
   }
 ]
 
-# Estilos CSS de sitio web profesional con desgloses detallados
+# Estilos CSS con diseño 100% Responsivo adaptado a Celulares, Tablets y Pantallas Grandes
 EMBEDDED_CSS = """
 :root {
     --navy: #0B1C30;
@@ -239,15 +239,17 @@ body {
 
 h1, h2, h3, h4, h5 { font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif; text-transform: uppercase; font-weight: 800; }
 
+img { max-width: 100%; height: auto; display: block; }
+
 .container { max-width: 1240px; margin: 0 auto; padding: 0 20px; }
 
-/* HEADER / NAVBAR ELEGANTE Y FLOTANTE CON BOTÓN DEDICADO DE CATEGORÍAS */
+/* HEADER / NAVBAR RESPONSIVO */
 .top-bar {
     background: rgba(5, 14, 26, 0.96);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
     color: var(--white);
-    padding: 16px 0;
+    padding: 14px 0;
     border-bottom: 3px solid var(--orange);
     position: sticky; top: 0; z-index: 1000;
     box-shadow: 0 4px 25px rgba(0,0,0,0.3);
@@ -256,36 +258,44 @@ h1, h2, h3, h4, h5 { font-family: 'Montserrat', -apple-system, BlinkMacSystemFon
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 15px;
 }
 .brand-logo-group {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
     text-decoration: none;
     cursor: pointer;
+    flex-shrink: 0;
 }
 .brand-badge {
     background: linear-gradient(135deg, var(--orange), var(--orange-light));
     color: #FFF;
     font-family: 'Montserrat', sans-serif;
     font-weight: 900;
-    font-size: 1.25rem;
-    padding: 4px 12px;
+    font-size: 1.15rem;
+    padding: 4px 10px;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(255,102,0,0.3);
 }
 .brand-title {
-    font-size: 1.35rem;
+    font-size: 1.25rem;
     font-weight: 900;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
     color: var(--white);
 }
 .brand-title span { color: var(--orange); }
 
-.nav-links { display: flex; gap: 22px; align-items: center; }
+.nav-links {
+    display: flex;
+    gap: 18px;
+    align-items: center;
+    flex-wrap: wrap;
+}
 .nav-link-btn {
-    color: #E2E8F0; text-decoration: none; font-weight: 700; font-size: 0.92rem;
-    transition: all 0.3s ease; position: relative; padding: 6px 4px; background: none; border: none; cursor: pointer;
+    color: #E2E8F0; text-decoration: none; font-weight: 700; font-size: 0.9rem;
+    transition: all 0.3s ease; position: relative; padding: 6px 2px; background: none; border: none; cursor: pointer;
+    white-space: nowrap;
 }
 .nav-link-btn:hover, .nav-link-btn.active-page { color: var(--orange); }
 .nav-link-btn::after {
@@ -297,17 +307,19 @@ h1, h2, h3, h4, h5 { font-family: 'Montserrat', -apple-system, BlinkMacSystemFon
 .btn-analytics {
     background: linear-gradient(135deg, var(--orange), var(--orange-light));
     color: var(--white);
-    padding: 9px 22px;
+    padding: 8px 18px;
     border-radius: 50px;
     text-decoration: none;
     font-weight: 700;
-    font-size: 0.88rem;
+    font-size: 0.85rem;
     box-shadow: 0 4px 14px rgba(255,102,0,0.35);
     transition: all 0.3s ease;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 .btn-analytics:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255,102,0,0.5); }
 
-/* SISTEMA DE VISTAS / PÁGINAS DEDICADAS (HOME, QUIENES SOMOS, CATEGORÍAS, TIENDA, SERVICIOS, CONTACTO) */
+/* VISTAS / PÁGINAS DEDICADAS */
 .page-view {
     display: none;
     opacity: 0;
@@ -318,12 +330,12 @@ h1, h2, h3, h4, h5 { font-family: 'Montserrat', -apple-system, BlinkMacSystemFon
     opacity: 1;
 }
 
-/* HERO IMPACTANTE */
+/* HERO ADAPTABLE */
 .hero {
     background: radial-gradient(circle at 50% 20%, rgba(255,102,0,0.12) 0%, rgba(5,14,26,1) 75%);
     color: var(--white);
     text-align: center;
-    padding: 85px 20px 100px;
+    padding: 70px 20px 85px;
     position: relative;
     border-bottom: 1px solid rgba(255,255,255,0.08);
 }
@@ -332,80 +344,80 @@ h1, h2, h3, h4, h5 { font-family: 'Montserrat', -apple-system, BlinkMacSystemFon
     background: rgba(255,102,0,0.15);
     border: 1px solid var(--orange);
     color: var(--orange);
-    padding: 7px 22px;
+    padding: 6px 18px;
     border-radius: 50px;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     font-weight: 800;
-    letter-spacing: 1.5px;
-    margin-bottom: 24px;
+    letter-spacing: 1.2px;
+    margin-bottom: 20px;
     text-transform: uppercase;
 }
-.hero h2 { font-size: 1.4em; font-weight: 400; letter-spacing: 2.5px; margin-bottom: 15px; color: #E2E8F0; }
-.hero h3 { font-size: 2.8em; margin-bottom: 18px; text-shadow: 0 4px 15px rgba(0,0,0,0.4); color: var(--white); letter-spacing: -0.5px; }
-.hero p { font-size: 1.22em; max-width: 720px; margin: 0 auto 40px; color: #CBD5E1; line-height: 1.7; }
+.hero h2 { font-size: clamp(1rem, 2.5vw, 1.4rem); font-weight: 400; letter-spacing: 2px; margin-bottom: 12px; color: #E2E8F0; }
+.hero h3 { font-size: clamp(1.6rem, 5vw, 2.7rem); margin-bottom: 16px; text-shadow: 0 4px 15px rgba(0,0,0,0.4); color: var(--white); letter-spacing: -0.5px; line-height: 1.25; }
+.hero p { font-size: clamp(1rem, 2.2vw, 1.2rem); max-width: 720px; margin: 0 auto 35px; color: #CBD5E1; line-height: 1.6; }
 
 .search-wrapper { max-width: 640px; margin: 0 auto; position: relative; }
 .search-input {
     width: 100%;
-    padding: 18px 24px 18px 56px;
+    padding: 16px 20px 16px 50px;
     border-radius: 50px;
     border: 2px solid var(--orange);
     background: #FFFFFF;
-    font-size: 1.08rem;
+    font-size: 1rem;
     outline: none;
     box-shadow: 0 10px 30px rgba(0,0,0,0.3);
     transition: all 0.3s ease;
 }
-.search-input:focus { box-shadow: 0 0 35px rgba(255,102,0,0.5); }
-.search-icon { position: absolute; left: 24px; top: 50%; transform: translateY(-50%); font-size: 1.25rem; }
+.search-input:focus { box-shadow: 0 0 30px rgba(255,102,0,0.5); }
+.search-icon { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); font-size: 1.15rem; }
 
 /* SECCIONES Y ENCABEZADOS DE PÁGINA */
 .page-header-banner {
     background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
     color: var(--white);
-    padding: 60px 20px;
+    padding: 50px 20px;
     text-align: center;
     border-bottom: 4px solid var(--orange);
-    margin-bottom: 40px;
+    margin-bottom: 35px;
 }
-.page-header-banner h1 { font-size: 2.4em; margin-bottom: 10px; color: var(--white); }
-.page-header-banner p { font-size: 1.15em; color: #CBD5E1; max-width: 700px; margin: 0 auto; }
+.page-header-banner h1 { font-size: clamp(1.6rem, 4vw, 2.4rem); margin-bottom: 10px; color: var(--white); }
+.page-header-banner p { font-size: clamp(0.95rem, 2vw, 1.15rem); color: #CBD5E1; max-width: 700px; margin: 0 auto; }
 
-section { padding: 80px 0; }
+section { padding: 60px 0; }
 .section-title {
     text-align: center;
     color: var(--navy);
-    font-size: 2.5em;
-    margin-bottom: 15px;
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    margin-bottom: 12px;
     position: relative;
-    padding-bottom: 22px;
+    padding-bottom: 18px;
     letter-spacing: -0.5px;
 }
 .section-title::after {
     content: ''; position: absolute; bottom: 0; left: 50%;
-    transform: translateX(-50%); width: 85px; height: 5px;
-    background-color: var(--orange); border-radius: 5px;
+    transform: translateX(-50%); width: 75px; height: 4px;
+    background-color: var(--orange); border-radius: 4px;
 }
-.section-subtitle { text-align: center; font-size: 1.18em; color: var(--text-muted); margin-bottom: 50px; }
+.section-subtitle { text-align: center; font-size: clamp(0.95rem, 2vw, 1.15rem); color: var(--text-muted); margin-bottom: 40px; }
 
-/* TARJETAS DE DESGLOSE DE CATEGORÍAS (DESTACADO Y ULTRA PROMINENTE) */
+/* TARJETAS DE DESGLOSE DE CATEGORÍAS */
 .category-breakdown-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-    gap: 32px;
-    margin-top: 40px;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 24px;
+    margin-top: 30px;
 }
 .category-breakdown-card {
     background: var(--white);
     border-radius: 18px;
-    padding: 35px 28px;
+    padding: 28px 22px;
     box-shadow: var(--card-shadow);
     border: 1px solid rgba(0,0,0,0.06);
     border-top: 6px solid var(--orange);
     transition: all 0.35s ease;
 }
 .category-breakdown-card:hover {
-    transform: translateY(-8px);
+    transform: translateY(-6px);
     box-shadow: var(--hover-shadow);
 }
 .breakdown-num {
@@ -413,26 +425,26 @@ section { padding: 80px 0; }
     background: rgba(255,102,0,0.12);
     color: var(--orange);
     font-weight: 900;
-    font-size: 1.1rem;
-    padding: 4px 14px;
+    font-size: 1rem;
+    padding: 4px 12px;
     border-radius: 50px;
-    margin-bottom: 15px;
+    margin-bottom: 12px;
 }
 .breakdown-title {
     color: var(--navy);
-    font-size: 1.35em;
-    margin-bottom: 12px;
+    font-size: 1.25em;
+    margin-bottom: 10px;
 }
 .breakdown-list {
     list-style: none;
     padding: 0;
-    margin: 18px 0;
+    margin: 15px 0;
 }
 .breakdown-list li {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     color: var(--text-dark);
-    margin-bottom: 10px;
-    padding-left: 24px;
+    margin-bottom: 8px;
+    padding-left: 20px;
     position: relative;
 }
 .breakdown-list li::before {
@@ -440,18 +452,18 @@ section { padding: 80px 0; }
     position: absolute;
     left: 0;
     color: var(--orange);
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     top: 3px;
 }
 
-/* TARJETAS Y CONTENEDORES DE PÁGINAS */
-.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 32px; }
-.grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 26px; }
-.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px; }
+/* GRILLAS RESPONSIVAS */
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 24px; }
+.grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
 
 .card-box {
     background: var(--white);
-    padding: 42px 32px;
+    padding: 32px 24px;
     border-radius: 16px;
     box-shadow: var(--card-shadow);
     border-top: 5px solid var(--orange);
@@ -460,46 +472,46 @@ section { padding: 80px 0; }
     border-right: 1px solid rgba(0,0,0,0.04);
 }
 .card-box.navy-top { border-top: 5px solid var(--navy); }
-.card-box:hover { transform: translateY(-8px); box-shadow: var(--hover-shadow); }
-.card-box h4 { color: var(--navy); margin-bottom: 14px; font-size: 1.35em; }
+.card-box:hover { transform: translateY(-6px); box-shadow: var(--hover-shadow); }
+.card-box h4 { color: var(--navy); margin-bottom: 12px; font-size: 1.25em; }
 
 /* CATEGORÍAS GRID */
-.categories-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 24px; }
+.categories-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; }
 .category-item {
     background-color: var(--navy);
     color: var(--white);
-    padding: 28px;
+    padding: 22px;
     border-radius: 16px;
     display: flex; align-items: center;
     cursor: pointer; transition: all 0.35s ease;
-    border-left: 6px solid transparent;
+    border-left: 5px solid transparent;
 }
 .category-item:hover, .category-item.active {
     background-color: #112844;
-    border-left: 6px solid var(--orange);
-    transform: translateX(10px);
-    box-shadow: 0 12px 30px rgba(11,28,48,0.28);
+    border-left: 5px solid var(--orange);
+    transform: translateX(6px);
+    box-shadow: 0 10px 25px rgba(11,28,48,0.25);
 }
 .category-item .number {
     font-family: 'Montserrat', sans-serif;
-    font-size: 2.6em; font-weight: 900;
-    color: var(--orange); margin-right: 24px;
+    font-size: 2.2em; font-weight: 900;
+    color: var(--orange); margin-right: 18px; flex-shrink: 0;
 }
 
-/* TARJETAS DE PRODUCTO CON FOTOS ALTA DEFINICIÓN */
-.product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 36px; }
+/* TARJETAS DE PRODUCTO */
+.product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 26px; }
 .product-card {
     background-color: var(--white);
-    border-radius: 18px; overflow: hidden;
+    border-radius: 16px; overflow: hidden;
     box-shadow: var(--card-shadow);
     display: flex; flex-direction: column;
     transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     border: 1px solid rgba(0,0,0,0.06);
 }
-.product-card:hover { transform: translateY(-10px); box-shadow: var(--hover-shadow); }
+.product-card:hover { transform: translateY(-8px); box-shadow: var(--hover-shadow); }
 .product-image-box {
     background-color: #0F172A;
-    height: 250px; position: relative; overflow: hidden;
+    height: 220px; position: relative; overflow: hidden;
     display: flex; align-items: center; justify-content: center;
 }
 .product-image-box img {
@@ -508,37 +520,36 @@ section { padding: 80px 0; }
 }
 .product-card:hover .product-image-box img { transform: scale(1.08); }
 .product-badge {
-    position: absolute; top: 14px; right: 14px;
+    position: absolute; top: 12px; right: 12px;
     background: rgba(11, 28, 48, 0.92);
     border: 1px solid var(--orange); color: var(--orange);
-    padding: 5px 14px; border-radius: 50px; font-size: 0.75rem; font-weight: 800;
-    letter-spacing: 0.5px;
+    padding: 4px 12px; border-radius: 50px; font-size: 0.72rem; font-weight: 800;
 }
-.product-info { padding: 26px 24px; flex-grow: 1; display: flex; flex-direction: column; }
-.product-category-tag { color: var(--orange); font-size: 0.8rem; font-weight: 800; letter-spacing: 1px; margin-bottom: 6px; }
-.product-info h4 { color: var(--navy); margin-bottom: 10px; font-size: 1.28em; line-height: 1.35; }
-.product-info p { font-size: 0.96em; color: var(--text-muted); margin-bottom: 20px; flex-grow: 1; }
+.product-info { padding: 22px 20px; flex-grow: 1; display: flex; flex-direction: column; }
+.product-category-tag { color: var(--orange); font-size: 0.78rem; font-weight: 800; letter-spacing: 0.8px; margin-bottom: 5px; }
+.product-info h4 { color: var(--navy); margin-bottom: 8px; font-size: 1.18em; line-height: 1.3; }
+.product-info p { font-size: 0.92em; color: var(--text-muted); margin-bottom: 16px; flex-grow: 1; }
 
-.product-specs { list-style: none; margin-bottom: 22px; padding: 0; border-top: 1px solid #F1F5F9; padding-top: 14px; }
-.product-specs li { font-size: 0.85rem; color: #475569; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+.product-specs { list-style: none; margin-bottom: 18px; padding: 0; border-top: 1px solid #F1F5F9; padding-top: 12px; }
+.product-specs li { font-size: 0.82rem; color: #475569; margin-bottom: 5px; display: flex; align-items: center; gap: 6px; }
 .product-specs li::before { content: '✓'; color: var(--orange); font-weight: bold; }
 
-.btn-group { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: auto; }
+.btn-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: auto; }
 .btn-detail {
     background: #F1F5F9; color: var(--navy); border: 1px solid #CBD5E1;
-    padding: 12px 18px; border-radius: 8px; font-weight: 700; font-size: 0.88em; cursor: pointer;
-    transition: all 0.3s;
+    padding: 10px 14px; border-radius: 8px; font-weight: 700; font-size: 0.84em; cursor: pointer;
+    transition: all 0.3s; text-align: center;
 }
 .btn-detail:hover { background: #E2E8F0; }
 .btn-wa {
     background-color: #25D366; color: #FFF; border: none;
-    padding: 12px 18px; border-radius: 8px; font-weight: 800; font-size: 0.88em;
-    cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;
+    padding: 10px 14px; border-radius: 8px; font-weight: 800; font-size: 0.84em;
+    cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px;
     box-shadow: 0 4px 12px rgba(37,211,102,0.25); transition: all 0.3s ease;
 }
 .btn-wa:hover { background-color: #1EBE57; transform: translateY(-2px); box-shadow: 0 6px 18px rgba(37,211,102,0.4); }
 
-/* MODAL DE VISTA RÁPIDA */
+/* MODAL ADAPTABLE A PANTALLAS MÓVILES */
 .modal-backdrop {
     position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
     background: rgba(0,0,0,0.85); backdrop-filter: blur(6px);
@@ -547,34 +558,34 @@ section { padding: 80px 0; }
 }
 .modal-backdrop.active { opacity: 1; pointer-events: all; }
 .modal-card {
-    background: #FFF; border-radius: 20px; width: 90%; max-width: 820px;
-    padding: 38px; position: relative; max-height: 90vh; overflow-y: auto;
+    background: #FFF; border-radius: 18px; width: 92%; max-width: 800px;
+    padding: 30px 22px; position: relative; max-height: 90vh; overflow-y: auto;
     box-shadow: 0 25px 50px -12px rgba(0,0,0,0.4);
 }
 .modal-close {
-    position: absolute; top: 18px; right: 22px; background: #F1F5F9; border: none;
-    width: 40px; height: 40px; border-radius: 50%; font-size: 1.4rem; cursor: pointer;
+    position: absolute; top: 14px; right: 16px; background: #F1F5F9; border: none;
+    width: 36px; height: 36px; border-radius: 50%; font-size: 1.3rem; cursor: pointer;
     display: flex; align-items: center; justify-content: center; transition: background 0.3s;
+    z-index: 10;
 }
 .modal-close:hover { background: #E2E8F0; }
 
-/* CONTÁCTENOS PÁGINA DEDICADA */
+/* CONTÁCTENOS RESPONSIVO */
 .contact-section-wrapper {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 45px;
-    background: var(--white); padding: 55px; border-radius: 20px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 35px;
+    background: var(--white); padding: 45px 35px; border-radius: 20px;
     box-shadow: var(--card-shadow); border: 1px solid rgba(0,0,0,0.06);
 }
-@media (max-width: 900px) { .contact-section-wrapper { grid-template-columns: 1fr; } }
-.contact-form-group { margin-bottom: 20px; }
-.contact-form-group label { display: block; font-weight: 700; margin-bottom: 8px; color: var(--navy); font-size: 0.92rem; }
+.contact-form-group { margin-bottom: 18px; }
+.contact-form-group label { display: block; font-weight: 700; margin-bottom: 6px; color: var(--navy); font-size: 0.9rem; }
 .contact-form-input {
-    width: 100%; padding: 14px 18px; border-radius: 8px; border: 1px solid #CBD5E1;
-    font-size: 1rem; outline: none; transition: border-color 0.3s;
+    width: 100%; padding: 13px 16px; border-radius: 8px; border: 1px solid #CBD5E1;
+    font-size: 0.96rem; outline: none; transition: border-color 0.3s;
 }
 .contact-form-input:focus { border-color: var(--orange); }
 .btn-submit-contact {
     background: linear-gradient(135deg, var(--orange), var(--orange-light)); color: var(--white); border: none;
-    padding: 16px 30px; border-radius: 8px; font-weight: 800; font-size: 1.05rem;
+    padding: 15px 24px; border-radius: 8px; font-weight: 800; font-size: 1rem;
     cursor: pointer; width: 100%; box-shadow: 0 4px 15px rgba(255,102,0,0.3); transition: all 0.3s;
 }
 .btn-submit-contact:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255,102,0,0.5); }
@@ -582,17 +593,44 @@ section { padding: 80px 0; }
 /* FOOTER */
 footer {
     background-color: var(--navy-dark); color: var(--white);
-    padding: 85px 20px 40px; text-align: center; border-top: 5px solid var(--orange);
+    padding: 65px 20px 35px; text-align: center; border-top: 5px solid var(--orange);
 }
-footer h2 { color: var(--orange); font-size: 2.2em; margin-bottom: 15px; }
-footer .contact-info { margin: 38px 0; font-size: 1.12em; line-height: 2.3; }
-footer .contact-info span { font-weight: 800; color: var(--orange); margin-right: 10px; }
-.footer-bottom { margin-top: 55px; padding-top: 28px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.9em; color: #94A3B8; }
+footer h2 { color: var(--orange); font-size: clamp(1.5rem, 3.5vw, 2.2rem); margin-bottom: 12px; }
+.footer-bottom { margin-top: 45px; padding-top: 22px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.85em; color: #94A3B8; }
 .bg-white { background-color: var(--white); }
-.mt-5 { margin-top: 50px; }
+.mt-5 { margin-top: 35px; }
+
+/* MEDIA QUERIES REFINADAS PARA CELULARES Y TABLETS (< 860px y < 600px) */
+@media (max-width: 860px) {
+    .top-bar-content { flex-direction: column; align-items: stretch; gap: 12px; }
+    .brand-logo-group { justify-content: center; }
+    .nav-links {
+        justify-content: center;
+        overflow-x: auto;
+        padding-bottom: 6px;
+        -webkit-overflow-scrolling: touch;
+        gap: 14px;
+    }
+    .btn-analytics { align-self: center; }
+    .contact-section-wrapper { grid-template-columns: 1fr; padding: 30px 20px; }
+}
+
+@media (max-width: 600px) {
+    .container { padding: 0 14px; }
+    .hero { padding: 50px 14px 65px; }
+    .hero h3 { font-size: 1.65rem; }
+    .nav-link-btn { font-size: 0.84rem; padding: 4px 2px; }
+    .search-input { font-size: 0.92rem; padding: 14px 16px 14px 44px; }
+    .search-icon { left: 16px; font-size: 1rem; }
+    .product-grid, .grid-2, .grid-3, .grid-4, .categories-grid, .category-breakdown-grid {
+        grid-template-columns: 1fr;
+    }
+    .btn-group { grid-template-columns: 1fr; }
+    .modal-card { padding: 24px 16px; }
+}
 """
 
-# Template HTML con la pestaña/página DEDICADA DE CATEGORÍAS + DESGLOSE DETALLADO
+# Template HTML
 INDEX_HTML = """<!DOCTYPE html>
 <html lang="es">
 <head>
@@ -604,7 +642,7 @@ INDEX_HTML = """<!DOCTYPE html>
 </head>
 <body>
 
-    <!-- TOPBAR CON BOTÓN DEDICADO "CATEGORÍAS" EN EL MENÚ PRINCIPAL -->
+    <!-- TOPBAR CON NAVEGACIÓN TOTALMENTE RESPONSIVA -->
     <header class="top-bar">
         <div class="container top-bar-content">
             <div class="brand-logo-group" onclick="navigateToPage('home')">
@@ -618,8 +656,8 @@ INDEX_HTML = """<!DOCTYPE html>
                 <button class="nav-link-btn" id="nav-tienda" onclick="navigateToPage('tienda')">Tienda</button>
                 <button class="nav-link-btn" id="nav-servicios" onclick="navigateToPage('servicios')">Servicios</button>
                 <button class="nav-link-btn" id="nav-contacto" onclick="navigateToPage('contacto')">Contacto</button>
-                <a href="/dashboard" class="btn-analytics">📊 Analítica</a>
             </nav>
+            <a href="/dashboard" class="btn-analytics">📊 Analítica</a>
         </div>
     </header>
 
@@ -637,10 +675,10 @@ INDEX_HTML = """<!DOCTYPE html>
                     <input type="text" class="search-input" id="searchHomeInput" placeholder="Buscar producto en la tienda (casco, botiquín, chaleco, linterna...)">
                 </div>
 
-                <div style="margin-top: 35px; display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
-                    <button class="btn-analytics" style="padding: 14px 32px; font-size: 1rem; border-radius: 8px;" onclick="navigateToPage('categorias')">Ver Categorías y Desglose</button>
-                    <button class="btn-analytics" style="padding: 14px 32px; font-size: 1rem; border-radius: 8px; background: linear-gradient(135deg, var(--navy), #112844);" onclick="navigateToPage('tienda')">Ir a la Tienda</button>
-                    <button class="btn-detail" style="padding: 14px 32px; font-size: 1rem; border-radius: 8px;" onclick="navigateToPage('contacto')">Contactar Asesor</button>
+                <div style="margin-top: 32px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+                    <button class="btn-analytics" style="padding: 13px 26px; font-size: 0.95rem; border-radius: 8px;" onclick="navigateToPage('categorias')">Ver Categorías y Desglose</button>
+                    <button class="btn-analytics" style="padding: 13px 26px; font-size: 0.95rem; border-radius: 8px; background: linear-gradient(135deg, var(--navy), #112844);" onclick="navigateToPage('tienda')">Ir a la Tienda</button>
+                    <button class="btn-detail" style="padding: 13px 26px; font-size: 0.95rem; border-radius: 8px;" onclick="navigateToPage('contacto')">Contactar Asesor</button>
                 </div>
             </div>
         </section>
@@ -652,19 +690,19 @@ INDEX_HTML = """<!DOCTYPE html>
                 
                 <div class="grid-3 mt-5">
                     <div class="card-box" style="text-align: center;">
-                        <h4 style="font-size: 1.3em;">PROTECCIÓN PERSONAL (EPP)</h4>
-                        <p style="margin-bottom: 20px; color: var(--text-muted);">Cascos dieléctricos, gafas UV400, guantes anti-corte y protección auditiva certificada.</p>
-                        <button class="btn-detail" onclick="navigateToPage('tienda', 'proteccion_personal')">Ver en Tienda</button>
+                        <h4 style="font-size: 1.25em;">PROTECCIÓN PERSONAL (EPP)</h4>
+                        <p style="margin-bottom: 18px; color: var(--text-muted);">Cascos dieléctricos, gafas UV400, guantes anti-corte y protección auditiva certificada.</p>
+                        <button class="btn-detail" style="width:100%;" onclick="navigateToPage('tienda', 'proteccion_personal')">Ver en Tienda</button>
                     </div>
                     <div class="card-box navy-top" style="text-align: center;">
-                        <h4 style="font-size: 1.3em;">EMERGENCIAS & RESCATE</h4>
-                        <p style="margin-bottom: 20px; color: var(--text-muted);">Botiquines Tipo B, linternas tácticas 2000 lúmenes y equipos verticales de rescate.</p>
-                        <button class="btn-detail" onclick="navigateToPage('tienda', 'emergencias_rescate')">Ver en Tienda</button>
+                        <h4 style="font-size: 1.25em;">EMERGENCIAS & RESCATE</h4>
+                        <p style="margin-bottom: 18px; color: var(--text-muted);">Botiquines Tipo B, linternas tácticas 2000 lúmenes y equipos verticales de rescate.</p>
+                        <button class="btn-detail" style="width:100%;" onclick="navigateToPage('tienda', 'emergencias_rescate')">Ver en Tienda</button>
                     </div>
                     <div class="card-box" style="text-align: center;">
-                        <h4 style="font-size: 1.3em;">DEFENSA CIVIL & BRIGADAS</h4>
-                        <p style="margin-bottom: 20px; color: var(--text-muted);">Chalecos reflectivos 3M, conos viales 90cm, megáfonos 50W y dotación personalizada.</p>
-                        <button class="btn-detail" onclick="navigateToPage('tienda', 'defensa_civil')">Ver en Tienda</button>
+                        <h4 style="font-size: 1.25em;">DEFENSA CIVIL & BRIGADAS</h4>
+                        <p style="margin-bottom: 18px; color: var(--text-muted);">Chalecos reflectivos 3M, conos viales 90cm, megáfonos 50W y dotación personalizada.</p>
+                        <button class="btn-detail" style="width:100%;" onclick="navigateToPage('tienda', 'defensa_civil')">Ver en Tienda</button>
                     </div>
                 </div>
             </div>
@@ -680,71 +718,71 @@ INDEX_HTML = """<!DOCTYPE html>
             </div>
         </div>
 
-        <section class="bg-white" style="padding-top: 20px;">
+        <section class="bg-white" style="padding-top: 15px;">
             <div class="container">
-                <p style="text-align: center; max-width: 880px; margin: 0 auto 55px; font-size: 1.2em; color: var(--text-dark); line-height: 1.8;">
+                <p style="text-align: center; max-width: 880px; margin: 0 auto 45px; font-size: 1.12em; color: var(--text-dark); line-height: 1.75;">
                     <strong>YD Protección</strong> es una empresa dedicada al suministro de equipos y soluciones integrales de seguridad industrial, elementos de protección personal (EPP), brigadas de emergencia y respuesta en socorrismo. Acompañamos a industrias e instituciones con productos 100% normativos y asesoría técnica especializada.
                 </p>
                 
-                <div class="grid-2" style="margin-bottom: 55px;">
+                <div class="grid-2" style="margin-bottom: 45px;">
                     <div class="card-box">
                         <h4>🚀 Nuestra Misión</h4>
-                        <p style="font-size: 1.05em; color: var(--text-dark);">
+                        <p style="font-size: 1.02em; color: var(--text-dark);">
                             Suministrar equipos de protección, emergencia y prevención de la más alta calidad y normatividad, brindando asesoría integral a empresas, brigadas e instituciones de socorro para preservar la vida y controlar riesgos operacionales.
                         </p>
                     </div>
                     <div class="card-box navy-top">
                         <h4>👁️ Nuestra Visión</h4>
-                        <p style="font-size: 1.05em; color: var(--text-dark);">
+                        <p style="font-size: 1.02em; color: var(--text-dark);">
                             Ser reconocidos a nivel nacional como la empresa líder y aliada estratégica en soluciones de seguridad, prevención y atención de emergencias, destacándonos por la confiabilidad de nuestros productos, excelencia en el servicio y compromiso humano.
                         </p>
                     </div>
                 </div>
 
-                <h3 style="text-align: center; color: var(--navy); margin-bottom: 35px; font-size: 1.7em;">Valores Corporativos</h3>
-                <div class="grid-4" style="margin-bottom: 65px;">
-                    <div class="card-box" style="padding: 30px 22px; border-top: 4px solid var(--orange);">
-                        <h4 style="font-size: 1.15em; margin-bottom: 10px;">INTEGRIDAD</h4>
-                        <p style="font-size: 0.94em; color: var(--text-muted);">Transparencia, honestidad y ética en cada recomendación y producto entregado.</p>
+                <h3 style="text-align: center; color: var(--navy); margin-bottom: 30px; font-size: 1.6em;">Valores Corporativos</h3>
+                <div class="grid-4" style="margin-bottom: 50px;">
+                    <div class="card-box" style="padding: 26px 20px; border-top: 4px solid var(--orange);">
+                        <h4 style="font-size: 1.1em; margin-bottom: 8px;">INTEGRIDAD</h4>
+                        <p style="font-size: 0.9em; color: var(--text-muted);">Transparencia, honestidad y ética en cada recomendación y producto entregado.</p>
                     </div>
-                    <div class="card-box" style="padding: 30px 22px; border-top: 4px solid var(--navy);">
-                        <h4 style="font-size: 1.15em; margin-bottom: 10px;">COMPROMISO</h4>
-                        <p style="font-size: 0.94em; color: var(--text-muted);">Priorizamos la salud y la vida humana sobre todo en cada operación.</p>
+                    <div class="card-box" style="padding: 26px 20px; border-top: 4px solid var(--navy);">
+                        <h4 style="font-size: 1.1em; margin-bottom: 8px;">COMPROMISO</h4>
+                        <p style="font-size: 0.9em; color: var(--text-muted);">Priorizamos la salud y la vida humana sobre todo en cada operación.</p>
                     </div>
-                    <div class="card-box" style="padding: 30px 22px; border-top: 4px solid var(--orange);">
-                        <h4 style="font-size: 1.15em; margin-bottom: 10px;">NORMATIVIDAD</h4>
-                        <p style="font-size: 0.94em; color: var(--text-muted);">Equipos homologados bajo normas internacionales (ANSI, CE, ISO, EN).</p>
+                    <div class="card-box" style="padding: 26px 20px; border-top: 4px solid var(--orange);">
+                        <h4 style="font-size: 1.1em; margin-bottom: 8px;">NORMATIVIDAD</h4>
+                        <p style="font-size: 0.9em; color: var(--text-muted);">Equipos homologados bajo normas internacionales (ANSI, CE, ISO, EN).</p>
                     </div>
-                    <div class="card-box" style="padding: 30px 22px; border-top: 4px solid var(--navy);">
-                        <h4 style="font-size: 1.15em; margin-bottom: 10px;">EXCELENCIA</h4>
-                        <p style="font-size: 0.94em; color: var(--text-muted);">Acompañamiento técnico continuo y atención inmediata ante imprevistos.</p>
+                    <div class="card-box" style="padding: 26px 20px; border-top: 4px solid var(--navy);">
+                        <h4 style="font-size: 1.1em; margin-bottom: 8px;">EXCELENCIA</h4>
+                        <p style="font-size: 0.9em; color: var(--text-muted);">Acompañamiento técnico continuo y atención inmediata ante imprevistos.</p>
                     </div>
                 </div>
 
-                <h3 style="text-align: center; color: var(--navy); margin-bottom: 35px; font-size: 1.7em;">¿Por Qué Escogernos?</h3>
+                <h3 style="text-align: center; color: var(--navy); margin-bottom: 30px; font-size: 1.6em;">¿Por Qué Escogernos?</h3>
                 <div class="grid-4">
                     <div class="card-box navy-top" style="text-align: center;">
-                        <h4 style="font-size: 1.15em;">EQUIPOS CERTIFICADOS</h4>
-                        <p style="font-size: 0.94em; color: var(--text-muted);">Garantía de desempeño para tareas de alto riesgo operacional.</p>
+                        <h4 style="font-size: 1.1em;">EQUIPOS CERTIFICADOS</h4>
+                        <p style="font-size: 0.9em; color: var(--text-muted);">Garantía de desempeño para tareas de alto riesgo operacional.</p>
                     </div>
                     <div class="card-box" style="text-align: center;">
-                        <h4 style="font-size: 1.15em;">ASESORÍA ESPECIALIZADA</h4>
-                        <p style="font-size: 0.94em; color: var(--text-muted);">Te ayudamos a seleccionar según tu matriz de riesgo y sector industrial.</p>
+                        <h4 style="font-size: 1.1em;">ASESORÍA ESPECIALIZADA</h4>
+                        <p style="font-size: 0.9em; color: var(--text-muted);">Te ayudamos a seleccionar según tu matriz de riesgo y sector industrial.</p>
                     </div>
                     <div class="card-box navy-top" style="text-align: center;">
-                        <h4 style="font-size: 1.15em;">AGILIDAD Y LOGÍSTICA</h4>
-                        <p style="font-size: 0.94em; color: var(--text-muted);">Suministro oportuno para compras individuales y dotaciones institucionales.</p>
+                        <h4 style="font-size: 1.1em;">AGILIDAD Y LOGÍSTICA</h4>
+                        <p style="font-size: 0.9em; color: var(--text-muted);">Suministro oportuno para compras individuales y dotaciones institucionales.</p>
                     </div>
                     <div class="card-box" style="text-align: center;">
-                        <h4 style="font-size: 1.15em;">PERSONALIZACIÓN</h4>
-                        <p style="font-size: 0.94em; color: var(--text-muted);">Bordados, parches y marcas corporativas a medida de tu institución.</p>
+                        <h4 style="font-size: 1.1em;">PERSONALIZACIÓN</h4>
+                        <p style="font-size: 0.9em; color: var(--text-muted);">Bordados, parches y marcas corporativas a medida de tu institución.</p>
                     </div>
                 </div>
             </div>
         </section>
     </div>
 
-    <!-- ==================== PÁGINA 3: CATEGORÍAS (PANEL OFICIAL + SECCIÓN DESGLOSE DETALLADO) ==================== -->
+    <!-- ==================== PÁGINA 3: CATEGORÍAS (PANEL + SECCIÓN DESGLOSE DETALLADO) ==================== -->
     <div id="page-categorias" class="page-view">
         <div class="page-header-banner">
             <div class="container">
@@ -755,64 +793,63 @@ INDEX_HTML = """<!DOCTYPE html>
 
         <section class="bg-white" style="padding-top: 10px;">
             <div class="container">
-                <!-- 1. BLOQUE DE NUESTRAL CATEGORÍAS TAL Y COMO ESTABA -->
                 <h2 class="section-title">Nuestras Categorías</h2>
                 <p class="section-subtitle">Selecciona una categoría para filtrar los productos al instante en la tienda</p>
 
-                <div class="categories-grid" style="margin-bottom: 70px;">
+                <div class="categories-grid" style="margin-bottom: 50px;">
                     <div class="category-item active" onclick="navigateToPage('tienda', 'todos')">
                         <span class="number">00</span>
                         <div>
-                            <h4>TODOS LOS PRODUCTOS</h4>
-                            <p>Catálogo general completo.</p>
+                            <h4 style="font-size: 1.1em;">TODOS LOS PRODUCTOS</h4>
+                            <p style="font-size: 0.88em;">Catálogo general completo.</p>
                         </div>
                     </div>
                     <div class="category-item" onclick="navigateToPage('tienda', 'proteccion_personal')">
                         <span class="number">01</span>
                         <div>
-                            <h4>PROTECCIÓN PERSONAL</h4>
-                            <p>Cascos dieléctricos, gafas UV, guantes tácticos y protección auditiva.</p>
+                            <h4 style="font-size: 1.1em;">PROTECCIÓN PERSONAL</h4>
+                            <p style="font-size: 0.88em;">Cascos dieléctricos, gafas UV, guantes tácticos y protección auditiva.</p>
                         </div>
                     </div>
                     <div class="category-item" onclick="navigateToPage('tienda', 'emergencias_rescate')">
                         <span class="number">02</span>
                         <div>
-                            <h4>EMERGENCIAS Y RESCATE</h4>
-                            <p>Botiquines A/B/C, linternas tácticas, kits de rescate y cuerdas estáticas.</p>
+                            <h4 style="font-size: 1.1em;">EMERGENCIAS Y RESCATE</h4>
+                            <p style="font-size: 0.88em;">Botiquines A/B/C, linternas tácticas, kits de rescate y cuerdas estáticas.</p>
                         </div>
                     </div>
                     <div class="category-item" onclick="navigateToPage('tienda', 'defensa_civil')">
                         <span class="number">03</span>
                         <div>
-                            <h4>DEFENSA CIVIL</h4>
-                            <p>Dotación reglamentaria, chalecos 3M y elementos para brigadas.</p>
+                            <h4 style="font-size: 1.1em;">DEFENSA CIVIL</h4>
+                            <p style="font-size: 0.88em;">Dotación reglamentaria, chalecos 3M y elementos para brigadas.</p>
                         </div>
                     </div>
                     <div class="category-item" onclick="navigateToPage('tienda', 'senalizacion_seguridad')">
                         <span class="number">04</span>
                         <div>
-                            <h4>SEÑALIZACIÓN Y SEGURIDAD</h4>
-                            <p>Conos flexibles de 90cm, cintas de prevención y paletas de control.</p>
+                            <h4 style="font-size: 1.1em;">SEÑALIZACIÓN Y SEGURIDAD</h4>
+                            <p style="font-size: 0.88em;">Conos flexibles de 90cm, cintas de prevención y paletas de control.</p>
                         </div>
                     </div>
                     <div class="category-item" onclick="navigateToPage('tienda', 'equipos_brigadas')">
                         <span class="number">05</span>
                         <div>
-                            <h4>EQUIPOS PARA BRIGADAS</h4>
-                            <p>Megáfonos de 50W, estaciones lavaojos y equipos de evacuación.</p>
+                            <h4 style="font-size: 1.1em;">EQUIPOS PARA BRIGADAS</h4>
+                            <p style="font-size: 0.88em;">Megáfonos de 50W, estaciones lavaojos y equipos de evacuación.</p>
                         </div>
                     </div>
                     <div class="category-item" onclick="navigateToPage('tienda', 'dotacion_personalizada')">
                         <span class="number">06</span>
                         <div>
-                            <h4>DOTACIÓN PERSONALIZADA</h4>
-                            <p>Uniformes normativos, parches bordados y marcas corporativas.</p>
+                            <h4 style="font-size: 1.1em;">DOTACIÓN PERSONALIZADA</h4>
+                            <p style="font-size: 0.88em;">Uniformes normativos, parches bordados y marcas corporativas.</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- 2. NUEVA SECCIÓN DE DESGLOSE DETALLADO DENTRO DE CATEGORÍAS -->
-                <div style="border-top: 3px solid var(--orange); padding-top: 60px;">
+                <!-- SECCIÓN DE DESGLOSE DETALLADO -->
+                <div style="border-top: 3px solid var(--orange); padding-top: 50px;">
                     <h2 class="section-title">Desglose Detallado por Categoría</h2>
                     <p class="section-subtitle">Conoce los insumos, elementos y certificaciones específicas que incluye cada línea de protección</p>
 
@@ -821,7 +858,7 @@ INDEX_HTML = """<!DOCTYPE html>
                         <div class="category-breakdown-card">
                             <span class="breakdown-num">Categoría 01</span>
                             <h3 class="breakdown-title">Protección Personal (EPP)</h3>
-                            <p style="color: var(--text-muted); font-size: 0.94rem;">Elementos de protección individual para resguardar la salud e integridad física del trabajador.</p>
+                            <p style="color: var(--text-muted); font-size: 0.9rem;">Elementos de protección individual para resguardar la salud e integridad física del trabajador.</p>
                             
                             <ul class="breakdown-list">
                                 <li><strong>Protección de Cabeza:</strong> Cascos dieléctricos Tipo I y II Clase E (hasta 20.000V), barboquejos de 4 puntos y arneses de trinquete.</li>
@@ -838,7 +875,7 @@ INDEX_HTML = """<!DOCTYPE html>
                         <div class="category-breakdown-card" style="border-top-color: var(--navy);">
                             <span class="breakdown-num" style="background: rgba(11,28,48,0.12); color: var(--navy);">Categoría 02</span>
                             <h3 class="breakdown-title">Emergencias y Rescate</h3>
-                            <p style="color: var(--text-muted); font-size: 0.94rem;">Equipamiento médico y operativo especializado para respuesta en contingencias y desastres.</p>
+                            <p style="color: var(--text-muted); font-size: 0.9rem;">Equipamiento médico y operativo especializado para respuesta en contingencias y desastres.</p>
                             
                             <ul class="breakdown-list">
                                 <li><strong>Primeros Auxilios:</strong> Botiquines reglamentarios Tipo A, B y C confeccionados en lona tifón impermeable con insumos de curación.</li>
@@ -854,7 +891,7 @@ INDEX_HTML = """<!DOCTYPE html>
                         <div class="category-breakdown-card">
                             <span class="breakdown-num">Categoría 03</span>
                             <h3 class="breakdown-title">Defensa Civil & Socorrismo</h3>
-                            <p style="color: var(--text-muted); font-size: 0.94rem;">Dotación institucional y prendaje oficial para integrantes de brigadas y organismos de atención.</p>
+                            <p style="color: var(--text-muted); font-size: 0.9rem;">Dotación institucional y prendaje oficial para integrantes de brigadas y organismos de atención.</p>
                             
                             <ul class="breakdown-list">
                                 <li><strong>Indumentaria Operativa:</strong> Uniformes de trabajo y prendas en tela Ripstop antidesgarro de alta durabilidad.</li>
@@ -870,7 +907,7 @@ INDEX_HTML = """<!DOCTYPE html>
                         <div class="category-breakdown-card" style="border-top-color: var(--navy);">
                             <span class="breakdown-num" style="background: rgba(11,28,48,0.12); color: var(--navy);">Categoría 04</span>
                             <h3 class="breakdown-title">Señalización & Seguridad Vial</h3>
-                            <p style="color: var(--text-muted); font-size: 0.94rem;">Dispositivos físicos para delimitación, prevención y control de áreas de peligro.</p>
+                            <p style="color: var(--text-muted); font-size: 0.9rem;">Dispositivos físicos para delimitación, prevención y control de áreas de peligro.</p>
                             
                             <ul class="breakdown-list">
                                 <li><strong>Canalización Vial:</strong> Conos de PVC virgen flexible de 90 cm indeformables con doble cinta reflectiva High Intensity.</li>
@@ -886,7 +923,7 @@ INDEX_HTML = """<!DOCTYPE html>
                         <div class="category-breakdown-card">
                             <span class="breakdown-num">Categoría 05</span>
                             <h3 class="breakdown-title">Equipos para Brigadas</h3>
-                            <p style="color: var(--text-muted); font-size: 0.94rem;">Soluciones integrales de comunicación y control de contingencias en empresas e industrias.</p>
+                            <p style="color: var(--text-muted); font-size: 0.9rem;">Soluciones integrales de comunicación y control de contingencias en empresas e industrias.</p>
                             
                             <ul class="breakdown-list">
                                 <li><strong>Comunicación & Evacuación:</strong> Megáfonos profesionales de 50W con sirena de emergencia, grabador y alcance de 1000m.</li>
@@ -901,7 +938,7 @@ INDEX_HTML = """<!DOCTYPE html>
                         <div class="category-breakdown-card" style="border-top-color: var(--navy);">
                             <span class="breakdown-num" style="background: rgba(11,28,48,0.12); color: var(--navy);">Categoría 06</span>
                             <h3 class="breakdown-title">Dotación Personalizada</h3>
-                            <p style="color: var(--text-muted); font-size: 0.94rem;">Servicio completo de bordado, estampado e identidad de marca institucional.</p>
+                            <p style="color: var(--text-muted); font-size: 0.9rem;">Servicio completo de bordado, estampado e identidad de marca institucional.</p>
                             
                             <ul class="breakdown-list">
                                 <li><strong>Bordados Computarizados:</strong> Bordados en 3D de alta definición para camisetas, gorras, chaquetas y mochilas.</li>
@@ -924,7 +961,7 @@ INDEX_HTML = """<!DOCTYPE html>
                 <h1>Tienda Oficial YD Protección</h1>
                 <p>Explora nuestras referencias normativas con ficha técnica y opción de cotización directa por WhatsApp</p>
                 
-                <div class="search-wrapper" style="margin-top: 25px;">
+                <div class="search-wrapper" style="margin-top: 20px;">
                     <span class="search-icon">🔍</span>
                     <input type="text" class="search-input" id="searchCatalogInput" placeholder="Buscar producto en tienda por nombre, norma o palabra clave...">
                 </div>
@@ -933,48 +970,48 @@ INDEX_HTML = """<!DOCTYPE html>
 
         <section class="bg-white" style="padding-top: 10px;">
             <div class="container">
-                <h3 style="color: var(--navy); margin-bottom: 25px; text-align: center;">Filtrar Productos en Tienda</h3>
-                <div class="categories-grid" id="categoriesGrid" style="margin-bottom: 45px;">
+                <h3 style="color: var(--navy); margin-bottom: 20px; text-align: center;">Filtrar Productos en Tienda</h3>
+                <div class="categories-grid" id="categoriesGrid" style="margin-bottom: 40px;">
                     <div class="category-item active" data-category="todos" onclick="filterCatalogCategory('todos', this)">
                         <span class="number">00</span>
                         <div>
-                            <h4>TODOS LOS PRODUCTOS</h4>
-                            <p>Catálogo general completo.</p>
+                            <h4 style="font-size: 1.05em;">TODOS LOS PRODUCTOS</h4>
+                            <p style="font-size: 0.85em;">Catálogo general completo.</p>
                         </div>
                     </div>
                     <div class="category-item" data-category="proteccion_personal" onclick="filterCatalogCategory('proteccion_personal', this)">
                         <span class="number">01</span>
                         <div>
-                            <h4>PROTECCIÓN PERSONAL</h4>
-                            <p>Cascos dieléctricos, gafas UV, guantes tácticos y protección auditiva.</p>
+                            <h4 style="font-size: 1.05em;">PROTECCIÓN PERSONAL</h4>
+                            <p style="font-size: 0.85em;">Cascos dieléctricos, gafas UV, guantes tácticos y protección auditiva.</p>
                         </div>
                     </div>
                     <div class="category-item" data-category="emergencias_rescate" onclick="filterCatalogCategory('emergencias_rescate', this)">
                         <span class="number">02</span>
                         <div>
-                            <h4>EMERGENCIAS Y RESCATE</h4>
-                            <p>Botiquines A/B/C, linternas tácticas, kits de rescate y cuerdas estáticas.</p>
+                            <h4 style="font-size: 1.05em;">EMERGENCIAS Y RESCATE</h4>
+                            <p style="font-size: 0.85em;">Botiquines A/B/C, linternas tácticas, kits de rescate y cuerdas estáticas.</p>
                         </div>
                     </div>
                     <div class="category-item" data-category="defensa_civil" onclick="filterCatalogCategory('defensa_civil', this)">
                         <span class="number">03</span>
                         <div>
-                            <h4>DEFENSA CIVIL</h4>
-                            <p>Dotación reglamentaria, chalecos 3M y elementos para brigadas.</p>
+                            <h4 style="font-size: 1.05em;">DEFENSA CIVIL</h4>
+                            <p style="font-size: 0.85em;">Dotación reglamentaria, chalecos 3M y elementos para brigadas.</p>
                         </div>
                     </div>
                     <div class="category-item" data-category="senalizacion_seguridad" onclick="filterCatalogCategory('senalizacion_seguridad', this)">
                         <span class="number">04</span>
                         <div>
-                            <h4>SEÑALIZACIÓN Y SEGURIDAD</h4>
-                            <p>Conos flexibles de 90cm, cintas de prevención y paletas de control.</p>
+                            <h4 style="font-size: 1.05em;">SEÑALIZACIÓN Y SEGURIDAD</h4>
+                            <p style="font-size: 0.85em;">Conos flexibles de 90cm, cintas de prevención y paletas de control.</p>
                         </div>
                     </div>
                     <div class="category-item" data-category="equipos_brigadas" onclick="filterCatalogCategory('equipos_brigadas', this)">
                         <span class="number">05</span>
                         <div>
-                            <h4>EQUIPOS PARA BRIGADAS</h4>
-                            <p>Megáfonos de 50W, estaciones lavaojos y equipos de evacuación.</p>
+                            <h4 style="font-size: 1.05em;">EQUIPOS PARA BRIGADAS</h4>
+                            <p style="font-size: 0.85em;">Megáfonos de 50W, estaciones lavaojos y equipos de evacuación.</p>
                         </div>
                     </div>
                 </div>
@@ -1023,49 +1060,49 @@ INDEX_HTML = """<!DOCTYPE html>
             </div>
         </div>
 
-        <section class="bg-white" style="padding-top: 20px;">
+        <section class="bg-white" style="padding-top: 15px;">
             <div class="container">
                 <div class="grid-3">
                     <div class="card-box">
-                        <div style="font-size: 2.8rem; margin-bottom: 15px;">🛡️</div>
+                        <div style="font-size: 2.5rem; margin-bottom: 12px;">🛡️</div>
                         <h4>Suministro de EPP Certificados</h4>
                         <p style="color: var(--text-muted);">Provisión integral de Elementos de Protección Personal (Cascos, Gafas, Guantes, Calzado, Protección Auditiva y Respiratoria) bajo normas ANSI, CE e ISO para todo sector industrial.</p>
-                        <button class="btn-analytics" style="margin-top: 20px;" onclick="navigateToPage('contacto')">Solicitar Asesoría</button>
+                        <button class="btn-analytics" style="margin-top: 18px; width:100%; text-align:center;" onclick="navigateToPage('contacto')">Solicitar Asesoría</button>
                     </div>
 
                     <div class="card-box navy-top">
-                        <div style="font-size: 2.8rem; margin-bottom: 15px;">🚨</div>
+                        <div style="font-size: 2.5rem; margin-bottom: 12px;">🚨</div>
                         <h4>Equipamiento para Brigadas</h4>
                         <p style="color: var(--text-muted);">Armado de kits integrales de respuesta rápida para brigadas empresariales e institucionales: Botiquines Tipo A/B/C, camillas espinales, megáfonos, linternas tácticas y extintores.</p>
-                        <button class="btn-analytics" style="margin-top: 20px;" onclick="navigateToPage('contacto')">Solicitar Asesoría</button>
+                        <button class="btn-analytics" style="margin-top: 18px; width:100%; text-align:center;" onclick="navigateToPage('contacto')">Solicitar Asesoría</button>
                     </div>
 
                     <div class="card-box">
-                        <div style="font-size: 2.8rem; margin-bottom: 15px;">🦺</div>
+                        <div style="font-size: 2.5rem; margin-bottom: 12px;">🦺</div>
                         <h4>Personalización y Bordados</h4>
                         <p style="color: var(--text-muted);">Confección y personalización de uniformes, chalecos tácticos, prendas reflectivas, parches en velcro y rotulación corporativa en cascos con el logo de tu organización.</p>
-                        <button class="btn-analytics" style="margin-top: 20px;" onclick="navigateToPage('contacto')">Solicitar Asesoría</button>
+                        <button class="btn-analytics" style="margin-top: 18px; width:100%; text-align:center;" onclick="navigateToPage('contacto')">Solicitar Asesoría</button>
                     </div>
 
                     <div class="card-box navy-top">
-                        <div style="font-size: 2.8rem; margin-bottom: 15px;">📐</div>
+                        <div style="font-size: 2.5rem; margin-bottom: 12px;">📐</div>
                         <h4>Asesoría Técnica en Matriz de Riesgo</h4>
                         <p style="color: var(--text-muted);">Acompañamiento especializado para la correcta selección e inspección de equipos según el tipo de riesgo operacional y normativa legal vigente.</p>
-                        <button class="btn-analytics" style="margin-top: 20px;" onclick="navigateToPage('contacto')">Solicitar Asesoría</button>
+                        <button class="btn-analytics" style="margin-top: 18px; width:100%; text-align:center;" onclick="navigateToPage('contacto')">Solicitar Asesoría</button>
                     </div>
 
                     <div class="card-box">
-                        <div style="font-size: 2.8rem; margin-bottom: 15px;">🧗</div>
+                        <div style="font-size: 2.5rem; margin-bottom: 12px;">🧗</div>
                         <h4>Rescate Vertical & Alturas</h4>
                         <p style="color: var(--text-muted);">Venta y asesoramiento de arneses, cuerdas estáticas, mosquetones forjados y sistemas de anclaje para trabajos en alturas y socorrismo en espacios confinados.</p>
-                        <button class="btn-analytics" style="margin-top: 20px;" onclick="navigateToPage('contacto')">Solicitar Asesoría</button>
+                        <button class="btn-analytics" style="margin-top: 18px; width:100%; text-align:center;" onclick="navigateToPage('contacto')">Solicitar Asesoría</button>
                     </div>
 
                     <div class="card-box navy-top">
-                        <div style="font-size: 2.8rem; margin-bottom: 15px;">🏢</div>
+                        <div style="font-size: 2.5rem; margin-bottom: 12px;">🏢</div>
                         <h4>Dotación para Defensa Civil</h4>
                         <p style="color: var(--text-muted);">Prendaje e insumos oficiales para socorristas y brigadistas de atención a emergencias con acabado de alta resistencia.</p>
-                        <button class="btn-analytics" style="margin-top: 20px;" onclick="navigateToPage('contacto')">Solicitar Asesoría</button>
+                        <button class="btn-analytics" style="margin-top: 18px; width:100%; text-align:center;" onclick="navigateToPage('contacto')">Solicitar Asesoría</button>
                     </div>
                 </div>
             </div>
@@ -1081,11 +1118,11 @@ INDEX_HTML = """<!DOCTYPE html>
             </div>
         </div>
 
-        <section style="padding-top: 20px;">
+        <section style="padding-top: 15px;">
             <div class="container">
                 <div class="contact-section-wrapper">
                     <div>
-                        <h3 style="color: var(--navy); margin-bottom: 22px; font-size: 1.4em;">Envíanos un Mensaje</h3>
+                        <h3 style="color: var(--navy); margin-bottom: 18px; font-size: 1.3em;">Envíanos un Mensaje</h3>
                         <form id="contactForm" onsubmit="handleContactSubmit(event)">
                             <div class="contact-form-group">
                                 <label for="cName">Nombre Completo / Empresa *</label>
@@ -1124,19 +1161,19 @@ INDEX_HTML = """<!DOCTYPE html>
                         </form>
                     </div>
 
-                    <div style="background: var(--navy-dark); color: var(--white); padding: 42px; border-radius: 16px; display: flex; flex-direction: column; justify-content: center;">
-                        <h3 style="color: var(--orange); margin-bottom: 25px; font-size: 1.5em;">Información Directa</h3>
+                    <div style="background: var(--navy-dark); color: var(--white); padding: 32px 24px; border-radius: 16px; display: flex; flex-direction: column; justify-content: center;">
+                        <h3 style="color: var(--orange); margin-bottom: 20px; font-size: 1.4em;">Información Directa</h3>
                         
-                        <div style="margin-bottom: 30px; font-size: 1.12em; line-height: 2.2;">
+                        <div style="margin-bottom: 24px; font-size: 1.05em; line-height: 2.1;">
                             <p><strong style="color: var(--orange);">📱 WHATSAPP:</strong> +57 (300) 000-0000</p>
                             <p><strong style="color: var(--orange);">✉️ CORREO:</strong> contacto@ydproteccion.com</p>
                             <p><strong style="color: var(--orange);">📸 INSTAGRAM:</strong> @ydproteccion</p>
                             <p><strong style="color: var(--orange);">📍 UBICACIÓN:</strong> Medellín, Antioquia, Colombia</p>
                         </div>
 
-                        <div style="background: rgba(255,102,0,0.15); border: 1px solid var(--orange); padding: 22px; border-radius: 12px;">
-                            <h4 style="color: var(--orange); margin-bottom: 8px; font-size: 1.08em;">⏰ HORARIOS DE ATENCIÓN</h4>
-                            <p style="font-size: 0.96em; color: #E2E8F0;">Lunes a Viernes: 8:00 AM – 6:00 PM<br>Sábados: 8:00 AM – 1:00 PM</p>
+                        <div style="background: rgba(255,102,0,0.15); border: 1px solid var(--orange); padding: 18px; border-radius: 12px;">
+                            <h4 style="color: var(--orange); margin-bottom: 6px; font-size: 1em;">⏰ HORARIOS DE ATENCIÓN</h4>
+                            <p style="font-size: 0.92em; color: #E2E8F0;">Lunes a Viernes: 8:00 AM – 6:00 PM<br>Sábados: 8:00 AM – 1:00 PM</p>
                         </div>
                     </div>
                 </div>
@@ -1144,23 +1181,23 @@ INDEX_HTML = """<!DOCTYPE html>
         </section>
     </div>
 
-    <!-- MODAL DE DETALLES TÉCNICOS COMPLETO -->
+    <!-- MODAL DE DETALLES TÉCNICOS ADAPTABLE -->
     <div class="modal-backdrop" id="modalBackdrop">
         <div class="modal-card">
             <button class="modal-close" onclick="closeModal()">&times;</button>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 28px;">
-                <div style="height: 280px; border-radius: 14px; overflow: hidden; background: #000;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 22px;">
+                <div style="height: 240px; border-radius: 14px; overflow: hidden; background: #000;">
                     <img id="mImg" src="" style="width:100%; height:100%; object-fit:cover;">
                 </div>
                 <div>
                     <span id="mCat" class="product-category-tag">CATEGORÍA</span>
-                    <h3 id="mTitle" style="color: var(--navy); margin-bottom: 10px; font-size: 1.4rem;">Título del producto</h3>
-                    <p id="mDesc" style="color: var(--text-muted); font-size: 0.96rem; margin-bottom: 18px; line-height: 1.6;">Descripción del producto</p>
+                    <h3 id="mTitle" style="color: var(--navy); margin-bottom: 8px; font-size: 1.3rem;">Título del producto</h3>
+                    <p id="mDesc" style="color: var(--text-muted); font-size: 0.92rem; margin-bottom: 16px; line-height: 1.5;">Descripción del producto</p>
                     
-                    <h4 style="color: var(--orange); font-size: 0.9rem; margin-bottom: 10px;">ESPECIFICACIONES TÉCNICAS:</h4>
+                    <h4 style="color: var(--orange); font-size: 0.88rem; margin-bottom: 8px;">ESPECIFICACIONES TÉCNICAS:</h4>
                     <ul id="mSpecs" class="product-specs"></ul>
 
-                    <button id="mBtnWa" class="btn-wa" style="width: 100%; padding: 14px; font-size: 1rem; margin-top: 18px;">
+                    <button id="mBtnWa" class="btn-wa" style="width: 100%; padding: 13px; font-size: 0.95rem; margin-top: 15px;">
                         Solicitar Cotización por WhatsApp
                     </button>
                 </div>
@@ -1172,7 +1209,7 @@ INDEX_HTML = """<!DOCTYPE html>
     <footer>
         <div class="container">
             <h2>HABLEMOS DE TU SEGURIDAD</h2>
-            <p>Solicita cotización y asesoría personalizada de inmediato</p>
+            <p style="font-size: clamp(0.9rem, 2vw, 1.1rem);">Solicita cotización y asesoría personalizada de inmediato</p>
             
             <div class="footer-bottom">
                 <p>YESIKA & DANIEL | YD PROTECCIÓN &copy; 2026 — Todos los Derechos Reservados</p>
@@ -1180,7 +1217,7 @@ INDEX_HTML = """<!DOCTYPE html>
         </div>
     </footer>
 
-    <!-- SISTEMA DE ENRUTAMIENTO MULTIPÁGINA Y FILTRADO DIVERSIFICADO -->
+    <!-- SISTEMA DE ENRUTAMIENTO Y FILTRADO RESPONSIVO -->
     <script>
         const WHATSAPP_PHONE = '573000000000';
         const productsData = """ + json.dumps(EMBEDDED_PRODUCTS) + """;
@@ -1307,6 +1344,7 @@ DASHBOARD_HTML = """<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel de Analítica - YD Protección</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <style>""" + EMBEDDED_CSS + """</style>
@@ -1321,16 +1359,16 @@ DASHBOARD_HTML = """<!DOCTYPE html>
             <a href="/" class="btn-analytics">← Volver al Sitio Web</a>
         </div>
     </div>
-    <div class="container" style="padding: 65px 20px;">
+    <div class="container" style="padding: 55px 16px;">
         <h2 class="section-title">Métricas de Interés</h2>
         <div class="grid-2 mt-5">
             <div class="card-box">
                 <h4>Total Vistas</h4>
-                <div style="font-size: 2.8em; font-weight: 800; color: var(--orange);" id="totalViews">0</div>
+                <div style="font-size: 2.6em; font-weight: 800; color: var(--orange);" id="totalViews">0</div>
             </div>
             <div class="card-box">
                 <h4>Cotizaciones WhatsApp</h4>
-                <div style="font-size: 2.8em; font-weight: 800; color: #25D366;" id="totalQuotes">0</div>
+                <div style="font-size: 2.6em; font-weight: 800; color: #25D366;" id="totalQuotes">0</div>
             </div>
         </div>
     </div>
