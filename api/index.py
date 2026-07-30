@@ -176,6 +176,40 @@ EMBEDDED_PRODUCTS = [
   }
 ]
 
+# Lista de Servicios Profesionales de YD Protección
+SERVICES_LIST = [
+  {
+    "id": "serv-01",
+    "icon": "🛡️",
+    "title": "Suministro de EPP Certificados",
+    "desc": "Provisión integral de Elementos de Protección Personal (Cascos, Gafas, Guantes, Calzado, Protección Auditiva y Respiratoria) bajo normas ANSI, CE e ISO para todo sector industrial."
+  },
+  {
+    "id": "serv-02",
+    "icon": "🚨",
+    "title": "Equipamiento para Brigadas de Emergencia",
+    "desc": "Armado de kits integrales de respuesta rápida para brigadas empresariales e institucionales: Botiquines Tipo A/B/C, camillas espinales, megáfonos, linternas tácticas y extintores."
+  },
+  {
+    "id": "serv-03",
+    "icon": "🦺",
+    "title": "Personalización, Bordados y Marca Institucional",
+    "desc": "Confección y personalización de uniformes, chalecos tácticos, prendas reflectivas, parches en velcro y rotulación corporativa en cascos con el logo de tu organización."
+  },
+  {
+    "id": "serv-04",
+    "icon": "📐",
+    "title": "Asesoría Técnica en Matriz de Riesgo",
+    "desc": "Acompañamiento especializado para la correcta selección e inspección de equipos según el tipo de riesgo operacional y normativa legal vigente."
+  },
+  {
+    "id": "serv-05",
+    "icon": "🧗",
+    "title": "Suministro e Inspección de Equipos de Rescate Vertical",
+    "desc": "Venta y asesoramiento de arneses, cuerdas estáticas, mosquetones forjados y sistemas de anclaje para trabajos en alturas y socorrismo en espacios confinados."
+  }
+]
+
 # Estilos CSS de sitio web profesional con desgloses detallados
 EMBEDDED_CSS = """
 :root {
