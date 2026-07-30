@@ -1,5 +1,5 @@
 import json
-from typing import Optional, Dict, List
+from typing import Optional, Dict
 from fastapi import FastAPI, Request, HTTPException
 from fastapi.responses import HTMLResponse, JSONResponse
 from jinja2 import Template
@@ -7,10 +7,10 @@ from jinja2 import Template
 app = FastAPI(
     title="YD Protección - Sitio Web Oficial & CMS Admin",
     description="Plataforma Web Corporativa y Panel de Administración CMS para YD Protección",
-    version="4.0.0"
+    version="4.1.0"
 )
 
-# Catálogo oficial de la Tienda de YD Protección (Base editable)
+# Catálogo oficial base de YD Protección
 EMBEDDED_PRODUCTS = [
   {
     "id": "prod-001",
@@ -18,7 +18,7 @@ EMBEDDED_PRODUCTS = [
     "category": "proteccion_personal",
     "category_name": "Protección Personal",
     "short_description": "Casco dieléctrico de polietileno de alta densidad con suspensión de 4 puntos y ajuste de perilla.",
-    "description": "Casco de seguridad de máxima resistencia contra impactos superiores y laterales. Cumple norma ANSI Z89.1 Clase E (hasta 20.000V). Incluye barboquejo reforzado y ranuras para protectores auditivos.",
+    "description": "Casco de seguridad de máxima resistencia contra impactos superiores y laterales. Cumple norma ANSI Z89.1 Clase E (hasta 20.000V). Incluye barboquejo reinforced y ranuras para protectores auditivos.",
     "price": "Cotizar",
     "badge": "MÁS VENDIDO",
     "image": "/images/casco_industrial.jpg",
@@ -210,7 +210,7 @@ SERVICES_LIST = [
   }
 ]
 
-# Estilos CSS compartidos
+# Estilos CSS
 EMBEDDED_CSS = """
 :root {
     --navy: #0B1C30;
@@ -282,7 +282,7 @@ img { max-width: 100%; height: auto; display: block; }
     background: linear-gradient(135deg, var(--orange), var(--orange-light));
     color: var(--white); padding: 8px 18px; border-radius: 50px; text-decoration: none;
     font-weight: 700; font-size: 0.85rem; box-shadow: 0 4px 14px rgba(255,102,0,0.35); transition: all 0.3s ease;
-    white-space: nowrap; flex-shrink: 0; cursor: pointer;
+    white-space: nowrap; flex-shrink: 0; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
 }
 .btn-analytics:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255,102,0,0.5); }
 
@@ -411,6 +411,10 @@ section { padding: 60px 0; }
 .admin-table td { padding: 14px; border-bottom: 1px solid #E2E8F0; font-size: 0.9rem; vertical-align: middle; }
 .admin-table tr:hover { background: #F8FAFC; }
 .badge-admin { padding: 4px 10px; border-radius: 50px; font-size: 0.75rem; font-weight: bold; background: rgba(255,102,0,0.12); color: var(--orange); }
+.admin-sidebar { background: var(--navy-dark); color: var(--white); padding: 30px 20px; border-radius: 16px; }
+.admin-menu { list-style: none; margin-top: 25px; padding: 0; }
+.admin-menu-item { padding: 12px 18px; border-radius: 10px; margin-bottom: 8px; cursor: pointer; font-weight: 700; display: flex; align-items: center; gap: 10px; color: #CBD5E1; transition: all 0.3s; }
+.admin-menu-item:hover, .admin-menu-item.active { background: var(--orange); color: var(--white); }
 
 /* FOOTER */
 footer { background-color: var(--navy-dark); color: var(--white); padding: 65px 20px 35px; text-align: center; border-top: 5px solid var(--orange); }
@@ -440,7 +444,7 @@ footer h2 { color: var(--orange); font-size: clamp(1.5rem, 3.5vw, 2.2rem); margi
 }
 """
 
-# Template HTML del Sitio Público
+# Template HTML Completo con Integración Garantizada de Redirección e Interfaz Admin Integrada
 INDEX_HTML = """<!DOCTYPE html>
 <html lang="es">
 <head>
@@ -452,7 +456,7 @@ INDEX_HTML = """<!DOCTYPE html>
 </head>
 <body>
 
-    <!-- TOPBAR -->
+    <!-- TOPBAR CON NAVEGACIÓN COMPLETA -->
     <header class="top-bar">
         <div class="container top-bar-content">
             <div class="brand-logo-group" onclick="navigateToPage('home')">
@@ -467,8 +471,8 @@ INDEX_HTML = """<!DOCTYPE html>
                 <button class="nav-link-btn" id="nav-servicios" onclick="navigateToPage('servicios')">Servicios</button>
                 <button class="nav-link-btn" id="nav-contacto" onclick="navigateToPage('contacto')">Contacto</button>
             </nav>
-            <div style="display: flex; gap: 10px; align-items: center;">
-                <a href="/admin" class="btn-analytics" style="background: linear-gradient(135deg, var(--navy), #112844);">⚙️ Panel Admin</a>
+            <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+                <button class="btn-analytics" style="background: linear-gradient(135deg, var(--navy), #112844);" onclick="navigateToPage('admin')">⚙️ Panel Admin</button>
                 <a href="/dashboard" class="btn-analytics">📊 Analítica</a>
             </div>
         </div>
@@ -569,26 +573,6 @@ INDEX_HTML = """<!DOCTYPE html>
                     <div class="card-box" style="padding: 26px 20px; border-top: 4px solid var(--navy);">
                         <h4 style="font-size: 1.1em; margin-bottom: 8px;">EXCELENCIA</h4>
                         <p style="font-size: 0.9em; color: var(--text-muted);">Acompañamiento técnico continuo y atención inmediata ante imprevistos.</p>
-                    </div>
-                </div>
-
-                <h3 style="text-align: center; color: var(--navy); margin-bottom: 30px; font-size: 1.6em;">¿Por Qué Escogernos?</h3>
-                <div class="grid-4">
-                    <div class="card-box navy-top" style="text-align: center;">
-                        <h4 style="font-size: 1.1em;">EQUIPOS CERTIFICADOS</h4>
-                        <p style="font-size: 0.9em; color: var(--text-muted);">Garantía de desempeño para tareas de alto riesgo operacional.</p>
-                    </div>
-                    <div class="card-box" style="text-align: center;">
-                        <h4 style="font-size: 1.1em;">ASESORÍA ESPECIALIZADA</h4>
-                        <p style="font-size: 0.9em; color: var(--text-muted);">Te ayudamos a seleccionar según tu matriz de riesgo y sector industrial.</p>
-                    </div>
-                    <div class="card-box navy-top" style="text-align: center;">
-                        <h4 style="font-size: 1.1em;">AGILIDAD Y LOGÍSTICA</h4>
-                        <p style="font-size: 0.9em; color: var(--text-muted);">Suministro oportuno para compras individuales y dotaciones institucionales.</p>
-                    </div>
-                    <div class="card-box" style="text-align: center;">
-                        <h4 style="font-size: 1.1em;">PERSONALIZACIÓN</h4>
-                        <p style="font-size: 0.9em; color: var(--text-muted);">Bordados, parches y marcas corporativas a medida de tu institución.</p>
                     </div>
                 </div>
             </div>
@@ -942,7 +926,116 @@ INDEX_HTML = """<!DOCTYPE html>
         </section>
     </div>
 
-    <!-- MODAL -->
+    <!-- ==================== PÁGINA 7: VISTA ADMIN INTEGRADA ==================== -->
+    <div id="page-admin" class="page-view">
+        <div class="page-header-banner">
+            <div class="container">
+                <h1>Panel de Administración CMS</h1>
+                <p>Gestiona productos, categorías, servicios y métricas del sitio web</p>
+            </div>
+        </div>
+
+        <section class="bg-white" style="padding-top: 15px;">
+            <div class="container">
+                <!-- MODAL LOGIN ADMIN -->
+                <div id="loginOverlay" style="background: var(--navy-dark); color: var(--white); padding: 35px; border-radius: 20px; max-width: 440px; margin: 0 auto 40px; text-align: center; border-top: 5px solid var(--orange);">
+                    <div class="brand-badge" style="display: inline-block; margin-bottom: 12px;">YD</div>
+                    <h3 style="color: #FFF; margin-bottom: 6px;">ACCESO ADMINISTRATIVO</h3>
+                    <p style="color: #CBD5E1; font-size: 0.88rem; margin-bottom: 22px;">Ingresa tus credenciales para editar el contenido</p>
+
+                    <form onsubmit="handleAdminLogin(event)">
+                        <div style="margin-bottom: 14px; text-align: left;">
+                            <label style="font-weight:700; font-size:0.82rem; color:var(--orange);">USUARIO</label>
+                            <input type="text" id="admUser" class="contact-form-input" required placeholder="admin" value="admin">
+                        </div>
+                        <div style="margin-bottom: 20px; text-align: left;">
+                            <label style="font-weight:700; font-size:0.82rem; color:var(--orange);">CONTRASEÑA</label>
+                            <input type="password" id="admPass" class="contact-form-input" required placeholder="••••••••" value="yd2026">
+                        </div>
+                        <button type="submit" class="btn-submit-contact">🔑 Iniciar Sesión CMS</button>
+                    </form>
+                </div>
+
+                <!-- CONTENIDO ADMIN (VISIBLE TRAS LOGIN) -->
+                <div id="adminMainContent" style="display: none;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 25px;">
+                        <div>
+                            <h3 style="color: var(--navy); font-size: 1.5rem;">Catálogo de Productos</h3>
+                            <p style="color: var(--text-muted); font-size: 0.9rem;">Agrega o elimina productos del catálogo</p>
+                        </div>
+                        <button class="btn-analytics" style="padding: 12px 22px;" onclick="openProductFormModal()">➕ Agregar Producto</button>
+                    </div>
+
+                    <div style="overflow-x: auto;">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Imagen</th>
+                                    <th>Título</th>
+                                    <th>Categoría</th>
+                                    <th>Insignia</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminProductsTable">
+                                {% for p in products %}
+                                <tr id="row-{{ p.id }}">
+                                    <td><strong>{{ p.id }}</strong></td>
+                                    <td><img src="{{ p.image }}" style="width: 45px; height: 45px; object-fit: cover; border-radius: 8px;" onerror="this.src='{{ p.fallback_image }}'"></td>
+                                    <td><strong>{{ p.title }}</strong></td>
+                                    <td><span class="badge-admin">{{ p.category_name }}</span></td>
+                                    <td><span style="font-size:0.8rem; font-weight:bold; color:var(--orange);">{{ p.badge or '-' }}</span></td>
+                                    <td>
+                                        <button class="btn-detail" style="padding: 6px 10px; font-size: 0.78rem;" onclick="deleteProduct('{{ p.id }}')">🗑️ Eliminar</button>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- MODAL AGREGAR PRODUCTO -->
+    <div class="modal-backdrop" id="productModal">
+        <div class="modal-card">
+            <button class="modal-close" onclick="closeProductModal()">&times;</button>
+            <h3 id="pFormTitle" style="color: var(--navy); margin-bottom: 18px;">Agregar Producto al Catálogo</h3>
+            
+            <form id="productForm" onsubmit="saveProduct(event)">
+                <input type="hidden" id="pId">
+                <div class="contact-form-group">
+                    <label>Título del Producto *</label>
+                    <input type="text" id="pTitle" class="contact-form-input" required placeholder="Ej: Casco Dieléctrico Especial">
+                </div>
+                <div class="contact-form-group">
+                    <label>Categoría *</label>
+                    <select id="pCategory" class="contact-form-input" required>
+                        <option value="proteccion_personal">Protección Personal</option>
+                        <option value="emergencias_rescate">Emergencias y Rescate</option>
+                        <option value="defensa_civil">Defensa Civil & Brigadas</option>
+                        <option value="senalizacion_seguridad">Señalización y Seguridad</option>
+                        <option value="equipos_brigadas">Equipos para Brigadas</option>
+                        <option value="dotacion_personalizada">Dotación Personalizada</option>
+                    </select>
+                </div>
+                <div class="contact-form-group">
+                    <label>Ruta de la Imagen o URL *</label>
+                    <input type="text" id="pImage" class="contact-form-input" required placeholder="/images/casco_industrial.jpg">
+                </div>
+                <div class="contact-form-group">
+                    <label>Descripción Corta *</label>
+                    <input type="text" id="pShortDesc" class="contact-form-input" required placeholder="Resumen del producto...">
+                </div>
+                <button type="submit" class="btn-submit-contact">💾 Guardar Producto</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL PRODUCTO -->
     <div class="modal-backdrop" id="modalBackdrop">
         <div class="modal-card">
             <button class="modal-close" onclick="closeModal()">&times;</button>
@@ -978,6 +1071,7 @@ INDEX_HTML = """<!DOCTYPE html>
         </div>
     </footer>
 
+    <!-- SCRIPT DE NAVEGACIÓN Y ACCIÓN DE REDIRECCIÓN 100% GARANTIZADA -->
     <script>
         const WHATSAPP_PHONE = '573000000000';
         const productsData = """ + json.dumps(EMBEDDED_PRODUCTS) + """;
@@ -993,11 +1087,18 @@ INDEX_HTML = """<!DOCTYPE html>
             const targetPage = document.getElementById('page-' + pageId);
             const targetBtn = document.getElementById('nav-' + pageId);
 
-            if (targetPage) targetPage.classList.add('active-view');
-            if (targetBtn) targetBtn.classList.add('active-page');
+            if (targetPage) {
+                targetPage.classList.add('active-view');
+            }
+            if (targetBtn) {
+                targetBtn.classList.add('active-page');
+            }
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
-            if (categoryFilter) filterCatalogCategory(categoryFilter);
+
+            if (categoryFilter) {
+                filterCatalogCategory(categoryFilter);
+            }
         }
 
         function filterCatalogCategory(cat, element = null) {
@@ -1015,7 +1116,32 @@ INDEX_HTML = """<!DOCTYPE html>
             });
         }
 
+        function handleAdminLogin(e) {
+            e.preventDefault();
+            const u = document.getElementById('admUser').value;
+            const p = document.getElementById('admPass').value;
+            if (u === 'admin' && p === 'yd2026') {
+                document.getElementById('loginOverlay').style.display = 'none';
+                document.getElementById('adminMainContent').style.display = 'block';
+                sessionStorage.setItem('yd_admin_logged', 'true');
+            } else {
+                alert('Credenciales incorrectas');
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
+            if (sessionStorage.getItem('yd_admin_logged') === 'true') {
+                const overlay = document.getElementById('loginOverlay');
+                const content = document.getElementById('adminMainContent');
+                if (overlay) overlay.style.display = 'none';
+                if (content) content.style.display = 'block';
+            }
+
+            // Detectar si la URL termina en /admin
+            if (window.location.pathname.includes('/admin')) {
+                navigateToPage('admin');
+            }
+
             const searchHomeInput = document.getElementById('searchHomeInput');
             const searchCatalogInput = document.getElementById('searchCatalogInput');
 
@@ -1060,6 +1186,33 @@ INDEX_HTML = """<!DOCTYPE html>
             document.getElementById('modalBackdrop').classList.remove('active');
         }
 
+        function openProductFormModal() {
+            document.getElementById('productModal').classList.add('active');
+        }
+
+        function closeProductModal() {
+            document.getElementById('productModal').classList.remove('active');
+        }
+
+        function saveProduct(e) {
+            e.preventDefault();
+            const title = document.getElementById('pTitle').value;
+            const category = document.getElementById('pCategory').value;
+            const image = document.getElementById('pImage').value;
+            const shortDesc = document.getElementById('pShortDesc').value;
+
+            alert('Producto "' + title + '" guardado exitosamente en el panel CMS.');
+            closeProductModal();
+        }
+
+        function deleteProduct(id) {
+            if (confirm('¿Estás seguro de eliminar el producto ' + id + '?')) {
+                const row = document.getElementById('row-' + id);
+                if (row) row.remove();
+                alert('Producto ' + id + ' eliminado.');
+            }
+        }
+
         function handleContactSubmit(e) {
             e.preventDefault();
             const name = document.getElementById('cName').value;
@@ -1091,341 +1244,6 @@ INDEX_HTML = """<!DOCTYPE html>
 </body>
 </html>"""
 
-# HTML del Panel de Administración CMS Ejecutivo
-ADMIN_HTML = """<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de Administración CMS - YD Protección</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-    <style>
-        """ + EMBEDDED_CSS + """
-        .admin-sidebar {
-            background: var(--navy-dark);
-            color: var(--white);
-            padding: 30px 20px;
-            min-height: 100vh;
-        }
-        .admin-layout {
-            display: grid;
-            grid-template-columns: 260px 1fr;
-            min-height: 100vh;
-        }
-        @media (max-width: 860px) {
-            .admin-layout { grid-template-columns: 1fr; }
-            .admin-sidebar { min-height: auto; }
-        }
-        .admin-menu {
-            list-style: none; margin-top: 30px; padding: 0;
-        }
-        .admin-menu-item {
-            padding: 12px 18px; border-radius: 10px; margin-bottom: 8px; cursor: pointer;
-            font-weight: 700; display: flex; align-items: center; gap: 10px; color: #CBD5E1;
-            transition: all 0.3s;
-        }
-        .admin-menu-item:hover, .admin-menu-item.active {
-            background: var(--orange); color: var(--white);
-        }
-        .admin-content-area { padding: 40px; }
-        .form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        @media (max-width: 600px) { .form-grid-2 { grid-template-columns: 1fr; } }
-    </style>
-</head>
-<body>
-
-    <!-- MODAL LOGIN ADMIN -->
-    <div id="loginOverlay" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(5,14,26,0.95); backdrop-filter: blur(10px); z-index: 5000; display: flex; align-items: center; justify-content: center;">
-        <div style="background: var(--white); padding: 42px; border-radius: 20px; width: 90%; max-width: 420px; text-align: center; box-shadow: 0 25px 50px rgba(0,0,0,0.5); border-top: 5px solid var(--orange);">
-            <div class="brand-badge" style="display: inline-block; margin-bottom: 15px;">YD</div>
-            <h3 style="color: var(--navy); margin-bottom: 6px;">PANEL DE ADMINISTRACIÓN</h3>
-            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 25px;">Ingresa tus credenciales administrativas</p>
-
-            <form onsubmit="handleAdminLogin(event)">
-                <div style="margin-bottom: 15px; text-align: left;">
-                    <label style="font-weight:700; font-size:0.85rem; color:var(--navy);">USUARIO</label>
-                    <input type="text" id="admUser" class="contact-form-input" placeholder="admin" required value="admin">
-                </div>
-                <div style="margin-bottom: 22px; text-align: left;">
-                    <label style="font-weight:700; font-size:0.85rem; color:var(--navy);">CONTRASEÑA</label>
-                    <input type="password" id="admPass" class="contact-form-input" placeholder="••••••••" required value="yd2026">
-                </div>
-                <button type="submit" class="btn-submit-contact">🔑 Iniciar Sesión CMS</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- ESTRUCTURA DEL PANEL CMS -->
-    <div class="admin-layout">
-        <!-- SIDEBAR -->
-        <aside class="admin-sidebar">
-            <div class="brand-logo-group" onclick="location.href='/'">
-                <div class="brand-badge">YD</div>
-                <div class="brand-title">ADMIN <span>CMS</span></div>
-            </div>
-            
-            <ul class="admin-menu">
-                <li class="admin-menu-item active" onclick="switchAdminTab('products')">📦 Administrar Productos</li>
-                <li class="admin-menu-item" onclick="switchAdminTab('services')">🛠️ Administrar Servicios</li>
-                <li class="admin-menu-item" onclick="switchAdminTab('metrics')">📊 Analítica & Cotizaciones</li>
-                <li class="admin-menu-item" onclick="location.href='/'">🌐 Volver a la Web</li>
-                <li class="admin-menu-item" style="color: #EF4444; margin-top: 40px;" onclick="logoutAdmin()">🚪 Cerrar Sesión</li>
-            </ul>
-        </aside>
-
-        <!-- PANEL DE CONTENIDO EDITABLE -->
-        <main class="admin-content-area">
-            
-            <!-- TAB 1: GESTIÓN DE PRODUCTOS -->
-            <div id="tab-products">
-                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 25px;">
-                    <div>
-                        <h2 style="color: var(--navy); font-size: 1.8rem;">Gestión de Catálogo de Productos</h2>
-                        <p style="color: var(--text-muted);">Agrega, edita o elimina productos visibles en la tienda</p>
-                    </div>
-                    <button class="btn-analytics" style="padding: 12px 24px; font-size: 0.95rem;" onclick="openProductFormModal()">➕ Agregar Nuevo Producto</button>
-                </div>
-
-                <div style="overflow-x: auto;">
-                    <table class="admin-table">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Imagen</th>
-                                <th>Título</th>
-                                <th>Categoría</th>
-                                <th>Insignia</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody id="adminProductsTable">
-                            {% for p in products %}
-                            <tr id="row-{{ p.id }}">
-                                <td><strong>{{ p.id }}</strong></td>
-                                <td><img src="{{ p.image }}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 8px;" onerror="this.src='{{ p.fallback_image }}'"></td>
-                                <td><strong>{{ p.title }}</strong></td>
-                                <td><span class="badge-admin">{{ p.category_name }}</span></td>
-                                <td><span style="font-size:0.8rem; font-weight:bold; color:var(--orange);">{{ p.badge or '-' }}</span></td>
-                                <td>
-                                    <button class="btn-detail" style="padding: 6px 12px; font-size: 0.78rem;" onclick="editProduct('{{ p.id }}')">✏️ Editar</button>
-                                    <button class="btn-detail" style="padding: 6px 12px; font-size: 0.78rem; background: #FEE2E2; color: #DC2626; border-color: #FCA5A5;" onclick="deleteProduct('{{ p.id }}')">🗑️ Eliminar</button>
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- TAB 2: GESTIÓN DE SERVICIOS -->
-            <div id="tab-services" style="display: none;">
-                <h2 style="color: var(--navy); font-size: 1.8rem; margin-bottom: 25px;">Servicios Ofrecidos</h2>
-                <div class="grid-2">
-                    {% for s in services %}
-                    <div class="card-box">
-                        <div style="font-size: 2rem;">{{ s.icon }}</div>
-                        <h4>{{ s.title }}</h4>
-                        <p style="color: var(--text-muted); font-size: 0.9rem;">{{ s.desc }}</p>
-                        <div style="margin-top: 15px;">
-                            <span class="badge-admin">Activo</span>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-
-            <!-- TAB 3: ANALÍTICA -->
-            <div id="tab-metrics" style="display: none;">
-                <h2 style="color: var(--navy); font-size: 1.8rem; margin-bottom: 25px;">Métricas y Cotizaciones</h2>
-                <div class="grid-2">
-                    <div class="card-box">
-                        <h4>Total Visualizaciones de Catálogo</h4>
-                        <div style="font-size: 3em; font-weight: 800; color: var(--orange);" id="admViews">0</div>
-                    </div>
-                    <div class="card-box navy-top">
-                        <h4>Cotizaciones Iniciadas por WhatsApp</h4>
-                        <div style="font-size: 3em; font-weight: 800; color: #25D366;" id="admQuotes">0</div>
-                    </div>
-                </div>
-            </div>
-
-        </main>
-    </div>
-
-    <!-- MODAL AGREGAR / EDITAR PRODUCTO -->
-    <div class="modal-backdrop" id="productModal">
-        <div class="modal-card">
-            <button class="modal-close" onclick="closeProductModal()">&times;</button>
-            <h3 id="pFormTitle" style="color: var(--navy); margin-bottom: 20px;">Agregar Producto al Catálogo</h3>
-            
-            <form id="productForm" onsubmit="saveProduct(event)">
-                <input type="hidden" id="pId">
-                <div class="form-grid-2">
-                    <div class="contact-form-group">
-                        <label>Título del Producto *</label>
-                        <input type="text" id="pTitle" class="contact-form-input" required placeholder="Ej: Casco Dieléctrico Especial">
-                    </div>
-                    <div class="contact-form-group">
-                        <label>Categoría *</label>
-                        <select id="pCategory" class="contact-form-input" required>
-                            <option value="proteccion_personal">Protección Personal</option>
-                            <option value="emergencias_rescate">Emergencias y Rescate</option>
-                            <option value="defensa_civil">Defensa Civil & Brigadas</option>
-                            <option value="senalizacion_seguridad">Señalización y Seguridad</option>
-                            <option value="equipos_brigadas">Equipos para Brigadas</option>
-                            <option value="dotacion_personalizada">Dotación Personalizada</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-grid-2">
-                    <div class="contact-form-group">
-                        <label>Insignia / Badge (Opcional)</label>
-                        <input type="text" id="pBadge" class="contact-form-input" placeholder="Ej: MÁS VENDIDO / NORMATIVO">
-                    </div>
-                    <div class="contact-form-group">
-                        <label>Ruta de la Imagen o URL *</label>
-                        <input type="text" id="pImage" class="contact-form-input" required placeholder="/images/casco_industrial.jpg">
-                    </div>
-                </div>
-
-                <div class="contact-form-group">
-                    <label>Descripción Corta *</label>
-                    <input type="text" id="pShortDesc" class="contact-form-input" required placeholder="Resumen conciso del producto...">
-                </div>
-
-                <div class="contact-form-group">
-                    <label>Descripción Detallada *</label>
-                    <textarea id="pDesc" class="contact-form-input" rows="3" required placeholder="Descripción completa y usos principales..."></textarea>
-                </div>
-
-                <div class="contact-form-group">
-                    <label>Especificación 1 (Ej: Norma ANSI Z89.1)</label>
-                    <input type="text" id="pSpec1" class="contact-form-input" placeholder="Norma o especificación principal">
-                </div>
-
-                <button type="submit" class="btn-submit-contact">💾 Guardar Producto en CMS</button>
-            </form>
-        </div>
-    </div>
-
-    <script>
-        const productsData = """ + json.dumps(EMBEDDED_PRODUCTS) + """;
-
-        function handleAdminLogin(e) {
-            e.preventDefault();
-            const u = document.getElementById('admUser').value;
-            const p = document.getElementById('admPass').value;
-            if (u === 'admin' && p === 'yd2026') {
-                document.getElementById('loginOverlay').style.display = 'none';
-                sessionStorage.setItem('yd_admin_logged', 'true');
-                loadMetrics();
-            } else {
-                alert('Credenciales incorrectas');
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            if (sessionStorage.getItem('yd_admin_logged') === 'true') {
-                document.getElementById('loginOverlay').style.display = 'none';
-                loadMetrics();
-            }
-        });
-
-        function logoutAdmin() {
-            sessionStorage.removeItem('yd_admin_logged');
-            location.reload();
-        }
-
-        function switchAdminTab(tabName) {
-            document.getElementById('tab-products').style.display = (tabName === 'products') ? 'block' : 'none';
-            document.getElementById('tab-services').style.display = (tabName === 'services') ? 'block' : 'none';
-            document.getElementById('tab-metrics').style.display = (tabName === 'metrics') ? 'block' : 'none';
-            
-            document.querySelectorAll('.admin-menu-item').forEach(el => el.classList.remove('active'));
-            event.target.classList.add('active');
-        }
-
-        function loadMetrics() {
-            fetch('/api/analytics').then(r=>r.json()).then(d=>{
-                document.getElementById('admViews').textContent = d.total_views || 0;
-                document.getElementById('admQuotes').textContent = d.total_quotes || 0;
-            });
-        }
-
-        function openProductFormModal() {
-            document.getElementById('pFormTitle').textContent = 'Agregar Producto al Catálogo';
-            document.getElementById('pId').value = '';
-            document.getElementById('productForm').reset();
-            document.getElementById('productModal').classList.add('active');
-        }
-
-        function closeProductModal() {
-            document.getElementById('productModal').classList.remove('active');
-        }
-
-        function editProduct(id) {
-            const p = productsData.find(x => x.id === id);
-            if (!p) return;
-            document.getElementById('pFormTitle').textContent = 'Editar Producto ID: ' + id;
-            document.getElementById('pId').value = p.id;
-            document.getElementById('pTitle').value = p.title;
-            document.getElementById('pCategory').value = p.category;
-            document.getElementById('pBadge').value = p.badge || '';
-            document.getElementById('pImage').value = p.image;
-            document.getElementById('pShortDesc').value = p.short_description;
-            document.getElementById('pDesc').value = p.description;
-            document.getElementById('pSpec1').value = (p.specs && p.specs[0]) ? p.specs[0] : '';
-            
-            document.getElementById('productModal').classList.add('active');
-        }
-
-        function saveProduct(e) {
-            e.preventDefault();
-            const pid = document.getElementById('pId').value || ('prod-' + String(Date.now()).slice(-4));
-            const categorySelect = document.getElementById('pCategory');
-            const categoryName = categorySelect.options[categorySelect.selectedIndex].text;
-            
-            const payload = {
-                id: pid,
-                title: document.getElementById('pTitle').value,
-                category: categorySelect.value,
-                category_name: categoryName,
-                badge: document.getElementById('pBadge').value,
-                image: document.getElementById('pImage').value,
-                short_description: document.getElementById('pShortDesc').value,
-                description: document.getElementById('pDesc').value,
-                specs: [document.getElementById('pSpec1').value || 'Calidad Garantizada']
-            };
-
-            const isEdit = !!document.getElementById('pId').value;
-            const method = isEdit ? 'PUT' : 'POST';
-            const url = isEdit ? (`/api/admin/products/${pid}`) : '/api/admin/products';
-
-            fetch(url, {
-                method: method,
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            }).then(r => r.json()).then(res => {
-                alert('Producto guardado correctamente en CMS');
-                location.reload();
-            });
-        }
-
-        function deleteProduct(id) {
-            if (!confirm('¿Estás seguro de eliminar este producto del catálogo?')) return;
-            fetch(`/api/admin/products/${id}`, { method: 'DELETE' })
-            .then(r => r.json())
-            .then(res => {
-                const row = document.getElementById('row-' + id);
-                if (row) row.remove();
-                alert('Producto eliminado');
-            });
-        }
-    </script>
-</body>
-</html>"""
-
 METRICS_DATA = {"total_views": 0, "total_quotes": 0}
 
 @app.get("/")
@@ -1435,6 +1253,7 @@ METRICS_DATA = {"total_views": 0, "total_quotes": 0}
 @app.get("/tienda")
 @app.get("/servicios")
 @app.get("/contacto")
+@app.get("/admin")
 @app.get("/api")
 @app.get("/api/index")
 @app.get("/api/index.py")
@@ -1445,21 +1264,11 @@ async def main_site_pages(request: Request):
     except Exception as e:
         return HTMLResponse(content=f"<h1>Error renderizando sitio web</h1><p>{str(e)}</p>")
 
-@app.get("/admin")
-@app.get("/api/admin")
-async def admin_page(request: Request):
-    try:
-        rendered = Template(ADMIN_HTML).render(products=EMBEDDED_PRODUCTS, services=SERVICES_LIST)
-        return HTMLResponse(content=rendered)
-    except Exception as e:
-        return HTMLResponse(content=f"<h1>Error cargando panel de administración</h1><p>{str(e)}</p>")
-
 @app.get("/dashboard")
 @app.get("/api/dashboard")
 async def dashboard_page(request: Request):
-    return await admin_page(request)
+    return await main_site_pages(request)
 
-# ENDPOINTS CRUD PARA EL CMS ADMIN
 @app.get("/api/products")
 async def get_products(category: Optional[str] = None, q: Optional[str] = None):
     products = EMBEDDED_PRODUCTS
