@@ -7,7 +7,7 @@ from jinja2 import Template
 app = FastAPI(
     title="YD Protección - Sitio Web Oficial",
     description="Plataforma Web Corporativa de YD Protección",
-    version="3.0.0"
+    version="3.1.0"
 )
 
 # Catálogo oficial de la Tienda de YD Protección
@@ -176,41 +176,7 @@ EMBEDDED_PRODUCTS = [
   }
 ]
 
-# Lista de Servicios Profesionales de YD Protección
-SERVICES_LIST = [
-  {
-    "id": "serv-01",
-    "icon": "🛡️",
-    "title": "Suministro de EPP Certificados",
-    "desc": "Provisión integral de Elementos de Protección Personal (Cascos, Gafas, Guantes, Calzado, Protección Auditiva y Respiratoria) bajo normas ANSI, CE e ISO para todo sector industrial."
-  },
-  {
-    "id": "serv-02",
-    "icon": "🚨",
-    "title": "Equipamiento para Brigadas de Emergencia",
-    "desc": "Armado de kits integrales de respuesta rápida para brigadas empresariales e institucionales: Botiquines Tipo A/B/C, camillas espinales, megáfonos, linternas tácticas y extintores."
-  },
-  {
-    "id": "serv-03",
-    "icon": "🦺",
-    "title": "Personalización, Bordados y Marca Institucional",
-    "desc": "Confección y personalización de uniformes, chalecos tácticos, prendas reflectivas, parches en velcro y rotulación corporativa en cascos con el logo de tu organización."
-  },
-  {
-    "id": "serv-04",
-    "icon": "📐",
-    "title": "Asesoría Técnica en Matriz de Riesgo",
-    "desc": "Acompañamiento especializado para la correcta selección e inspección de equipos según el tipo de riesgo operacional y normativa legal vigente."
-  },
-  {
-    "id": "serv-05",
-    "icon": "🧗",
-    "title": "Suministro e Inspección de Equipos de Rescate Vertical",
-    "desc": "Venta y asesoramiento de arneses, cuerdas estáticas, mosquetones forjados y sistemas de anclaje para trabajos en alturas y socorrismo en espacios confinados."
-  }
-]
-
-# Estilos CSS de sitio web profesional con navegación entre páginas / pestañas
+# Estilos CSS de sitio web profesional con desgloses detallados
 EMBEDDED_CSS = """
 :root {
     --navy: #0B1C30;
@@ -388,6 +354,62 @@ section { padding: 80px 0; }
 }
 .section-subtitle { text-align: center; font-size: 1.18em; color: var(--text-muted); margin-bottom: 50px; }
 
+/* TARJETAS DE DESGLOSE DE CATEGORÍAS */
+.category-breakdown-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+    gap: 32px;
+    margin-top: 40px;
+}
+.category-breakdown-card {
+    background: var(--white);
+    border-radius: 18px;
+    padding: 35px 28px;
+    box-shadow: var(--card-shadow);
+    border: 1px solid rgba(0,0,0,0.06);
+    border-top: 6px solid var(--orange);
+    transition: all 0.35s ease;
+}
+.category-breakdown-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--hover-shadow);
+}
+.breakdown-num {
+    display: inline-block;
+    background: rgba(255,102,0,0.12);
+    color: var(--orange);
+    font-weight: 900;
+    font-size: 1.1rem;
+    padding: 4px 14px;
+    border-radius: 50px;
+    margin-bottom: 15px;
+}
+.breakdown-title {
+    color: var(--navy);
+    font-size: 1.35em;
+    margin-bottom: 12px;
+}
+.breakdown-list {
+    list-style: none;
+    padding: 0;
+    margin: 18px 0;
+}
+.breakdown-list li {
+    font-size: 0.95rem;
+    color: var(--text-dark);
+    margin-bottom: 10px;
+    padding-left: 24px;
+    position: relative;
+}
+.breakdown-list li::before {
+    content: '▶';
+    position: absolute;
+    left: 0;
+    color: var(--orange);
+    font-size: 0.75rem;
+    top: 3px;
+}
+
 /* TARJETAS Y CONTENEDORES DE PÁGINAS */
 .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 32px; }
 .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 26px; }
@@ -555,7 +577,7 @@ footer .contact-info span { font-weight: 800; color: var(--orange); margin-right
 .mt-5 { margin-top: 50px; }
 """
 
-# HTML Estructurado exactamente con las 5 páginas solicitadas: Home, Quiénes Somos, Tienda, Servicios, Contacto
+# HTML Estructurado exactamente con el menú de 5 páginas + Sección de Desglose Detallado de Categorías
 INDEX_HTML = """<!DOCTYPE html>
 <html lang="es">
 <head>
@@ -567,7 +589,7 @@ INDEX_HTML = """<!DOCTYPE html>
 </head>
 <body>
 
-    <!-- TOPBAR / MENU DE NAVEGACIÓN PRINCIPAL (HOME, QUIÉNES SOMOS, TIENDA, SERVICIOS, CONTACTO) -->
+    <!-- TOPBAR / MENU DE NAVEGACIÓN PRINCIPAL -->
     <header class="top-bar">
         <div class="container top-bar-content">
             <div class="brand-logo-group" onclick="navigateToPage('home')">
@@ -706,7 +728,7 @@ INDEX_HTML = """<!DOCTYPE html>
         </section>
     </div>
 
-    <!-- ==================== PÁGINA 3: TIENDA ==================== -->
+    <!-- ==================== PÁGINA 3: TIENDA (CON CATEGORÍAS + SECCIÓN DESGLOSE DETALLADO) ==================== -->
     <div id="page-tienda" class="page-view">
         <div class="page-header-banner">
             <div class="container">
@@ -722,9 +744,11 @@ INDEX_HTML = """<!DOCTYPE html>
 
         <section class="bg-white" style="padding-top: 10px;">
             <div class="container">
-                <!-- CATEGORÍAS DENTRO DE LA TIENDA -->
-                <h3 style="text-align: center; color: var(--navy); margin-bottom: 25px;">Filtrar por Categoría</h3>
-                <div class="categories-grid" id="categoriesGrid" style="margin-bottom: 45px;">
+                <!-- SECCIÓN DE CATEGORÍAS (TAL COMO ESTÁ SOLICITADO) -->
+                <h2 class="section-title">Nuestras Categorías</h2>
+                <p class="section-subtitle">Selecciona una categoría para filtrar los productos al instante</p>
+
+                <div class="categories-grid" id="categoriesGrid" style="margin-bottom: 60px;">
                     <div class="category-item active" data-category="todos" onclick="filterCatalogCategory('todos', this)">
                         <span class="number">00</span>
                         <div>
@@ -769,7 +793,9 @@ INDEX_HTML = """<!DOCTYPE html>
                     </div>
                 </div>
 
-                <div class="product-grid" id="productGrid">
+                <!-- GRILLA DE PRODUCTOS -->
+                <h3 style="color: var(--navy); margin-bottom: 25px; font-size: 1.6em; text-align: center;">Productos Disponibles</h3>
+                <div class="product-grid" id="productGrid" style="margin-bottom: 70px;">
                     {% for product in products %}
                     <article class="product-card" data-id="{{ product.id }}" data-category="{{ product.category }}">
                         <div class="product-image-box">
@@ -799,6 +825,109 @@ INDEX_HTML = """<!DOCTYPE html>
                         </div>
                     </article>
                     {% endfor %}
+                </div>
+
+                <!-- NUEVA SECCIÓN SOLICITADA: DESGLOSE DETALLADO DE CADA CATEGORÍA -->
+                <div style="border-top: 2px solid #E2E8F0; padding-top: 60px;">
+                    <h2 class="section-title">Desglose Detallado por Categoría</h2>
+                    <p class="section-subtitle">Conoce los insumos, elementos y certificaciones específicas que incluye cada línea de protección</p>
+
+                    <div class="category-breakdown-grid">
+                        <!-- CATEGORÍA 01 -->
+                        <div class="category-breakdown-card">
+                            <span class="breakdown-num">Categoría 01</span>
+                            <h3 class="breakdown-title">Protección Personal (EPP)</h3>
+                            <p style="color: var(--text-muted); font-size: 0.94rem;">Elementos de protección individual para resguardar la salud e integridad física del trabajador.</p>
+                            
+                            <ul class="breakdown-list">
+                                <li><strong>Protección de Cabeza:</strong> Cascos dieléctricos Tipo I y II Clase E (hasta 20.000V), barboquejos de 4 puntos y arneses de trinquete.</li>
+                                <li><strong>Protección Visual & Facial:</strong> Gafas de policarbonato UV400, monogafas herméticas anti-empañantes y caretas de esmerilar.</li>
+                                <li><strong>Protección Auditiva:</strong> Tapones de silicona con cordón reutilizables y protectores de copa tipo fono adaptables a casco.</li>
+                                <li><strong>Protección Respiratoria:</strong> Respiradores de media cara de doble cartucho para vapores y mascarillas N95 / FFP2.</li>
+                                <li><strong>Protección Manual:</strong> Guantes tácticos anti-corte Nivel 5, dieléctricos, nitrilo industrial y vaqueta.</li>
+                            </ul>
+
+                            <button class="btn-detail" style="width: 100%; margin-top: 10px;" onclick="filterCatalogCategory('proteccion_personal')">Ver Productos EPP</button>
+                        </div>
+
+                        <!-- CATEGORÍA 02 -->
+                        <div class="category-breakdown-card" style="border-top-color: var(--navy);">
+                            <span class="breakdown-num" style="background: rgba(11,28,48,0.12); color: var(--navy);">Categoría 02</span>
+                            <h3 class="breakdown-title">Emergencias y Rescate</h3>
+                            <p style="color: var(--text-muted); font-size: 0.94rem;">Equipamiento médico y operativo especializado para respuesta en contingencias y desastres.</p>
+                            
+                            <ul class="breakdown-list">
+                                <li><strong>Primeros Auxilios:</strong> Botiquines reglamentarios Tipo A, B y C confeccionados en lona tifón impermeable con insumos de curación.</li>
+                                <li><strong>Inmovilización & Transporte:</strong> Camillas espinales rígidas plásticas en polietileno HDPE, inmovilizadores laterales y cuellos cervicales.</li>
+                                <li><strong>Iluminación Operativa:</strong> Linternas tácticas LED 2000 lúmenes recargables por USB, contra impactos y certificación IPX8.</li>
+                                <li><strong>Rescate Vertical:</strong> Cuerdas estáticas 11mm certificadas, arneses de cuerpo entero, mosquetones forjados 50kN y poleas.</li>
+                            </ul>
+
+                            <button class="btn-detail" style="width: 100%; margin-top: 10px;" onclick="filterCatalogCategory('emergencias_rescate')">Ver Productos Rescate</button>
+                        </div>
+
+                        <!-- CATEGORÍA 03 -->
+                        <div class="category-breakdown-card">
+                            <span class="breakdown-num">Categoría 03</span>
+                            <h3 class="breakdown-title">Defensa Civil & Socorrismo</h3>
+                            <p style="color: var(--text-muted); font-size: 0.94rem;">Dotación institucional y prendaje oficial para integrantes de brigadas y organismos de atención.</p>
+                            
+                            <ul class="breakdown-list">
+                                <li><strong>Indumentaria Operativa:</strong> Uniformes de trabajo y prendas en tela Ripstop antidesgarro de alta durabilidad.</li>
+                                <li><strong>Visibilidad & Seguridad:</strong> Chalecos tácticos multibolsillos con cintas reflectivas microesféricas 3M de 2 pulgadas.</li>
+                                <li><strong>Identificación Institucional:</strong> Parches bordados en velcro, insignias removibles de cargo y rotulación corporativa en cascos.</li>
+                                <li><strong>Equipamiento de Campo:</strong> Fundas para radio de comunicación, mochilas de socorrista y cinturones de reata reforzados.</li>
+                            </ul>
+
+                            <button class="btn-detail" style="width: 100%; margin-top: 10px;" onclick="filterCatalogCategory('defensa_civil')">Ver Productos Defensa Civil</button>
+                        </div>
+
+                        <!-- CATEGORÍA 04 -->
+                        <div class="category-breakdown-card" style="border-top-color: var(--navy);">
+                            <span class="breakdown-num" style="background: rgba(11,28,48,0.12); color: var(--navy);">Categoría 04</span>
+                            <h3 class="breakdown-title">Señalización & Seguridad Vial</h3>
+                            <p style="color: var(--text-muted); font-size: 0.94rem;">Dispositivos físicos para delimitación, prevención y control de áreas de peligro.</p>
+                            
+                            <ul class="breakdown-list">
+                                <li><strong>Canalización Vial:</strong> Conos de PVC virgen flexible de 90 cm indeformables con doble cinta reflectiva High Intensity.</li>
+                                <li><strong>Control de Tránsito:</strong> Paletas manuales Pare / Siga reflectivas y linternas de canalización para tráfico nocturno.</li>
+                                <li><strong>Demarcación de Áreas:</strong> Cintas de señalización de peligro "Peligro No Pase" y "Precaución Obras".</li>
+                                <li><strong>Señalización Fotoluminiscente:</strong> Avisos de rutas de evacuación, salidas de emergencia y extintores.</li>
+                            </ul>
+
+                            <button class="btn-detail" style="width: 100%; margin-top: 10px;" onclick="filterCatalogCategory('senalizacion_seguridad')">Ver Productos Señalización</button>
+                        </div>
+
+                        <!-- CATEGORÍA 05 -->
+                        <div class="category-breakdown-card">
+                            <span class="breakdown-num">Categoría 05</span>
+                            <h3 class="breakdown-title">Equipos para Brigadas</h3>
+                            <p style="color: var(--text-muted); font-size: 0.94rem;">Soluciones integrales de comunicación y control de contingencias en empresas e industrias.</p>
+                            
+                            <ul class="breakdown-list">
+                                <li><strong>Comunicación & Evacuación:</strong> Megáfonos profesionales de 50W con sirena de emergencia, grabador y alcance de 1000m.</li>
+                                <li><strong>Higiene Industrial:</strong> Estaciones lavaojos portátiles por gravedad de 32 litros según norma ANSI Z358.1.</li>
+                                <li><strong>Protección Incendio:</strong> Extintores multipropósito ABC, CO2 y Gabinetes de manguera contra incendio.</li>
+                            </ul>
+
+                            <button class="btn-detail" style="width: 100%; margin-top: 10px;" onclick="filterCatalogCategory('equipos_brigadas')">Ver Productos Brigadas</button>
+                        </div>
+
+                        <!-- CATEGORÍA 06 -->
+                        <div class="category-breakdown-card" style="border-top-color: var(--navy);">
+                            <span class="breakdown-num" style="background: rgba(11,28,48,0.12); color: var(--navy);">Categoría 06</span>
+                            <h3 class="breakdown-title">Dotación Personalizada</h3>
+                            <p style="color: var(--text-muted); font-size: 0.94rem;">Servicio completo de bordado, estampado e identidad de marca institucional.</p>
+                            
+                            <ul class="breakdown-list">
+                                <li><strong>Bordados Computarizados:</strong> Bordados en 3D de alta definición para camisetas, gorras, chaquetas y mochilas.</li>
+                                <li><strong>Marcación de Cascos:</strong> Rotulación con vinilos reflectivos de alta adherencia y logos institucionales.</li>
+                                <li><strong>Uniformes Corporativos:</strong> Overalls industriales, camisas y jeans de trabajo en dril normativo.</li>
+                            </ul>
+
+                            <button class="btn-detail" style="width: 100%; margin-top: 10px;" onclick="navigateToPage('contacto')">Solicitar Personalización</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -1135,7 +1264,6 @@ DASHBOARD_HTML = """<!DOCTYPE html>
 
 METRICS_DATA = {"total_views": 0, "total_quotes": 0}
 
-# Enrutamiento de las 5 páginas solicitadas para FastAPI
 @app.get("/")
 @app.get("/home")
 @app.get("/quienes-somos")
