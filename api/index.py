@@ -10,7 +10,7 @@ app = FastAPI(
     version="2.0.0"
 )
 
-# Catálogo oficial con fotos de alta definición 100% exactas y respaldos garantizados
+# Catálogo oficial con fotos de alta definición 100% acordes y datos certificados
 EMBEDDED_PRODUCTS = [
   {
     "id": "prod-001",
@@ -176,45 +176,47 @@ EMBEDDED_PRODUCTS = [
   }
 ]
 
-# Estilos CSS de sitio web profesional premium
+# Sistema de diseño CSS ultra profesional de nivel ejecutivo
 EMBEDDED_CSS = """
 :root {
     --navy: #0B1C30;
-    --navy-dark: #06101D;
+    --navy-dark: #050E1A;
     --orange: #FF6600;
+    --orange-light: #FF8533;
     --orange-hover: #E65C00;
     --white: #FFFFFF;
     --light-bg: #F8FAFC;
-    --text-dark: #1E293B;
-    --text-light: #64748B;
-    --card-shadow: 0 10px 30px -5px rgba(0,0,0,0.06), 0 4px 6px -2px rgba(0,0,0,0.03);
-    --hover-shadow: 0 20px 40px -5px rgba(255,102,0,0.22), 0 12px 18px -4px rgba(11,28,48,0.12);
+    --text-dark: #0F172A;
+    --text-muted: #64748B;
+    --card-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+    --hover-shadow: 0 20px 40px -5px rgba(255, 102, 0, 0.22), 0 12px 20px -4px rgba(11, 28, 48, 0.12);
 }
 
 html { scroll-behavior: smooth; }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
-    font-family: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     background-color: var(--light-bg);
     color: var(--text-dark);
     line-height: 1.6;
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
 }
 
-h1, h2, h3, h4, h5 { font-family: 'Montserrat', sans-serif; text-transform: uppercase; font-weight: 800; }
+h1, h2, h3, h4, h5 { font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif; text-transform: uppercase; font-weight: 800; }
 
 .container { max-width: 1240px; margin: 0 auto; padding: 0 20px; }
 
-/* HEADER / NAVBAR FLOTANTE PROFESIONAL */
+/* HEADER / NAVBAR ELEGANTE Y FLOTANTE */
 .top-bar {
-    background: rgba(6, 16, 29, 0.95);
+    background: rgba(5, 14, 26, 0.95);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     color: var(--white);
     padding: 16px 0;
     border-bottom: 3px solid var(--orange);
     position: sticky; top: 0; z-index: 1000;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    box-shadow: 0 4px 25px rgba(0,0,0,0.3);
 }
 .top-bar-content {
     display: flex;
@@ -228,25 +230,26 @@ h1, h2, h3, h4, h5 { font-family: 'Montserrat', sans-serif; text-transform: uppe
     text-decoration: none;
 }
 .brand-badge {
-    background: linear-gradient(135deg, var(--orange), #FF8533);
+    background: linear-gradient(135deg, var(--orange), var(--orange-light));
     color: #FFF;
     font-family: 'Montserrat', sans-serif;
     font-weight: 900;
-    font-size: 1.2rem;
-    padding: 4px 10px;
-    border-radius: 6px;
+    font-size: 1.25rem;
+    padding: 4px 12px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(255,102,0,0.3);
 }
 .brand-title {
-    font-size: 1.3rem;
+    font-size: 1.35rem;
     font-weight: 900;
     letter-spacing: 1px;
     color: var(--white);
 }
 .brand-title span { color: var(--orange); }
 
-.nav-links { display: flex; gap: 24px; align-items: center; }
+.nav-links { display: flex; gap: 28px; align-items: center; }
 .nav-links a {
-    color: #E2E8F0; text-decoration: none; font-weight: 600; font-size: 0.92rem;
+    color: #E2E8F0; text-decoration: none; font-weight: 600; font-size: 0.94rem;
     transition: all 0.3s ease; position: relative; padding: 4px 0;
 }
 .nav-links a:hover { color: var(--orange); }
@@ -257,7 +260,7 @@ h1, h2, h3, h4, h5 { font-family: 'Montserrat', sans-serif; text-transform: uppe
 .nav-links a:hover::after { width: 100%; }
 
 .btn-analytics {
-    background: linear-gradient(135deg, var(--orange), #FF8533);
+    background: linear-gradient(135deg, var(--orange), var(--orange-light));
     color: var(--white);
     padding: 9px 22px;
     border-radius: 50px;
@@ -271,10 +274,10 @@ h1, h2, h3, h4, h5 { font-family: 'Montserrat', sans-serif; text-transform: uppe
 
 /* HERO IMPACTANTE */
 .hero {
-    background: radial-gradient(circle at 50% 20%, rgba(255,102,0,0.12) 0%, rgba(6,16,29,1) 75%);
+    background: radial-gradient(circle at 50% 20%, rgba(255,102,0,0.12) 0%, rgba(5,14,26,1) 75%);
     color: var(--white);
     text-align: center;
-    padding: 85px 20px 100px;
+    padding: 90px 20px 105px;
     position: relative;
     border-bottom: 1px solid rgba(255,255,255,0.08);
 }
@@ -283,35 +286,35 @@ h1, h2, h3, h4, h5 { font-family: 'Montserrat', sans-serif; text-transform: uppe
     background: rgba(255,102,0,0.15);
     border: 1px solid var(--orange);
     color: var(--orange);
-    padding: 6px 20px;
+    padding: 7px 22px;
     border-radius: 50px;
     font-size: 0.85rem;
     font-weight: 800;
     letter-spacing: 1.5px;
-    margin-bottom: 22px;
+    margin-bottom: 24px;
     text-transform: uppercase;
 }
-.hero h2 { font-size: 1.35em; font-weight: 400; letter-spacing: 2.5px; margin-bottom: 15px; color: #E2E8F0; }
-.hero h3 { font-size: 2.7em; margin-bottom: 18px; text-shadow: 0 4px 15px rgba(0,0,0,0.4); color: var(--white); letter-spacing: -0.5px; }
-.hero p { font-size: 1.2em; max-width: 700px; margin: 0 auto 38px; color: #CBD5E1; line-height: 1.7; }
+.hero h2 { font-size: 1.4em; font-weight: 400; letter-spacing: 2.5px; margin-bottom: 15px; color: #E2E8F0; }
+.hero h3 { font-size: 2.8em; margin-bottom: 18px; text-shadow: 0 4px 15px rgba(0,0,0,0.4); color: var(--white); letter-spacing: -0.5px; }
+.hero p { font-size: 1.22em; max-width: 720px; margin: 0 auto 40px; color: #CBD5E1; line-height: 1.7; }
 
-.search-wrapper { max-width: 620px; margin: 0 auto; position: relative; }
+.search-wrapper { max-width: 640px; margin: 0 auto; position: relative; }
 .search-input {
     width: 100%;
-    padding: 17px 22px 17px 52px;
+    padding: 18px 24px 18px 56px;
     border-radius: 50px;
     border: 2px solid var(--orange);
     background: #FFFFFF;
-    font-size: 1.05rem;
+    font-size: 1.08rem;
     outline: none;
     box-shadow: 0 10px 30px rgba(0,0,0,0.3);
     transition: all 0.3s ease;
 }
-.search-input:focus { box-shadow: 0 0 30px rgba(255,102,0,0.45); }
-.search-icon { position: absolute; left: 22px; top: 50%; transform: translateY(-50%); font-size: 1.2rem; }
+.search-input:focus { box-shadow: 0 0 35px rgba(255,102,0,0.5); }
+.search-icon { position: absolute; left: 24px; top: 50%; transform: translateY(-50%); font-size: 1.25rem; }
 
 /* SECCIONES Y ENCABEZADOS */
-section { padding: 85px 0; }
+section { padding: 90px 0; }
 .section-title {
     text-align: center;
     color: var(--navy);
@@ -326,16 +329,16 @@ section { padding: 85px 0; }
     transform: translateX(-50%); width: 85px; height: 5px;
     background-color: var(--orange); border-radius: 5px;
 }
-.section-subtitle { text-align: center; font-size: 1.18em; color: var(--text-light); margin-bottom: 50px; }
+.section-subtitle { text-align: center; font-size: 1.18em; color: var(--text-muted); margin-bottom: 50px; }
 
-/* GRIDS Y TARJETAS SECCIÓN QUIÉNES SOMOS */
+/* TARJETAS QUIÉNES SOMOS, MISIÓN, VISIÓN Y VALORES */
 .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 32px; }
 .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 26px; }
 .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px; }
 
 .card-box {
     background: var(--white);
-    padding: 42px 30px;
+    padding: 42px 32px;
     border-radius: 16px;
     box-shadow: var(--card-shadow);
     border-top: 5px solid var(--orange);
@@ -347,7 +350,7 @@ section { padding: 85px 0; }
 .card-box:hover { transform: translateY(-8px); box-shadow: var(--hover-shadow); }
 .card-box h4 { color: var(--navy); margin-bottom: 14px; font-size: 1.35em; }
 
-/* NUESTRAS CATEGORÍAS */
+/* CATEGORÍAS */
 .categories-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 24px; }
 .category-item {
     background-color: var(--navy);
@@ -370,7 +373,7 @@ section { padding: 85px 0; }
     color: var(--orange); margin-right: 24px;
 }
 
-/* TARJETAS DE PRODUCTO */
+/* TARJETAS DE PRODUCTO CON FOTOS ALTA DEFINICIÓN */
 .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 36px; }
 .product-card {
     background-color: var(--white);
@@ -401,7 +404,7 @@ section { padding: 85px 0; }
 .product-info { padding: 26px 24px; flex-grow: 1; display: flex; flex-direction: column; }
 .product-category-tag { color: var(--orange); font-size: 0.8rem; font-weight: 800; letter-spacing: 1px; margin-bottom: 6px; }
 .product-info h4 { color: var(--navy); margin-bottom: 10px; font-size: 1.28em; line-height: 1.35; }
-.product-info p { font-size: 0.96em; color: var(--text-light); margin-bottom: 20px; flex-grow: 1; }
+.product-info p { font-size: 0.96em; color: var(--text-muted); margin-bottom: 20px; flex-grow: 1; }
 
 .product-specs { list-style: none; margin-bottom: 22px; padding: 0; border-top: 1px solid #F1F5F9; padding-top: 14px; }
 .product-specs li { font-size: 0.85rem; color: #475569; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
@@ -422,10 +425,49 @@ section { padding: 85px 0; }
 }
 .btn-wa:hover { background-color: #1EBE57; transform: translateY(-2px); box-shadow: 0 6px 18px rgba(37,211,102,0.4); }
 
-/* SECCIONES Y FORMULARIO DE CONTACTO */
+/* MODAL DE VISTA RÁPIDA */
+.modal-backdrop {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.85); backdrop-filter: blur(6px);
+    z-index: 2000; display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+}
+.modal-backdrop.active { opacity: 1; pointer-events: all; }
+.modal-card {
+    background: #FFF; border-radius: 20px; width: 90%; max-width: 820px;
+    padding: 38px; position: relative; max-height: 90vh; overflow-y: auto;
+    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.4);
+}
+.modal-close {
+    position: absolute; top: 18px; right: 22px; background: #F1F5F9; border: none;
+    width: 40px; height: 40px; border-radius: 50%; font-size: 1.4rem; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; transition: background 0.3s;
+}
+.modal-close:hover { background: #E2E8F0; }
+
+/* BANNER DOTACIÓN */
+.dotacion-banner {
+    background: linear-gradient(135deg, var(--orange) 0%, #E65C00 100%);
+    color: var(--white);
+    padding: 80px 20px;
+    text-align: center;
+}
+.dotacion-banner h2 { font-size: 2.5em; margin-bottom: 14px; }
+.dotacion-list {
+    list-style: none; display: flex; flex-wrap: wrap; justify-content: center;
+    gap: 16px; margin-top: 38px; max-width: 950px; margin-left: auto; margin-right: auto;
+}
+.dotacion-list li {
+    background-color: rgba(255,255,255,0.18);
+    padding: 12px 28px; border-radius: 50px; font-weight: 700; border: 1px solid rgba(255,255,255,0.3);
+    transition: all 0.3s ease;
+}
+.dotacion-list li:hover { background-color: var(--white); color: var(--orange); transform: translateY(-3px); }
+
+/* CONTÁCTENOS */
 .contact-section-wrapper {
     display: grid; grid-template-columns: 1fr 1fr; gap: 45px;
-    background: var(--white); padding: 50px; border-radius: 20px;
+    background: var(--white); padding: 55px; border-radius: 20px;
     box-shadow: var(--card-shadow); border: 1px solid rgba(0,0,0,0.06);
 }
 @media (max-width: 900px) { .contact-section-wrapper { grid-template-columns: 1fr; } }
@@ -437,13 +479,13 @@ section { padding: 85px 0; }
 }
 .contact-form-input:focus { border-color: var(--orange); }
 .btn-submit-contact {
-    background: linear-gradient(135deg, var(--orange), #FF8533); color: var(--white); border: none;
+    background: linear-gradient(135deg, var(--orange), var(--orange-light)); color: var(--white); border: none;
     padding: 16px 30px; border-radius: 8px; font-weight: 800; font-size: 1.05rem;
     cursor: pointer; width: 100%; box-shadow: 0 4px 15px rgba(255,102,0,0.3); transition: all 0.3s;
 }
 .btn-submit-contact:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255,102,0,0.5); }
 
-/* FOOTER PROFESIONAL */
+/* FOOTER */
 footer {
     background-color: var(--navy-dark); color: var(--white);
     padding: 85px 20px 40px; text-align: center; border-top: 5px solid var(--orange);
@@ -456,7 +498,7 @@ footer .contact-info span { font-weight: 800; color: var(--orange); margin-right
 .mt-5 { margin-top: 50px; }
 """
 
-# HTML completo formateado de sitio web corporativo
+# HTML completo del sitio web corporativo
 INDEX_HTML = """<!DOCTYPE html>
 <html lang="es">
 <head>
@@ -506,7 +548,7 @@ INDEX_HTML = """<!DOCTYPE html>
             <h2 class="section-title">Quiénes Somos</h2>
             <p class="section-subtitle">Seguridad que salva vidas — Yesika & Daniel</p>
             
-            <p style="text-align: center; max-width: 860px; margin: 0 auto 55px; font-size: 1.18em; color: var(--text-dark); line-height: 1.8;">
+            <p style="text-align: center; max-width: 880px; margin: 0 auto 55px; font-size: 1.18em; color: var(--text-dark); line-height: 1.8;">
                 <strong>YD Protección</strong> es una empresa dedicada al suministro de equipos y soluciones integrales de seguridad industrial, elementos de protección personal (EPP), brigadas de emergencia y respuesta en socorrismo. Acompañamos a industrias e instituciones con productos 100% normativos y asesoría técnica especializada.
             </p>
             
@@ -531,19 +573,19 @@ INDEX_HTML = """<!DOCTYPE html>
             <div class="grid-4" style="margin-bottom: 65px;">
                 <div class="card-box" style="padding: 30px 22px; border-top: 4px solid var(--orange);">
                     <h4 style="font-size: 1.15em; margin-bottom: 10px;">INTEGRIDAD</h4>
-                    <p style="font-size: 0.94em; color: var(--text-light);">Transparencia, honestidad y ética en cada recomendación y producto entregado.</p>
+                    <p style="font-size: 0.94em; color: var(--text-muted);">Transparencia, honestidad y ética en cada recomendación y producto entregado.</p>
                 </div>
                 <div class="card-box" style="padding: 30px 22px; border-top: 4px solid var(--navy);">
                     <h4 style="font-size: 1.15em; margin-bottom: 10px;">COMPROMISO</h4>
-                    <p style="font-size: 0.94em; color: var(--text-light);">Priorizamos la salud y la vida humana sobre todo en cada operación.</p>
+                    <p style="font-size: 0.94em; color: var(--text-muted);">Priorizamos la salud y la vida humana sobre todo en cada operación.</p>
                 </div>
                 <div class="card-box" style="padding: 30px 22px; border-top: 4px solid var(--orange);">
                     <h4 style="font-size: 1.15em; margin-bottom: 10px;">NORMATIVIDAD</h4>
-                    <p style="font-size: 0.94em; color: var(--text-light);">Equipos homologados bajo normas internacionales (ANSI, CE, ISO, EN).</p>
+                    <p style="font-size: 0.94em; color: var(--text-muted);">Equipos homologados bajo normas internacionales (ANSI, CE, ISO, EN).</p>
                 </div>
                 <div class="card-box" style="padding: 30px 22px; border-top: 4px solid var(--navy);">
                     <h4 style="font-size: 1.15em; margin-bottom: 10px;">EXCELENCIA</h4>
-                    <p style="font-size: 0.94em; color: var(--text-light);">Acompañamiento técnico continuo y atención inmediata ante imprevistos.</p>
+                    <p style="font-size: 0.94em; color: var(--text-muted);">Acompañamiento técnico continuo y atención inmediata ante imprevistos.</p>
                 </div>
             </div>
 
@@ -552,19 +594,19 @@ INDEX_HTML = """<!DOCTYPE html>
             <div class="grid-4">
                 <div class="card-box navy-top" style="text-align: center;">
                     <h4 style="font-size: 1.15em;">EQUIPOS CERTIFICADOS</h4>
-                    <p style="font-size: 0.94em; color: var(--text-light);">Garantía de desempeño para tareas de alto riesgo operacional.</p>
+                    <p style="font-size: 0.94em; color: var(--text-muted);">Garantía de desempeño para tareas de alto riesgo operacional.</p>
                 </div>
                 <div class="card-box" style="text-align: center;">
                     <h4 style="font-size: 1.15em;">ASESORÍA ESPECIALIZADA</h4>
-                    <p style="font-size: 0.94em; color: var(--text-light);">Te ayudamos a seleccionar según tu matriz de riesgo y sector industrial.</p>
+                    <p style="font-size: 0.94em; color: var(--text-muted);">Te ayudamos a seleccionar según tu matriz de riesgo y sector industrial.</p>
                 </div>
                 <div class="card-box navy-top" style="text-align: center;">
                     <h4 style="font-size: 1.15em;">AGILIDAD Y LOGÍSTICA</h4>
-                    <p style="font-size: 0.94em; color: var(--text-light);">Suministro oportuno para compras individuales y dotaciones institucionales.</p>
+                    <p style="font-size: 0.94em; color: var(--text-muted);">Suministro oportuno para compras individuales y dotaciones institucionales.</p>
                 </div>
                 <div class="card-box" style="text-align: center;">
                     <h4 style="font-size: 1.15em;">PERSONALIZACIÓN</h4>
-                    <p style="font-size: 0.94em; color: var(--text-light);">Bordados, parches y marcas corporativas a medida de tu institución.</p>
+                    <p style="font-size: 0.94em; color: var(--text-muted);">Bordados, parches y marcas corporativas a medida de tu institución.</p>
                 </div>
             </div>
         </div>
@@ -670,6 +712,30 @@ INDEX_HTML = """<!DOCTYPE html>
         </div>
     </section>
 
+    <!-- MODAL DE DETALLES TÉCNICOS COMPLETO -->
+    <div class="modal-backdrop" id="modalBackdrop">
+        <div class="modal-card">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 28px;">
+                <div style="height: 280px; border-radius: 14px; overflow: hidden; background: #000;">
+                    <img id="mImg" src="" style="width:100%; height:100%; object-fit:cover;">
+                </div>
+                <div>
+                    <span id="mCat" class="product-category-tag">CATEGORÍA</span>
+                    <h3 id="mTitle" style="color: var(--navy); margin-bottom: 10px; font-size: 1.4rem;">Título del producto</h3>
+                    <p id="mDesc" style="color: var(--text-muted); font-size: 0.96rem; margin-bottom: 18px; line-height: 1.6;">Descripción del producto</p>
+                    
+                    <h4 style="color: var(--orange); font-size: 0.9rem; margin-bottom: 10px;">ESPECIFICACIONES TÉCNICAS:</h4>
+                    <ul id="mSpecs" class="product-specs"></ul>
+
+                    <button id="mBtnWa" class="btn-wa" style="width: 100%; padding: 14px; font-size: 1rem; margin-top: 18px;">
+                        Solicitar Cotización por WhatsApp
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- BANNER DOTACIÓN Y PERSONALIZACIÓN -->
     <section class="dotacion-banner">
         <div class="container">
@@ -734,7 +800,7 @@ INDEX_HTML = """<!DOCTYPE html>
                 </div>
 
                 <!-- INFORMACIÓN DE CONTACTO -->
-                <div style="background: var(--navy-dark); color: var(--white); padding: 40px; border-radius: 16px; display: flex; flex-direction: column; justify-content: center;">
+                <div style="background: var(--navy-dark); color: var(--white); padding: 42px; border-radius: 16px; display: flex; flex-direction: column; justify-content: center;">
                     <h3 style="color: var(--orange); margin-bottom: 25px; font-size: 1.5em;">Información Directa</h3>
                     
                     <div style="margin-bottom: 30px; font-size: 1.12em; line-height: 2.2;">
@@ -805,6 +871,27 @@ INDEX_HTML = """<!DOCTYPE html>
                 });
             });
         });
+
+        function openModal(id) {
+            const p = productsData.find(x => x.id === id);
+            if (!p) return;
+
+            document.getElementById('mImg').src = p.image;
+            document.getElementById('mCat').textContent = p.category_name;
+            document.getElementById('mTitle').textContent = p.title;
+            document.getElementById('mDesc').textContent = p.description;
+            
+            const specsList = document.getElementById('mSpecs');
+            specsList.innerHTML = p.specs.map(s => `<li>${s}</li>`).join('');
+
+            document.getElementById('mBtnWa').onclick = () => sendWhatsAppQuote(p.id, p.title, p.category);
+
+            document.getElementById('modalBackdrop').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('modalBackdrop').classList.remove('active');
+        }
 
         function handleContactSubmit(e) {
             e.preventDefault();
