@@ -1,0 +1,439 @@
+/* ESTILOS Y ANIMACIONES - YD PROTECCIÓN */
+
+:root {
+    --navy: #0B1C30;
+    --orange: #FF6600;
+    --white: #FFFFFF;
+    --light-bg: #F4F6F8;
+    --text-dark: #333333;
+    --text-light: #777777;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--light-bg);
+    color: var(--text-dark);
+    line-height: 1.6;
+    overflow-x: hidden; /* Evita scroll horizontal con animaciones */
+}
+
+h1, h2, h3, h4 {
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* =========================================
+   ANIMACIONES (NUEVO)
+   ========================================= */
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0px); }
+}
+
+@keyframes pulseBorder {
+    0% { box-shadow: 0 0 0 0 rgba(255, 102, 0, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(255, 102, 0, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 102, 0, 0); }
+}
+
+.anim-fade-up {
+    animation: fadeInUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.delay-1 { animation-delay: 0.2s; }
+.delay-2 { animation-delay: 0.4s; }
+
+
+/* =========================================
+   HERO / PORTADA
+   ========================================= */
+.hero {
+    background-color: var(--navy);
+    color: var(--white);
+    text-align: center;
+    padding: 80px 20px 100px;
+    border-bottom: 8px solid var(--orange);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Decoración de fondo en el Hero */
+.hero::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(circle, rgba(255,102,0,0.05) 0%, rgba(11,28,48,0) 60%);
+    z-index: 0;
+}
+
+.hero .container {
+    position: relative;
+    z-index: 1;
+}
+
+.logo-container {
+    margin-bottom: 35px;
+    display: flex;
+    justify-content: center;
+}
+
+.logo-img {
+    max-width: 280px;
+    height: auto;
+    filter: drop-shadow(0px 10px 15px rgba(0,0,0,0.5));
+    /* Animación flotante para el logo */
+    animation: float 5s ease-in-out infinite; 
+}
+
+.hero h1 {
+    display: none; 
+}
+
+.hero h2 {
+    font-size: 1.2em;
+    font-weight: 400;
+    letter-spacing: 2px;
+    margin-bottom: 30px;
+    color: #e0e0e0;
+}
+
+.hero .founders {
+    display: inline-block;
+    background-color: var(--orange);
+    color: var(--white);
+    padding: 8px 25px;
+    font-weight: 800;
+    border-radius: 50px;
+    font-size: 0.9em;
+    margin-bottom: 50px;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 15px rgba(255, 102, 0, 0.3);
+}
+
+.hero h3 {
+    font-size: 2.2em;
+    margin-bottom: 15px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.hero p {
+    font-size: 1.1em;
+    max-width: 600px;
+    margin: 0 auto;
+    color: #cccccc;
+}
+
+/* =========================================
+   SECCIONES GENERALES
+   ========================================= */
+section {
+    padding: 80px 0;
+}
+
+.section-title {
+    text-align: center;
+    color: var(--navy);
+    font-size: 2.4em;
+    margin-bottom: 20px;
+    position: relative;
+    padding-bottom: 20px;
+    font-weight: 800;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 5px;
+    background-color: var(--orange);
+    border-radius: 5px;
+}
+
+.section-subtitle {
+    text-align: center;
+    font-size: 1.2em;
+    color: var(--text-light);
+    margin-bottom: 50px;
+}
+
+/* =========================================
+   TARJETAS Y EFECTOS HOVER (NUEVO)
+   ========================================= */
+.grid-3 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    text-align: center;
+}
+
+.card-pilar {
+    background-color: var(--white);
+    padding: 40px 25px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    border-top: 5px solid var(--orange);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Efecto rebote */
+}
+
+.card-pilar.border-navy {
+    border-top: none;
+    border-bottom: 5px solid var(--navy);
+}
+
+/* Animación al pasar el mouse */
+.card-pilar:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+}
+
+.card-pilar h4 {
+    color: var(--navy);
+    font-size: 1.3em;
+    margin-bottom: 15px;
+}
+
+/* =========================================
+   CATEGORÍAS
+   ========================================= */
+.categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 25px;
+}
+
+.category-item {
+    background-color: var(--navy);
+    color: var(--white);
+    padding: 30px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+    border-left: 5px solid transparent;
+}
+
+/* Animación al pasar el mouse */
+.category-item:hover {
+    background-color: #122b4a;
+    border-left: 5px solid var(--orange);
+    transform: translateX(10px); /* Se desliza a la derecha */
+    box-shadow: 0 10px 25px rgba(11, 28, 48, 0.2);
+}
+
+.category-item .number {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.8em;
+    font-weight: 800;
+    color: var(--orange);
+    margin-right: 25px;
+    opacity: 0.9;
+    transition: transform 0.3s ease;
+}
+
+.category-item:hover .number {
+    transform: scale(1.1);
+}
+
+/* =========================================
+   PRODUCTOS
+   ========================================= */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 35px;
+    margin-bottom: 50px;
+}
+
+.product-card {
+    background-color: var(--white);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.4s ease;
+}
+
+/* Animación al pasar el mouse */
+.product-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+}
+
+.product-image {
+    background-color: #e9ecef;
+    height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #adb5bd;
+    font-weight: 600;
+    border-bottom: 1px solid #dee2e6;
+    transition: background-color 0.3s ease;
+}
+
+.product-card:hover .product-image {
+    background-color: #f8f9fa;
+}
+
+.product-info {
+    padding: 30px 25px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-info h4 {
+    color: var(--navy);
+    margin-bottom: 12px;
+    font-size: 1.3em;
+}
+
+.product-info p {
+    font-size: 0.95em;
+    color: var(--text-light);
+    margin-bottom: 25px;
+    flex-grow: 1;
+}
+
+/* =========================================
+   BOTONES
+   ========================================= */
+.btn {
+    display: inline-block;
+    background-color: var(--orange);
+    color: var(--white);
+    text-decoration: none;
+    padding: 14px 28px;
+    font-weight: 800;
+    border-radius: 6px;
+    text-transform: uppercase;
+    font-size: 0.9em;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    border: 2px solid var(--orange);
+}
+
+/* Animación del botón al pasar el mouse */
+.btn:hover {
+    background-color: transparent;
+    color: var(--orange);
+    animation: pulseBorder 1s infinite;
+}
+
+/* =========================================
+   BANNER DOTACIÓN
+   ========================================= */
+.dotacion-banner {
+    background-color: var(--orange);
+    background-image: linear-gradient(135deg, var(--orange) 0%, #e65c00 100%);
+    color: var(--white);
+    padding: 80px 20px;
+    text-align: center;
+}
+
+.dotacion-banner h2 {
+    font-size: 2.5em;
+    margin-bottom: 15px;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.dotacion-list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 40px;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.dotacion-list li {
+    background-color: rgba(255,255,255,0.15);
+    padding: 12px 25px;
+    border-radius: 50px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.dotacion-list li:hover {
+    background-color: var(--white);
+    color: var(--orange);
+    transform: translateY(-3px);
+}
+
+/* =========================================
+   FOOTER
+   ========================================= */
+footer {
+    background-color: var(--navy);
+    color: var(--white);
+    padding: 80px 20px 30px;
+    text-align: center;
+    border-top: 5px solid var(--orange);
+}
+
+footer h2 {
+    color: var(--orange);
+    font-size: 2.2em;
+    margin-bottom: 15px;
+}
+
+footer .contact-info {
+    margin: 40px 0;
+    font-size: 1.15em;
+    line-height: 2.2;
+}
+
+footer .contact-info span {
+    font-weight: 800;
+    color: var(--orange);
+    margin-right: 10px;
+}
+
+.footer-bottom {
+    margin-top: 60px;
+    padding-top: 25px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    font-size: 0.9em;
+    color: #888;
+    letter-spacing: 1px;
+}
+
+/* Utilidades */
+.bg-white { background-color: var(--white); }
+.mt-5 { margin-top: 50px; }
