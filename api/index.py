@@ -1,16 +1,16 @@
 import json
-from typing import Optional, Dict
-from fastapi import FastAPI, Request
+from typing import Optional, Dict, List
+from fastapi import FastAPI, Request, HTTPException
 from fastapi.responses import HTMLResponse, JSONResponse
 from jinja2 import Template
 
 app = FastAPI(
-    title="YD Protección - Sitio Web Oficial",
-    description="Plataforma Web Corporativa de YD Protección",
-    version="3.3.0"
+    title="YD Protección - Sitio Web Oficial & CMS Admin",
+    description="Plataforma Web Corporativa y Panel de Administración CMS para YD Protección",
+    version="4.0.0"
 )
 
-# Catálogo oficial de la Tienda de YD Protección
+# Catálogo oficial de la Tienda de YD Protección (Base editable)
 EMBEDDED_PRODUCTS = [
   {
     "id": "prod-001",
@@ -176,7 +176,7 @@ EMBEDDED_PRODUCTS = [
   }
 ]
 
-# Lista de Servicios Profesionales de YD Protección
+# Lista de Servicios Profesionales
 SERVICES_LIST = [
   {
     "id": "serv-01",
@@ -210,7 +210,7 @@ SERVICES_LIST = [
   }
 ]
 
-# Estilos CSS con diseño 100% Responsivo adaptado a Celulares, Tablets y Pantallas Grandes
+# Estilos CSS compartidos
 EMBEDDED_CSS = """
 :root {
     --navy: #0B1C30;
@@ -238,12 +238,10 @@ body {
 }
 
 h1, h2, h3, h4, h5 { font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif; text-transform: uppercase; font-weight: 800; }
-
 img { max-width: 100%; height: auto; display: block; }
-
 .container { max-width: 1240px; margin: 0 auto; padding: 0 20px; }
 
-/* HEADER / NAVBAR RESPONSIVO */
+/* HEADER / NAVBAR */
 .top-bar {
     background: rgba(5, 14, 26, 0.96);
     backdrop-filter: blur(14px);
@@ -255,47 +253,23 @@ img { max-width: 100%; height: auto; display: block; }
     box-shadow: 0 4px 25px rgba(0,0,0,0.3);
 }
 .top-bar-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 15px;
+    display: flex; justify-content: space-between; align-items: center; gap: 15px;
 }
 .brand-logo-group {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    text-decoration: none;
-    cursor: pointer;
-    flex-shrink: 0;
+    display: flex; align-items: center; gap: 10px; text-decoration: none; cursor: pointer; flex-shrink: 0;
 }
 .brand-badge {
     background: linear-gradient(135deg, var(--orange), var(--orange-light));
-    color: #FFF;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 900;
-    font-size: 1.15rem;
-    padding: 4px 10px;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(255,102,0,0.3);
+    color: #FFF; font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.15rem;
+    padding: 4px 10px; border-radius: 8px; box-shadow: 0 4px 12px rgba(255,102,0,0.3);
 }
-.brand-title {
-    font-size: 1.25rem;
-    font-weight: 900;
-    letter-spacing: 0.5px;
-    color: var(--white);
-}
+.brand-title { font-size: 1.25rem; font-weight: 900; letter-spacing: 0.5px; color: var(--white); }
 .brand-title span { color: var(--orange); }
 
-.nav-links {
-    display: flex;
-    gap: 18px;
-    align-items: center;
-    flex-wrap: wrap;
-}
+.nav-links { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; }
 .nav-link-btn {
     color: #E2E8F0; text-decoration: none; font-weight: 700; font-size: 0.9rem;
-    transition: all 0.3s ease; position: relative; padding: 6px 2px; background: none; border: none; cursor: pointer;
-    white-space: nowrap;
+    transition: all 0.3s ease; position: relative; padding: 6px 2px; background: none; border: none; cursor: pointer; white-space: nowrap;
 }
 .nav-link-btn:hover, .nav-link-btn.active-page { color: var(--orange); }
 .nav-link-btn::after {
@@ -306,51 +280,24 @@ img { max-width: 100%; height: auto; display: block; }
 
 .btn-analytics {
     background: linear-gradient(135deg, var(--orange), var(--orange-light));
-    color: var(--white);
-    padding: 8px 18px;
-    border-radius: 50px;
-    text-decoration: none;
-    font-weight: 700;
-    font-size: 0.85rem;
-    box-shadow: 0 4px 14px rgba(255,102,0,0.35);
-    transition: all 0.3s ease;
-    white-space: nowrap;
-    flex-shrink: 0;
+    color: var(--white); padding: 8px 18px; border-radius: 50px; text-decoration: none;
+    font-weight: 700; font-size: 0.85rem; box-shadow: 0 4px 14px rgba(255,102,0,0.35); transition: all 0.3s ease;
+    white-space: nowrap; flex-shrink: 0; cursor: pointer;
 }
 .btn-analytics:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255,102,0,0.5); }
 
-/* VISTAS / PÁGINAS DEDICADAS */
-.page-view {
-    display: none;
-    opacity: 0;
-    transition: opacity 0.35s ease-in-out;
-}
-.page-view.active-view {
-    display: block;
-    opacity: 1;
-}
+/* VISTAS */
+.page-view { display: none; opacity: 0; transition: opacity 0.35s ease-in-out; }
+.page-view.active-view { display: block; opacity: 1; }
 
-/* HERO ADAPTABLE */
+/* HERO */
 .hero {
     background: radial-gradient(circle at 50% 20%, rgba(255,102,0,0.12) 0%, rgba(5,14,26,1) 75%);
-    color: var(--white);
-    text-align: center;
-    padding: 70px 20px 85px;
-    position: relative;
-    border-bottom: 1px solid rgba(255,255,255,0.08);
+    color: var(--white); text-align: center; padding: 70px 20px 85px; position: relative; border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 .hero-tag {
-    display: inline-block;
-    background: rgba(255,102,0,0.15);
-    border: 1px solid var(--orange);
-    color: var(--orange);
-    padding: 6px 18px;
-    border-radius: 50px;
-    font-size: 0.8rem;
-    font-weight: 800;
-    letter-spacing: 1.2px;
-    margin-bottom: 20px;
-    text-transform: uppercase;
+    display: inline-block; background: rgba(255,102,0,0.15); border: 1px solid var(--orange);
+    color: var(--orange); padding: 6px 18px; border-radius: 50px; font-size: 0.8rem; font-weight: 800; letter-spacing: 1.2px; margin-bottom: 20px; text-transform: uppercase;
 }
 .hero h2 { font-size: clamp(1rem, 2.5vw, 1.4rem); font-weight: 400; letter-spacing: 2px; margin-bottom: 12px; color: #E2E8F0; }
 .hero h3 { font-size: clamp(1.6rem, 5vw, 2.7rem); margin-bottom: 16px; text-shadow: 0 4px 15px rgba(0,0,0,0.4); color: var(--white); letter-spacing: -0.5px; line-height: 1.25; }
@@ -358,15 +305,8 @@ img { max-width: 100%; height: auto; display: block; }
 
 .search-wrapper { max-width: 640px; margin: 0 auto; position: relative; }
 .search-input {
-    width: 100%;
-    padding: 16px 20px 16px 50px;
-    border-radius: 50px;
-    border: 2px solid var(--orange);
-    background: #FFFFFF;
-    font-size: 1rem;
-    outline: none;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    transition: all 0.3s ease;
+    width: 100%; padding: 16px 20px 16px 50px; border-radius: 50px; border: 2px solid var(--orange);
+    background: #FFFFFF; font-size: 1rem; outline: none; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transition: all 0.3s ease;
 }
 .search-input:focus { box-shadow: 0 0 30px rgba(255,102,0,0.5); }
 .search-icon { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); font-size: 1.15rem; }
@@ -374,243 +314,115 @@ img { max-width: 100%; height: auto; display: block; }
 /* SECCIONES Y ENCABEZADOS DE PÁGINA */
 .page-header-banner {
     background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
-    color: var(--white);
-    padding: 50px 20px;
-    text-align: center;
-    border-bottom: 4px solid var(--orange);
-    margin-bottom: 35px;
+    color: var(--white); padding: 50px 20px; text-align: center; border-bottom: 4px solid var(--orange); margin-bottom: 35px;
 }
 .page-header-banner h1 { font-size: clamp(1.6rem, 4vw, 2.4rem); margin-bottom: 10px; color: var(--white); }
 .page-header-banner p { font-size: clamp(0.95rem, 2vw, 1.15rem); color: #CBD5E1; max-width: 700px; margin: 0 auto; }
 
 section { padding: 60px 0; }
 .section-title {
-    text-align: center;
-    color: var(--navy);
-    font-size: clamp(1.8rem, 4vw, 2.5rem);
-    margin-bottom: 12px;
-    position: relative;
-    padding-bottom: 18px;
-    letter-spacing: -0.5px;
+    text-align: center; color: var(--navy); font-size: clamp(1.8rem, 4vw, 2.5rem);
+    margin-bottom: 12px; position: relative; padding-bottom: 18px; letter-spacing: -0.5px;
 }
 .section-title::after {
-    content: ''; position: absolute; bottom: 0; left: 50%;
-    transform: translateX(-50%); width: 75px; height: 4px;
-    background-color: var(--orange); border-radius: 4px;
+    content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 75px; height: 4px; background-color: var(--orange); border-radius: 4px;
 }
 .section-subtitle { text-align: center; font-size: clamp(0.95rem, 2vw, 1.15rem); color: var(--text-muted); margin-bottom: 40px; }
 
-/* TARJETAS DE DESGLOSE DE CATEGORÍAS */
-.category-breakdown-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-    gap: 24px;
-    margin-top: 30px;
-}
+/* DESGLOSE Y GRILLAS */
+.category-breakdown-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 24px; margin-top: 30px; }
 .category-breakdown-card {
-    background: var(--white);
-    border-radius: 18px;
-    padding: 28px 22px;
-    box-shadow: var(--card-shadow);
-    border: 1px solid rgba(0,0,0,0.06);
-    border-top: 6px solid var(--orange);
-    transition: all 0.35s ease;
+    background: var(--white); border-radius: 18px; padding: 28px 22px; box-shadow: var(--card-shadow);
+    border: 1px solid rgba(0,0,0,0.06); border-top: 6px solid var(--orange); transition: all 0.35s ease;
 }
-.category-breakdown-card:hover {
-    transform: translateY(-6px);
-    box-shadow: var(--hover-shadow);
-}
-.breakdown-num {
-    display: inline-block;
-    background: rgba(255,102,0,0.12);
-    color: var(--orange);
-    font-weight: 900;
-    font-size: 1rem;
-    padding: 4px 12px;
-    border-radius: 50px;
-    margin-bottom: 12px;
-}
-.breakdown-title {
-    color: var(--navy);
-    font-size: 1.25em;
-    margin-bottom: 10px;
-}
-.breakdown-list {
-    list-style: none;
-    padding: 0;
-    margin: 15px 0;
-}
-.breakdown-list li {
-    font-size: 0.9rem;
-    color: var(--text-dark);
-    margin-bottom: 8px;
-    padding-left: 20px;
-    position: relative;
-}
-.breakdown-list li::before {
-    content: '▶';
-    position: absolute;
-    left: 0;
-    color: var(--orange);
-    font-size: 0.7rem;
-    top: 3px;
-}
+.category-breakdown-card:hover { transform: translateY(-6px); box-shadow: var(--hover-shadow); }
+.breakdown-num { display: inline-block; background: rgba(255,102,0,0.12); color: var(--orange); font-weight: 900; font-size: 1rem; padding: 4px 12px; border-radius: 50px; margin-bottom: 12px; }
+.breakdown-title { color: var(--navy); font-size: 1.25em; margin-bottom: 10px; }
+.breakdown-list { list-style: none; padding: 0; margin: 15px 0; }
+.breakdown-list li { font-size: 0.9rem; color: var(--text-dark); margin-bottom: 8px; padding-left: 20px; position: relative; }
+.breakdown-list li::before { content: '▶'; position: absolute; left: 0; color: var(--orange); font-size: 0.7rem; top: 3px; }
 
-/* GRILLAS RESPONSIVAS */
 .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 24px; }
 .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
 .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
 
 .card-box {
-    background: var(--white);
-    padding: 32px 24px;
-    border-radius: 16px;
-    box-shadow: var(--card-shadow);
-    border-top: 5px solid var(--orange);
-    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    border-left: 1px solid rgba(0,0,0,0.04);
-    border-right: 1px solid rgba(0,0,0,0.04);
+    background: var(--white); padding: 32px 24px; border-radius: 16px; box-shadow: var(--card-shadow);
+    border-top: 5px solid var(--orange); transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    border-left: 1px solid rgba(0,0,0,0.04); border-right: 1px solid rgba(0,0,0,0.04);
 }
 .card-box.navy-top { border-top: 5px solid var(--navy); }
 .card-box:hover { transform: translateY(-6px); box-shadow: var(--hover-shadow); }
 .card-box h4 { color: var(--navy); margin-bottom: 12px; font-size: 1.25em; }
 
-/* CATEGORÍAS GRID */
 .categories-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; }
 .category-item {
-    background-color: var(--navy);
-    color: var(--white);
-    padding: 22px;
-    border-radius: 16px;
-    display: flex; align-items: center;
-    cursor: pointer; transition: all 0.35s ease;
-    border-left: 5px solid transparent;
+    background-color: var(--navy); color: var(--white); padding: 22px; border-radius: 16px;
+    display: flex; align-items: center; cursor: pointer; transition: all 0.35s ease; border-left: 5px solid transparent;
 }
 .category-item:hover, .category-item.active {
-    background-color: #112844;
-    border-left: 5px solid var(--orange);
-    transform: translateX(6px);
-    box-shadow: 0 10px 25px rgba(11,28,48,0.25);
+    background-color: #112844; border-left: 5px solid var(--orange); transform: translateX(6px); box-shadow: 0 10px 25px rgba(11,28,48,0.25);
 }
-.category-item .number {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 2.2em; font-weight: 900;
-    color: var(--orange); margin-right: 18px; flex-shrink: 0;
-}
+.category-item .number { font-family: 'Montserrat', sans-serif; font-size: 2.2em; font-weight: 900; color: var(--orange); margin-right: 18px; flex-shrink: 0; }
 
-/* TARJETAS DE PRODUCTO */
 .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 26px; }
 .product-card {
-    background-color: var(--white);
-    border-radius: 16px; overflow: hidden;
-    box-shadow: var(--card-shadow);
-    display: flex; flex-direction: column;
-    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    border: 1px solid rgba(0,0,0,0.06);
+    background-color: var(--white); border-radius: 16px; overflow: hidden; box-shadow: var(--card-shadow);
+    display: flex; flex-direction: column; transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid rgba(0,0,0,0.06);
 }
 .product-card:hover { transform: translateY(-8px); box-shadow: var(--hover-shadow); }
-.product-image-box {
-    background-color: #0F172A;
-    height: 220px; position: relative; overflow: hidden;
-    display: flex; align-items: center; justify-content: center;
-}
-.product-image-box img {
-    width: 100%; height: 100%; object-fit: cover;
-    transition: transform 0.6s ease;
-}
+.product-image-box { background-color: #0F172A; height: 220px; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.product-image-box img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
 .product-card:hover .product-image-box img { transform: scale(1.08); }
-.product-badge {
-    position: absolute; top: 12px; right: 12px;
-    background: rgba(11, 28, 48, 0.92);
-    border: 1px solid var(--orange); color: var(--orange);
-    padding: 4px 12px; border-radius: 50px; font-size: 0.72rem; font-weight: 800;
-}
+.product-badge { position: absolute; top: 12px; right: 12px; background: rgba(11, 28, 48, 0.92); border: 1px solid var(--orange); color: var(--orange); padding: 4px 12px; border-radius: 50px; font-size: 0.72rem; font-weight: 800; }
 .product-info { padding: 22px 20px; flex-grow: 1; display: flex; flex-direction: column; }
 .product-category-tag { color: var(--orange); font-size: 0.78rem; font-weight: 800; letter-spacing: 0.8px; margin-bottom: 5px; }
 .product-info h4 { color: var(--navy); margin-bottom: 8px; font-size: 1.18em; line-height: 1.3; }
 .product-info p { font-size: 0.92em; color: var(--text-muted); margin-bottom: 16px; flex-grow: 1; }
-
 .product-specs { list-style: none; margin-bottom: 18px; padding: 0; border-top: 1px solid #F1F5F9; padding-top: 12px; }
 .product-specs li { font-size: 0.82rem; color: #475569; margin-bottom: 5px; display: flex; align-items: center; gap: 6px; }
 .product-specs li::before { content: '✓'; color: var(--orange); font-weight: bold; }
 
 .btn-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: auto; }
-.btn-detail {
-    background: #F1F5F9; color: var(--navy); border: 1px solid #CBD5E1;
-    padding: 10px 14px; border-radius: 8px; font-weight: 700; font-size: 0.84em; cursor: pointer;
-    transition: all 0.3s; text-align: center;
-}
+.btn-detail { background: #F1F5F9; color: var(--navy); border: 1px solid #CBD5E1; padding: 10px 14px; border-radius: 8px; font-weight: 700; font-size: 0.84em; cursor: pointer; transition: all 0.3s; text-align: center; }
 .btn-detail:hover { background: #E2E8F0; }
-.btn-wa {
-    background-color: #25D366; color: #FFF; border: none;
-    padding: 10px 14px; border-radius: 8px; font-weight: 800; font-size: 0.84em;
-    cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px;
-    box-shadow: 0 4px 12px rgba(37,211,102,0.25); transition: all 0.3s ease;
-}
+.btn-wa { background-color: #25D366; color: #FFF; border: none; padding: 10px 14px; border-radius: 8px; font-weight: 800; font-size: 0.84em; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px; box-shadow: 0 4px 12px rgba(37,211,102,0.25); transition: all 0.3s ease; }
 .btn-wa:hover { background-color: #1EBE57; transform: translateY(-2px); box-shadow: 0 6px 18px rgba(37,211,102,0.4); }
 
-/* MODAL ADAPTABLE A PANTALLAS MÓVILES */
-.modal-backdrop {
-    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-    background: rgba(0,0,0,0.85); backdrop-filter: blur(6px);
-    z-index: 2000; display: flex; align-items: center; justify-content: center;
-    opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
-}
+/* MODAL */
+.modal-backdrop { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.85); backdrop-filter: blur(6px); z-index: 2000; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
 .modal-backdrop.active { opacity: 1; pointer-events: all; }
-.modal-card {
-    background: #FFF; border-radius: 18px; width: 92%; max-width: 800px;
-    padding: 30px 22px; position: relative; max-height: 90vh; overflow-y: auto;
-    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.4);
-}
-.modal-close {
-    position: absolute; top: 14px; right: 16px; background: #F1F5F9; border: none;
-    width: 36px; height: 36px; border-radius: 50%; font-size: 1.3rem; cursor: pointer;
-    display: flex; align-items: center; justify-content: center; transition: background 0.3s;
-    z-index: 10;
-}
+.modal-card { background: #FFF; border-radius: 18px; width: 92%; max-width: 800px; padding: 30px 22px; position: relative; max-height: 90vh; overflow-y: auto; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.4); }
+.modal-close { position: absolute; top: 14px; right: 16px; background: #F1F5F9; border: none; width: 36px; height: 36px; border-radius: 50%; font-size: 1.3rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.3s; z-index: 10; }
 .modal-close:hover { background: #E2E8F0; }
 
-/* CONTÁCTENOS RESPONSIVO */
-.contact-section-wrapper {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 35px;
-    background: var(--white); padding: 45px 35px; border-radius: 20px;
-    box-shadow: var(--card-shadow); border: 1px solid rgba(0,0,0,0.06);
-}
+/* CONTÁCTENOS */
+.contact-section-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 35px; background: var(--white); padding: 45px 35px; border-radius: 20px; box-shadow: var(--card-shadow); border: 1px solid rgba(0,0,0,0.06); }
 .contact-form-group { margin-bottom: 18px; }
 .contact-form-group label { display: block; font-weight: 700; margin-bottom: 6px; color: var(--navy); font-size: 0.9rem; }
-.contact-form-input {
-    width: 100%; padding: 13px 16px; border-radius: 8px; border: 1px solid #CBD5E1;
-    font-size: 0.96rem; outline: none; transition: border-color 0.3s;
-}
+.contact-form-input { width: 100%; padding: 13px 16px; border-radius: 8px; border: 1px solid #CBD5E1; font-size: 0.96rem; outline: none; transition: border-color 0.3s; }
 .contact-form-input:focus { border-color: var(--orange); }
-.btn-submit-contact {
-    background: linear-gradient(135deg, var(--orange), var(--orange-light)); color: var(--white); border: none;
-    padding: 15px 24px; border-radius: 8px; font-weight: 800; font-size: 1rem;
-    cursor: pointer; width: 100%; box-shadow: 0 4px 15px rgba(255,102,0,0.3); transition: all 0.3s;
-}
+.btn-submit-contact { background: linear-gradient(135deg, var(--orange), var(--orange-light)); color: var(--white); border: none; padding: 15px 24px; border-radius: 8px; font-weight: 800; font-size: 1rem; cursor: pointer; width: 100%; box-shadow: 0 4px 15px rgba(255,102,0,0.3); transition: all 0.3s; }
 .btn-submit-contact:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255,102,0,0.5); }
 
+/* TABLAS Y CMS ADMIN */
+.admin-table { width: 100%; border-collapse: collapse; margin-top: 20px; background: var(--white); border-radius: 12px; overflow: hidden; box-shadow: var(--card-shadow); }
+.admin-table th { background: var(--navy); color: var(--white); padding: 14px; text-align: left; font-size: 0.9rem; }
+.admin-table td { padding: 14px; border-bottom: 1px solid #E2E8F0; font-size: 0.9rem; vertical-align: middle; }
+.admin-table tr:hover { background: #F8FAFC; }
+.badge-admin { padding: 4px 10px; border-radius: 50px; font-size: 0.75rem; font-weight: bold; background: rgba(255,102,0,0.12); color: var(--orange); }
+
 /* FOOTER */
-footer {
-    background-color: var(--navy-dark); color: var(--white);
-    padding: 65px 20px 35px; text-align: center; border-top: 5px solid var(--orange);
-}
+footer { background-color: var(--navy-dark); color: var(--white); padding: 65px 20px 35px; text-align: center; border-top: 5px solid var(--orange); }
 footer h2 { color: var(--orange); font-size: clamp(1.5rem, 3.5vw, 2.2rem); margin-bottom: 12px; }
 .footer-bottom { margin-top: 45px; padding-top: 22px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.85em; color: #94A3B8; }
 .bg-white { background-color: var(--white); }
 .mt-5 { margin-top: 35px; }
 
-/* MEDIA QUERIES REFINADAS PARA CELULARES Y TABLETS (< 860px y < 600px) */
 @media (max-width: 860px) {
     .top-bar-content { flex-direction: column; align-items: stretch; gap: 12px; }
     .brand-logo-group { justify-content: center; }
-    .nav-links {
-        justify-content: center;
-        overflow-x: auto;
-        padding-bottom: 6px;
-        -webkit-overflow-scrolling: touch;
-        gap: 14px;
-    }
+    .nav-links { justify-content: center; overflow-x: auto; padding-bottom: 6px; -webkit-overflow-scrolling: touch; gap: 14px; }
     .btn-analytics { align-self: center; }
     .contact-section-wrapper { grid-template-columns: 1fr; padding: 30px 20px; }
 }
@@ -622,15 +434,13 @@ footer h2 { color: var(--orange); font-size: clamp(1.5rem, 3.5vw, 2.2rem); margi
     .nav-link-btn { font-size: 0.84rem; padding: 4px 2px; }
     .search-input { font-size: 0.92rem; padding: 14px 16px 14px 44px; }
     .search-icon { left: 16px; font-size: 1rem; }
-    .product-grid, .grid-2, .grid-3, .grid-4, .categories-grid, .category-breakdown-grid {
-        grid-template-columns: 1fr;
-    }
+    .product-grid, .grid-2, .grid-3, .grid-4, .categories-grid, .category-breakdown-grid { grid-template-columns: 1fr; }
     .btn-group { grid-template-columns: 1fr; }
     .modal-card { padding: 24px 16px; }
 }
 """
 
-# Template HTML
+# Template HTML del Sitio Público
 INDEX_HTML = """<!DOCTYPE html>
 <html lang="es">
 <head>
@@ -642,7 +452,7 @@ INDEX_HTML = """<!DOCTYPE html>
 </head>
 <body>
 
-    <!-- TOPBAR CON NAVEGACIÓN TOTALMENTE RESPONSIVA -->
+    <!-- TOPBAR -->
     <header class="top-bar">
         <div class="container top-bar-content">
             <div class="brand-logo-group" onclick="navigateToPage('home')">
@@ -657,7 +467,10 @@ INDEX_HTML = """<!DOCTYPE html>
                 <button class="nav-link-btn" id="nav-servicios" onclick="navigateToPage('servicios')">Servicios</button>
                 <button class="nav-link-btn" id="nav-contacto" onclick="navigateToPage('contacto')">Contacto</button>
             </nav>
-            <a href="/dashboard" class="btn-analytics">📊 Analítica</a>
+            <div style="display: flex; gap: 10px; align-items: center;">
+                <a href="/admin" class="btn-analytics" style="background: linear-gradient(135deg, var(--navy), #112844);">⚙️ Panel Admin</a>
+                <a href="/dashboard" class="btn-analytics">📊 Analítica</a>
+            </div>
         </div>
     </header>
 
@@ -782,7 +595,7 @@ INDEX_HTML = """<!DOCTYPE html>
         </section>
     </div>
 
-    <!-- ==================== PÁGINA 3: CATEGORÍAS (PANEL + SECCIÓN DESGLOSE DETALLADO) ==================== -->
+    <!-- ==================== PÁGINA 3: CATEGORÍAS ==================== -->
     <div id="page-categorias" class="page-view">
         <div class="page-header-banner">
             <div class="container">
@@ -848,18 +661,15 @@ INDEX_HTML = """<!DOCTYPE html>
                     </div>
                 </div>
 
-                <!-- SECCIÓN DE DESGLOSE DETALLADO -->
                 <div style="border-top: 3px solid var(--orange); padding-top: 50px;">
                     <h2 class="section-title">Desglose Detallado por Categoría</h2>
                     <p class="section-subtitle">Conoce los insumos, elementos y certificaciones específicas que incluye cada línea de protección</p>
 
                     <div class="category-breakdown-grid">
-                        <!-- CATEGORÍA 01 -->
                         <div class="category-breakdown-card">
                             <span class="breakdown-num">Categoría 01</span>
                             <h3 class="breakdown-title">Protección Personal (EPP)</h3>
                             <p style="color: var(--text-muted); font-size: 0.9rem;">Elementos de protección individual para resguardar la salud e integridad física del trabajador.</p>
-                            
                             <ul class="breakdown-list">
                                 <li><strong>Protección de Cabeza:</strong> Cascos dieléctricos Tipo I y II Clase E (hasta 20.000V), barboquejos de 4 puntos y arneses de trinquete.</li>
                                 <li><strong>Protección Visual & Facial:</strong> Gafas de policarbonato UV400, monogafas herméticas anti-empañantes y caretas de esmerilar.</li>
@@ -867,85 +677,69 @@ INDEX_HTML = """<!DOCTYPE html>
                                 <li><strong>Protección Respiratoria:</strong> Respiradores de media cara de doble cartucho para vapores y mascarillas N95 / FFP2.</li>
                                 <li><strong>Protección Manual:</strong> Guantes tácticos anti-corte Nivel 5, dieléctricos, nitrilo industrial y vaqueta.</li>
                             </ul>
-
                             <button class="btn-detail" style="width: 100%; margin-top: 10px;" onclick="navigateToPage('tienda', 'proteccion_personal')">Ver Productos EPP en Tienda</button>
                         </div>
 
-                        <!-- CATEGORÍA 02 -->
                         <div class="category-breakdown-card" style="border-top-color: var(--navy);">
                             <span class="breakdown-num" style="background: rgba(11,28,48,0.12); color: var(--navy);">Categoría 02</span>
                             <h3 class="breakdown-title">Emergencias y Rescate</h3>
                             <p style="color: var(--text-muted); font-size: 0.9rem;">Equipamiento médico y operativo especializado para respuesta en contingencias y desastres.</p>
-                            
                             <ul class="breakdown-list">
                                 <li><strong>Primeros Auxilios:</strong> Botiquines reglamentarios Tipo A, B y C confeccionados en lona tifón impermeable con insumos de curación.</li>
                                 <li><strong>Inmovilización & Transporte:</strong> Camillas espinales rígidas plásticas en polietileno HDPE, inmovilizadores laterales y cuellos cervicales.</li>
                                 <li><strong>Iluminación Operativa:</strong> Linternas tácticas LED 2000 lúmenes recargables por USB, contra impactos y certificación IPX8.</li>
                                 <li><strong>Rescate Vertical:</strong> Cuerdas estáticas 11mm certificadas, arneses de cuerpo entero, mosquetones forjados 50kN y poleas.</li>
                             </ul>
-
                             <button class="btn-detail" style="width: 100%; margin-top: 10px;" onclick="navigateToPage('tienda', 'emergencias_rescate')">Ver Productos Rescate en Tienda</button>
                         </div>
 
-                        <!-- CATEGORÍA 03 -->
                         <div class="category-breakdown-card">
                             <span class="breakdown-num">Categoría 03</span>
                             <h3 class="breakdown-title">Defensa Civil & Socorrismo</h3>
                             <p style="color: var(--text-muted); font-size: 0.9rem;">Dotación institucional y prendaje oficial para integrantes de brigadas y organismos de atención.</p>
-                            
                             <ul class="breakdown-list">
                                 <li><strong>Indumentaria Operativa:</strong> Uniformes de trabajo y prendas en tela Ripstop antidesgarro de alta durabilidad.</li>
                                 <li><strong>Visibilidad & Seguridad:</strong> Chalecos tácticos multibolsillos con cintas reflectivas microesféricas 3M de 2 pulgadas.</li>
                                 <li><strong>Identificación Institucional:</strong> Parches bordados en velcro, insignias removibles de cargo y rotulación corporativa en cascos.</li>
                                 <li><strong>Equipamiento de Campo:</strong> Fundas para radio de comunicación, mochilas de socorrista y cinturones de reata reforzados.</li>
                             </ul>
-
                             <button class="btn-detail" style="width: 100%; margin-top: 10px;" onclick="navigateToPage('tienda', 'defensa_civil')">Ver Productos Defensa Civil en Tienda</button>
                         </div>
 
-                        <!-- CATEGORÍA 04 -->
                         <div class="category-breakdown-card" style="border-top-color: var(--navy);">
                             <span class="breakdown-num" style="background: rgba(11,28,48,0.12); color: var(--navy);">Categoría 04</span>
                             <h3 class="breakdown-title">Señalización & Seguridad Vial</h3>
                             <p style="color: var(--text-muted); font-size: 0.9rem;">Dispositivos físicos para delimitación, prevención y control de áreas de peligro.</p>
-                            
                             <ul class="breakdown-list">
                                 <li><strong>Canalización Vial:</strong> Conos de PVC virgen flexible de 90 cm indeformables con doble cinta reflectiva High Intensity.</li>
                                 <li><strong>Control de Tránsito:</strong> Paletas manuales Pare / Siga reflectivas y linternas de canalización para tráfico nocturno.</li>
                                 <li><strong>Demarcación de Áreas:</strong> Cintas de señalización de peligro "Peligro No Pase" y "Precaución Obras".</li>
                                 <li><strong>Señalización Fotoluminiscente:</strong> Avisos de rutas de evacuación, salidas de emergencia y extintores.</li>
                             </ul>
-
                             <button class="btn-detail" style="width: 100%; margin-top: 10px;" onclick="navigateToPage('tienda', 'senalizacion_seguridad')">Ver Productos Señalización en Tienda</button>
                         </div>
 
-                        <!-- CATEGORÍA 05 -->
                         <div class="category-breakdown-card">
                             <span class="breakdown-num">Categoría 05</span>
                             <h3 class="breakdown-title">Equipos para Brigadas</h3>
                             <p style="color: var(--text-muted); font-size: 0.9rem;">Soluciones integrales de comunicación y control de contingencias en empresas e industrias.</p>
-                            
                             <ul class="breakdown-list">
                                 <li><strong>Comunicación & Evacuación:</strong> Megáfonos profesionales de 50W con sirena de emergencia, grabador y alcance de 1000m.</li>
                                 <li><strong>Higiene Industrial:</strong> Estaciones lavaojos portátiles por gravedad de 32 litros según norma ANSI Z358.1.</li>
                                 <li><strong>Protección Incendio:</strong> Extintores multipropósito ABC, CO2 y Gabinetes de manguera contra incendio.</li>
                             </ul>
-
                             <button class="btn-detail" style="width: 100%; margin-top: 10px;" onclick="navigateToPage('tienda', 'equipos_brigadas')">Ver Productos Brigadas en Tienda</button>
                         </div>
 
-                        <!-- CATEGORÍA 06 -->
                         <div class="category-breakdown-card" style="border-top-color: var(--navy);">
                             <span class="breakdown-num" style="background: rgba(11,28,48,0.12); color: var(--navy);">Categoría 06</span>
                             <h3 class="breakdown-title">Dotación Personalizada</h3>
                             <p style="color: var(--text-muted); font-size: 0.9rem;">Servicio completo de bordado, estampado e identidad de marca institucional.</p>
-                            
                             <ul class="breakdown-list">
                                 <li><strong>Bordados Computarizados:</strong> Bordados en 3D de alta definición para camisetas, gorras, chaquetas y mochilas.</li>
                                 <li><strong>Marcación de Cascos:</strong> Rotulación con vinilos reflectivos de alta adherencia y logos institucionales.</li>
                                 <li><strong>Uniformes Corporativos:</strong> Overalls industriales, camisas y jeans de trabajo en dril normativo.</li>
                             </ul>
-
                             <button class="btn-detail" style="width: 100%; margin-top: 10px;" onclick="navigateToPage('contacto')">Solicitar Personalización</button>
                         </div>
                     </div>
@@ -1063,47 +857,14 @@ INDEX_HTML = """<!DOCTYPE html>
         <section class="bg-white" style="padding-top: 15px;">
             <div class="container">
                 <div class="grid-3">
+                    {% for serv in services %}
                     <div class="card-box">
-                        <div style="font-size: 2.5rem; margin-bottom: 12px;">🛡️</div>
-                        <h4>Suministro de EPP Certificados</h4>
-                        <p style="color: var(--text-muted);">Provisión integral de Elementos de Protección Personal (Cascos, Gafas, Guantes, Calzado, Protección Auditiva y Respiratoria) bajo normas ANSI, CE e ISO para todo sector industrial.</p>
+                        <div style="font-size: 2.5rem; margin-bottom: 12px;">{{ serv.icon }}</div>
+                        <h4>{{ serv.title }}</h4>
+                        <p style="color: var(--text-muted);">{{ serv.desc }}</p>
                         <button class="btn-analytics" style="margin-top: 18px; width:100%; text-align:center;" onclick="navigateToPage('contacto')">Solicitar Asesoría</button>
                     </div>
-
-                    <div class="card-box navy-top">
-                        <div style="font-size: 2.5rem; margin-bottom: 12px;">🚨</div>
-                        <h4>Equipamiento para Brigadas</h4>
-                        <p style="color: var(--text-muted);">Armado de kits integrales de respuesta rápida para brigadas empresariales e institucionales: Botiquines Tipo A/B/C, camillas espinales, megáfonos, linternas tácticas y extintores.</p>
-                        <button class="btn-analytics" style="margin-top: 18px; width:100%; text-align:center;" onclick="navigateToPage('contacto')">Solicitar Asesoría</button>
-                    </div>
-
-                    <div class="card-box">
-                        <div style="font-size: 2.5rem; margin-bottom: 12px;">🦺</div>
-                        <h4>Personalización y Bordados</h4>
-                        <p style="color: var(--text-muted);">Confección y personalización de uniformes, chalecos tácticos, prendas reflectivas, parches en velcro y rotulación corporativa en cascos con el logo de tu organización.</p>
-                        <button class="btn-analytics" style="margin-top: 18px; width:100%; text-align:center;" onclick="navigateToPage('contacto')">Solicitar Asesoría</button>
-                    </div>
-
-                    <div class="card-box navy-top">
-                        <div style="font-size: 2.5rem; margin-bottom: 12px;">📐</div>
-                        <h4>Asesoría Técnica en Matriz de Riesgo</h4>
-                        <p style="color: var(--text-muted);">Acompañamiento especializado para la correcta selección e inspección de equipos según el tipo de riesgo operacional y normativa legal vigente.</p>
-                        <button class="btn-analytics" style="margin-top: 18px; width:100%; text-align:center;" onclick="navigateToPage('contacto')">Solicitar Asesoría</button>
-                    </div>
-
-                    <div class="card-box">
-                        <div style="font-size: 2.5rem; margin-bottom: 12px;">🧗</div>
-                        <h4>Rescate Vertical & Alturas</h4>
-                        <p style="color: var(--text-muted);">Venta y asesoramiento de arneses, cuerdas estáticas, mosquetones forjados y sistemas de anclaje para trabajos en alturas y socorrismo en espacios confinados.</p>
-                        <button class="btn-analytics" style="margin-top: 18px; width:100%; text-align:center;" onclick="navigateToPage('contacto')">Solicitar Asesoría</button>
-                    </div>
-
-                    <div class="card-box navy-top">
-                        <div style="font-size: 2.5rem; margin-bottom: 12px;">🏢</div>
-                        <h4>Dotación para Defensa Civil</h4>
-                        <p style="color: var(--text-muted);">Prendaje e insumos oficiales para socorristas y brigadistas de atención a emergencias con acabado de alta resistencia.</p>
-                        <button class="btn-analytics" style="margin-top: 18px; width:100%; text-align:center;" onclick="navigateToPage('contacto')">Solicitar Asesoría</button>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </section>
@@ -1181,7 +942,7 @@ INDEX_HTML = """<!DOCTYPE html>
         </section>
     </div>
 
-    <!-- MODAL DE DETALLES TÉCNICOS ADAPTABLE -->
+    <!-- MODAL -->
     <div class="modal-backdrop" id="modalBackdrop">
         <div class="modal-card">
             <button class="modal-close" onclick="closeModal()">&times;</button>
@@ -1217,7 +978,6 @@ INDEX_HTML = """<!DOCTYPE html>
         </div>
     </footer>
 
-    <!-- SISTEMA DE ENRUTAMIENTO Y FILTRADO RESPONSIVO -->
     <script>
         const WHATSAPP_PHONE = '573000000000';
         const productsData = """ + json.dumps(EMBEDDED_PRODUCTS) + """;
@@ -1233,18 +993,11 @@ INDEX_HTML = """<!DOCTYPE html>
             const targetPage = document.getElementById('page-' + pageId);
             const targetBtn = document.getElementById('nav-' + pageId);
 
-            if (targetPage) {
-                targetPage.classList.add('active-view');
-            }
-            if (targetBtn) {
-                targetBtn.classList.add('active-page');
-            }
+            if (targetPage) targetPage.classList.add('active-view');
+            if (targetBtn) targetBtn.classList.add('active-page');
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
-
-            if (categoryFilter) {
-                filterCatalogCategory(categoryFilter);
-            }
+            if (categoryFilter) filterCatalogCategory(categoryFilter);
         }
 
         function filterCatalogCategory(cat, element = null) {
@@ -1300,7 +1053,6 @@ INDEX_HTML = """<!DOCTYPE html>
             specsList.innerHTML = p.specs.map(s => `<li>${s}</li>`).join('');
 
             document.getElementById('mBtnWa').onclick = () => sendWhatsAppQuote(p.id, p.title, p.category);
-
             document.getElementById('modalBackdrop').classList.add('active');
         }
 
@@ -1339,44 +1091,337 @@ INDEX_HTML = """<!DOCTYPE html>
 </body>
 </html>"""
 
-# Dashboard HTML
-DASHBOARD_HTML = """<!DOCTYPE html>
+# HTML del Panel de Administración CMS Ejecutivo
+ADMIN_HTML = """<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de Analítica - YD Protección</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-    <style>""" + EMBEDDED_CSS + """</style>
+    <title>Panel de Administración CMS - YD Protección</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        """ + EMBEDDED_CSS + """
+        .admin-sidebar {
+            background: var(--navy-dark);
+            color: var(--white);
+            padding: 30px 20px;
+            min-height: 100vh;
+        }
+        .admin-layout {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            min-height: 100vh;
+        }
+        @media (max-width: 860px) {
+            .admin-layout { grid-template-columns: 1fr; }
+            .admin-sidebar { min-height: auto; }
+        }
+        .admin-menu {
+            list-style: none; margin-top: 30px; padding: 0;
+        }
+        .admin-menu-item {
+            padding: 12px 18px; border-radius: 10px; margin-bottom: 8px; cursor: pointer;
+            font-weight: 700; display: flex; align-items: center; gap: 10px; color: #CBD5E1;
+            transition: all 0.3s;
+        }
+        .admin-menu-item:hover, .admin-menu-item.active {
+            background: var(--orange); color: var(--white);
+        }
+        .admin-content-area { padding: 40px; }
+        .form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        @media (max-width: 600px) { .form-grid-2 { grid-template-columns: 1fr; } }
+    </style>
 </head>
 <body>
-    <div class="top-bar">
-        <div class="container top-bar-content">
-            <a href="/" class="brand-logo-group">
+
+    <!-- MODAL LOGIN ADMIN -->
+    <div id="loginOverlay" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(5,14,26,0.95); backdrop-filter: blur(10px); z-index: 5000; display: flex; align-items: center; justify-content: center;">
+        <div style="background: var(--white); padding: 42px; border-radius: 20px; width: 90%; max-width: 420px; text-align: center; box-shadow: 0 25px 50px rgba(0,0,0,0.5); border-top: 5px solid var(--orange);">
+            <div class="brand-badge" style="display: inline-block; margin-bottom: 15px;">YD</div>
+            <h3 style="color: var(--navy); margin-bottom: 6px;">PANEL DE ADMINISTRACIÓN</h3>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 25px;">Ingresa tus credenciales administrativas</p>
+
+            <form onsubmit="handleAdminLogin(event)">
+                <div style="margin-bottom: 15px; text-align: left;">
+                    <label style="font-weight:700; font-size:0.85rem; color:var(--navy);">USUARIO</label>
+                    <input type="text" id="admUser" class="contact-form-input" placeholder="admin" required value="admin">
+                </div>
+                <div style="margin-bottom: 22px; text-align: left;">
+                    <label style="font-weight:700; font-size:0.85rem; color:var(--navy);">CONTRASEÑA</label>
+                    <input type="password" id="admPass" class="contact-form-input" placeholder="••••••••" required value="yd2026">
+                </div>
+                <button type="submit" class="btn-submit-contact">🔑 Iniciar Sesión CMS</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ESTRUCTURA DEL PANEL CMS -->
+    <div class="admin-layout">
+        <!-- SIDEBAR -->
+        <aside class="admin-sidebar">
+            <div class="brand-logo-group" onclick="location.href='/'">
                 <div class="brand-badge">YD</div>
-                <div class="brand-title">PROTECCIÓN <span>ANALÍTICA</span></div>
-            </a>
-            <a href="/" class="btn-analytics">← Volver al Sitio Web</a>
+                <div class="brand-title">ADMIN <span>CMS</span></div>
+            </div>
+            
+            <ul class="admin-menu">
+                <li class="admin-menu-item active" onclick="switchAdminTab('products')">📦 Administrar Productos</li>
+                <li class="admin-menu-item" onclick="switchAdminTab('services')">🛠️ Administrar Servicios</li>
+                <li class="admin-menu-item" onclick="switchAdminTab('metrics')">📊 Analítica & Cotizaciones</li>
+                <li class="admin-menu-item" onclick="location.href='/'">🌐 Volver a la Web</li>
+                <li class="admin-menu-item" style="color: #EF4444; margin-top: 40px;" onclick="logoutAdmin()">🚪 Cerrar Sesión</li>
+            </ul>
+        </aside>
+
+        <!-- PANEL DE CONTENIDO EDITABLE -->
+        <main class="admin-content-area">
+            
+            <!-- TAB 1: GESTIÓN DE PRODUCTOS -->
+            <div id="tab-products">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 25px;">
+                    <div>
+                        <h2 style="color: var(--navy); font-size: 1.8rem;">Gestión de Catálogo de Productos</h2>
+                        <p style="color: var(--text-muted);">Agrega, edita o elimina productos visibles en la tienda</p>
+                    </div>
+                    <button class="btn-analytics" style="padding: 12px 24px; font-size: 0.95rem;" onclick="openProductFormModal()">➕ Agregar Nuevo Producto</button>
+                </div>
+
+                <div style="overflow-x: auto;">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Imagen</th>
+                                <th>Título</th>
+                                <th>Categoría</th>
+                                <th>Insignia</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminProductsTable">
+                            {% for p in products %}
+                            <tr id="row-{{ p.id }}">
+                                <td><strong>{{ p.id }}</strong></td>
+                                <td><img src="{{ p.image }}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 8px;" onerror="this.src='{{ p.fallback_image }}'"></td>
+                                <td><strong>{{ p.title }}</strong></td>
+                                <td><span class="badge-admin">{{ p.category_name }}</span></td>
+                                <td><span style="font-size:0.8rem; font-weight:bold; color:var(--orange);">{{ p.badge or '-' }}</span></td>
+                                <td>
+                                    <button class="btn-detail" style="padding: 6px 12px; font-size: 0.78rem;" onclick="editProduct('{{ p.id }}')">✏️ Editar</button>
+                                    <button class="btn-detail" style="padding: 6px 12px; font-size: 0.78rem; background: #FEE2E2; color: #DC2626; border-color: #FCA5A5;" onclick="deleteProduct('{{ p.id }}')">🗑️ Eliminar</button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TAB 2: GESTIÓN DE SERVICIOS -->
+            <div id="tab-services" style="display: none;">
+                <h2 style="color: var(--navy); font-size: 1.8rem; margin-bottom: 25px;">Servicios Ofrecidos</h2>
+                <div class="grid-2">
+                    {% for s in services %}
+                    <div class="card-box">
+                        <div style="font-size: 2rem;">{{ s.icon }}</div>
+                        <h4>{{ s.title }}</h4>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">{{ s.desc }}</p>
+                        <div style="margin-top: 15px;">
+                            <span class="badge-admin">Activo</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- TAB 3: ANALÍTICA -->
+            <div id="tab-metrics" style="display: none;">
+                <h2 style="color: var(--navy); font-size: 1.8rem; margin-bottom: 25px;">Métricas y Cotizaciones</h2>
+                <div class="grid-2">
+                    <div class="card-box">
+                        <h4>Total Visualizaciones de Catálogo</h4>
+                        <div style="font-size: 3em; font-weight: 800; color: var(--orange);" id="admViews">0</div>
+                    </div>
+                    <div class="card-box navy-top">
+                        <h4>Cotizaciones Iniciadas por WhatsApp</h4>
+                        <div style="font-size: 3em; font-weight: 800; color: #25D366;" id="admQuotes">0</div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- MODAL AGREGAR / EDITAR PRODUCTO -->
+    <div class="modal-backdrop" id="productModal">
+        <div class="modal-card">
+            <button class="modal-close" onclick="closeProductModal()">&times;</button>
+            <h3 id="pFormTitle" style="color: var(--navy); margin-bottom: 20px;">Agregar Producto al Catálogo</h3>
+            
+            <form id="productForm" onsubmit="saveProduct(event)">
+                <input type="hidden" id="pId">
+                <div class="form-grid-2">
+                    <div class="contact-form-group">
+                        <label>Título del Producto *</label>
+                        <input type="text" id="pTitle" class="contact-form-input" required placeholder="Ej: Casco Dieléctrico Especial">
+                    </div>
+                    <div class="contact-form-group">
+                        <label>Categoría *</label>
+                        <select id="pCategory" class="contact-form-input" required>
+                            <option value="proteccion_personal">Protección Personal</option>
+                            <option value="emergencias_rescate">Emergencias y Rescate</option>
+                            <option value="defensa_civil">Defensa Civil & Brigadas</option>
+                            <option value="senalizacion_seguridad">Señalización y Seguridad</option>
+                            <option value="equipos_brigadas">Equipos para Brigadas</option>
+                            <option value="dotacion_personalizada">Dotación Personalizada</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-grid-2">
+                    <div class="contact-form-group">
+                        <label>Insignia / Badge (Opcional)</label>
+                        <input type="text" id="pBadge" class="contact-form-input" placeholder="Ej: MÁS VENDIDO / NORMATIVO">
+                    </div>
+                    <div class="contact-form-group">
+                        <label>Ruta de la Imagen o URL *</label>
+                        <input type="text" id="pImage" class="contact-form-input" required placeholder="/images/casco_industrial.jpg">
+                    </div>
+                </div>
+
+                <div class="contact-form-group">
+                    <label>Descripción Corta *</label>
+                    <input type="text" id="pShortDesc" class="contact-form-input" required placeholder="Resumen conciso del producto...">
+                </div>
+
+                <div class="contact-form-group">
+                    <label>Descripción Detallada *</label>
+                    <textarea id="pDesc" class="contact-form-input" rows="3" required placeholder="Descripción completa y usos principales..."></textarea>
+                </div>
+
+                <div class="contact-form-group">
+                    <label>Especificación 1 (Ej: Norma ANSI Z89.1)</label>
+                    <input type="text" id="pSpec1" class="contact-form-input" placeholder="Norma o especificación principal">
+                </div>
+
+                <button type="submit" class="btn-submit-contact">💾 Guardar Producto en CMS</button>
+            </form>
         </div>
     </div>
-    <div class="container" style="padding: 55px 16px;">
-        <h2 class="section-title">Métricas de Interés</h2>
-        <div class="grid-2 mt-5">
-            <div class="card-box">
-                <h4>Total Vistas</h4>
-                <div style="font-size: 2.6em; font-weight: 800; color: var(--orange);" id="totalViews">0</div>
-            </div>
-            <div class="card-box">
-                <h4>Cotizaciones WhatsApp</h4>
-                <div style="font-size: 2.6em; font-weight: 800; color: #25D366;" id="totalQuotes">0</div>
-            </div>
-        </div>
-    </div>
+
     <script>
-        fetch('/api/analytics').then(r=>r.json()).then(d=>{
-            document.getElementById('totalViews').textContent = d.total_views || 0;
-            document.getElementById('totalQuotes').textContent = d.total_quotes || 0;
+        const productsData = """ + json.dumps(EMBEDDED_PRODUCTS) + """;
+
+        function handleAdminLogin(e) {
+            e.preventDefault();
+            const u = document.getElementById('admUser').value;
+            const p = document.getElementById('admPass').value;
+            if (u === 'admin' && p === 'yd2026') {
+                document.getElementById('loginOverlay').style.display = 'none';
+                sessionStorage.setItem('yd_admin_logged', 'true');
+                loadMetrics();
+            } else {
+                alert('Credenciales incorrectas');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (sessionStorage.getItem('yd_admin_logged') === 'true') {
+                document.getElementById('loginOverlay').style.display = 'none';
+                loadMetrics();
+            }
         });
+
+        function logoutAdmin() {
+            sessionStorage.removeItem('yd_admin_logged');
+            location.reload();
+        }
+
+        function switchAdminTab(tabName) {
+            document.getElementById('tab-products').style.display = (tabName === 'products') ? 'block' : 'none';
+            document.getElementById('tab-services').style.display = (tabName === 'services') ? 'block' : 'none';
+            document.getElementById('tab-metrics').style.display = (tabName === 'metrics') ? 'block' : 'none';
+            
+            document.querySelectorAll('.admin-menu-item').forEach(el => el.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        function loadMetrics() {
+            fetch('/api/analytics').then(r=>r.json()).then(d=>{
+                document.getElementById('admViews').textContent = d.total_views || 0;
+                document.getElementById('admQuotes').textContent = d.total_quotes || 0;
+            });
+        }
+
+        function openProductFormModal() {
+            document.getElementById('pFormTitle').textContent = 'Agregar Producto al Catálogo';
+            document.getElementById('pId').value = '';
+            document.getElementById('productForm').reset();
+            document.getElementById('productModal').classList.add('active');
+        }
+
+        function closeProductModal() {
+            document.getElementById('productModal').classList.remove('active');
+        }
+
+        function editProduct(id) {
+            const p = productsData.find(x => x.id === id);
+            if (!p) return;
+            document.getElementById('pFormTitle').textContent = 'Editar Producto ID: ' + id;
+            document.getElementById('pId').value = p.id;
+            document.getElementById('pTitle').value = p.title;
+            document.getElementById('pCategory').value = p.category;
+            document.getElementById('pBadge').value = p.badge || '';
+            document.getElementById('pImage').value = p.image;
+            document.getElementById('pShortDesc').value = p.short_description;
+            document.getElementById('pDesc').value = p.description;
+            document.getElementById('pSpec1').value = (p.specs && p.specs[0]) ? p.specs[0] : '';
+            
+            document.getElementById('productModal').classList.add('active');
+        }
+
+        function saveProduct(e) {
+            e.preventDefault();
+            const pid = document.getElementById('pId').value || ('prod-' + String(Date.now()).slice(-4));
+            const categorySelect = document.getElementById('pCategory');
+            const categoryName = categorySelect.options[categorySelect.selectedIndex].text;
+            
+            const payload = {
+                id: pid,
+                title: document.getElementById('pTitle').value,
+                category: categorySelect.value,
+                category_name: categoryName,
+                badge: document.getElementById('pBadge').value,
+                image: document.getElementById('pImage').value,
+                short_description: document.getElementById('pShortDesc').value,
+                description: document.getElementById('pDesc').value,
+                specs: [document.getElementById('pSpec1').value || 'Calidad Garantizada']
+            };
+
+            const isEdit = !!document.getElementById('pId').value;
+            const method = isEdit ? 'PUT' : 'POST';
+            const url = isEdit ? (`/api/admin/products/${pid}`) : '/api/admin/products';
+
+            fetch(url, {
+                method: method,
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            }).then(r => r.json()).then(res => {
+                alert('Producto guardado correctamente en CMS');
+                location.reload();
+            });
+        }
+
+        function deleteProduct(id) {
+            if (!confirm('¿Estás seguro de eliminar este producto del catálogo?')) return;
+            fetch(`/api/admin/products/${id}`, { method: 'DELETE' })
+            .then(r => r.json())
+            .then(res => {
+                const row = document.getElementById('row-' + id);
+                if (row) row.remove();
+                alert('Producto eliminado');
+            });
+        }
     </script>
 </body>
 </html>"""
@@ -1400,15 +1445,21 @@ async def main_site_pages(request: Request):
     except Exception as e:
         return HTMLResponse(content=f"<h1>Error renderizando sitio web</h1><p>{str(e)}</p>")
 
+@app.get("/admin")
+@app.get("/api/admin")
+async def admin_page(request: Request):
+    try:
+        rendered = Template(ADMIN_HTML).render(products=EMBEDDED_PRODUCTS, services=SERVICES_LIST)
+        return HTMLResponse(content=rendered)
+    except Exception as e:
+        return HTMLResponse(content=f"<h1>Error cargando panel de administración</h1><p>{str(e)}</p>")
+
 @app.get("/dashboard")
 @app.get("/api/dashboard")
 async def dashboard_page(request: Request):
-    try:
-        rendered = Template(DASHBOARD_HTML).render()
-        return HTMLResponse(content=rendered)
-    except Exception as e:
-        return HTMLResponse(content=f"<h1>Error cargando analítica</h1><p>{str(e)}</p>")
+    return await admin_page(request)
 
+# ENDPOINTS CRUD PARA EL CMS ADMIN
 @app.get("/api/products")
 async def get_products(category: Optional[str] = None, q: Optional[str] = None):
     products = EMBEDDED_PRODUCTS
@@ -1418,6 +1469,25 @@ async def get_products(category: Optional[str] = None, q: Optional[str] = None):
         query_lower = q.lower().strip()
         products = [p for p in products if query_lower in p.get("title", "").lower() or query_lower in p.get("short_description", "").lower()]
     return JSONResponse(content={"status": "success", "count": len(products), "products": products})
+
+@app.post("/api/admin/products")
+async def create_product(product: Dict):
+    EMBEDDED_PRODUCTS.insert(0, product)
+    return JSONResponse(content={"status": "success", "message": "Producto creado", "product": product})
+
+@app.put("/api/admin/products/{product_id}")
+async def update_product(product_id: str, product: Dict):
+    for i, p in enumerate(EMBEDDED_PRODUCTS):
+        if p["id"] == product_id:
+            EMBEDDED_PRODUCTS[i] = product
+            return JSONResponse(content={"status": "success", "message": "Producto actualizado"})
+    raise HTTPException(status_code=404, detail="Producto no encontrado")
+
+@app.delete("/api/admin/products/{product_id}")
+async def delete_product(product_id: str):
+    global EMBEDDED_PRODUCTS
+    EMBEDDED_PRODUCTS = [p for p in EMBEDDED_PRODUCTS if p["id"] != product_id]
+    return JSONResponse(content={"status": "success", "message": "Producto eliminado"})
 
 @app.post("/api/track")
 @app.post("/track")
