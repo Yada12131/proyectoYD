@@ -10,7 +10,7 @@ app = FastAPI(
     version="2.0.0"
 )
 
-# Catálogo completo con imágenes de alta definición hiper-realistas y acordes a cada producto
+# Catálogo oficial con fotos de alta definición 100% exactas a cada producto
 EMBEDDED_PRODUCTS = [
   {
     "id": "prod-001",
@@ -21,7 +21,8 @@ EMBEDDED_PRODUCTS = [
     "description": "Casco de seguridad de máxima resistencia contra impactos superiores y laterales. Cumple norma ANSI Z89.1 Clase E (hasta 20.000V). Incluye barboquejo reforzado y ranuras para protectores auditivos.",
     "price": "Cotizar",
     "badge": "MÁS VENDIDO",
-    "image": "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80",
+    "image": "/images/casco_industrial.jpg",
+    "fallback_image": "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80",
     "specs": [
       "Norma: ANSI Z89.1 Tipo II Clase E",
       "Material: Polietileno de alta densidad (HDPE)",
@@ -38,7 +39,8 @@ EMBEDDED_PRODUCTS = [
     "description": "Gafas de protección ocular de alto impacto. Marco ergonómico ultraliviano con patas ajustables, resistencia a rayaduras y filtro de luz UV400.",
     "price": "Cotizar",
     "badge": "POPULAR",
-    "image": "https://images.unsplash.com/photo-1574258495973-f010dfbb5371?auto=format&fit=crop&w=800&q=80",
+    "image": "/images/gafas_proteccion.jpg",
+    "fallback_image": "https://images.unsplash.com/photo-1584438784894-089d6a62b8fa?auto=format&fit=crop&w=800&q=80",
     "specs": [
       "Norma: ANSI Z87.1+",
       "Protección: UV400 (99.9% radiación UV)",
@@ -55,7 +57,8 @@ EMBEDDED_PRODUCTS = [
     "description": "Guantes de uso rudo diseñados para rescate, brigadas y manipulación de herramientas. Ofrecen protección contra cortes, impactos y abrasión intensa.",
     "price": "Cotizar",
     "badge": "RECOMENDADO",
-    "image": "https://images.unsplash.com/photo-1584483766114-2cea6facdf57?auto=format&fit=crop&w=800&q=80",
+    "image": "/images/guantes_rescate.jpg",
+    "fallback_image": "https://images.unsplash.com/photo-1617347454431-f49d7ff5c3b1?auto=format&fit=crop&w=800&q=80",
     "specs": [
       "Resistencia a corte: EN388 Nivel 5 / ANSI A4",
       "Material: Microfibra sintética y caucho TPR",
@@ -72,7 +75,8 @@ EMBEDDED_PRODUCTS = [
     "description": "Equipamiento reglamentario de atención médica inmediata. Confeccionado en lona tifón de alta resistencia con divisiones organizadoras y reata para hombro.",
     "price": "Cotizar",
     "badge": "NORMATIVO",
-    "image": "https://images.unsplash.com/photo-1603398938378-e54eab446dde?auto=format&fit=crop&w=800&q=80",
+    "image": "/images/botiquin_lona.jpg",
+    "fallback_image": "https://images.unsplash.com/photo-1603398938378-e54eab446dde?auto=format&fit=crop&w=800&q=80",
     "specs": [
       "Cumplimiento: Resolución de Primeros Auxilios",
       "Contenido: Insumos de curación, inmovilización y antisépticos",
@@ -89,7 +93,8 @@ EMBEDDED_PRODUCTS = [
     "description": "Linterna táctica profesional de alta potencia para búsqueda y rescate nocturno. Resiste impactos y sumersión en agua. Incluye batería de litio recargable por USB.",
     "price": "Cotizar",
     "badge": "PRO",
-    "image": "https://images.unsplash.com/photo-1546554137-f86b9593a222?auto=format&fit=crop&w=800&q=80",
+    "image": "/images/linterna_led.jpg",
+    "fallback_image": "https://images.unsplash.com/photo-1546554137-f86b9593a222?auto=format&fit=crop&w=800&q=80",
     "specs": [
       "Potencia: 2000 Lúmenes CREE LED",
       "Modos: Alto, Medio, Bajo, Estroboscópico, SOS",
@@ -106,7 +111,8 @@ EMBEDDED_PRODUCTS = [
     "description": "Kit integral para operaciones de rescate en alturas y espacios confinados. Incluye cuerdas certificadas, mosquetones de acero auto-lock y arnés de cuerpo entero.",
     "price": "Cotizar",
     "badge": "EQUIPO CLAVE",
-    "image": "https://images.unsplash.com/photo-1522163182402-834f871fd851?auto=format&fit=crop&w=800&q=80",
+    "image": "/images/kit_rescate_cuerdas.jpg",
+    "fallback_image": "https://images.unsplash.com/photo-1522163182402-834f871fd851?auto=format&fit=crop&w=800&q=80",
     "specs": [
       "Cuerdas: Estática 11mm certificada CE/EN1891",
       "Mosquetones: Acero forjado 50kN cierre automático",
@@ -123,7 +129,8 @@ EMBEDDED_PRODUCTS = [
     "description": "Chaleco de dotación institucional para personal socorrista y brigadistas. Tela Ripstop antidesgarro con cintas reflectivas microesféricas 3M y funda para radio de comunicación.",
     "price": "Cotizar",
     "badge": "DESTACADO",
-    "image": "https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=800&q=80",
+    "image": "/images/chaleco_defensa_civil.jpg",
+    "fallback_image": "https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=800&q=80",
     "specs": [
       "Material: Tela Ripstop 65% Poli/35% Algodón",
       "Reflectivo: Cintas 3M de 2 pulgadas de alta visibilidad",
@@ -140,7 +147,8 @@ EMBEDDED_PRODUCTS = [
     "description": "Cono vial de 90 cm para control de tráfico y delimitación de áreas de emergencia. Soporta ser pisado por vehículos sin romperse y recupera su forma inmediatamente.",
     "price": "Cotizar",
     "badge": "NORMATIVO",
-    "image": "https://images.unsplash.com/photo-1508873696983-2df515122519?auto=format&fit=crop&w=800&q=80",
+    "image": "/images/cono_vial.jpg",
+    "fallback_image": "https://images.unsplash.com/photo-1508873696983-2df515122519?auto=format&fit=crop&w=800&q=80",
     "specs": [
       "Altura: 90 cm (36 pulgadas)",
       "Material: PVC virgen flexible indeformable",
@@ -157,7 +165,8 @@ EMBEDDED_PRODUCTS = [
     "description": "Megáfono imprescindible para coordinadores de brigadas y evacuación de personal. Alcance auditivo de 1000 metros, sirena de alarma incorporada y micrófono desmontable.",
     "price": "Cotizar",
     "badge": "EVACUACIÓN",
-    "image": "https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=800&q=80",
+    "image": "/images/megafono_50w.jpg",
+    "fallback_image": "https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=800&q=80",
     "specs": [
       "Potencia: 50 Watts Peak (Alcance 1000m)",
       "Funciones: Hablar, Sirena de Emergencia, Grabador",
@@ -167,7 +176,7 @@ EMBEDDED_PRODUCTS = [
   }
 ]
 
-# Estilos CSS de diseño ultra profesional (Gobernado por paleta institucional + diseño moderno)
+# Estilos CSS de diseño corporativo y secciones completas
 EMBEDDED_CSS = """
 :root {
     --navy: #0B1C30;
@@ -178,8 +187,8 @@ EMBEDDED_CSS = """
     --light-bg: #F4F6F8;
     --text-dark: #1E293B;
     --text-light: #64748B;
-    --card-shadow: 0 10px 25px -5px rgba(0,0,0,0.08), 0 8px 10px -6px rgba(0,0,0,0.04);
-    --hover-shadow: 0 20px 35px -5px rgba(255,102,0,0.2), 0 10px 15px -5px rgba(11,28,48,0.1);
+    --card-shadow: 0 10px 25px -5px rgba(0,0,0,0.08);
+    --hover-shadow: 0 20px 35px -5px rgba(255,102,0,0.2);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -195,7 +204,7 @@ h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; text-transform: uppercas
 
 .container { max-width: 1240px; margin: 0 auto; padding: 0 20px; }
 
-/* TOPBAR ELEGANTE */
+/* TOPBAR */
 .top-bar {
     background-color: var(--navy-dark);
     color: var(--white);
@@ -214,30 +223,30 @@ h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; text-transform: uppercas
     font-weight: 900;
     letter-spacing: 1px;
     color: var(--white);
-    text-transform: uppercase;
 }
 .brand-title span { color: var(--orange); }
+
+.nav-links { display: flex; gap: 20px; align-items: center; }
+.nav-links a { color: var(--white); text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: color 0.3s; }
+.nav-links a:hover { color: var(--orange); }
 
 .btn-analytics {
     background: linear-gradient(135deg, var(--orange), #FF8533);
     color: var(--white);
-    padding: 9px 20px;
+    padding: 8px 18px;
     border-radius: 50px;
     text-decoration: none;
     font-weight: 700;
-    font-size: 0.88rem;
+    font-size: 0.85rem;
     box-shadow: 0 4px 12px rgba(255,102,0,0.3);
-    transition: all 0.3s ease;
 }
-.btn-analytics:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(255,102,0,0.5); }
 
-/* HERO SECCIÓN IMPACTANTE */
+/* HERO PORTADA */
 .hero {
     background: linear-gradient(180deg, var(--navy) 0%, var(--navy-dark) 100%);
     color: var(--white);
     text-align: center;
-    padding: 70px 20px 90px;
-    position: relative;
+    padding: 70px 20px 85px;
 }
 .hero-tag {
     display: inline-block;
@@ -248,19 +257,13 @@ h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; text-transform: uppercas
     border-radius: 50px;
     font-size: 0.85rem;
     font-weight: 700;
-    letter-spacing: 1px;
     margin-bottom: 20px;
 }
 .hero h2 { font-size: 1.3em; font-weight: 400; letter-spacing: 2px; margin-bottom: 15px; color: #E2E8F0; }
-.hero h3 { font-size: 2.5em; margin-bottom: 15px; text-shadow: 0 2px 10px rgba(0,0,0,0.4); color: var(--white); }
+.hero h3 { font-size: 2.5em; margin-bottom: 15px; color: var(--white); }
 .hero p { font-size: 1.15em; max-width: 650px; margin: 0 auto 35px; color: #CBD5E1; }
 
-/* BARRA DE BÚSQUEDA INTERACTIVA EN TIEMPO REAL */
-.search-wrapper {
-    max-width: 600px;
-    margin: 0 auto;
-    position: relative;
-}
+.search-wrapper { max-width: 600px; margin: 0 auto; position: relative; }
 .search-input {
     width: 100%;
     padding: 16px 20px 16px 50px;
@@ -270,20 +273,10 @@ h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; text-transform: uppercas
     font-size: 1.05rem;
     outline: none;
     box-shadow: 0 8px 25px rgba(0,0,0,0.25);
-    transition: all 0.3s ease;
 }
-.search-input:focus {
-    box-shadow: 0 0 25px rgba(255,102,0,0.4);
-}
-.search-icon {
-    position: absolute;
-    left: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 1.2rem;
-}
+.search-icon { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); font-size: 1.2rem; }
 
-/* SECCIONES Y TITULOS */
+/* SECCIONES TITULOS */
 section { padding: 75px 0; }
 .section-title {
     text-align: center;
@@ -294,210 +287,123 @@ section { padding: 75px 0; }
     padding-bottom: 20px;
 }
 .section-title::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 50%;
-    transform: translateX(-50%);
-    width: 80px; height: 5px;
-    background-color: var(--orange);
-    border-radius: 5px;
+    content: ''; position: absolute; bottom: 0; left: 50%;
+    transform: translateX(-50%); width: 80px; height: 5px;
+    background-color: var(--orange); border-radius: 5px;
 }
 .section-subtitle { text-align: center; font-size: 1.15em; color: var(--text-light); margin-bottom: 45px; }
 
-/* QUIÉNES SOMOS & PILARES */
-.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 30px; text-align: center; }
-.card-pilar {
-    background-color: var(--white);
-    padding: 40px 28px;
+/* TARJETAS QUIÉNES SOMOS, MISIÓN, VISIÓN Y VALORES */
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+.grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; }
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 30px; }
+
+.card-box {
+    background: var(--white);
+    padding: 35px 25px;
     border-radius: 14px;
     box-shadow: var(--card-shadow);
     border-top: 5px solid var(--orange);
     transition: all 0.35s ease;
 }
-.card-pilar.border-navy { border-top: none; border-bottom: 5px solid var(--navy); }
-.card-pilar:hover { transform: translateY(-8px); box-shadow: var(--hover-shadow); }
+.card-box.navy-top { border-top: 5px solid var(--navy); }
+.card-box:hover { transform: translateY(-6px); box-shadow: var(--hover-shadow); }
+.card-box h4 { color: var(--navy); margin-bottom: 12px; font-size: 1.3em; }
 
-/* NUESTRAS CATEGORÍAS */
+/* CATEGORÍAS */
 .categories-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 22px; }
 .category-item {
     background-color: var(--navy);
     color: var(--white);
     padding: 26px;
     border-radius: 14px;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
+    display: flex; align-items: center;
+    cursor: pointer; transition: all 0.3s ease;
     border-left: 6px solid transparent;
 }
 .category-item:hover, .category-item.active {
     background-color: #112844;
     border-left: 6px solid var(--orange);
     transform: translateX(8px);
-    box-shadow: 0 10px 25px rgba(11,28,48,0.25);
 }
 .category-item .number {
     font-family: 'Montserrat', sans-serif;
-    font-size: 2.5em;
-    font-weight: 900;
-    color: var(--orange);
-    margin-right: 22px;
+    font-size: 2.5em; font-weight: 900;
+    color: var(--orange); margin-right: 22px;
 }
 
-/* TARJETAS DE PRODUCTO CON FOTOS DE ALTA DEFINICIÓN */
+/* TARJETAS DE PRODUCTO */
 .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 35px; }
 .product-card {
     background-color: var(--white);
-    border-radius: 16px;
-    overflow: hidden;
+    border-radius: 16px; overflow: hidden;
     box-shadow: var(--card-shadow);
-    display: flex;
-    flex-direction: column;
-    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
+    display: flex; flex-direction: column;
+    transition: all 0.35s ease;
     border: 1px solid rgba(0,0,0,0.06);
 }
-.product-card:hover {
-    transform: translateY(-10px);
-    box-shadow: var(--hover-shadow);
-}
+.product-card:hover { transform: translateY(-10px); box-shadow: var(--hover-shadow); }
 .product-image-box {
     background-color: #0F172A;
-    height: 240px;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    height: 250px; position: relative; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
 }
 .product-image-box img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    width: 100%; height: 100%; object-fit: cover;
     transition: transform 0.6s ease;
 }
-.product-card:hover .product-image-box img {
-    transform: scale(1.08);
-}
+.product-card:hover .product-image-box img { transform: scale(1.08); }
 .product-badge {
-    position: absolute;
-    top: 14px; right: 14px;
+    position: absolute; top: 14px; right: 14px;
     background: rgba(11, 28, 48, 0.9);
-    border: 1px solid var(--orange);
-    color: var(--orange);
-    padding: 4px 12px;
-    border-radius: 50px;
-    font-size: 0.75rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    backdrop-filter: blur(4px);
+    border: 1px solid var(--orange); color: var(--orange);
+    padding: 4px 12px; border-radius: 50px; font-size: 0.75rem; font-weight: 800;
 }
 .product-info { padding: 25px 22px; flex-grow: 1; display: flex; flex-direction: column; }
-.product-category-tag {
-    color: var(--orange);
-    font-size: 0.78rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 6px;
-}
-.product-info h4 { color: var(--navy); margin-bottom: 10px; font-size: 1.25em; line-height: 1.35; }
+.product-category-tag { color: var(--orange); font-size: 0.78rem; font-weight: 800; letter-spacing: 1px; margin-bottom: 6px; }
+.product-info h4 { color: var(--navy); margin-bottom: 10px; font-size: 1.25em; }
 .product-info p { font-size: 0.95em; color: var(--text-light); margin-bottom: 18px; flex-grow: 1; }
 
-.product-specs {
-    list-style: none;
-    margin-bottom: 20px;
-    padding: 0;
-    border-top: 1px solid #F1F5F9;
-    padding-top: 14px;
-}
-.product-specs li {
-    font-size: 0.84rem;
-    color: #475569;
-    margin-bottom: 5px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-.product-specs li::before {
-    content: '✓';
-    color: var(--orange);
-    font-weight: bold;
-}
+.product-specs { list-style: none; margin-bottom: 20px; padding: 0; border-top: 1px solid #F1F5F9; padding-top: 14px; }
+.product-specs li { font-size: 0.84rem; color: #475569; margin-bottom: 5px; display: flex; align-items: center; gap: 6px; }
+.product-specs li::before { content: '✓'; color: var(--orange); font-weight: bold; }
 
 .btn-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: auto; }
 .btn-detail {
-    background: #F1F5F9;
-    color: var(--navy);
-    border: 1px solid #CBD5E1;
-    padding: 11px 16px;
-    border-radius: 8px;
-    font-weight: 700;
-    font-size: 0.85em;
-    cursor: pointer;
-    transition: all 0.3s ease;
+    background: #F1F5F9; color: var(--navy); border: 1px solid #CBD5E1;
+    padding: 11px 16px; border-radius: 8px; font-weight: 700; font-size: 0.85em; cursor: pointer;
 }
-.btn-detail:hover { background: #E2E8F0; }
 .btn-wa {
-    background-color: #25D366;
-    color: #FFF;
-    border: none;
-    padding: 11px 16px;
-    border-radius: 8px;
-    font-weight: 800;
-    font-size: 0.85em;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(37,211,102,0.25);
-}
-.btn-wa:hover { background-color: #1EBE57; transform: translateY(-2px); box-shadow: 0 6px 16px rgba(37,211,102,0.4); }
-
-/* MODAL DE VISTA COMPLETA */
-.modal-backdrop {
-    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-    background: rgba(0,0,0,0.85); backdrop-filter: blur(6px);
-    z-index: 2000; display: flex; align-items: center; justify-content: center;
-    opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
-}
-.modal-backdrop.active { opacity: 1; pointer-events: all; }
-.modal-card {
-    background: #FFF; border-radius: 20px; width: 90%; max-width: 800px;
-    padding: 35px; position: relative; max-height: 90vh; overflow-y: auto;
-    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.4);
-}
-.modal-close {
-    position: absolute; top: 15px; right: 20px; background: #F1F5F9; border: none;
-    width: 38px; height: 38px; border-radius: 50%; font-size: 1.3rem; cursor: pointer;
+    background-color: #25D366; color: #FFF; border: none;
+    padding: 11px 16px; border-radius: 8px; font-weight: 800; font-size: 0.85em;
+    cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;
 }
 
-/* BANNER DOTACIÓN */
-.dotacion-banner {
-    background: linear-gradient(135deg, var(--orange) 0%, #E65C00 100%);
-    color: var(--white);
-    padding: 75px 20px;
-    text-align: center;
+/* FORMULARIO CONTÁCTENOS */
+.contact-section-wrapper {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 40px;
+    background: var(--white); padding: 45px; border-radius: 20px;
+    box-shadow: var(--card-shadow); border: 1px solid rgba(0,0,0,0.06);
 }
-.dotacion-banner h2 { font-size: 2.4em; margin-bottom: 12px; }
-.dotacion-list {
-    list-style: none; display: flex; flex-wrap: wrap; justify-content: center;
-    gap: 15px; margin-top: 35px; max-width: 950px; margin-left: auto; margin-right: auto;
+@media (max-width: 850px) { .contact-section-wrapper { grid-template-columns: 1fr; } }
+.contact-form-group { margin-bottom: 18px; }
+.contact-form-group label { display: block; font-weight: 700; margin-bottom: 6px; color: var(--navy); font-size: 0.9rem; }
+.contact-form-input {
+    width: 100%; padding: 13px 16px; border-radius: 8px; border: 1px solid #CBD5E1;
+    font-size: 0.98rem; outline: none; transition: border-color 0.3s;
 }
-.dotacion-list li {
-    background-color: rgba(255,255,255,0.18);
-    padding: 12px 26px; border-radius: 50px; font-weight: 700; border: 1px solid rgba(255,255,255,0.3);
+.contact-form-input:focus { border-color: var(--orange); }
+.btn-submit-contact {
+    background: var(--orange); color: var(--white); border: none;
+    padding: 14px 28px; border-radius: 8px; font-weight: 800; font-size: 1rem;
+    cursor: pointer; width: 100%; transition: background 0.3s;
 }
+.btn-submit-contact:hover { background: var(--orange-hover); }
 
 /* FOOTER */
 footer {
-    background-color: var(--navy-dark);
-    color: var(--white);
-    padding: 75px 20px 35px;
-    text-align: center;
-    border-top: 5px solid var(--orange);
+    background-color: var(--navy-dark); color: var(--white);
+    padding: 75px 20px 35px; text-align: center; border-top: 5px solid var(--orange);
 }
 footer h2 { color: var(--orange); font-size: 2.1em; margin-bottom: 15px; }
 footer .contact-info { margin: 35px 0; font-size: 1.1em; line-height: 2.2; }
@@ -507,6 +413,7 @@ footer .contact-info span { font-weight: 800; color: var(--orange); margin-right
 .mt-5 { margin-top: 45px; }
 """
 
+# HTML completo con todas las secciones solicitadas por el cliente
 INDEX_HTML = """<!DOCTYPE html>
 <html lang="es">
 <head>
@@ -522,11 +429,16 @@ INDEX_HTML = """<!DOCTYPE html>
     <div class="top-bar">
         <div class="container top-bar-content">
             <div class="brand-title">YD <span>PROTECCIÓN</span></div>
-            <a href="/dashboard" class="btn-analytics">📊 Panel de Analítica</a>
+            <div class="nav-links">
+                <a href="#quienes-somos">Quiénes Somos</a>
+                <a href="#productos">Productos</a>
+                <a href="#contacto">Contacto</a>
+                <a href="/dashboard" class="btn-analytics">📊 Analítica</a>
+            </div>
         </div>
     </div>
 
-    <!-- PORTADA / HERO IMPACTANTE -->
+    <!-- PORTADA / HERO -->
     <header class="hero">
         <div class="container">
             <span class="hero-tag">SEGURIDAD QUE SALVA VIDAS ★ YESIKA & DANIEL</span>
@@ -541,27 +453,71 @@ INDEX_HTML = """<!DOCTYPE html>
         </div>
     </header>
 
-    <!-- QUIÉNES SOMOS -->
-    <section class="bg-white">
+    <!-- QUIÉNES SOMOS COMPLETO (MISIÓN, VISIÓN, VALORES, POR QUÉ ESCOGERNOS) -->
+    <section class="bg-white" id="quienes-somos">
         <div class="container">
             <h2 class="section-title">Quiénes Somos</h2>
-            <p class="section-subtitle">Seguridad que salva vidas.</p>
-            <p style="text-align: center; max-width: 820px; margin: 0 auto; font-size: 1.15em; color: var(--text-dark);">
-                Somos una empresa enfocada en suministrar equipos y soluciones de protección de alta confiabilidad para prevención, atención de emergencias, rescate y seguridad operacional.
+            <p class="section-subtitle">Seguridad que salva vidas — Yesika & Daniel</p>
+            
+            <p style="text-align: center; max-width: 860px; margin: 0 auto 50px; font-size: 1.15em; color: var(--text-dark); line-height: 1.8;">
+                <strong>YD Protección</strong> es una empresa especializada en el suministro de soluciones integrales de seguridad, protección personal, atención de emergencias y respuesta en desastres. Acompañamos a industrias, organismos de socorro y brigadas con equipos 100% normativos y asesoría técnica personalizada.
             </p>
             
-            <div class="grid-3 mt-5">
-                <div class="card-pilar">
-                    <h4>PREVENCIÓN</h4>
-                    <p>Soluciones para anticipar y controlar amenazas en el entorno laboral y operativo.</p>
+            <!-- MISIÓN Y VISIÓN -->
+            <div class="grid-2" style="margin-bottom: 50px;">
+                <div class="card-box">
+                    <h4>🚀 Nuestra Misión</h4>
+                    <p style="font-size: 1.05em; color: var(--text-dark);">
+                        Suministrar equipos y elementos de protección, emergencia y prevención de la más alta calidad y normatividad, brindando asesoría técnica integral a empresas, brigadas e instituciones de socorro para preservar la vida y controlar riesgos operacionales.
+                    </p>
                 </div>
-                <div class="card-pilar">
-                    <h4>RESPUESTA</h4>
-                    <p>Elementos de primera respuesta para emergencias, rescate y socorrismo.</p>
+                <div class="card-box navy-top">
+                    <h4>👁️ Nuestra Visión</h4>
+                    <p style="font-size: 1.05em; color: var(--text-dark);">
+                        Ser reconocidos a nivel nacional como la empresa líder y aliada estratégica en soluciones de seguridad, prevención y atención de emergencias, destacándonos por la confiabilidad de nuestros productos, excelencia en el servicio y compromiso humano.
+                    </p>
                 </div>
-                <div class="card-pilar">
-                    <h4>SERVICIO</h4>
-                    <p>Asesoría personalizada y acompañamiento técnico para cada tipo de necesidad.</p>
+            </div>
+
+            <!-- VALORES CORPORATIVOS -->
+            <h3 style="text-align: center; color: var(--navy); margin-bottom: 30px; font-size: 1.6em;">Valores Corporativos</h3>
+            <div class="grid-4" style="margin-bottom: 60px;">
+                <div class="card-box" style="padding: 28px 20px; border-top: 4px solid var(--orange);">
+                    <h4 style="font-size: 1.1em; margin-bottom: 8px;">INTEGRIDAD</h4>
+                    <p style="font-size: 0.92em; color: var(--text-light);">Transparencia, honestidad y ética en cada producto y recomendación suministrada.</p>
+                </div>
+                <div class="card-box" style="padding: 28px 20px; border-top: 4px solid var(--navy);">
+                    <h4 style="font-size: 1.1em; margin-bottom: 8px;">COMPROMISO</h4>
+                    <p style="font-size: 0.92em; color: var(--text-light);">Priorizamos la salud, integridad física y seguridad de las personas en cada operación.</p>
+                </div>
+                <div class="card-box" style="padding: 28px 20px; border-top: 4px solid var(--orange);">
+                    <h4 style="font-size: 1.1em; margin-bottom: 8px;">NORMATIVIDAD</h4>
+                    <p style="font-size: 0.92em; color: var(--text-light);">Productos avalados por normas internacionales (ANSI, CE, EN, ISO).</p>
+                </div>
+                <div class="card-box" style="padding: 28px 20px; border-top: 4px solid var(--navy);">
+                    <h4 style="font-size: 1.1em; margin-bottom: 8px;">EXCELENCIA</h4>
+                    <p style="font-size: 0.92em; color: var(--text-light);">Acompañamiento cercano y respuesta oportuna ante requerimientos urgentes.</p>
+                </div>
+            </div>
+
+            <!-- POR QUÉ ESCOGERNOS -->
+            <h3 style="text-align: center; color: var(--navy); margin-bottom: 30px; font-size: 1.6em;">¿Por Qué Escogernos?</h3>
+            <div class="grid-4">
+                <div class="card-box navy-top" style="text-align: center;">
+                    <h4 style="font-size: 1.1em;">EQUIPOS CERTIFICADOS</h4>
+                    <p style="font-size: 0.92em; color: var(--text-light);">Garantía de rendimiento y cumplimiento de normativas de seguridad laboral.</p>
+                </div>
+                <div class="card-box" style="text-align: center;">
+                    <h4 style="font-size: 1.1em;">ASESORÍA ESPECIALIZADA</h4>
+                    <p style="font-size: 0.92em; color: var(--text-light);">Te ayudamos a seleccionar la dotación adecuada según tu matriz de riesgo.</p>
+                </div>
+                <div class="card-box navy-top" style="text-align: center;">
+                    <h4 style="font-size: 1.1em;">DISPONIBILIDAD & LOGÍSTICA</h4>
+                    <p style="font-size: 0.92em; color: var(--text-light);">Respuesta rápida para compras individuales y suministros corporativos.</p>
+                </div>
+                <div class="card-box" style="text-align: center;">
+                    <h4 style="font-size: 1.1em;">PERSONALIZACIÓN</h4>
+                    <p style="font-size: 0.92em; color: var(--text-light);">Uniformes con parches, bordados e identificación institucional a medida.</p>
                 </div>
             </div>
         </div>
@@ -626,8 +582,8 @@ INDEX_HTML = """<!DOCTYPE html>
         </div>
     </section>
 
-    <!-- PRODUCTOS EN EXHIBICIÓN CON FOTOS ALTA DEFINICIÓN -->
-    <section class="bg-white">
+    <!-- PRODUCTOS EN EXHIBICIÓN CON FOTOS DE ALTA DEFINICIÓN -->
+    <section class="bg-white" id="productos">
         <div class="container">
             <h2 class="section-title">Catálogo de Productos</h2>
             <p class="section-subtitle" id="productCountSub">{{ products|length }} productos disponibles en catálogo</p>
@@ -636,7 +592,7 @@ INDEX_HTML = """<!DOCTYPE html>
                 {% for product in products %}
                 <article class="product-card" data-id="{{ product.id }}" data-category="{{ product.category }}">
                     <div class="product-image-box">
-                        <img src="{{ product.image }}" alt="{{ product.title }}" loading="lazy">
+                        <img src="{{ product.image }}" alt="{{ product.title }}" loading="lazy" onerror="this.src='{{ product.fallback_image }}'">
                         {% if product.badge %}
                         <span class="product-badge">{{ product.badge }}</span>
                         {% endif %}
@@ -666,31 +622,7 @@ INDEX_HTML = """<!DOCTYPE html>
         </div>
     </section>
 
-    <!-- MODAL DE DETALLES TÉCNICOS -->
-    <div class="modal-backdrop" id="modalBackdrop">
-        <div class="modal-card">
-            <button class="modal-close" onclick="closeModal()">&times;</button>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px;">
-                <div style="height: 260px; border-radius: 12px; overflow: hidden; background: #000;">
-                    <img id="mImg" src="" style="width:100%; height:100%; object-fit:cover;">
-                </div>
-                <div>
-                    <span id="mCat" class="product-category-tag">CATEGORÍA</span>
-                    <h3 id="mTitle" style="color: var(--navy); margin-bottom: 10px;">Título del producto</h3>
-                    <p id="mDesc" style="color: var(--text-light); font-size: 0.95rem; margin-bottom: 15px;">Descripción del producto</p>
-                    
-                    <h4 style="color: var(--orange); font-size: 0.9rem; margin-bottom: 8px;">ESPECIFICACIONES:</h4>
-                    <ul id="mSpecs" class="product-specs"></ul>
-
-                    <button id="mBtnWa" class="btn-wa" style="width: 100%; padding: 14px; font-size: 1rem; margin-top: 15px;">
-                        Solicitar Cotización por WhatsApp
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- BANNER DOTACIÓN Y PERSONALIZACIÓN -->
+    <!-- BANNER DOTACIÓN -->
     <section class="dotacion-banner">
         <div class="container">
             <h2>DOTACIÓN Y PERSONALIZACIÓN</h2>
@@ -707,44 +639,77 @@ INDEX_HTML = """<!DOCTYPE html>
         </div>
     </section>
 
-    <!-- POR QUÉ ELEGIRNOS -->
-    <section class="bg-white">
+    <!-- SECCIÓN CONTÁCTENOS COMPLETA -->
+    <section id="contacto">
         <div class="container">
-            <h2 class="section-title">¿Por qué elegir YD Protección?</h2>
+            <h2 class="section-title">Contáctenos</h2>
+            <p class="section-subtitle">Estamos listos para atender tus requerimientos de seguridad</p>
             
-            <div class="grid-3 mt-5">
-                <div class="card-pilar border-navy">
-                    <h4>PRODUCTOS CONFIABLES</h4>
-                    <p>Selección estricta enfocada en alta seguridad y rendimiento en campo.</p>
+            <div class="contact-section-wrapper">
+                <!-- FORMULARIO DIRECTO -->
+                <div>
+                    <h3 style="color: var(--navy); margin-bottom: 20px; font-size: 1.4em;">Envíanos un Mensaje</h3>
+                    <form id="contactForm" onsubmit="handleContactSubmit(event)">
+                        <div class="contact-form-group">
+                            <label for="cName">Nombre Completo *</label>
+                            <input type="text" id="cName" class="contact-form-input" placeholder="Tu nombre o empresa" required>
+                        </div>
+                        <div class="contact-form-group">
+                            <label for="cPhone">Teléfono / WhatsApp *</label>
+                            <input type="tel" id="cPhone" class="contact-form-input" placeholder="Ej: +57 300 123 4567" required>
+                        </div>
+                        <div class="contact-form-group">
+                            <label for="cEmail">Correo Electrónico *</label>
+                            <input type="email" id="cEmail" class="contact-form-input" placeholder="correo@ejemplo.com" required>
+                        </div>
+                        <div class="contact-form-group">
+                            <label for="cProduct">Producto de Interés</label>
+                            <select id="cProduct" class="contact-form-input">
+                                <option value="Consulta General">Consulta General</option>
+                                <option value="Casco Dieléctrico">Casco Dieléctrico</option>
+                                <option value="Gafas de Seguridad">Gafas de Seguridad</option>
+                                <option value="Guantes Tácticos">Guantes Tácticos</option>
+                                <option value="Botiquín de Lona">Botiquín de Lona</option>
+                                <option value="Linterna Táctica">Linterna Táctica</option>
+                                <option value="Kit de Rescate">Kit de Rescate</option>
+                                <option value="Chaleco Defensa Civil">Chaleco Defensa Civil</option>
+                                <option value="Cono Vial 90cm">Cono Vial 90cm</option>
+                                <option value="Megáfono 50W">Megáfono 50W</option>
+                            </select>
+                        </div>
+                        <div class="contact-form-group">
+                            <label for="cMsg">Mensaje *</label>
+                            <textarea id="cMsg" class="contact-form-input" rows="4" placeholder="Describe los productos o cantidades que necesitas cotizar..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn-submit-contact">💬 Enviar Solicitud por WhatsApp</button>
+                    </form>
                 </div>
-                <div class="card-pilar border-navy">
-                    <h4>ASESORÍA PERSONALIZADA</h4>
-                    <p>Te ayudamos a elegir la dotación ideal según tu riesgo operativo.</p>
-                </div>
-                <div class="card-pilar border-navy">
-                    <h4>ENTREGA Y LOGÍSTICA</h4>
-                    <p>Envíos ágiles para compras individuales y grandes brigadas corporativas.</p>
-                </div>
-                <div class="card-pilar border-navy">
-                    <h4>ATENCIÓN POSTVENTA</h4>
-                    <p>Acompañamiento continuo antes, durante y después de tu compra.</p>
+
+                <!-- INFORMACIÓN DE CONTACTO -->
+                <div style="background: var(--navy-dark); color: var(--white); padding: 35px; border-radius: 14px; display: flex; flex-direction: column; justify-content: center;">
+                    <h3 style="color: var(--orange); margin-bottom: 25px; font-size: 1.5em;">Información de Contacto</h3>
+                    
+                    <div style="margin-bottom: 25px; font-size: 1.1em; line-height: 2;">
+                        <p><strong style="color: var(--orange);">📱 WHATSAPP:</strong> +57 (300) 000-0000</p>
+                        <p><strong style="color: var(--orange);">✉️ CORREO:</strong> contacto@ydproteccion.com</p>
+                        <p><strong style="color: var(--orange);">📸 INSTAGRAM:</strong> @ydproteccion</p>
+                        <p><strong style="color: var(--orange);">📍 UBICACIÓN:</strong> Medellín, Antioquia, Colombia</p>
+                    </div>
+
+                    <div style="background: rgba(255,102,0,0.15); border: 1px solid var(--orange); padding: 20px; border-radius: 10px;">
+                        <h4 style="color: var(--orange); margin-bottom: 8px; font-size: 1.05em;">⏰ HORARIO DE ATENCIÓN</h4>
+                        <p style="font-size: 0.95em; color: #E2E8F0;">Lunes a Viernes: 8:00 AM – 6:00 PM<br>Sábados: 8:00 AM – 1:00 PM</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- FOOTER / CONTACTO -->
-    <footer id="contacto">
+    <!-- FOOTER -->
+    <footer>
         <div class="container">
             <h2>HABLEMOS DE TU SEGURIDAD</h2>
             <p>Solicita cotización y asesoría personalizada de inmediato</p>
-            
-            <div class="contact-info">
-                <p><span>WHATSAPP:</span> +57 (300) 000-0000</p>
-                <p><span>CORREO:</span> contacto@ydproteccion.com</p>
-                <p><span>INSTAGRAM:</span> @ydproteccion</p>
-                <p><span>UBICACIÓN:</span> Medellín, Antioquia, Colombia</p>
-            </div>
             
             <div class="footer-bottom">
                 <p>YESIKA & DANIEL | SEGURIDAD QUE SALVA VIDAS &copy; 2026</p>
@@ -752,7 +717,7 @@ INDEX_HTML = """<!DOCTYPE html>
         </div>
     </footer>
 
-    <!-- LÓGICA DE INTERACTIVIDAD -->
+    <!-- LÓGICA INTERACTIVA -->
     <script>
         const WHATSAPP_PHONE = '573000000000';
         const productsData = """ + json.dumps(EMBEDDED_PRODUCTS) + """;
@@ -769,15 +734,9 @@ INDEX_HTML = """<!DOCTYPE html>
                 productCards.forEach(card => {
                     const cat = card.getAttribute('data-category');
                     const text = card.textContent.toLowerCase();
-                    
                     const matchCat = (currentCat === 'todos') || (cat === currentCat);
                     const matchSearch = text.includes(currentSearch);
-                    
-                    if (matchCat && matchSearch) {
-                        card.style.display = 'flex';
-                    } else {
-                        card.style.display = 'none';
-                    }
+                    card.style.display = (matchCat && matchSearch) ? 'flex' : 'none';
                 });
             }
             
@@ -799,25 +758,21 @@ INDEX_HTML = """<!DOCTYPE html>
             });
         });
 
-        function openModal(id) {
-            const p = productsData.find(x => x.id === id);
-            if (!p) return;
+        function handleContactSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('cName').value;
+            const phone = document.getElementById('cPhone').value;
+            const email = document.getElementById('cEmail').value;
+            const product = document.getElementById('cProduct').value;
+            const msg = document.getElementById('cMsg').value;
 
-            document.getElementById('mImg').src = p.image;
-            document.getElementById('mCat').textContent = p.category_name;
-            document.getElementById('mTitle').textContent = p.title;
-            document.getElementById('mDesc').textContent = p.description;
-            
-            const specsList = document.getElementById('mSpecs');
-            specsList.innerHTML = p.specs.map(s => `<li>${s}</li>`).join('');
+            const text = `Hola *YD Protección*, mi nombre es *${name}*.\n\n` +
+                         `📱 *Teléfono:* ${phone}\n` +
+                         `✉️ *Correo:* ${email}\n` +
+                         `📌 *Interés:* ${product}\n` +
+                         `💬 *Mensaje:* ${msg}`;
 
-            document.getElementById('mBtnWa').onclick = () => sendWhatsAppQuote(p.id, p.title, p.category);
-
-            document.getElementById('modalBackdrop').classList.add('active');
-        }
-
-        function closeModal() {
-            document.getElementById('modalBackdrop').classList.remove('active');
+            window.open(`https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(text)}`, '_blank');
         }
 
         function sendWhatsAppQuote(productId, title, category) {
@@ -834,12 +789,11 @@ INDEX_HTML = """<!DOCTYPE html>
 </body>
 </html>"""
 
-# HTML del Dashboard de Analítica
+# Dashboard HTML
 DASHBOARD_HTML = """<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel de Analítica - YD Protección</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <style>""" + EMBEDDED_CSS + """</style>
@@ -851,40 +805,29 @@ DASHBOARD_HTML = """<!DOCTYPE html>
             <a href="/" class="btn-analytics">← Volver al Catálogo</a>
         </div>
     </div>
-
     <div class="container" style="padding: 60px 20px;">
-        <h2 class="section-title">Métricas de Interés de Clientes</h2>
-        <p class="section-subtitle">Panel de Monitoreo para Yesika & Daniel</p>
-
-        <div class="grid-3 mt-5">
-            <div class="card-pilar">
-                <h4>Vistas e Interacciones</h4>
-                <div style="font-size: 2.8em; font-weight: 900; color: var(--orange);" id="totalViews">0</div>
-                <p style="color: var(--text-light); font-size: 0.9rem;">Consultas realizadas por visitantes</p>
+        <h2 class="section-title">Métricas de Interés</h2>
+        <div class="grid-2 mt-5">
+            <div class="card-box">
+                <h4>Total Vistas</h4>
+                <div style="font-size: 2.5em; font-weight: 800; color: var(--orange);" id="totalViews">0</div>
             </div>
-            <div class="card-pilar">
+            <div class="card-box">
                 <h4>Cotizaciones WhatsApp</h4>
-                <div style="font-size: 2.8em; font-weight: 900; color: #25D366;" id="totalQuotes">0</div>
-                <p style="color: var(--text-light); font-size: 0.9rem;">Chats de cotización iniciados</p>
+                <div style="font-size: 2.5em; font-weight: 800; color: #25D366;" id="totalQuotes">0</div>
             </div>
         </div>
     </div>
-
     <script>
-        fetch('/api/analytics')
-            .then(res => res.json())
-            .then(data => {
-                document.getElementById('totalViews').textContent = data.total_views || 0;
-                document.getElementById('totalQuotes').textContent = data.total_quotes || 0;
-            }).catch(e => console.log(e));
+        fetch('/api/analytics').then(r=>r.json()).then(d=>{
+            document.getElementById('totalViews').textContent = d.total_views || 0;
+            document.getElementById('totalQuotes').textContent = d.total_quotes || 0;
+        });
     </script>
 </body>
 </html>"""
 
-METRICS_DATA = {
-    "total_views": 0,
-    "total_quotes": 0
-}
+METRICS_DATA = {"total_views": 0, "total_quotes": 0}
 
 @app.get("/")
 @app.get("/api")
@@ -927,10 +870,7 @@ async def track_event(payload: Dict):
 
 @app.get("/api/analytics")
 async def get_analytics():
-    return JSONResponse(content={
-        "total_views": METRICS_DATA["total_views"],
-        "total_quotes": METRICS_DATA["total_quotes"]
-    })
+    return JSONResponse(content={"total_views": METRICS_DATA["total_views"], "total_quotes": METRICS_DATA["total_quotes"]})
 
 @app.get("/{full_path:path}", response_class=HTMLResponse)
 async def catch_all(request: Request, full_path: str):
