@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Analítica & Interés de Clientes | YD Protección</title>
+    
+    <!-- Fuentes de Google -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <!-- Estilos CSS -->
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="stylesheet" href="/static/css/dashboard.css">
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="container navbar-content">
+            <a href="/" class="brand-logo">
+                <div class="brand-badge">YD</div>
+                <div class="brand-name">PANEL DE <span>ANALÍTICA</span></div>
+            </a>
+            
+            <div class="nav-actions">
+                <a href="/" class="btn-dashboard-link">
+                    ← Volver al Catálogo
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HEADER DASHBOARD -->
+    <header class="container dashboard-header">
+        <div class="dashboard-title">
+            <div>
+                <h1>Métricas e Interés de Clientes</h1>
+                <p style="color: var(--color-text-muted);">Monitoreo en tiempo real de productos más consultados, búsquedas y cotizaciones.</p>
+            </div>
+            <div>
+                <span class="hero-tag" style="margin-bottom:0;">Panel Privado Daniel & Yesika</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- TARJETAS RESUMEN DE MÉTRICAS -->
+        <div class="metrics-overview-grid">
+            <div class="metric-card">
+                <div class="metric-icon">👁</div>
+                <div>
+                    <div class="metric-val" id="metricTotalViews">0</div>
+                    <div class="metric-label">Vistas e Interacciones Totales</div>
+                </div>
+            </div>
+            
+            <div class="metric-card">
+                <div class="metric-icon" style="background: rgba(37,211,102,0.15); color:#25D366;">💬</div>
+                <div>
+                    <div class="metric-val" id="metricTotalQuotes">0</div>
+                    <div class="metric-label">Cotizaciones Iniciadas (WhatsApp)</div>
+                </div>
+            </div>
+            
+            <div class="metric-card">
+                <div class="metric-icon" style="background: rgba(234,88,12,0.15); color:var(--color-accent-orange);">🔥</div>
+                <div>
+                    <div class="metric-val" id="metricPopularCategory">Protección</div>
+                    <div class="metric-label">Categoría Más Consultada</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN DE TOP RANKINGS -->
+        <div class="dashboard-grid-2">
+            <!-- PANEL 1: PRODUCTOS MÁS VISTOS -->
+            <div class="analytics-panel">
+                <h3><span>⭐</span> Productos Más Consultados</h3>
+                <ul class="rank-list" id="topViewedList">
+                    <!-- Inyectado mediante JS -->
+                </ul>
+            </div>
+
+            <!-- PANEL 2: PRODUCTOS MÁS COTIZADOS -->
+            <div class="analytics-panel">
+                <h3><span style="color:#25D366;">📱</span> Productos Más Cotizados (WhatsApp)</h3>
+                <ul class="rank-list" id="topQuotedList">
+                    <!-- Inyectado mediante JS -->
+                </ul>
+            </div>
+        </div>
+
+        <!-- PANEL BÚSQUEDAS RECIENTES -->
+        <div class="analytics-panel" style="margin-bottom: 4rem;">
+            <h3><span>🔎</span> Términos de Búsqueda de los Clientes</h3>
+            <p style="color: var(--color-text-muted); font-size: 0.9rem; margin-bottom: 1.2rem;">Palabras clave que buscan los visitantes en la barra de búsqueda del catálogo:</p>
+            
+            <div class="tag-cloud" id="recentSearchesCloud">
+                <!-- Inyectado mediante JS -->
+            </div>
+        </div>
+    </main>
+
+    <!-- JS DASHBOARD -->
+    <script src="/static/js/dashboard.js"></script>
+</body>
+</html>

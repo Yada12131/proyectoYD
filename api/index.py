@@ -1,8 +1,8 @@
 import json
 import os
 from pathlib import Path
-from typing import Optional, List, Dict
-from fastapi import FastAPI, Request, Query
+from typing import Optional, Dict
+from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -13,17 +13,38 @@ app = FastAPI(
     version="2.0.0"
 )
 
-# Definición de rutas base
-BASE_DIR = Path(__file__).resolve().parent.parent
-DATA_FILE = BASE_DIR / "data" / "products.json"
-PUBLIC_DIR = BASE_DIR / "public"
-TEMPLATES_DIR = BASE_DIR / "templates"
+# Resolución dinámica y segura de rutas para Vercel Serverless
+CURRENT_DIR = Path(__file__).resolve().parent
+PARENT_DIR = CURRENT_DIR.parent
 
-# Montar estáticos si existen
-if PUBLIC_DIR.exists():
+# Buscar directorio public
+PUBLIC_DIR = None
+for candidate in [PARENT_DIR / "public", CURRENT_DIR / "public", Path.cwd() / "public"]:
+    if candidate.exists() and candidate.is_dir():
+        PUBLIC_DIR = candidate
+        break
+
+if PUBLIC_DIR:
     app.mount("/static", StaticFiles(directory=str(PUBLIC_DIR)), name="static")
+    app.mount("/css", StaticFiles(directory=str(PUBLIC_DIR / "css")), name="css")
+    app.mount("/js", StaticFiles(directory=str(PUBLIC_DIR / "js")), name="js")
+    app.mount("/images", StaticFiles(directory=str(PUBLIC_DIR / "images")), name="images")
 
-templates = Jinja2Templates(directory=str(TEMPLATES_DIR))
+# Buscar directorio de plantillas
+TEMPLATES_DIR = None
+for candidate in [CURRENT_DIR / "templates", PARENT_DIR / "templates", Path.cwd() / "templates", Path.cwd() / "api" / "templates"]:
+    if candidate.exists() and candidate.is_dir():
+        TEMPLATES_DIR = candidate
+        break
+
+templates = Jinja2Templates(directory=str(TEMPLATES_DIR)) if TEMPLATES_DIR else None
+
+# Buscar archivo de productos
+DATA_FILE = None
+for candidate in [CURRENT_DIR / "data" / "products.json", CURRENT_DIR / "products.json", PARENT_DIR / "data" / "products.json", Path.cwd() / "api" / "data" / "products.json", Path.cwd() / "data" / "products.json"]:
+    if candidate.exists():
+        DATA_FILE = candidate
+        break
 
 # Memoria de métricas en sesión (Analytics)
 METRICS_DATA = {
@@ -42,11 +63,41 @@ METRICS_DATA = {
     }
 }
 
+FALLBACK_PRODUCTS = [
+    {
+        "id": "prod-001",
+        "title": "Casco de Seguridad Industrial Tipo II",
+        "category": "proteccion_personal",
+        "category_name": "Protección Personal",
+        "short_description": "Casco de protección dieléctrico con suspensión de 4 puntos y ajuste de perilla.",
+        "description": "Casco de seguridad de alta resistencia contra impactos y descargas eléctricas.",
+        "price": "Cotizar",
+        "badge": "Más Vendido",
+        "image": "/images/casco_seguridad.jpg",
+        "specs": ["Norma: ANSI Z89.1", "Material: HDPE", "Resistencia: 20.000V"]
+    },
+    {
+        "id": "prod-004",
+        "title": "Botiquín Tipo B de Primeros Auxilios",
+        "category": "emergencias_rescate",
+        "category_name": "Emergencias y Rescate",
+        "short_description": "Botiquín reglamentario para empresas, vehículos y brigadas.",
+        "description": "Equipamiento completo de atención inmediata para emergencias médicas.",
+        "price": "Cotizar",
+        "badge": "Esencial",
+        "image": "/images/botiquin_rescate.jpg",
+        "specs": ["Normativa completa", "Lona impermeable", "Manijas reforzadas"]
+    }
+]
+
 def load_products():
-    if DATA_FILE.exists():
-        with open(DATA_FILE, "r", encoding="utf-8") as f:
-            return json.load(f)
-    return []
+    if DATA_FILE and DATA_FILE.exists():
+        try:
+            with open(DATA_FILE, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except Exception:
+            pass
+    return FALLBACK_PRODUCTS
 
 @app.get("/", response_class=HTMLResponse)
 async def home_page(request: Request):
@@ -61,18 +112,23 @@ async def home_page(request: Request):
         {"id": "equipos_brigadas", "name": "Equipos para Brigadas"},
         {"id": "dotacion_personalizada", "name": "Dotación Personalizada"}
     ]
-    return templates.TemplateResponse("index.html", {
-        "request": request,
-        "products": products,
-        "categories": categories
-    })
+    if templates:
+        return templates.TemplateResponse("index.html", {
+            "request": request,
+            "products": products,
+            "categories": categories
+        })
+    # Fallback si por alguna razón no encuentra el directorio templates
+    return HTMLResponse(content="<h1>YD Protección Catálogo</h1><p>Sistema cargando...</p>")
 
 @app.get("/dashboard", response_class=HTMLResponse)
 async def dashboard_page(request: Request):
     """Página de control y analítica de clientes"""
-    return templates.TemplateResponse("dashboard.html", {
-        "request": request
-    })
+    if templates:
+        return templates.TemplateResponse("dashboard.html", {
+            "request": request
+        })
+    return HTMLResponse(content="<h1>Panel de Analítica YD Protección</h1>")
 
 @app.get("/api/products")
 async def get_products(category: Optional[str] = None, q: Optional[str] = None):
@@ -84,7 +140,6 @@ async def get_products(category: Optional[str] = None, q: Optional[str] = None):
         
     if q:
         query_lower = q.lower().strip()
-        # Registrar término de búsqueda en métricas
         if query_lower and query_lower not in METRICS_DATA["searches"]:
             METRICS_DATA["searches"].append(query_lower)
             
@@ -124,13 +179,11 @@ async def get_analytics():
     products = load_products()
     prod_map = {p["id"]: p["title"] for p in products}
     
-    # Formatear el TOP de productos más vistos
     top_viewed = [
         {"id": pid, "title": prod_map.get(pid, pid), "views": count}
         for pid, count in sorted(METRICS_DATA["product_clicks"].items(), key=lambda x: x[1], reverse=True)[:5]
     ]
     
-    # Formatear el TOP de productos más cotizados
     top_quoted = [
         {"id": pid, "title": prod_map.get(pid, pid), "quotes": count}
         for pid, count in sorted(METRICS_DATA["product_quotes"].items(), key=lambda x: x[1], reverse=True)[:5]
@@ -145,5 +198,5 @@ async def get_analytics():
         "recent_searches": METRICS_DATA["searches"][-10:]
     })
 
-# Exportar handler para Vercel
+# Handler para Vercel
 handler = app
