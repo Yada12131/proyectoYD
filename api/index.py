@@ -5,9 +5,9 @@ from fastapi.responses import HTMLResponse, JSONResponse
 from jinja2 import Template
 
 app = FastAPI(
-    title="YD Protección - Plataforma Web & CMS Total 7.0",
-    description="Plataforma Web Corporativa con CMS Administrable de Menú, Footer, Categorías y Productos",
-    version="7.0.0"
+    title="YD Protección - Plataforma Web & CMS Total 8.0",
+    description="Plataforma Web Corporativa con CMS Administrable de Secciones Dinámicas, Menú Completo, Footer y Categorías",
+    version="8.0.0"
 )
 
 # DATOS BASE PARAMETRIZADOS INICIALES TOTALES
@@ -36,12 +36,23 @@ INITIAL_SITE_DATA = {
     "copyright": "YESIKA & DANIEL | YD PROTECCIÓN © 2026 — Todos los Derechos Reservados"
   },
   "nav_links": [
-    { "id": "home", "label": "Home", "enabled": True },
-    { "id": "quienes-somos", "label": "Quiénes Somos", "enabled": True },
-    { "id": "categorias", "label": "Categorías", "enabled": True },
-    { "id": "tienda", "label": "Tienda", "enabled": True },
-    { "id": "servicios", "label": "Servicios", "enabled": True },
-    { "id": "contacto", "label": "Contacto", "enabled": True }
+    { "id": "home", "label": "Home", "enabled": True, "is_button": False },
+    { "id": "quienes-somos", "label": "Quiénes Somos", "enabled": True, "is_button": False },
+    { "id": "categorias", "label": "Categorías", "enabled": True, "is_button": False },
+    { "id": "tienda", "label": "Tienda", "enabled": True, "is_button": False },
+    { "id": "servicios", "label": "Servicios", "enabled": True, "is_button": False },
+    { "id": "contacto", "label": "Contacto", "enabled": True, "is_button": False },
+    { "id": "admin", "label": "⚙️ Panel Admin CMS", "enabled": True, "is_button": True },
+    { "id": "analytics", "label": "📊 Analítica", "enabled": True, "is_button": True, "url": "/dashboard" }
+  ],
+  "custom_sections": [
+    {
+      "id": "garantias",
+      "nav_id": "garantias",
+      "title": "Políticas de Garantía y Normatividad",
+      "subtitle": "Respaldamos la calidad de todos nuestros equipos de protección con certificaciones nacionales e internacionales",
+      "content": "Todos los elementos suministrados por YD Protección cuentan con ficha técnica oficial, certificación de fabricante y garantía directa por defectos de fabricación. Realizamos inspección previa de lotes para asegurar el cumplimiento estricto de las normas ANSI, CE, OSHA e ICONTEC."
+    }
   ],
   "contact": {
     "whatsapp": "573000000000",
@@ -477,7 +488,7 @@ img { max-width: 100%; height: auto; display: block; }
 .brand-title { font-size: 1.25rem; font-weight: 900; letter-spacing: 0.5px; color: var(--white); }
 .brand-title span { color: var(--orange); }
 
-.nav-links { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; }
+.nav-links { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
 .nav-link-btn {
     color: #E2E8F0; text-decoration: none; font-weight: 700; font-size: 0.9rem;
     transition: all 0.3s ease; position: relative; padding: 6px 2px; background: none; border: none; cursor: pointer; white-space: nowrap;
@@ -654,7 +665,7 @@ footer h2 { color: var(--orange); font-size: clamp(1.5rem, 3.5vw, 2.2rem); margi
 }
 """
 
-# Template HTML con CMS Administrable de Menú, Footer, Categorías y Productos
+# Template HTML con CMS Administrable de Menú Completo, Botones y Secciones Dinámicas
 INDEX_HTML = """<!DOCTYPE html>
 <html lang="es">
 <head>
@@ -681,7 +692,7 @@ INDEX_HTML = """<!DOCTYPE html>
         </div>
     </div>
 
-    <!-- TOPBAR CON MENÚ Y LOGO ADMINISTRABLES -->
+    <!-- TOPBAR CON MENÚ Y BOTONES ADMINISTRABLES -->
     <header class="top-bar">
         <div class="container top-bar-content">
             <div class="brand-logo-group" onclick="navigateToPage('home')">
@@ -690,12 +701,11 @@ INDEX_HTML = """<!DOCTYPE html>
                 </div>
                 <div class="brand-title"><span id="renderBrandTitle">PROTECCIÓN</span> <span id="renderBrandSub">EQUIPOS</span></div>
             </div>
-            <nav class="nav-links" id="renderNavLinksContainer">
-                <!-- Se renderizan dinámicamente desde el Admin CMS -->
-            </nav>
-            <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
-                <button class="btn-analytics" style="background: linear-gradient(135deg, var(--navy), #112844);" onclick="navigateToPage('admin')">⚙️ Panel Admin CMS</button>
-                <a href="/dashboard" class="btn-analytics">📊 Analítica</a>
+
+            <!-- CONTENEDOR DE LINKS Y BOTONES DEL MENÚ ADMINISTRABLE -->
+            <div style="display: flex; gap: 14px; align-items: center; flex-wrap: wrap; justify-content: flex-end; flex-grow: 1;">
+                <nav class="nav-links" id="renderNavLinksContainer"></nav>
+                <div id="renderActionButtonsContainer" style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;"></div>
             </div>
         </div>
     </header>
@@ -898,12 +908,15 @@ INDEX_HTML = """<!DOCTYPE html>
         </section>
     </div>
 
-    <!-- ==================== PÁGINA 7: VISTA ADMIN CMS TOTAL 7.0 ==================== -->
+    <!-- CONTENEDOR DINÁMICO DE SECCIONES PERSONALIZADAS CREADAS DESDE EL CMS -->
+    <div id="dynamicCustomPagesContainer"></div>
+
+    <!-- ==================== PÁGINA VISTA ADMIN CMS TOTAL 8.0 ==================== -->
     <div id="page-admin" class="page-view">
         <div class="page-header-banner">
             <div class="container">
                 <h1>Panel de Administración CMS Total</h1>
-                <p>Parametriza menú superior, categorías, footer, logo real desde PC, productos y servicios</p>
+                <p>Activa, desactiva o crea nuevas secciones en la web, gestiona botones de menú, categorías y todo el contenido</p>
             </div>
         </div>
 
@@ -931,8 +944,8 @@ INDEX_HTML = """<!DOCTYPE html>
                 <!-- PANEL ADMIN CON PESTAÑAS PARAMETRIZADAS (VISIBLE TRAS LOGIN) -->
                 <div id="adminMainContent" style="display: none;">
                     <div class="admin-tabs-bar">
-                        <button class="admin-tab-btn active-tab" onclick="switchAdminTab('logo_preloader', this)">🖼️ Logo & Preloader</button>
-                        <button class="admin-tab-btn" onclick="switchAdminTab('nav_menu', this)">🍔 Menú de Navegación</button>
+                        <button class="admin-tab-btn active-tab" onclick="switchAdminTab('nav_menu', this)">🍔 Menú, Botones & Secciones</button>
+                        <button class="admin-tab-btn" onclick="switchAdminTab('logo_preloader', this)">🖼️ Logo & Preloader</button>
                         <button class="admin-tab-btn" onclick="switchAdminTab('categories_manage', this)">🏷️ Categorías (CRUD)</button>
                         <button class="admin-tab-btn" onclick="switchAdminTab('products', this)">📦 Productos</button>
                         <button class="admin-tab-btn" onclick="switchAdminTab('company', this)">🏢 Empresa & Textos</button>
@@ -941,8 +954,24 @@ INDEX_HTML = """<!DOCTYPE html>
                         <button class="admin-tab-btn" onclick="switchAdminTab('footer_manage', this)">🦶 Pie de Página (Footer)</button>
                     </div>
 
+                    <!-- TAB DE ADMINISTRACIÓN DEL MENÚ DE NAVEGACIÓN, BOTONES Y CREACIÓN DE SECCIONES -->
+                    <div id="tab-nav_menu" class="admin-tab-content">
+                        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 20px;">
+                            <div>
+                                <h3 style="color: var(--navy);">Administración del Menú Superior y Secciones</h3>
+                                <p style="color: var(--text-muted); font-size: 0.9rem;">Activa, desactiva o edita el texto de cualquier botón del menú (incluyendo Panel Admin CMS y Analítica)</p>
+                            </div>
+                            <button class="btn-analytics" onclick="openNewSectionModal()">➕ Crear Nueva Sección Personalizada</button>
+                        </div>
+                        
+                        <form onsubmit="saveNavLinksParams(event)">
+                            <div class="grid-2" id="adminNavLinksList"></div>
+                            <button type="submit" class="btn-submit-contact" style="margin-top: 25px;">💾 Guardar Menú, Estado de Botones y Secciones</button>
+                        </form>
+                    </div>
+
                     <!-- TAB DE LOGO REAL Y PRELOADER -->
-                    <div id="tab-logo_preloader" class="admin-tab-content">
+                    <div id="tab-logo_preloader" class="admin-tab-content" style="display: none;">
                         <h3 style="color: var(--navy); margin-bottom: 15px;">Subir Logo Real desde la PC y Parametrizar Preloader</h3>
                         <form onsubmit="saveLogoAndPreloader(event)">
                             <div style="background: #F1F5F9; padding: 22px; border-radius: 14px; margin-bottom: 24px; border-left: 5px solid var(--orange);">
@@ -984,16 +1013,6 @@ INDEX_HTML = """<!DOCTYPE html>
                                 </div>
                             </div>
                             <button type="submit" class="btn-submit-contact">💾 Guardar Logo y Preloader</button>
-                        </form>
-                    </div>
-
-                    <!-- TAB DE ADMINISTRACIÓN DEL MENÚ DE NAVEGACIÓN -->
-                    <div id="tab-nav_menu" class="admin-tab-content" style="display: none;">
-                        <h3 style="color: var(--navy); margin-bottom: 15px;">Administración de Links del Menú Superior (Navbar)</h3>
-                        <p style="color: var(--text-muted); margin-bottom: 20px;">Edita los nombres visibles de los enlaces del menú superior</p>
-                        <form onsubmit="saveNavLinksParams(event)">
-                            <div class="grid-2" id="adminNavLinksList"></div>
-                            <button type="submit" class="btn-submit-contact" style="margin-top: 20px;">💾 Guardar Links del Menú</button>
                         </form>
                     </div>
 
@@ -1140,6 +1159,34 @@ INDEX_HTML = """<!DOCTYPE html>
         </section>
     </div>
 
+    <!-- MODAL CREAR NUEVA SECCIÓN PERSONALIZADA -->
+    <div class="modal-backdrop" id="newSectionModal">
+        <div class="modal-card">
+            <button class="modal-close" onclick="closeNewSectionModal()">&times;</button>
+            <h3 style="color: var(--navy); margin-bottom: 18px;">Crear Nueva Sección en la Web</h3>
+            
+            <form onsubmit="saveNewSection(event)">
+                <div class="contact-form-group">
+                    <label>Nombre para el Menú Superior *</label>
+                    <input type="text" id="secNavLabel" class="contact-form-input" required placeholder="Ej: Garantías / Promociones">
+                </div>
+                <div class="contact-form-group">
+                    <label>Título del Banner de la Sección *</label>
+                    <input type="text" id="secTitle" class="contact-form-input" required placeholder="Ej: Políticas de Garantía y Normatividad">
+                </div>
+                <div class="contact-form-group">
+                    <label>Subtítulo *</label>
+                    <input type="text" id="secSubtitle" class="contact-form-input" required placeholder="Resumen o lema de la sección...">
+                </div>
+                <div class="contact-form-group">
+                    <label>Contenido Principal / Descripción *</label>
+                    <textarea id="secContent" class="contact-form-input" rows="4" required placeholder="Detalla la información completa de esta nueva sección..."></textarea>
+                </div>
+                <button type="submit" class="btn-submit-contact">🚀 Crear Sección y Añadir al Menú</button>
+            </form>
+        </div>
+    </div>
+
     <!-- MODAL AGREGAR / EDITAR CATEGORÍA -->
     <div class="modal-backdrop" id="categoryModal">
         <div class="modal-card">
@@ -1246,13 +1293,13 @@ INDEX_HTML = """<!DOCTYPE html>
         </div>
     </footer>
 
-    <!-- ENGINE COMPLETO CON CMS ADMINISTRABLE DE MENÚ, FOOTER, CATEGORÍAS Y PRODUCTOS -->
+    <!-- ENGINE COMPLETO CON CMS ADMINISTRABLE DE MENÚ, BOTONES Y SECCIONES DINÁMICAS -->
     <script>
         const INITIAL_DATA = """ + json.dumps(INITIAL_SITE_DATA) + """;
         let tempLoadedLogoBase64 = "";
 
         function getSiteData() {
-            const saved = localStorage.getItem('yd_site_config_v7');
+            const saved = localStorage.getItem('yd_site_config_v8');
             if (saved) {
                 try { return JSON.parse(saved); } catch(e) {}
             }
@@ -1260,7 +1307,7 @@ INDEX_HTML = """<!DOCTYPE html>
         }
 
         function saveSiteData(data) {
-            localStorage.setItem('yd_site_config_v7', JSON.stringify(data));
+            localStorage.setItem('yd_site_config_v8', JSON.stringify(data));
             renderSite(data);
         }
 
@@ -1269,6 +1316,7 @@ INDEX_HTML = """<!DOCTYPE html>
             const prel = data.preloader || INITIAL_SITE_DATA.preloader;
             const foot = data.footer || INITIAL_SITE_DATA.footer;
             const navs = data.nav_links || INITIAL_SITE_DATA.nav_links;
+            const customSecs = data.custom_sections || INITIAL_SITE_DATA.custom_sections;
 
             // Renderizar Preloader
             const preloaderEl = document.getElementById('pagePreloader');
@@ -1288,11 +1336,51 @@ INDEX_HTML = """<!DOCTYPE html>
                 if (navLogoBox) navLogoBox.innerHTML = `<div class="brand-badge">YD</div>`;
             }
 
-            // Renderizar Menú de Navegación Administrable (Navbar)
+            // Renderizar Menú de Navegación y Botones Accionables (Incluyendo Admin y Analítica)
             const navContainer = document.getElementById('renderNavLinksContainer');
-            if (navContainer) {
-                navContainer.innerHTML = navs.filter(n => n.enabled !== false).map(n => `
-                    <button class="nav-link-btn" id="nav-${n.id}" onclick="navigateToPage('${n.id}')">${n.label}</button>
+            const actionsContainer = document.getElementById('renderActionButtonsContainer');
+
+            let navHtml = '';
+            let actionHtml = '';
+
+            navs.forEach(n => {
+                if (n.enabled !== false) {
+                    if (n.is_button) {
+                        if (n.id === 'admin') {
+                            actionHtml += `<button class="btn-analytics" style="background: linear-gradient(135deg, var(--navy), #112844);" onclick="navigateToPage('admin')">${n.label}</button>`;
+                        } else if (n.id === 'analytics') {
+                            actionHtml += `<a href="${n.url || '/dashboard'}" class="btn-analytics">${n.label}</a>`;
+                        } else {
+                            actionHtml += `<button class="btn-analytics" onclick="navigateToPage('${n.id}')">${n.label}</button>`;
+                        }
+                    } else {
+                        navHtml += `<button class="nav-link-btn" id="nav-${n.id}" onclick="navigateToPage('${n.id}')">${n.label}</button>`;
+                    }
+                }
+            });
+
+            if (navContainer) navContainer.innerHTML = navHtml;
+            if (actionsContainer) actionsContainer.innerHTML = actionHtml;
+
+            // Renderizar Secciones Personalizadas Creadas
+            const customPagesBox = document.getElementById('dynamicCustomPagesContainer');
+            if (customPagesBox) {
+                customPagesBox.innerHTML = customSecs.map(sec => `
+                    <div id="page-${sec.id}" class="page-view">
+                        <div class="page-header-banner">
+                            <div class="container">
+                                <h1>${sec.title}</h1>
+                                <p>${sec.subtitle}</p>
+                            </div>
+                        </div>
+                        <section class="bg-white" style="padding-top: 15px;">
+                            <div class="container">
+                                <div class="card-box" style="max-width: 900px; margin: 0 auto; padding: 40px;">
+                                    <p style="font-size: 1.1rem; line-height: 1.8; color: var(--text-dark);">${sec.content}</p>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
                 `).join('');
             }
 
@@ -1403,13 +1491,24 @@ INDEX_HTML = """<!DOCTYPE html>
                 tempLoadedLogoBase64 = comp.logo_image;
             }
 
-            // Formulario Menú Links
+            // Formulario Menú Links, Botones Especiales y Secciones Personalizadas (CON TOGGLE ACTIVAR/DESACTIVAR)
             const navAdminGrid = document.getElementById('adminNavLinksList');
             if (navAdminGrid) {
                 navAdminGrid.innerHTML = navs.map(n => `
-                    <div class="card-box" style="padding: 18px;">
-                        <label style="font-size:0.8rem; font-weight:bold; color:var(--navy);">Link ID: ${n.id}</label>
+                    <div class="card-box" style="padding: 20px; border-top: 4px solid ${n.is_button ? 'var(--orange)' : 'var(--navy)'};">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                            <span class="badge-admin" style="font-size: 0.78rem;">${n.is_button ? 'BOTÓN ACCIÓN' : 'LINK MENÚ'} (ID: ${n.id})</span>
+                            <label style="display: flex; align-items: center; gap: 6px; font-weight: bold; font-size: 0.85rem; cursor: pointer; color: var(--navy);">
+                                <input type="checkbox" class="nav-enable-toggle" data-id="${n.id}" ${n.enabled !== false ? 'checked' : ''} style="width: 18px; height: 18px; accent-color: var(--orange);">
+                                ${n.enabled !== false ? '🟢 ACTIVO' : '🔴 INACTIVO'}
+                            </label>
+                        </div>
+                        <label style="font-size:0.8rem; font-weight:bold; color:var(--navy);">Texto Visible en el Menú:</label>
                         <input type="text" class="contact-form-input nav-label-input" data-id="${n.id}" value="${n.label}" style="margin-top: 6px;">
+                        
+                        ${n.is_custom ? `
+                            <button type="button" class="btn-detail" style="margin-top: 12px; width: 100%; background: #FEE2E2; color: #DC2626;" onclick="deleteCustomSection('${n.id}')">🗑️ Eliminar Sección Personalizada</button>
+                        ` : ''}
                     </div>
                 `).join('');
             }
@@ -1494,18 +1593,77 @@ INDEX_HTML = """<!DOCTYPE html>
             }
         }
 
-        // GUARDAR MENÚ DE NAVEGACIÓN
+        // GUARDAR MENÚ DE NAVEGACIÓN Y ESTADO DE ACTIVACIÓN/DESACTIVACIÓN
         function saveNavLinksParams(e) {
             e.preventDefault();
             const data = getSiteData();
+            
             const inputs = document.querySelectorAll('.nav-label-input');
+            const toggles = document.querySelectorAll('.nav-enable-toggle');
+
+            toggles.forEach(chk => {
+                const id = chk.getAttribute('data-id');
+                const linkObj = data.nav_links.find(n => n.id === id);
+                if (linkObj) linkObj.enabled = chk.checked;
+            });
+
             inputs.forEach(input => {
                 const id = input.getAttribute('data-id');
                 const linkObj = data.nav_links.find(n => n.id === id);
                 if (linkObj) linkObj.label = input.value;
             });
+
             saveSiteData(data);
-            alert('¡Links del Menú Superior actualizados correctamente!');
+            alert('¡Estado del Menú, Botones (Panel Admin & Analítica) y Secciones actualizados!');
+        }
+
+        // CREAR NUEVA SECCIÓN PERSONALIZADA
+        function openNewSectionModal() {
+            document.getElementById('newSectionModal').classList.add('active');
+        }
+        function closeNewSectionModal() {
+            document.getElementById('newSectionModal').classList.remove('active');
+        }
+
+        function saveNewSection(e) {
+            e.preventDefault();
+            const data = getSiteData();
+            
+            const label = document.getElementById('secNavLabel').value;
+            const title = document.getElementById('secTitle').value;
+            const subtitle = document.getElementById('secSubtitle').value;
+            const content = document.getElementById('secContent').value;
+            const secId = 'seccion-' + String(Date.now()).slice(-4);
+
+            data.nav_links.splice(data.nav_links.length - 2, 0, {
+                id: secId,
+                label: label,
+                enabled: true,
+                is_button: false,
+                is_custom: true
+            });
+
+            if (!data.custom_sections) data.custom_sections = [];
+            data.custom_sections.push({
+                id: secId,
+                title: title,
+                subtitle: subtitle,
+                content: content
+            });
+
+            saveSiteData(data);
+            closeNewSectionModal();
+            alert('¡Nueva sección "' + label + '" creada con éxito y agregada al menú!');
+        }
+
+        function deleteCustomSection(id) {
+            if (confirm('¿Deseas eliminar esta sección personalizada?')) {
+                const data = getSiteData();
+                data.nav_links = data.nav_links.filter(x => x.id !== id);
+                if (data.custom_sections) data.custom_sections = data.custom_sections.filter(x => x.id !== id);
+                saveSiteData(data);
+                alert('Sección eliminada.');
+            }
         }
 
         // GUARDAR FOOTER
@@ -1516,7 +1674,7 @@ INDEX_HTML = """<!DOCTYPE html>
             data.footer.subtitle = document.getElementById('cfgFooterSubtitle').value;
             data.footer.copyright = document.getElementById('cfgFooterCopyright').value;
             saveSiteData(data);
-            alert('¡Pie de página (Footer) actualizado correctamente!');
+            alert('¡Pie de página (Footer) actualizado!');
         }
 
         // ACCIONES DE CATEGORÍAS (CRUD)
@@ -1572,7 +1730,7 @@ INDEX_HTML = """<!DOCTYPE html>
 
             saveSiteData(data);
             closeCategoryModal();
-            alert('Categoría guardada correctamente en CMS.');
+            alert('Categoría guardada en CMS.');
         }
 
         function deleteCategory(id) {
@@ -1650,7 +1808,7 @@ INDEX_HTML = """<!DOCTYPE html>
             data.preloader.duration_ms = parseInt(document.getElementById('cfgPreloaderDuration').value) || 4500;
 
             saveSiteData(data);
-            alert('¡Configuración guardada correctamente!');
+            alert('¡Configuración guardada!');
         }
 
         function saveCompanyParams(e) {
@@ -1663,7 +1821,7 @@ INDEX_HTML = """<!DOCTYPE html>
             data.company.mision = document.getElementById('cfgMision').value;
             data.company.vision = document.getElementById('cfgVision').value;
             saveSiteData(data);
-            alert('¡Información Institucional parametrizada!');
+            alert('¡Información Institucional guardada!');
         }
 
         function saveContactParams(e) {
@@ -1676,7 +1834,7 @@ INDEX_HTML = """<!DOCTYPE html>
             data.contact.location = document.getElementById('cfgLocation').value;
             data.contact.schedule = document.getElementById('cfgSchedule').value;
             saveSiteData(data);
-            alert('¡Datos de Contacto parametrizados!');
+            alert('¡Datos de Contacto guardados!');
         }
 
         function editProduct(id) {
@@ -1723,7 +1881,7 @@ INDEX_HTML = """<!DOCTYPE html>
 
             saveSiteData(data);
             closeProductModal();
-            alert('Producto guardado en CMS.');
+            alert('Producto guardado.');
         }
 
         function deleteProduct(id) {
