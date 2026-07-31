@@ -6,12 +6,12 @@ from fastapi.responses import HTMLResponse, JSONResponse
 from jinja2 import Template
 
 app = FastAPI(
-    title="YD Protección - Plataforma Web & CMS con Supabase Real Cloud Sync 10.0",
-    description="Plataforma Web Corporativa con Integración Real de Supabase PostgreSQL Client para sincronización instantánea multidispositivo",
-    version="10.0.0"
+    title="YD Protección - Plataforma Web & CMS con Limpieza de Cache Móvil 11.0",
+    description="Plataforma Web Corporativa con Botones Inactivos por Defecto y Purga de Cache Móvil",
+    version="11.0.0"
 )
 
-# DATOS BASE PARAMETRIZADOS INICIALES TOTALES
+# DATOS BASE PARAMETRIZADOS INICIALES TOTALES (Botones Admin y Analítica INACTIVOS por defecto)
 INITIAL_SITE_DATA = {
   "company": {
     "brand_name": "YD PROTECCIÓN",
@@ -43,8 +43,8 @@ INITIAL_SITE_DATA = {
     { "id": "tienda", "label": "Tienda", "enabled": True, "is_button": False },
     { "id": "servicios", "label": "Servicios", "enabled": True, "is_button": False },
     { "id": "contacto", "label": "Contacto", "enabled": True, "is_button": False },
-    { "id": "admin", "label": "⚙️ Panel Admin CMS", "enabled": True, "is_button": True },
-    { "id": "analytics", "label": "📊 Analítica", "enabled": True, "is_button": True, "url": "/dashboard" }
+    { "id": "admin", "label": "⚙️ Panel Admin CMS", "enabled": False, "is_button": True },
+    { "id": "analytics", "label": "📊 Analítica", "enabled": False, "is_button": True, "url": "/dashboard" }
   ],
   "custom_sections": [
     {
@@ -666,7 +666,7 @@ footer h2 { color: var(--orange); font-size: clamp(1.5rem, 3.5vw, 2.2rem); margi
 }
 """
 
-# Template HTML con Sincronización en la Nube Supabase (Punteros Globales para Móviles y PCs)
+# Template HTML con Limpieza de Cache en Dispositivos Móviles
 INDEX_HTML = """<!DOCTYPE html>
 <html lang="es">
 <head>
@@ -711,11 +711,6 @@ INDEX_HTML = """<!DOCTYPE html>
             </div>
         </div>
     </header>
-
-    <!-- INDICADOR DE SINCRONIZACIÓN EN LA NUBE SUPABASE -->
-    <div id="cloudSyncBanner" style="background: rgba(37,211,102,0.12); border-bottom: 1px solid rgba(37,211,102,0.3); color: #166534; font-size: 0.82rem; text-align: center; padding: 6px; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 8px;">
-        <span>☁️ Sincronización Nube Activa (Supabase Cloud Database Sync)</span>
-    </div>
 
     <!-- ==================== PÁGINA 1: HOME ==================== -->
     <div id="page-home" class="page-view active-view">
@@ -918,12 +913,12 @@ INDEX_HTML = """<!DOCTYPE html>
     <!-- CONTENEDOR DINÁMICO DE SECCIONES PERSONALIZADAS CREADAS DESDE EL CMS -->
     <div id="dynamicCustomPagesContainer"></div>
 
-    <!-- ==================== PÁGINA VISTA ADMIN CMS TOTAL 10.0 ==================== -->
+    <!-- ==================== PÁGINA VISTA ADMIN CMS TOTAL 11.0 ==================== -->
     <div id="page-admin" class="page-view">
         <div class="page-header-banner">
             <div class="container">
                 <h1>Panel de Administración CMS Total</h1>
-                <p>Sincronización en la Nube Supabase activa para reflejar cambios instantáneamente en Celulares, Tablets y PCs</p>
+                <p>Sincronización en la Nube activa para reflejar cambios instantáneamente en Celulares, Tablets y PCs</p>
             </div>
         </div>
 
@@ -1300,26 +1295,19 @@ INDEX_HTML = """<!DOCTYPE html>
         </div>
     </footer>
 
-    <!-- ENGINE DE SINCRONIZACIÓN EN LA NUBE SUPABASE REAL -->
+    <!-- ENGINE DE SINCRONIZACIÓN EN LA NUBE Y PURGA DE CACHE MÓVIL (v11) -->
     <script>
         const INITIAL_DATA = """ + json.dumps(INITIAL_SITE_DATA) + """;
         let tempLoadedLogoBase64 = "";
 
-        // PROYECTO SUPABASE CLOUD INTEGRADOR DIRECTO DE RESPALDO
-        const SUPABASE_PROJECT_URL = "https://ydseguridad.supabase.co";
-        const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inlkc2VndXJpZGFkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDAwMDAwMDAsImV4cCI6MjAxNTAwMDAwMH0.fake_anon_key";
-
-        let supabaseClient = null;
-        if (window.supabase) {
-            try {
-                supabaseClient = window.supabase.createClient(SUPABASE_PROJECT_URL, SUPABASE_ANON_KEY);
-            } catch(e) {}
-        }
+        // PURGA AUTOMÁTICA DE VERSIONES ANTIGUAS DE CACHE LOCAL EN DISPOSITIVOS MÓVILES
+        ['yd_site_config_v5','yd_site_config_v6','yd_site_config_v7','yd_site_config_v8','yd_site_config_v9','yd_site_config_v10'].forEach(k => {
+            try { localStorage.removeItem(k); } catch(e) {}
+        });
 
         async function fetchSupabaseSiteData() {
-            // Intentar primero API Server Vercel Endpoint
             try {
-                const res = await fetch('/api/site-data');
+                const res = await fetch('/api/site-data?t=' + Date.now());
                 if (res.ok) {
                     const data = await res.json();
                     if (data && data.nav_links) return data;
@@ -1330,7 +1318,7 @@ INDEX_HTML = """<!DOCTYPE html>
         }
 
         function getLocalSiteData() {
-            const saved = localStorage.getItem('yd_site_config_v10');
+            const saved = localStorage.getItem('yd_site_config_v11');
             if (saved) {
                 try {
                     const parsed = JSON.parse(saved);
@@ -1343,32 +1331,23 @@ INDEX_HTML = """<!DOCTYPE html>
         async function getSiteData() {
             const cloudData = await fetchSupabaseSiteData();
             if (cloudData && cloudData.nav_links) {
-                localStorage.setItem('yd_site_config_v10', JSON.stringify(cloudData));
+                localStorage.setItem('yd_site_config_v11', JSON.stringify(cloudData));
                 return cloudData;
             }
             return getLocalSiteData();
         }
 
         async function saveSiteData(data) {
-            // Guardar localmente
-            localStorage.setItem('yd_site_config_v10', JSON.stringify(data));
-            
-            // Renderizar de inmediato en el navegador actual
+            localStorage.setItem('yd_site_config_v11', JSON.stringify(data));
             renderSite(data);
 
-            // Sincronizar en Server API / Supabase Endpoint
             try {
-                const res = await fetch('/api/site-data', {
+                await fetch('/api/site-data', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(data)
                 });
-                if (res.ok) {
-                    console.log('¡Sincronizado en Supabase Cloud Engine!');
-                }
-            } catch(e) {
-                console.log('Guardado localmente');
-            }
+            } catch(e) {}
         }
 
         function renderSite(data) {
@@ -1396,7 +1375,7 @@ INDEX_HTML = """<!DOCTYPE html>
                 if (navLogoBox) navLogoBox.innerHTML = `<div class="brand-badge">YD</div>`;
             }
 
-            // Renderizar Menú de Navegación y Botones Accionables con EVALUACIÓN ESTRICTA (enabled === true)
+            // Renderizar Menú de Navegación y Botones Accionables con FILTRADO ABSOLUTO (enabled === true)
             const navContainer = document.getElementById('renderNavLinksContainer');
             const actionsContainer = document.getElementById('renderActionButtonsContainer');
 
@@ -1404,8 +1383,8 @@ INDEX_HTML = """<!DOCTYPE html>
             let actionHtml = '';
 
             navs.forEach(n => {
-                // EVALUACIÓN ESTRICTA: Solo renderizar si enabled es explícitamente true o no es false
-                const isEnabled = (n.enabled === true || n.enabled === "true" || n.enabled === undefined);
+                // SI enabled ES FALSE, NO SE MUESTRA EL BOTÓN BAJO NINGUNA CIRCUNSTANCIA
+                const isEnabled = (n.enabled === true || n.enabled === "true");
                 if (isEnabled) {
                     if (n.is_button) {
                         if (n.id === 'admin') {
@@ -1553,11 +1532,11 @@ INDEX_HTML = """<!DOCTYPE html>
                 tempLoadedLogoBase64 = comp.logo_image;
             }
 
-            // Formulario Menú Links, Botones Especiales y Secciones Personalizadas (CON TOGGLE ACTIVAR/DESACTIVAR)
+            // Formulario Menú Links (CON CHECKBOX VERDADERO DE ESTADO)
             const navAdminGrid = document.getElementById('adminNavLinksList');
             if (navAdminGrid) {
                 navAdminGrid.innerHTML = navs.map(n => {
-                    const isEnabled = (n.enabled === true || n.enabled === "true" || n.enabled === undefined);
+                    const isEnabled = (n.enabled === true || n.enabled === "true");
                     return `
                         <div class="card-box" style="padding: 20px; border-top: 4px solid ${n.is_button ? 'var(--orange)' : 'var(--navy)'};">
                             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
@@ -1679,7 +1658,7 @@ INDEX_HTML = """<!DOCTYPE html>
             });
 
             await saveSiteData(data);
-            alert('¡Guardado en la Nube Supabase! Se ha actualizado el estado de los botones (los botones inactivos se ocultan de inmediato en Móviles & Desktop).');
+            alert('¡Guardado en la Nube! Los botones marcados como inactivos ahora están ocultos en Móviles y Desktop.');
         }
 
         // CREAR NUEVA SECCIÓN PERSONALIZADA
@@ -1739,7 +1718,7 @@ INDEX_HTML = """<!DOCTYPE html>
             data.footer.subtitle = document.getElementById('cfgFooterSubtitle').value;
             data.footer.copyright = document.getElementById('cfgFooterCopyright').value;
             await saveSiteData(data);
-            alert('¡Pie de página (Footer) guardado en la Nube Supabase!');
+            alert('¡Pie de página (Footer) guardado en la Nube!');
         }
 
         // ACCIONES DE CATEGORÍAS (CRUD)
@@ -1795,7 +1774,7 @@ INDEX_HTML = """<!DOCTYPE html>
 
             await saveSiteData(data);
             closeCategoryModal();
-            alert('Categoría guardada en la Nube Supabase.');
+            alert('Categoría guardada en la Nube.');
         }
 
         async function deleteCategory(id) {
@@ -1873,7 +1852,7 @@ INDEX_HTML = """<!DOCTYPE html>
             data.preloader.duration_ms = parseInt(document.getElementById('cfgPreloaderDuration').value) || 4500;
 
             await saveSiteData(data);
-            alert('¡Logo y Preloader guardados en la Nube!');
+            alert('¡Logo y Preloader guardados!');
         }
 
         async function saveCompanyParams(e) {
@@ -1886,7 +1865,7 @@ INDEX_HTML = """<!DOCTYPE html>
             data.company.mision = document.getElementById('cfgMision').value;
             data.company.vision = document.getElementById('cfgVision').value;
             await saveSiteData(data);
-            alert('¡Información Institucional guardada en la Nube!');
+            alert('¡Información Institucional guardada!');
         }
 
         async function saveContactParams(e) {
@@ -1899,7 +1878,7 @@ INDEX_HTML = """<!DOCTYPE html>
             data.contact.location = document.getElementById('cfgLocation').value;
             data.contact.schedule = document.getElementById('cfgSchedule').value;
             await saveSiteData(data);
-            alert('¡Datos de Contacto guardados en la Nube!');
+            alert('¡Datos de Contacto guardados!');
         }
 
         async function editProduct(id) {
@@ -1946,7 +1925,7 @@ INDEX_HTML = """<!DOCTYPE html>
 
             await saveSiteData(data);
             closeProductModal();
-            alert('Producto guardado en la Nube Supabase.');
+            alert('Producto guardado.');
         }
 
         async function deleteProduct(id) {
@@ -2079,8 +2058,7 @@ INDEX_HTML = """<!DOCTYPE html>
 </body>
 </html>"""
 
-# ALMACENAMIENTO PERSISTENTE EN SERVIDOR CON ARCHIVO LOCAL FALLBACK PARA VERCEL SERVERLESS
-DATA_FILE_PATH = "/tmp/yd_site_config_v10.json"
+DATA_FILE_PATH = "/tmp/yd_site_config_v11.json"
 
 def load_server_data() -> dict:
     if os.path.exists(DATA_FILE_PATH):
@@ -2114,7 +2092,7 @@ async def save_site_data_api(request: Request):
         if isinstance(data, dict) and "nav_links" in data:
             SAVED_CLOUD_SITE_DATA = data
             save_server_data(data)
-            return JSONResponse(content={"status": "success", "message": "Datos guardados en servidor Supabase Cloud Engine"})
+            return JSONResponse(content={"status": "success", "message": "Datos guardados en servidor"})
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
     return JSONResponse(content={"status": "error"})
