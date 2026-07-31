@@ -5,16 +5,17 @@ from fastapi.responses import HTMLResponse, JSONResponse
 from jinja2 import Template
 
 app = FastAPI(
-    title="YD Protección - Plataforma Web & Preloader Splash",
-    description="Plataforma Web Corporativa con Animación de Carga Preloader para YD Protección",
-    version="5.1.0"
+    title="YD Protección - Plataforma Web & CMS con Carga de Logo",
+    description="Plataforma Web Corporativa con Preloader Administrable y Carga de Logo Real desde PC",
+    version="6.0.0"
 )
 
-# DATOS BASE PARAMETRIZADOS INICIALES
+# DATOS BASE PARAMETRIZADOS INICIALES (Incluyendo Preloader y Logo Real)
 INITIAL_SITE_DATA = {
   "company": {
     "brand_name": "YD PROTECCIÓN",
     "brand_subtitle": "EQUIPOS",
+    "logo_image": "", # URL o DataURL en base64 del logo real cargado desde PC
     "hero_tag": "Seguridad que salva vidas ★ Yesika & Daniel",
     "hero_subtitle": "Seguridad y Emergencia a tu Alcance",
     "hero_title": "EQUIPOS DE PROTECCIÓN Y PREVENCIÓN",
@@ -22,6 +23,11 @@ INITIAL_SITE_DATA = {
     "about_intro": "YD Protección es una empresa dedicada al suministro de equipos y soluciones integrales de seguridad industrial, elementos de protección personal (EPP), brigadas de emergencia y respuesta en socorrismo. Acompañamos a industrias e instituciones con productos 100% normativos y asesoría técnica especializada.",
     "mision": "Suministrar equipos de protección, emergencia y prevención de la más alta calidad y normatividad, brindando asesoría integral a empresas, brigadas e instituciones de socorro para preservar la vida y controlar riesgos operacionales.",
     "vision": "Ser reconocidos a nivel nacional como la empresa líder y aliada estratégica en soluciones de seguridad, prevención y atención de emergencias, destacándonos por la confiabilidad de nuestros productos, excelencia en el servicio y compromiso humano."
+  },
+  "preloader": {
+    "bg_gradient": "linear-gradient(135deg, #000000 0%, #2D3748 50%, #1A202C 100%)",
+    "title": "YD PROTECCIÓN",
+    "subtitle": "Cargando plataforma de seguridad..."
   },
   "contact": {
     "whatsapp": "573000000000",
@@ -69,7 +75,7 @@ INITIAL_SITE_DATA = {
         "Indumentaria Operativa: Uniformes de trabajo y prendas en tela Ripstop.",
         "Visibilidad: Chalecos tácticos multibolsillos con cintas reflectivas 3M.",
         "Identificación: Parches bordados en velcro y rotulación corporativa en cascos.",
-        "Equipamiento: Fundas para radio, mochilas socorrista y cinturones reforzados."
+        "Equipamiento: Fundas para radio, mochilas socorrista y cinturones reinforced."
       ]
     },
     {
@@ -308,7 +314,7 @@ INITIAL_SITE_DATA = {
   ]
 }
 
-# Estilos CSS con Preloader Elegante
+# Estilos CSS
 EMBEDDED_CSS = """
 :root {
     --navy: #0B1C30;
@@ -339,11 +345,11 @@ h1, h2, h3, h4, h5 { font-family: 'Montserrat', -apple-system, BlinkMacSystemFon
 img { max-width: 100%; height: auto; display: block; }
 .container { max-width: 1240px; margin: 0 auto; padding: 0 20px; }
 
-/* PRELOADER SPLASH SCREEN */
+/* PRELOADER SPLASH SCREEN CON FONDO TOTALMENTE OPACO DEGRADADO (BLANCO, GRIS, NEGRO) */
 #pagePreloader {
     position: fixed;
     top: 0; left: 0; width: 100vw; height: 100vh;
-    background: radial-gradient(circle at 50% 35%, rgba(255,102,0,0.18) 0%, rgba(5,14,26,1) 85%);
+    background: linear-gradient(135deg, #000000 0%, #2D3748 50%, #1A202C 100%);
     z-index: 999999;
     display: flex;
     flex-direction: column;
@@ -358,18 +364,18 @@ img { max-width: 100%; height: auto; display: block; }
 }
 .preloader-logo-ring {
     position: relative;
-    width: 120px;
-    height: 120px;
+    width: 130px;
+    height: 130px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 26px;
+    margin-bottom: 24px;
 }
 .preloader-ring-spin {
     position: absolute;
     width: 100%;
     height: 100%;
-    border: 4px solid rgba(255, 102, 0, 0.15);
+    border: 4px solid rgba(255, 102, 0, 0.2);
     border-top: 4px solid var(--orange);
     border-radius: 50%;
     animation: preloaderSpin 1.1s cubic-bezier(0.5, 0, 0.5, 1) infinite;
@@ -385,13 +391,21 @@ img { max-width: 100%; height: auto; display: block; }
     box-shadow: 0 10px 30px rgba(255,102,0,0.45);
     animation: preloaderPulse 1.8s ease-in-out infinite alternate;
 }
+.preloader-custom-logo-img {
+    max-width: 100px;
+    max-height: 100px;
+    object-fit: contain;
+    border-radius: 12px;
+    filter: drop-shadow(0 6px 15px rgba(255,102,0,0.5));
+    animation: preloaderPulse 1.8s ease-in-out infinite alternate;
+}
 @keyframes preloaderSpin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
 @keyframes preloaderPulse {
-    0% { transform: scale(0.95); box-shadow: 0 5px 20px rgba(255,102,0,0.3); }
-    100% { transform: scale(1.05); box-shadow: 0 15px 35px rgba(255,102,0,0.65); }
+    0% { transform: scale(0.95); }
+    100% { transform: scale(1.05); }
 }
 .preloader-title {
     color: #FFFFFF;
@@ -403,7 +417,7 @@ img { max-width: 100%; height: auto; display: block; }
 }
 .preloader-title span { color: var(--orange); }
 .preloader-subtext {
-    color: #94A3B8;
+    color: #CBD5E1;
     font-size: 0.92rem;
     margin-bottom: 28px;
     letter-spacing: 0.5px;
@@ -411,7 +425,7 @@ img { max-width: 100%; height: auto; display: block; }
 .preloader-bar-bg {
     width: 250px;
     height: 6px;
-    background: rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.15);
     border-radius: 10px;
     overflow: hidden;
     position: relative;
@@ -442,6 +456,9 @@ img { max-width: 100%; height: auto; display: block; }
     background: linear-gradient(135deg, var(--orange), var(--orange-light));
     color: #FFF; font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.15rem;
     padding: 4px 10px; border-radius: 8px; box-shadow: 0 4px 12px rgba(255,102,0,0.3);
+}
+.brand-real-logo-img {
+    height: 42px; width: auto; max-width: 140px; object-fit: contain; border-radius: 6px;
 }
 .brand-title { font-size: 1.25rem; font-weight: 900; letter-spacing: 0.5px; color: var(--white); }
 .brand-title span { color: var(--orange); }
@@ -623,7 +640,7 @@ footer h2 { color: var(--orange); font-size: clamp(1.5rem, 3.5vw, 2.2rem); margi
 }
 """
 
-# Template HTML con Preloader Splash Screen
+# Template HTML con Preloader Totalmente Opaco Administrable y Carga de Logo Real desde PC
 INDEX_HTML = """<!DOCTYPE html>
 <html lang="es">
 <head>
@@ -635,24 +652,28 @@ INDEX_HTML = """<!DOCTYPE html>
 </head>
 <body>
 
-    <!-- PRELOADER SPLASH SCREEN CON ANIMACIÓN ELEGANTE DE ENTRADA -->
+    <!-- PRELOADER SPLASH SCREEN TOTALMENTE OPACO DEGRADADO -->
     <div id="pagePreloader">
         <div class="preloader-logo-ring">
             <div class="preloader-ring-spin"></div>
-            <div class="preloader-badge-center">YD</div>
+            <div id="preloaderLogoContainer">
+                <div class="preloader-badge-center">YD</div>
+            </div>
         </div>
-        <div class="preloader-title">PROTECCIÓN <span>EQUIPOS</span></div>
-        <div class="preloader-subtext">Cargando plataforma de seguridad...</div>
+        <div class="preloader-title" id="preloaderTitle">PROTECCIÓN <span>EQUIPOS</span></div>
+        <div class="preloader-subtext" id="preloaderSubtitle">Cargando plataforma de seguridad...</div>
         <div class="preloader-bar-bg">
             <div class="preloader-bar-fill" id="preloaderBar"></div>
         </div>
     </div>
 
-    <!-- TOPBAR -->
+    <!-- TOPBAR CON LOGO EDITABLE -->
     <header class="top-bar">
         <div class="container top-bar-content">
             <div class="brand-logo-group" onclick="navigateToPage('home')">
-                <div class="brand-badge">YD</div>
+                <div id="navbarLogoContainer" style="display: flex; align-items: center; gap: 10px;">
+                    <div class="brand-badge">YD</div>
+                </div>
                 <div class="brand-title"><span id="renderBrandTitle">PROTECCIÓN</span> <span id="renderBrandSub">EQUIPOS</span></div>
             </div>
             <nav class="nav-links">
@@ -902,7 +923,7 @@ INDEX_HTML = """<!DOCTYPE html>
         <div class="page-header-banner">
             <div class="container">
                 <h1>Panel de Administración CMS Total</h1>
-                <p>Parametriza y actualiza toda la información, productos, categorías, servicios y contacto del sitio web</p>
+                <p>Parametriza la pantalla de carga (preloader), sube el logo real desde tu PC y actualiza toda la información</p>
             </div>
         </div>
 
@@ -930,15 +951,59 @@ INDEX_HTML = """<!DOCTYPE html>
                 <!-- PANEL ADMIN CON PESTAÑAS PARAMETRIZADAS (VISIBLE TRAS LOGIN) -->
                 <div id="adminMainContent" style="display: none;">
                     <div class="admin-tabs-bar">
-                        <button class="admin-tab-btn active-tab" onclick="switchAdminTab('products', this)">📦 Productos (Catálogo)</button>
+                        <button class="admin-tab-btn active-tab" onclick="switchAdminTab('logo_preloader', this)">🖼️ Logo Real & Preloader</button>
+                        <button class="admin-tab-btn" onclick="switchAdminTab('products', this)">📦 Productos (Catálogo)</button>
                         <button class="admin-tab-btn" onclick="switchAdminTab('company', this)">🏢 Empresa & Quiénes Somos</button>
                         <button class="admin-tab-btn" onclick="switchAdminTab('contact', this)">📞 Contacto & Horarios</button>
                         <button class="admin-tab-btn" onclick="switchAdminTab('services', this)">🛠️ Servicios</button>
-                        <button class="admin-tab-btn" onclick="switchAdminTab('categories', this)">🏷️ Categorías (01-06)</button>
                     </div>
 
-                    <!-- TAB 1: PRODUCTOS -->
-                    <div id="tab-products" class="admin-tab-content">
+                    <!-- TAB DE LOGO REAL Y PRELOADER ADMINISTRABLE -->
+                    <div id="tab-logo_preloader" class="admin-tab-content">
+                        <h3 style="color: var(--navy); margin-bottom: 15px;">Subir Logo Real desde la PC y Parametrizar Preloader</h3>
+                        <form onsubmit="saveLogoAndPreloader(event)">
+                            <div style="background: #F1F5F9; padding: 22px; border-radius: 14px; margin-bottom: 24px; border-left: 5px solid var(--orange);">
+                                <h4 style="color: var(--navy); margin-bottom: 10px;">📁 CARGAR LOGO REAL DEL SITIO DESDE LA PC</h4>
+                                <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 14px;">Selecciona la imagen oficial de tu empresa (.png, .jpg, .svg) desde tu computador:</p>
+                                
+                                <input type="file" id="logoFileInput" accept="image/*" class="contact-form-input" style="background: #FFF;" onchange="handleLogoFileSelect(event)">
+                                
+                                <div id="logoPreviewContainer" style="margin-top: 15px; display: none; align-items: center; gap: 15px;">
+                                    <span style="font-weight: bold; font-size: 0.85rem;">Vista previa:</span>
+                                    <img id="logoPreviewImg" src="" style="height: 60px; max-width: 180px; object-fit: contain; background: #0B1C30; padding: 6px; border-radius: 8px;">
+                                    <button type="button" class="btn-detail" style="padding: 6px 12px; font-size: 0.8rem;" onclick="clearCustomLogo()">Remover Logo</button>
+                                </div>
+                            </div>
+
+                            <div style="background: #F1F5F9; padding: 22px; border-radius: 14px; margin-bottom: 24px; border-left: 5px solid var(--navy);">
+                                <h4 style="color: var(--navy); margin-bottom: 10px;">🎨 PARAMETRIZAR PRELOADER (PANTALLA DE CARGA)</h4>
+                                <div class="contact-form-group">
+                                    <label>Fondo de la Pantalla de Carga (Estilo CSS Gradient entre Blanco, Gris y Negro)</label>
+                                    <select id="cfgPreloaderGradient" class="contact-form-input">
+                                        <option value="linear-gradient(135deg, #000000 0%, #2D3748 50%, #1A202C 100%)">Degradado Oscuro Elegante (Negro, Gris Oscuro y Grafito)</option>
+                                        <option value="linear-gradient(135deg, #FFFFFF 0%, #CBD5E1 50%, #475569 100%)">Degradado Claro Ejecutivo (Blanco, Gris Platino y Acero)</option>
+                                        <option value="linear-gradient(135deg, #050E1A 0%, #112844 50%, #FF6600 100%)">Degradado Institucional (Azul Marino y Naranja YD)</option>
+                                        <option value="radial-gradient(circle, #2D3748 0%, #1A202C 60%, #000000 100%)">Radial Grafito Absoluto</option>
+                                    </select>
+                                </div>
+
+                                <div class="contact-form-group">
+                                    <label>Título en Pantalla de Carga</label>
+                                    <input type="text" id="cfgPreloaderTitle" class="contact-form-input" required>
+                                </div>
+
+                                <div class="contact-form-group">
+                                    <label>Subtítulo en Pantalla de Carga</label>
+                                    <input type="text" id="cfgPreloaderSub" class="contact-form-input" required>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn-submit-contact">💾 Guardar Logo Real y Configuración de Preloader</button>
+                        </form>
+                    </div>
+
+                    <!-- TAB 2: PRODUCTOS -->
+                    <div id="tab-products" class="admin-tab-content" style="display: none;">
                         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 20px;">
                             <h3 style="color: var(--navy);">Gestión de Catálogo de Productos</h3>
                             <button class="btn-analytics" onclick="openProductFormModal()">➕ Agregar Producto</button>
@@ -960,7 +1025,7 @@ INDEX_HTML = """<!DOCTYPE html>
                         </div>
                     </div>
 
-                    <!-- TAB 2: EMPRESA -->
+                    <!-- TAB 3: EMPRESA -->
                     <div id="tab-company" class="admin-tab-content" style="display: none;">
                         <h3 style="color: var(--navy); margin-bottom: 15px;">Parametrización de Información Institucional</h3>
                         <form onsubmit="saveCompanyParams(event)">
@@ -992,12 +1057,12 @@ INDEX_HTML = """<!DOCTYPE html>
                         </form>
                     </div>
 
-                    <!-- TAB 3: CONTACTO -->
+                    <!-- TAB 4: CONTACTO -->
                     <div id="tab-contact" class="admin-tab-content" style="display: none;">
                         <h3 style="color: var(--navy); margin-bottom: 15px;">Parametrización de Datos de Contacto</h3>
                         <form onsubmit="saveContactParams(event)">
                             <div class="contact-form-group">
-                                <label>Número de WhatsApp para Cotizaciones (Solo dígitos con código de país, Ej: 573000000000)</label>
+                                <label>Número de WhatsApp para Cotizaciones (Ej: 573000000000)</label>
                                 <input type="text" id="cfgWa" class="contact-form-input" required>
                             </div>
                             <div class="contact-form-group">
@@ -1024,20 +1089,13 @@ INDEX_HTML = """<!DOCTYPE html>
                         </form>
                     </div>
 
-                    <!-- TAB 4: SERVICIOS -->
+                    <!-- TAB 5: SERVICIOS -->
                     <div id="tab-services" class="admin-tab-content" style="display: none;">
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
                             <h3 style="color: var(--navy);">Parametrización de Servicios</h3>
                             <button class="btn-analytics" onclick="addNewServicePrompt()">➕ Agregar Servicio</button>
                         </div>
                         <div class="grid-2" id="adminServicesList"></div>
-                    </div>
-
-                    <!-- TAB 5: CATEGORÍAS -->
-                    <div id="tab-categories" class="admin-tab-content" style="display: none;">
-                        <h3 style="color: var(--navy); margin-bottom: 15px;">Desglose de Categorías 01 a 06</h3>
-                        <p style="color: var(--text-muted); margin-bottom: 20px;">Edita los títulos y desgloses informativos de cada línea</p>
-                        <div class="category-breakdown-grid" id="adminCategoriesList"></div>
                     </div>
 
                 </div>
@@ -1125,12 +1183,13 @@ INDEX_HTML = """<!DOCTYPE html>
         </div>
     </footer>
 
-    <!-- ENGINE DE PRELOADER Y PARAMETRIZACIÓN TOTAL DEL SITIO EN TIEMPO REAL -->
+    <!-- ENGINE COMPLETO CON SOPORTE PARA CARGA DE LOGO REAL DESDE PC -->
     <script>
         const INITIAL_DATA = """ + json.dumps(INITIAL_SITE_DATA) + """;
+        let tempLoadedLogoBase64 = "";
 
         function getSiteData() {
-            const saved = localStorage.getItem('yd_site_config_v5');
+            const saved = localStorage.getItem('yd_site_config_v6');
             if (saved) {
                 try { return JSON.parse(saved); } catch(e) {}
             }
@@ -1138,12 +1197,33 @@ INDEX_HTML = """<!DOCTYPE html>
         }
 
         function saveSiteData(data) {
-            localStorage.setItem('yd_site_config_v5', JSON.stringify(data));
+            localStorage.setItem('yd_site_config_v6', JSON.stringify(data));
             renderSite(data);
         }
 
         function renderSite(data) {
             const comp = data.company || INITIAL_DATA.company;
+            const prel = data.preloader || INITIAL_SITE_DATA.preloader;
+
+            // Renderizar Preloader Administrable
+            const preloaderEl = document.getElementById('pagePreloader');
+            if (preloaderEl) preloaderEl.style.background = prel.bg_gradient || "linear-gradient(135deg, #000000 0%, #2D3748 50%, #1A202C 100%)";
+            document.getElementById('preloaderTitle').textContent = prel.title || "YD PROTECCIÓN";
+            document.getElementById('preloaderSubtitle').textContent = prel.subtitle || "Cargando plataforma...";
+
+            // Renderizar Logo Real en Preloader y Navbar
+            const pLogoBox = document.getElementById('preloaderLogoContainer');
+            const navLogoBox = document.getElementById('navbarLogoContainer');
+
+            if (comp.logo_image && comp.logo_image.trim() !== "") {
+                if (pLogoBox) pLogoBox.innerHTML = `<img src="${comp.logo_image}" class="preloader-custom-logo-img">`;
+                if (navLogoBox) navLogoBox.innerHTML = `<img src="${comp.logo_image}" class="brand-real-logo-img">`;
+            } else {
+                if (pLogoBox) pLogoBox.innerHTML = `<div class="preloader-badge-center">YD</div>`;
+                if (navLogoBox) navLogoBox.innerHTML = `<div class="brand-badge">YD</div>`;
+            }
+
+            // Renderizar Textos
             document.getElementById('renderHeroTag').textContent = comp.hero_tag;
             document.getElementById('renderHeroSub').textContent = comp.hero_subtitle;
             document.getElementById('renderHeroTitle').textContent = comp.hero_title;
@@ -1209,6 +1289,18 @@ INDEX_HTML = """<!DOCTYPE html>
 
         function loadAdminForms(data) {
             const comp = data.company || INITIAL_DATA.company;
+            const prel = data.preloader || INITIAL_SITE_DATA.preloader;
+
+            document.getElementById('cfgPreloaderGradient').value = prel.bg_gradient || "linear-gradient(135deg, #000000 0%, #2D3748 50%, #1A202C 100%)";
+            document.getElementById('cfgPreloaderTitle').value = prel.title || "YD PROTECCIÓN";
+            document.getElementById('cfgPreloaderSub').value = prel.subtitle || "Cargando plataforma de seguridad...";
+
+            if (comp.logo_image && comp.logo_image.trim() !== "") {
+                document.getElementById('logoPreviewImg').src = comp.logo_image;
+                document.getElementById('logoPreviewContainer').style.display = 'flex';
+                tempLoadedLogoBase64 = comp.logo_image;
+            }
+
             document.getElementById('cfgHeroTitle').value = comp.hero_title;
             document.getElementById('cfgHeroTag').value = comp.hero_tag;
             document.getElementById('cfgHeroDesc').value = comp.hero_desc;
@@ -1250,6 +1342,38 @@ INDEX_HTML = """<!DOCTYPE html>
                     <button class="btn-detail" style="margin-top: 12px; background: #FEE2E2; color: #DC2626;" onclick="deleteService('${s.id}')">Eliminar Servicio</button>
                 </div>
             `).join('');
+        }
+
+        // SELECCIÓN DE IMAGEN DE LOGO REAL DESDE PC (FileReader Base64)
+        function handleLogoFileSelect(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(evt) {
+                tempLoadedLogoBase64 = evt.target.result;
+                document.getElementById('logoPreviewImg').src = tempLoadedLogoBase64;
+                document.getElementById('logoPreviewContainer').style.display = 'flex';
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function clearCustomLogo() {
+            tempLoadedLogoBase64 = "";
+            document.getElementById('logoFileInput').value = "";
+            document.getElementById('logoPreviewContainer').style.display = 'none';
+        }
+
+        function saveLogoAndPreloader(e) {
+            e.preventDefault();
+            const data = getSiteData();
+            data.company.logo_image = tempLoadedLogoBase64;
+            data.preloader.bg_gradient = document.getElementById('cfgPreloaderGradient').value;
+            data.preloader.title = document.getElementById('cfgPreloaderTitle').value;
+            data.preloader.subtitle = document.getElementById('cfgPreloaderSub').value;
+
+            saveSiteData(data);
+            alert('¡Logo real y configuración de pantalla de carga (Preloader) guardados correctamente!');
         }
 
         // CONTROL DEL PRELOADER ANIMADO
@@ -1483,7 +1607,7 @@ INDEX_HTML = """<!DOCTYPE html>
         function sendWhatsAppQuote(productId, title, category) {
             const data = getSiteData();
             const waNum = data.contact.whatsapp || '573000000000';
-            const msg = `Hola *YD Protección*, solicito cotización de:\n\n📌 *Producto:* ${title}\n🆔 *Código:* ${productId}\n\nPor favor me comparten precio and disponibilidad. ¡Gracias!`;
+            const msg = `Hola *YD Protección*, solicito cotización de:\n\n📌 *Producto:* ${title}\n🆔 *Código:* ${productId}\n\nPor favor me comparten precio y disponibilidad. ¡Gracias!`;
             window.open(`https://wa.me/${waNum}?text=${encodeURIComponent(msg)}`, '_blank');
         }
     </script>
