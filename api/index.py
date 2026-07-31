@@ -5,12 +5,12 @@ from fastapi.responses import HTMLResponse, JSONResponse
 from jinja2 import Template
 
 app = FastAPI(
-    title="YD Protección - Plataforma Web & CMS con Preloader de Duración Ajustable",
-    description="Plataforma Web Corporativa con Preloader splash screen administrable y duración extendida",
-    version="6.1.0"
+    title="YD Protección - Plataforma Web & CMS Total 7.0",
+    description="Plataforma Web Corporativa con CMS Administrable de Menú, Footer, Categorías y Productos",
+    version="7.0.0"
 )
 
-# DATOS BASE PARAMETRIZADOS INICIALES (Incluyendo Duración del Preloader)
+# DATOS BASE PARAMETRIZADOS INICIALES TOTALES
 INITIAL_SITE_DATA = {
   "company": {
     "brand_name": "YD PROTECCIÓN",
@@ -30,6 +30,19 @@ INITIAL_SITE_DATA = {
     "subtitle": "Cargando plataforma de seguridad...",
     "duration_ms": 4500
   },
+  "footer": {
+    "title": "HABLEMOS DE TU SEGURIDAD",
+    "subtitle": "Solicita cotización y asesoría personalizada de inmediato",
+    "copyright": "YESIKA & DANIEL | YD PROTECCIÓN © 2026 — Todos los Derechos Reservados"
+  },
+  "nav_links": [
+    { "id": "home", "label": "Home", "enabled": True },
+    { "id": "quienes-somos", "label": "Quiénes Somos", "enabled": True },
+    { "id": "categorias", "label": "Categorías", "enabled": True },
+    { "id": "tienda", "label": "Tienda", "enabled": True },
+    { "id": "servicios", "label": "Servicios", "enabled": True },
+    { "id": "contacto", "label": "Contacto", "enabled": True }
+  ],
   "contact": {
     "whatsapp": "573000000000",
     "whatsapp_display": "+57 (300) 000-0000",
@@ -641,7 +654,7 @@ footer h2 { color: var(--orange); font-size: clamp(1.5rem, 3.5vw, 2.2rem); margi
 }
 """
 
-# Template HTML con Preloader Totalmente Opaco Administrable y Duración Ajustable
+# Template HTML con CMS Administrable de Menú, Footer, Categorías y Productos
 INDEX_HTML = """<!DOCTYPE html>
 <html lang="es">
 <head>
@@ -653,7 +666,7 @@ INDEX_HTML = """<!DOCTYPE html>
 </head>
 <body>
 
-    <!-- PRELOADER SPLASH SCREEN CON DURACIÓN AJUSTABLE -->
+    <!-- PRELOADER SPLASH SCREEN -->
     <div id="pagePreloader">
         <div class="preloader-logo-ring">
             <div class="preloader-ring-spin"></div>
@@ -668,7 +681,7 @@ INDEX_HTML = """<!DOCTYPE html>
         </div>
     </div>
 
-    <!-- TOPBAR -->
+    <!-- TOPBAR CON MENÚ Y LOGO ADMINISTRABLES -->
     <header class="top-bar">
         <div class="container top-bar-content">
             <div class="brand-logo-group" onclick="navigateToPage('home')">
@@ -677,13 +690,8 @@ INDEX_HTML = """<!DOCTYPE html>
                 </div>
                 <div class="brand-title"><span id="renderBrandTitle">PROTECCIÓN</span> <span id="renderBrandSub">EQUIPOS</span></div>
             </div>
-            <nav class="nav-links">
-                <button class="nav-link-btn active-page" id="nav-home" onclick="navigateToPage('home')">Home</button>
-                <button class="nav-link-btn" id="nav-quienes-somos" onclick="navigateToPage('quienes-somos')">Quiénes Somos</button>
-                <button class="nav-link-btn" id="nav-categorias" onclick="navigateToPage('categorias')">Categorías</button>
-                <button class="nav-link-btn" id="nav-tienda" onclick="navigateToPage('tienda')">Tienda</button>
-                <button class="nav-link-btn" id="nav-servicios" onclick="navigateToPage('servicios')">Servicios</button>
-                <button class="nav-link-btn" id="nav-contacto" onclick="navigateToPage('contacto')">Contacto</button>
+            <nav class="nav-links" id="renderNavLinksContainer">
+                <!-- Se renderizan dinámicamente desde el Admin CMS -->
             </nav>
             <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
                 <button class="btn-analytics" style="background: linear-gradient(135deg, var(--navy), #112844);" onclick="navigateToPage('admin')">⚙️ Panel Admin CMS</button>
@@ -759,13 +767,13 @@ INDEX_HTML = """<!DOCTYPE html>
                     <div class="card-box">
                         <h4>🚀 Nuestra Misión</h4>
                         <p style="font-size: 1.02em; color: var(--text-dark);" id="renderMision">
-                            Suministrar equipos de protección, emergencia y prevención de la más alta calidad y normatividad, brindando asesoría integral a empresas.
+                            Suministrar equipos de protección, emergencia y prevención de la más alta calidad y normatividad.
                         </p>
                     </div>
                     <div class="card-box navy-top">
                         <h4>👁️ Nuestra Visión</h4>
                         <p style="font-size: 1.02em; color: var(--text-dark);" id="renderVision">
-                            Ser reconocidos a nivel nacional como la empresa líder y aliada estratégica en soluciones de seguridad, prevención y atención de emergencias.
+                            Ser reconocidos a nivel nacional como la empresa líder y aliada estratégica en soluciones de seguridad.
                         </p>
                     </div>
                 </div>
@@ -787,36 +795,7 @@ INDEX_HTML = """<!DOCTYPE html>
                 <h2 class="section-title">Nuestras Categorías</h2>
                 <p class="section-subtitle">Selecciona una categoría para filtrar los productos al instante en la tienda</p>
 
-                <div class="categories-grid" style="margin-bottom: 50px;">
-                    <div class="category-item active" onclick="navigateToPage('tienda', 'todos')">
-                        <span class="number">00</span>
-                        <div><h4 style="font-size: 1.1em;">TODOS LOS PRODUCTOS</h4><p style="font-size: 0.88em;">Catálogo general completo.</p></div>
-                    </div>
-                    <div class="category-item" onclick="navigateToPage('tienda', 'proteccion_personal')">
-                        <span class="number">01</span>
-                        <div><h4 style="font-size: 1.1em;">PROTECCIÓN PERSONAL</h4><p style="font-size: 0.88em;">Cascos dieléctricos, gafas UV, guantes tácticos.</p></div>
-                    </div>
-                    <div class="category-item" onclick="navigateToPage('tienda', 'emergencias_rescate')">
-                        <span class="number">02</span>
-                        <div><h4 style="font-size: 1.1em;">EMERGENCIAS Y RESCATE</h4><p style="font-size: 0.88em;">Botiquines, linternas tácticas, kits de rescate.</p></div>
-                    </div>
-                    <div class="category-item" onclick="navigateToPage('tienda', 'defensa_civil')">
-                        <span class="number">03</span>
-                        <div><h4 style="font-size: 1.1em;">DEFENSA CIVIL</h4><p style="font-size: 0.88em;">Dotación reglamentaria, chalecos 3M.</p></div>
-                    </div>
-                    <div class="category-item" onclick="navigateToPage('tienda', 'senalizacion_seguridad')">
-                        <span class="number">04</span>
-                        <div><h4 style="font-size: 1.1em;">SEÑALIZACIÓN Y SEGURIDAD</h4><p style="font-size: 0.88em;">Conos 90cm, cintas de prevención.</p></div>
-                    </div>
-                    <div class="category-item" onclick="navigateToPage('tienda', 'equipos_brigadas')">
-                        <span class="number">05</span>
-                        <div><h4 style="font-size: 1.1em;">EQUIPOS PARA BRIGADAS</h4><p style="font-size: 0.88em;">Megáfonos 50W, estaciones lavaojos.</p></div>
-                    </div>
-                    <div class="category-item" onclick="navigateToPage('tienda', 'dotacion_personalizada')">
-                        <span class="number">06</span>
-                        <div><h4 style="font-size: 1.1em;">DOTACIÓN PERSONALIZADA</h4><p style="font-size: 0.88em;">Uniformes normativos, parches bordados.</p></div>
-                    </div>
-                </div>
+                <div class="categories-grid" id="renderCategoriesPills" style="margin-bottom: 50px;"></div>
 
                 <div style="border-top: 3px solid var(--orange); padding-top: 50px;">
                     <h2 class="section-title">Desglose Detallado por Categoría</h2>
@@ -919,12 +898,12 @@ INDEX_HTML = """<!DOCTYPE html>
         </section>
     </div>
 
-    <!-- ==================== PÁGINA 7: VISTA ADMIN CMS ==================== -->
+    <!-- ==================== PÁGINA 7: VISTA ADMIN CMS TOTAL 7.0 ==================== -->
     <div id="page-admin" class="page-view">
         <div class="page-header-banner">
             <div class="container">
                 <h1>Panel de Administración CMS Total</h1>
-                <p>Parametriza la pantalla de carga (preloader), tiempo de espera, sube el logo real desde tu PC y actualiza todo el contenido</p>
+                <p>Parametriza menú superior, categorías, footer, logo real desde PC, productos y servicios</p>
             </div>
         </div>
 
@@ -952,23 +931,23 @@ INDEX_HTML = """<!DOCTYPE html>
                 <!-- PANEL ADMIN CON PESTAÑAS PARAMETRIZADAS (VISIBLE TRAS LOGIN) -->
                 <div id="adminMainContent" style="display: none;">
                     <div class="admin-tabs-bar">
-                        <button class="admin-tab-btn active-tab" onclick="switchAdminTab('logo_preloader', this)">🖼️ Logo Real & Preloader</button>
-                        <button class="admin-tab-btn" onclick="switchAdminTab('products', this)">📦 Productos (Catálogo)</button>
-                        <button class="admin-tab-btn" onclick="switchAdminTab('company', this)">🏢 Empresa & Quiénes Somos</button>
-                        <button class="admin-tab-btn" onclick="switchAdminTab('contact', this)">📞 Contacto & Horarios</button>
+                        <button class="admin-tab-btn active-tab" onclick="switchAdminTab('logo_preloader', this)">🖼️ Logo & Preloader</button>
+                        <button class="admin-tab-btn" onclick="switchAdminTab('nav_menu', this)">🍔 Menú de Navegación</button>
+                        <button class="admin-tab-btn" onclick="switchAdminTab('categories_manage', this)">🏷️ Categorías (CRUD)</button>
+                        <button class="admin-tab-btn" onclick="switchAdminTab('products', this)">📦 Productos</button>
+                        <button class="admin-tab-btn" onclick="switchAdminTab('company', this)">🏢 Empresa & Textos</button>
+                        <button class="admin-tab-btn" onclick="switchAdminTab('contact', this)">📞 Contacto</button>
                         <button class="admin-tab-btn" onclick="switchAdminTab('services', this)">🛠️ Servicios</button>
+                        <button class="admin-tab-btn" onclick="switchAdminTab('footer_manage', this)">🦶 Pie de Página (Footer)</button>
                     </div>
 
-                    <!-- TAB DE LOGO REAL Y PRELOADER ADMINISTRABLE -->
+                    <!-- TAB DE LOGO REAL Y PRELOADER -->
                     <div id="tab-logo_preloader" class="admin-tab-content">
                         <h3 style="color: var(--navy); margin-bottom: 15px;">Subir Logo Real desde la PC y Parametrizar Preloader</h3>
                         <form onsubmit="saveLogoAndPreloader(event)">
                             <div style="background: #F1F5F9; padding: 22px; border-radius: 14px; margin-bottom: 24px; border-left: 5px solid var(--orange);">
                                 <h4 style="color: var(--navy); margin-bottom: 10px;">📁 CARGAR LOGO REAL DEL SITIO DESDE LA PC</h4>
-                                <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 14px;">Selecciona la imagen oficial de tu empresa (.png, .jpg, .svg) desde tu computador:</p>
-                                
                                 <input type="file" id="logoFileInput" accept="image/*" class="contact-form-input" style="background: #FFF;" onchange="handleLogoFileSelect(event)">
-                                
                                 <div id="logoPreviewContainer" style="margin-top: 15px; display: none; align-items: center; gap: 15px;">
                                     <span style="font-weight: bold; font-size: 0.85rem;">Vista previa:</span>
                                     <img id="logoPreviewImg" src="" style="height: 60px; max-width: 180px; object-fit: contain; background: #0B1C30; padding: 6px; border-radius: 8px;">
@@ -978,7 +957,6 @@ INDEX_HTML = """<!DOCTYPE html>
 
                             <div style="background: #F1F5F9; padding: 22px; border-radius: 14px; margin-bottom: 24px; border-left: 5px solid var(--navy);">
                                 <h4 style="color: var(--navy); margin-bottom: 10px;">🎨 PARAMETRIZAR PRELOADER (DURACIÓN Y ESTILO)</h4>
-                                
                                 <div class="contact-form-group">
                                     <label>Tiempo de Carga / Duración del Preloader (Segundos de espera)</label>
                                     <select id="cfgPreloaderDuration" class="contact-form-input">
@@ -988,33 +966,80 @@ INDEX_HTML = """<!DOCTYPE html>
                                         <option value="2000">2.0 Segundos (Duración Rápida)</option>
                                     </select>
                                 </div>
-
                                 <div class="contact-form-group">
                                     <label>Fondo de la Pantalla de Carga (Estilo CSS Gradient entre Blanco, Gris y Negro)</label>
                                     <select id="cfgPreloaderGradient" class="contact-form-input">
                                         <option value="linear-gradient(135deg, #000000 0%, #2D3748 50%, #1A202C 100%)">Degradado Oscuro Elegante (Negro, Gris Oscuro y Grafito)</option>
                                         <option value="linear-gradient(135deg, #FFFFFF 0%, #CBD5E1 50%, #475569 100%)">Degradado Claro Ejecutivo (Blanco, Gris Platino y Acero)</option>
                                         <option value="linear-gradient(135deg, #050E1A 0%, #112844 50%, #FF6600 100%)">Degradado Institucional (Azul Marino y Naranja YD)</option>
-                                        <option value="radial-gradient(circle, #2D3748 0%, #1A202C 60%, #000000 100%)">Radial Grafito Absoluto</option>
                                     </select>
                                 </div>
-
                                 <div class="contact-form-group">
                                     <label>Título en Pantalla de Carga</label>
                                     <input type="text" id="cfgPreloaderTitle" class="contact-form-input" required>
                                 </div>
-
                                 <div class="contact-form-group">
                                     <label>Subtítulo en Pantalla de Carga</label>
                                     <input type="text" id="cfgPreloaderSub" class="contact-form-input" required>
                                 </div>
                             </div>
-
-                            <button type="submit" class="btn-submit-contact">💾 Guardar Logo Real y Configuración de Preloader</button>
+                            <button type="submit" class="btn-submit-contact">💾 Guardar Logo y Preloader</button>
                         </form>
                     </div>
 
-                    <!-- TAB 2: PRODUCTOS -->
+                    <!-- TAB DE ADMINISTRACIÓN DEL MENÚ DE NAVEGACIÓN -->
+                    <div id="tab-nav_menu" class="admin-tab-content" style="display: none;">
+                        <h3 style="color: var(--navy); margin-bottom: 15px;">Administración de Links del Menú Superior (Navbar)</h3>
+                        <p style="color: var(--text-muted); margin-bottom: 20px;">Edita los nombres visibles de los enlaces del menú superior</p>
+                        <form onsubmit="saveNavLinksParams(event)">
+                            <div class="grid-2" id="adminNavLinksList"></div>
+                            <button type="submit" class="btn-submit-contact" style="margin-top: 20px;">💾 Guardar Links del Menú</button>
+                        </form>
+                    </div>
+
+                    <!-- TAB DE GESTIÓN COMPLETA DE CATEGORÍAS (CRUD) -->
+                    <div id="tab-categories_manage" class="admin-tab-content" style="display: none;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                            <h3 style="color: var(--navy);">Gestión Completa de Categorías (CRUD)</h3>
+                            <button class="btn-analytics" onclick="openCategoryFormModal()">➕ Agregar Nueva Categoría</button>
+                        </div>
+                        <div style="overflow-x: auto;">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>Número</th>
+                                        <th>Título Categoría</th>
+                                        <th>Código</th>
+                                        <th>Descripción</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="adminCategoriesTable"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- TAB DE FOOTER -->
+                    <div id="tab-footer_manage" class="admin-tab-content" style="display: none;">
+                        <h3 style="color: var(--navy); margin-bottom: 15px;">Administración del Pie de Página (Footer)</h3>
+                        <form onsubmit="saveFooterParams(event)">
+                            <div class="contact-form-group">
+                                <label>Título del Footer</label>
+                                <input type="text" id="cfgFooterTitle" class="contact-form-input" required>
+                            </div>
+                            <div class="contact-form-group">
+                                <label>Subtítulo del Footer</label>
+                                <input type="text" id="cfgFooterSubtitle" class="contact-form-input" required>
+                            </div>
+                            <div class="contact-form-group">
+                                <label>Texto de Copyright y Derechos Reservados</label>
+                                <input type="text" id="cfgFooterCopyright" class="contact-form-input" required>
+                            </div>
+                            <button type="submit" class="btn-submit-contact">💾 Guardar Pie de Página</button>
+                        </form>
+                    </div>
+
+                    <!-- TAB PRODUCTOS -->
                     <div id="tab-products" class="admin-tab-content" style="display: none;">
                         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 20px;">
                             <h3 style="color: var(--navy);">Gestión de Catálogo de Productos</h3>
@@ -1037,16 +1062,16 @@ INDEX_HTML = """<!DOCTYPE html>
                         </div>
                     </div>
 
-                    <!-- TAB 3: EMPRESA -->
+                    <!-- TAB EMPRESA -->
                     <div id="tab-company" class="admin-tab-content" style="display: none;">
                         <h3 style="color: var(--navy); margin-bottom: 15px;">Parametrización de Información Institucional</h3>
                         <form onsubmit="saveCompanyParams(event)">
                             <div class="contact-form-group">
-                                <label>Título del Hero Principal (Página de Inicio)</label>
+                                <label>Título del Hero Principal</label>
                                 <input type="text" id="cfgHeroTitle" class="contact-form-input" required>
                             </div>
                             <div class="contact-form-group">
-                                <label>Subtítulo / Etiqueta del Hero</label>
+                                <label>Subtítulo del Hero</label>
                                 <input type="text" id="cfgHeroTag" class="contact-form-input" required>
                             </div>
                             <div class="contact-form-group">
@@ -1054,7 +1079,7 @@ INDEX_HTML = """<!DOCTYPE html>
                                 <textarea id="cfgHeroDesc" class="contact-form-input" rows="2" required></textarea>
                             </div>
                             <div class="contact-form-group">
-                                <label>Texto "Quiénes Somos" (Introducción)</label>
+                                <label>Texto "Quiénes Somos"</label>
                                 <textarea id="cfgAboutIntro" class="contact-form-input" rows="3" required></textarea>
                             </div>
                             <div class="contact-form-group">
@@ -1069,7 +1094,7 @@ INDEX_HTML = """<!DOCTYPE html>
                         </form>
                     </div>
 
-                    <!-- TAB 4: CONTACTO -->
+                    <!-- TAB CONTACTO -->
                     <div id="tab-contact" class="admin-tab-content" style="display: none;">
                         <h3 style="color: var(--navy); margin-bottom: 15px;">Parametrización de Datos de Contacto</h3>
                         <form onsubmit="saveContactParams(event)">
@@ -1082,7 +1107,7 @@ INDEX_HTML = """<!DOCTYPE html>
                                 <input type="text" id="cfgWaDisplay" class="contact-form-input" required>
                             </div>
                             <div class="contact-form-group">
-                                <label>Correo Electrónico de Contacto</label>
+                                <label>Correo Electrónico</label>
                                 <input type="email" id="cfgEmail" class="contact-form-input" required>
                             </div>
                             <div class="contact-form-group">
@@ -1101,7 +1126,7 @@ INDEX_HTML = """<!DOCTYPE html>
                         </form>
                     </div>
 
-                    <!-- TAB 5: SERVICIOS -->
+                    <!-- TAB SERVICIOS -->
                     <div id="tab-services" class="admin-tab-content" style="display: none;">
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
                             <h3 style="color: var(--navy);">Parametrización de Servicios</h3>
@@ -1113,6 +1138,39 @@ INDEX_HTML = """<!DOCTYPE html>
                 </div>
             </div>
         </section>
+    </div>
+
+    <!-- MODAL AGREGAR / EDITAR CATEGORÍA -->
+    <div class="modal-backdrop" id="categoryModal">
+        <div class="modal-card">
+            <button class="modal-close" onclick="closeCategoryModal()">&times;</button>
+            <h3 id="catFormTitle" style="color: var(--navy); margin-bottom: 18px;">Agregar / Editar Categoría</h3>
+            
+            <form id="categoryForm" onsubmit="saveCategory(event)">
+                <input type="hidden" id="catId">
+                <div class="contact-form-group">
+                    <label>Número Visible (Ej: Categoría 01) *</label>
+                    <input type="text" id="catNum" class="contact-form-input" required placeholder="Categoría 07">
+                </div>
+                <div class="contact-form-group">
+                    <label>Título de la Categoría *</label>
+                    <input type="text" id="catTitle" class="contact-form-input" required placeholder="Ej: Calzado de Seguridad Industrial">
+                </div>
+                <div class="contact-form-group">
+                    <label>Código Identificador *</label>
+                    <input type="text" id="catCode" class="contact-form-input" required placeholder="ej: calzado_seguridad">
+                </div>
+                <div class="contact-form-group">
+                    <label>Descripción Resumida *</label>
+                    <textarea id="catDesc" class="contact-form-input" rows="2" required placeholder="Descripción de la línea de productos..."></textarea>
+                </div>
+                <div class="contact-form-group">
+                    <label>Ítems Desglose (Separados por punto y coma ';') *</label>
+                    <textarea id="catItems" class="contact-form-input" rows="3" required placeholder="Botas dieléctricas; Calzado anti-deslizante; Punteras de policarbonato"></textarea>
+                </div>
+                <button type="submit" class="btn-submit-contact">💾 Guardar Categoría</button>
+            </form>
+        </div>
     </div>
 
     <!-- MODAL PRODUCTO -->
@@ -1129,14 +1187,7 @@ INDEX_HTML = """<!DOCTYPE html>
                 </div>
                 <div class="contact-form-group">
                     <label>Categoría *</label>
-                    <select id="pCategory" class="contact-form-input" required>
-                        <option value="proteccion_personal">Protección Personal</option>
-                        <option value="emergencias_rescate">Emergencias y Rescate</option>
-                        <option value="defensa_civil">Defensa Civil & Brigadas</option>
-                        <option value="senalizacion_seguridad">Señalización y Seguridad</option>
-                        <option value="equipos_brigadas">Equipos para Brigadas</option>
-                        <option value="dotacion_personalizada">Dotación Personalizada</option>
-                    </select>
+                    <select id="pCategory" class="contact-form-input" required></select>
                 </div>
                 <div class="contact-form-group">
                     <label>Insignia / Badge (Opcional)</label>
@@ -1183,25 +1234,25 @@ INDEX_HTML = """<!DOCTYPE html>
         </div>
     </div>
 
-    <!-- FOOTER -->
+    <!-- FOOTER ADMINISTRABLE -->
     <footer>
         <div class="container">
-            <h2>HABLEMOS DE TU SEGURIDAD</h2>
-            <p style="font-size: clamp(0.9rem, 2vw, 1.1rem);">Solicita cotización y asesoría personalizada de inmediato</p>
+            <h2 id="renderFooterTitle">HABLEMOS DE TU SEGURIDAD</h2>
+            <p style="font-size: clamp(0.9rem, 2vw, 1.1rem);" id="renderFooterSubtitle">Solicita cotización y asesoría personalizada de inmediato</p>
             
             <div class="footer-bottom">
-                <p>YESIKA & DANIEL | YD PROTECCIÓN &copy; 2026 — Todos los Derechos Reservados</p>
+                <p id="renderFooterCopyright">YESIKA & DANIEL | YD PROTECCIÓN &copy; 2026 — Todos los Derechos Reservados</p>
             </div>
         </div>
     </footer>
 
-    <!-- ENGINE COMPLETO CON DURACIÓN EXTENDIDA DE PRELOADER Y ADMINISTRACIÓN -->
+    <!-- ENGINE COMPLETO CON CMS ADMINISTRABLE DE MENÚ, FOOTER, CATEGORÍAS Y PRODUCTOS -->
     <script>
         const INITIAL_DATA = """ + json.dumps(INITIAL_SITE_DATA) + """;
         let tempLoadedLogoBase64 = "";
 
         function getSiteData() {
-            const saved = localStorage.getItem('yd_site_config_v6');
+            const saved = localStorage.getItem('yd_site_config_v7');
             if (saved) {
                 try { return JSON.parse(saved); } catch(e) {}
             }
@@ -1209,21 +1260,23 @@ INDEX_HTML = """<!DOCTYPE html>
         }
 
         function saveSiteData(data) {
-            localStorage.setItem('yd_site_config_v6', JSON.stringify(data));
+            localStorage.setItem('yd_site_config_v7', JSON.stringify(data));
             renderSite(data);
         }
 
         function renderSite(data) {
             const comp = data.company || INITIAL_DATA.company;
             const prel = data.preloader || INITIAL_SITE_DATA.preloader;
+            const foot = data.footer || INITIAL_SITE_DATA.footer;
+            const navs = data.nav_links || INITIAL_SITE_DATA.nav_links;
 
-            // Renderizar Preloader Administrable
+            // Renderizar Preloader
             const preloaderEl = document.getElementById('pagePreloader');
             if (preloaderEl) preloaderEl.style.background = prel.bg_gradient || "linear-gradient(135deg, #000000 0%, #2D3748 50%, #1A202C 100%)";
             document.getElementById('preloaderTitle').textContent = prel.title || "YD PROTECCIÓN";
             document.getElementById('preloaderSubtitle').textContent = prel.subtitle || "Cargando plataforma de seguridad...";
 
-            // Renderizar Logo Real en Preloader y Navbar
+            // Renderizar Logo Real
             const pLogoBox = document.getElementById('preloaderLogoContainer');
             const navLogoBox = document.getElementById('navbarLogoContainer');
 
@@ -1235,7 +1288,20 @@ INDEX_HTML = """<!DOCTYPE html>
                 if (navLogoBox) navLogoBox.innerHTML = `<div class="brand-badge">YD</div>`;
             }
 
-            // Renderizar Textos
+            // Renderizar Menú de Navegación Administrable (Navbar)
+            const navContainer = document.getElementById('renderNavLinksContainer');
+            if (navContainer) {
+                navContainer.innerHTML = navs.filter(n => n.enabled !== false).map(n => `
+                    <button class="nav-link-btn" id="nav-${n.id}" onclick="navigateToPage('${n.id}')">${n.label}</button>
+                `).join('');
+            }
+
+            // Renderizar Footer Administrable
+            document.getElementById('renderFooterTitle').textContent = foot.title || "HABLEMOS DE TU SEGURIDAD";
+            document.getElementById('renderFooterSubtitle').textContent = foot.subtitle || "Solicita cotización personalizada";
+            document.getElementById('renderFooterCopyright').textContent = foot.copyright || "YD PROTECCIÓN © 2026";
+
+            // Renderizar Empresa / Hero
             document.getElementById('renderHeroTag').textContent = comp.hero_tag;
             document.getElementById('renderHeroSub').textContent = comp.hero_subtitle;
             document.getElementById('renderHeroTitle').textContent = comp.hero_title;
@@ -1251,6 +1317,39 @@ INDEX_HTML = """<!DOCTYPE html>
             document.getElementById('renderContactLocation').textContent = cnt.location;
             document.getElementById('renderContactSchedule').textContent = cnt.schedule;
 
+            // Renderizar Categorías Pills y Breakdown Administrables
+            const categories = data.categories_breakdown || INITIAL_DATA.categories_breakdown;
+            const cPills = document.getElementById('renderCategoriesPills');
+            if (cPills) {
+                cPills.innerHTML = `
+                    <div class="category-item active" onclick="navigateToPage('tienda', 'todos')">
+                        <span class="number">00</span>
+                        <div><h4 style="font-size: 1.1em;">TODOS LOS PRODUCTOS</h4><p style="font-size: 0.88em;">Catálogo general completo.</p></div>
+                    </div>
+                ` + categories.map((c, i) => `
+                    <div class="category-item" onclick="navigateToPage('tienda', '${c.code}')">
+                        <span class="number">${String(i + 1).padStart(2, '0')}</span>
+                        <div><h4 style="font-size: 1.1em;">${c.title}</h4><p style="font-size: 0.88em;">${c.desc}</p></div>
+                    </div>
+                `).join('');
+            }
+
+            const cGrid = document.getElementById('renderCategoriesBreakdown');
+            if (cGrid) {
+                cGrid.innerHTML = categories.map(c => `
+                    <div class="category-breakdown-card">
+                        <span class="breakdown-num">${c.num}</span>
+                        <h3 class="breakdown-title">${c.title}</h3>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 12px;">${c.desc}</p>
+                        <ul class="breakdown-list">
+                            ${c.items.map(it => `<li>${it}</li>`).join('')}
+                        </ul>
+                        <button class="btn-detail" style="width: 100%; margin-top: 10px;" onclick="navigateToPage('tienda', '${c.code}')">Ver Productos en Tienda</button>
+                    </div>
+                `).join('');
+            }
+
+            // Renderizar Productos
             const products = data.products || INITIAL_DATA.products;
             const pGrid = document.getElementById('productGrid');
             pGrid.innerHTML = products.map(p => `
@@ -1271,6 +1370,7 @@ INDEX_HTML = """<!DOCTYPE html>
                 </article>
             `).join('');
 
+            // Renderizar Servicios
             const services = data.services || INITIAL_DATA.services;
             const sGrid = document.getElementById('renderServicesGrid');
             sGrid.innerHTML = services.map(s => `
@@ -1282,27 +1382,16 @@ INDEX_HTML = """<!DOCTYPE html>
                 </div>
             `).join('');
 
-            const categories = data.categories_breakdown || INITIAL_DATA.categories_breakdown;
-            const cGrid = document.getElementById('renderCategoriesBreakdown');
-            cGrid.innerHTML = categories.map(c => `
-                <div class="category-breakdown-card">
-                    <span class="breakdown-num">${c.num}</span>
-                    <h3 class="breakdown-title">${c.title}</h3>
-                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 12px;">${c.desc}</p>
-                    <ul class="breakdown-list">
-                        ${c.items.map(it => `<li>${it}</li>`).join('')}
-                    </ul>
-                    <button class="btn-detail" style="width: 100%; margin-top: 10px;" onclick="navigateToPage('tienda', '${c.code}')">Ver Productos en Tienda</button>
-                </div>
-            `).join('');
-
             loadAdminForms(data);
         }
 
         function loadAdminForms(data) {
             const comp = data.company || INITIAL_DATA.company;
             const prel = data.preloader || INITIAL_SITE_DATA.preloader;
+            const foot = data.footer || INITIAL_SITE_DATA.footer;
+            const navs = data.nav_links || INITIAL_SITE_DATA.nav_links;
 
+            // Formulario Preloader / Logo
             document.getElementById('cfgPreloaderDuration').value = prel.duration_ms || "4500";
             document.getElementById('cfgPreloaderGradient').value = prel.bg_gradient || "linear-gradient(135deg, #000000 0%, #2D3748 50%, #1A202C 100%)";
             document.getElementById('cfgPreloaderTitle').value = prel.title || "YD PROTECCIÓN";
@@ -1314,6 +1403,47 @@ INDEX_HTML = """<!DOCTYPE html>
                 tempLoadedLogoBase64 = comp.logo_image;
             }
 
+            // Formulario Menú Links
+            const navAdminGrid = document.getElementById('adminNavLinksList');
+            if (navAdminGrid) {
+                navAdminGrid.innerHTML = navs.map(n => `
+                    <div class="card-box" style="padding: 18px;">
+                        <label style="font-size:0.8rem; font-weight:bold; color:var(--navy);">Link ID: ${n.id}</label>
+                        <input type="text" class="contact-form-input nav-label-input" data-id="${n.id}" value="${n.label}" style="margin-top: 6px;">
+                    </div>
+                `).join('');
+            }
+
+            // Formulario Footer
+            document.getElementById('cfgFooterTitle').value = foot.title || "HABLEMOS DE TU SEGURIDAD";
+            document.getElementById('cfgFooterSubtitle').value = foot.subtitle || "Solicita cotización personalizada";
+            document.getElementById('cfgFooterCopyright').value = foot.copyright || "YD PROTECCIÓN © 2026";
+
+            // Formulario Categorías CRUD Admin Table
+            const categories = data.categories_breakdown || INITIAL_DATA.categories_breakdown;
+            const catTable = document.getElementById('adminCategoriesTable');
+            if (catTable) {
+                catTable.innerHTML = categories.map(c => `
+                    <tr id="catrow-${c.id}">
+                        <td><strong>${c.num}</strong></td>
+                        <td><strong>${c.title}</strong></td>
+                        <td><span class="badge-admin">${c.code}</span></td>
+                        <td style="font-size:0.82rem; color: var(--text-muted);">${c.desc}</td>
+                        <td>
+                            <button class="btn-detail" style="padding: 6px 10px; font-size: 0.78rem;" onclick="editCategory('${c.id}')">✏️ Editar</button>
+                            <button class="btn-detail" style="padding: 6px 10px; font-size: 0.78rem; background: #FEE2E2; color: #DC2626;" onclick="deleteCategory('${c.id}')">🗑️ Eliminar</button>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+
+            // Opciones de categorías en modal de Producto
+            const pCategorySelect = document.getElementById('pCategory');
+            if (pCategorySelect) {
+                pCategorySelect.innerHTML = categories.map(c => `<option value="${c.code}">${c.title}</option>`).join('');
+            }
+
+            // Formulario Empresa
             document.getElementById('cfgHeroTitle').value = comp.hero_title;
             document.getElementById('cfgHeroTag').value = comp.hero_tag;
             document.getElementById('cfgHeroDesc').value = comp.hero_desc;
@@ -1321,6 +1451,7 @@ INDEX_HTML = """<!DOCTYPE html>
             document.getElementById('cfgMision').value = comp.mision;
             document.getElementById('cfgVision').value = comp.vision;
 
+            // Formulario Contacto
             const cnt = data.contact || INITIAL_DATA.contact;
             document.getElementById('cfgWa').value = cnt.whatsapp;
             document.getElementById('cfgWaDisplay').value = cnt.whatsapp_display;
@@ -1329,66 +1460,131 @@ INDEX_HTML = """<!DOCTYPE html>
             document.getElementById('cfgLocation').value = cnt.location;
             document.getElementById('cfgSchedule').value = cnt.schedule;
 
+            // Formulario Productos
             const products = data.products || INITIAL_DATA.products;
             const pTable = document.getElementById('adminProductsTable');
-            pTable.innerHTML = products.map(p => `
-                <tr id="row-${p.id}">
-                    <td><strong>${p.id}</strong></td>
-                    <td><img src="${p.image}" style="width: 45px; height: 45px; object-fit: cover; border-radius: 8px;" onerror="this.src='${p.fallback_image || ''}'"></td>
-                    <td><strong>${p.title}</strong></td>
-                    <td><span class="badge-admin">${p.category_name}</span></td>
-                    <td><span style="font-size:0.8rem; font-weight:bold; color:var(--orange);">${p.badge || '-'}</span></td>
-                    <td>
-                        <button class="btn-detail" style="padding: 6px 10px; font-size: 0.78rem;" onclick="editProduct('${p.id}')">✏️ Editar</button>
-                        <button class="btn-detail" style="padding: 6px 10px; font-size: 0.78rem; background: #FEE2E2; color: #DC2626;" onclick="deleteProduct('${p.id}')">🗑️ Eliminar</button>
-                    </td>
-                </tr>
-            `).join('');
+            if (pTable) {
+                pTable.innerHTML = products.map(p => `
+                    <tr id="row-${p.id}">
+                        <td><strong>${p.id}</strong></td>
+                        <td><img src="${p.image}" style="width: 45px; height: 45px; object-fit: cover; border-radius: 8px;" onerror="this.src='${p.fallback_image || ''}'"></td>
+                        <td><strong>${p.title}</strong></td>
+                        <td><span class="badge-admin">${p.category_name}</span></td>
+                        <td><span style="font-size:0.8rem; font-weight:bold; color:var(--orange);">${p.badge || '-'}</span></td>
+                        <td>
+                            <button class="btn-detail" style="padding: 6px 10px; font-size: 0.78rem;" onclick="editProduct('${p.id}')">✏️ Editar</button>
+                            <button class="btn-detail" style="padding: 6px 10px; font-size: 0.78rem; background: #FEE2E2; color: #DC2626;" onclick="deleteProduct('${p.id}')">🗑️ Eliminar</button>
+                        </td>
+                    </tr>
+                `).join('');
+            }
 
+            // Formulario Servicios
             const services = data.services || INITIAL_DATA.services;
             const sAdminGrid = document.getElementById('adminServicesList');
-            sAdminGrid.innerHTML = services.map(s => `
-                <div class="card-box">
-                    <div style="font-size: 2rem;">${s.icon}</div>
-                    <h4>${s.title}</h4>
-                    <p style="color: var(--text-muted); font-size: 0.9rem;">${s.desc}</p>
-                    <button class="btn-detail" style="margin-top: 12px; background: #FEE2E2; color: #DC2626;" onclick="deleteService('${s.id}')">Eliminar Servicio</button>
-                </div>
-            `).join('');
+            if (sAdminGrid) {
+                sAdminGrid.innerHTML = services.map(s => `
+                    <div class="card-box">
+                        <div style="font-size: 2rem;">${s.icon}</div>
+                        <h4>${s.title}</h4>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">${s.desc}</p>
+                        <button class="btn-detail" style="margin-top: 12px; background: #FEE2E2; color: #DC2626;" onclick="deleteService('${s.id}')">Eliminar Servicio</button>
+                    </div>
+                `).join('');
+            }
         }
 
-        function handleLogoFileSelect(e) {
-            const file = e.target.files[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = function(evt) {
-                tempLoadedLogoBase64 = evt.target.result;
-                document.getElementById('logoPreviewImg').src = tempLoadedLogoBase64;
-                document.getElementById('logoPreviewContainer').style.display = 'flex';
-            };
-            reader.readAsDataURL(file);
-        }
-
-        function clearCustomLogo() {
-            tempLoadedLogoBase64 = "";
-            document.getElementById('logoFileInput').value = "";
-            document.getElementById('logoPreviewContainer').style.display = 'none';
-        }
-
-        function saveLogoAndPreloader(e) {
+        // GUARDAR MENÚ DE NAVEGACIÓN
+        function saveNavLinksParams(e) {
             e.preventDefault();
             const data = getSiteData();
-            data.company.logo_image = tempLoadedLogoBase64;
-            data.preloader.bg_gradient = document.getElementById('cfgPreloaderGradient').value;
-            data.preloader.title = document.getElementById('cfgPreloaderTitle').value;
-            data.preloader.subtitle = document.getElementById('cfgPreloaderSub').value;
-            data.preloader.duration_ms = parseInt(document.getElementById('cfgPreloaderDuration').value) || 4500;
-
+            const inputs = document.querySelectorAll('.nav-label-input');
+            inputs.forEach(input => {
+                const id = input.getAttribute('data-id');
+                const linkObj = data.nav_links.find(n => n.id === id);
+                if (linkObj) linkObj.label = input.value;
+            });
             saveSiteData(data);
-            alert('¡Configuración guardada correctamente!');
+            alert('¡Links del Menú Superior actualizados correctamente!');
         }
 
-        // CONTROL DEL PRELOADER ANIMADO CON DURACIÓN EXTENDIDA
+        // GUARDAR FOOTER
+        function saveFooterParams(e) {
+            e.preventDefault();
+            const data = getSiteData();
+            data.footer.title = document.getElementById('cfgFooterTitle').value;
+            data.footer.subtitle = document.getElementById('cfgFooterSubtitle').value;
+            data.footer.copyright = document.getElementById('cfgFooterCopyright').value;
+            saveSiteData(data);
+            alert('¡Pie de página (Footer) actualizado correctamente!');
+        }
+
+        // ACCIONES DE CATEGORÍAS (CRUD)
+        function openCategoryFormModal() {
+            document.getElementById('catFormTitle').textContent = 'Agregar Nueva Categoría';
+            document.getElementById('catId').value = '';
+            document.getElementById('categoryForm').reset();
+            document.getElementById('categoryModal').classList.add('active');
+        }
+
+        function closeCategoryModal() {
+            document.getElementById('categoryModal').classList.remove('active');
+        }
+
+        function editCategory(id) {
+            const data = getSiteData();
+            const c = data.categories_breakdown.find(x => x.id === id);
+            if (!c) return;
+
+            document.getElementById('catFormTitle').textContent = 'Editar Categoría ID: ' + id;
+            document.getElementById('catId').value = c.id;
+            document.getElementById('catNum').value = c.num;
+            document.getElementById('catTitle').value = c.title;
+            document.getElementById('catCode').value = c.code;
+            document.getElementById('catDesc').value = c.desc;
+            document.getElementById('catItems').value = (c.items || []).join('; ');
+
+            document.getElementById('categoryModal').classList.add('active');
+        }
+
+        function saveCategory(e) {
+            e.preventDefault();
+            const data = getSiteData();
+            const cid = document.getElementById('catId').value || ('cat-' + String(Date.now()).slice(-4));
+            const rawItems = document.getElementById('catItems').value;
+            const itemsArray = rawItems.split(';').map(s => s.trim()).filter(s => s.length > 0);
+
+            const cObj = {
+                id: cid,
+                num: document.getElementById('catNum').value,
+                title: document.getElementById('catTitle').value,
+                code: document.getElementById('catCode').value,
+                desc: document.getElementById('catDesc').value,
+                items: itemsArray
+            };
+
+            const idx = data.categories_breakdown.findIndex(x => x.id === cid);
+            if (idx >= 0) {
+                data.categories_breakdown[idx] = cObj;
+            } else {
+                data.categories_breakdown.push(cObj);
+            }
+
+            saveSiteData(data);
+            closeCategoryModal();
+            alert('Categoría guardada correctamente en CMS.');
+        }
+
+        function deleteCategory(id) {
+            if (confirm('¿Deseas eliminar la categoría ' + id + '?')) {
+                const data = getSiteData();
+                data.categories_breakdown = data.categories_breakdown.filter(x => x.id !== id);
+                saveSiteData(data);
+                alert('Categoría eliminada.');
+            }
+        }
+
+        // CONTROL DEL PRELOADER ANIMADO
         document.addEventListener('DOMContentLoaded', () => {
             const currentData = getSiteData();
             renderSite(currentData);
@@ -1425,6 +1621,37 @@ INDEX_HTML = """<!DOCTYPE html>
                 navigateToPage('admin');
             }
         });
+
+        function handleLogoFileSelect(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(evt) {
+                tempLoadedLogoBase64 = evt.target.result;
+                document.getElementById('logoPreviewImg').src = tempLoadedLogoBase64;
+                document.getElementById('logoPreviewContainer').style.display = 'flex';
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function clearCustomLogo() {
+            tempLoadedLogoBase64 = "";
+            document.getElementById('logoFileInput').value = "";
+            document.getElementById('logoPreviewContainer').style.display = 'none';
+        }
+
+        function saveLogoAndPreloader(e) {
+            e.preventDefault();
+            const data = getSiteData();
+            data.company.logo_image = tempLoadedLogoBase64;
+            data.preloader.bg_gradient = document.getElementById('cfgPreloaderGradient').value;
+            data.preloader.title = document.getElementById('cfgPreloaderTitle').value;
+            data.preloader.subtitle = document.getElementById('cfgPreloaderSub').value;
+            data.preloader.duration_ms = parseInt(document.getElementById('cfgPreloaderDuration').value) || 4500;
+
+            saveSiteData(data);
+            alert('¡Configuración guardada correctamente!');
+        }
 
         function saveCompanyParams(e) {
             e.preventDefault();
