@@ -5,17 +5,17 @@ from fastapi.responses import HTMLResponse, JSONResponse
 from jinja2 import Template
 
 app = FastAPI(
-    title="YD Protección - Plataforma Web & CMS con Carga de Logo",
-    description="Plataforma Web Corporativa con Preloader Administrable y Carga de Logo Real desde PC",
-    version="6.0.0"
+    title="YD Protección - Plataforma Web & CMS con Preloader de Duración Ajustable",
+    description="Plataforma Web Corporativa con Preloader splash screen administrable y duración extendida",
+    version="6.1.0"
 )
 
-# DATOS BASE PARAMETRIZADOS INICIALES (Incluyendo Preloader y Logo Real)
+# DATOS BASE PARAMETRIZADOS INICIALES (Incluyendo Duración del Preloader)
 INITIAL_SITE_DATA = {
   "company": {
     "brand_name": "YD PROTECCIÓN",
     "brand_subtitle": "EQUIPOS",
-    "logo_image": "", # URL o DataURL en base64 del logo real cargado desde PC
+    "logo_image": "",
     "hero_tag": "Seguridad que salva vidas ★ Yesika & Daniel",
     "hero_subtitle": "Seguridad y Emergencia a tu Alcance",
     "hero_title": "EQUIPOS DE PROTECCIÓN Y PREVENCIÓN",
@@ -27,7 +27,8 @@ INITIAL_SITE_DATA = {
   "preloader": {
     "bg_gradient": "linear-gradient(135deg, #000000 0%, #2D3748 50%, #1A202C 100%)",
     "title": "YD PROTECCIÓN",
-    "subtitle": "Cargando plataforma de seguridad..."
+    "subtitle": "Cargando plataforma de seguridad...",
+    "duration_ms": 4500
   },
   "contact": {
     "whatsapp": "573000000000",
@@ -345,7 +346,7 @@ h1, h2, h3, h4, h5 { font-family: 'Montserrat', -apple-system, BlinkMacSystemFon
 img { max-width: 100%; height: auto; display: block; }
 .container { max-width: 1240px; margin: 0 auto; padding: 0 20px; }
 
-/* PRELOADER SPLASH SCREEN CON FONDO TOTALMENTE OPACO DEGRADADO (BLANCO, GRIS, NEGRO) */
+/* PRELOADER SPLASH SCREEN CON FONDO TOTALMENTE OPACO DEGRADADO */
 #pagePreloader {
     position: fixed;
     top: 0; left: 0; width: 100vw; height: 100vh;
@@ -355,7 +356,7 @@ img { max-width: 100%; height: auto; display: block; }
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    transition: opacity 0.65s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 #pagePreloader.preloader-hidden {
     opacity: 0;
@@ -378,7 +379,7 @@ img { max-width: 100%; height: auto; display: block; }
     border: 4px solid rgba(255, 102, 0, 0.2);
     border-top: 4px solid var(--orange);
     border-radius: 50%;
-    animation: preloaderSpin 1.1s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    animation: preloaderSpin 1.4s cubic-bezier(0.5, 0, 0.5, 1) infinite;
 }
 .preloader-badge-center {
     background: linear-gradient(135deg, var(--orange), var(--orange-light));
@@ -389,7 +390,7 @@ img { max-width: 100%; height: auto; display: block; }
     padding: 14px 22px;
     border-radius: 16px;
     box-shadow: 0 10px 30px rgba(255,102,0,0.45);
-    animation: preloaderPulse 1.8s ease-in-out infinite alternate;
+    animation: preloaderPulse 2.2s ease-in-out infinite alternate;
 }
 .preloader-custom-logo-img {
     max-width: 100px;
@@ -397,7 +398,7 @@ img { max-width: 100%; height: auto; display: block; }
     object-fit: contain;
     border-radius: 12px;
     filter: drop-shadow(0 6px 15px rgba(255,102,0,0.5));
-    animation: preloaderPulse 1.8s ease-in-out infinite alternate;
+    animation: preloaderPulse 2.2s ease-in-out infinite alternate;
 }
 @keyframes preloaderSpin {
     0% { transform: rotate(0deg); }
@@ -423,7 +424,7 @@ img { max-width: 100%; height: auto; display: block; }
     letter-spacing: 0.5px;
 }
 .preloader-bar-bg {
-    width: 250px;
+    width: 260px;
     height: 6px;
     background: rgba(255,255,255,0.15);
     border-radius: 10px;
@@ -435,7 +436,7 @@ img { max-width: 100%; height: auto; display: block; }
     width: 0%;
     background: linear-gradient(90deg, var(--orange), var(--orange-light));
     border-radius: 10px;
-    transition: width 0.04s linear;
+    transition: width 0.08s linear;
     box-shadow: 0 0 12px var(--orange);
 }
 
@@ -640,7 +641,7 @@ footer h2 { color: var(--orange); font-size: clamp(1.5rem, 3.5vw, 2.2rem); margi
 }
 """
 
-# Template HTML con Preloader Totalmente Opaco Administrable y Carga de Logo Real desde PC
+# Template HTML con Preloader Totalmente Opaco Administrable y Duración Ajustable
 INDEX_HTML = """<!DOCTYPE html>
 <html lang="es">
 <head>
@@ -652,7 +653,7 @@ INDEX_HTML = """<!DOCTYPE html>
 </head>
 <body>
 
-    <!-- PRELOADER SPLASH SCREEN TOTALMENTE OPACO DEGRADADO -->
+    <!-- PRELOADER SPLASH SCREEN CON DURACIÓN AJUSTABLE -->
     <div id="pagePreloader">
         <div class="preloader-logo-ring">
             <div class="preloader-ring-spin"></div>
@@ -667,7 +668,7 @@ INDEX_HTML = """<!DOCTYPE html>
         </div>
     </div>
 
-    <!-- TOPBAR CON LOGO EDITABLE -->
+    <!-- TOPBAR -->
     <header class="top-bar">
         <div class="container top-bar-content">
             <div class="brand-logo-group" onclick="navigateToPage('home')">
@@ -923,7 +924,7 @@ INDEX_HTML = """<!DOCTYPE html>
         <div class="page-header-banner">
             <div class="container">
                 <h1>Panel de Administración CMS Total</h1>
-                <p>Parametriza la pantalla de carga (preloader), sube el logo real desde tu PC y actualiza toda la información</p>
+                <p>Parametriza la pantalla de carga (preloader), tiempo de espera, sube el logo real desde tu PC y actualiza todo el contenido</p>
             </div>
         </div>
 
@@ -976,7 +977,18 @@ INDEX_HTML = """<!DOCTYPE html>
                             </div>
 
                             <div style="background: #F1F5F9; padding: 22px; border-radius: 14px; margin-bottom: 24px; border-left: 5px solid var(--navy);">
-                                <h4 style="color: var(--navy); margin-bottom: 10px;">🎨 PARAMETRIZAR PRELOADER (PANTALLA DE CARGA)</h4>
+                                <h4 style="color: var(--navy); margin-bottom: 10px;">🎨 PARAMETRIZAR PRELOADER (DURACIÓN Y ESTILO)</h4>
+                                
+                                <div class="contact-form-group">
+                                    <label>Tiempo de Carga / Duración del Preloader (Segundos de espera)</label>
+                                    <select id="cfgPreloaderDuration" class="contact-form-input">
+                                        <option value="4500">4.5 Segundos (Recomendado - Carga Completa)</option>
+                                        <option value="6000">6.0 Segundos (Mayor Retraso / Presentación Larga)</option>
+                                        <option value="3000">3.0 Segundos (Duración Media)</option>
+                                        <option value="2000">2.0 Segundos (Duración Rápida)</option>
+                                    </select>
+                                </div>
+
                                 <div class="contact-form-group">
                                     <label>Fondo de la Pantalla de Carga (Estilo CSS Gradient entre Blanco, Gris y Negro)</label>
                                     <select id="cfgPreloaderGradient" class="contact-form-input">
@@ -1183,7 +1195,7 @@ INDEX_HTML = """<!DOCTYPE html>
         </div>
     </footer>
 
-    <!-- ENGINE COMPLETO CON SOPORTE PARA CARGA DE LOGO REAL DESDE PC -->
+    <!-- ENGINE COMPLETO CON DURACIÓN EXTENDIDA DE PRELOADER Y ADMINISTRACIÓN -->
     <script>
         const INITIAL_DATA = """ + json.dumps(INITIAL_SITE_DATA) + """;
         let tempLoadedLogoBase64 = "";
@@ -1209,7 +1221,7 @@ INDEX_HTML = """<!DOCTYPE html>
             const preloaderEl = document.getElementById('pagePreloader');
             if (preloaderEl) preloaderEl.style.background = prel.bg_gradient || "linear-gradient(135deg, #000000 0%, #2D3748 50%, #1A202C 100%)";
             document.getElementById('preloaderTitle').textContent = prel.title || "YD PROTECCIÓN";
-            document.getElementById('preloaderSubtitle').textContent = prel.subtitle || "Cargando plataforma...";
+            document.getElementById('preloaderSubtitle').textContent = prel.subtitle || "Cargando plataforma de seguridad...";
 
             // Renderizar Logo Real en Preloader y Navbar
             const pLogoBox = document.getElementById('preloaderLogoContainer');
@@ -1291,6 +1303,7 @@ INDEX_HTML = """<!DOCTYPE html>
             const comp = data.company || INITIAL_DATA.company;
             const prel = data.preloader || INITIAL_SITE_DATA.preloader;
 
+            document.getElementById('cfgPreloaderDuration').value = prel.duration_ms || "4500";
             document.getElementById('cfgPreloaderGradient').value = prel.bg_gradient || "linear-gradient(135deg, #000000 0%, #2D3748 50%, #1A202C 100%)";
             document.getElementById('cfgPreloaderTitle').value = prel.title || "YD PROTECCIÓN";
             document.getElementById('cfgPreloaderSub').value = prel.subtitle || "Cargando plataforma de seguridad...";
@@ -1344,11 +1357,9 @@ INDEX_HTML = """<!DOCTYPE html>
             `).join('');
         }
 
-        // SELECCIÓN DE IMAGEN DE LOGO REAL DESDE PC (FileReader Base64)
         function handleLogoFileSelect(e) {
             const file = e.target.files[0];
             if (!file) return;
-
             const reader = new FileReader();
             reader.onload = function(evt) {
                 tempLoadedLogoBase64 = evt.target.result;
@@ -1371,33 +1382,37 @@ INDEX_HTML = """<!DOCTYPE html>
             data.preloader.bg_gradient = document.getElementById('cfgPreloaderGradient').value;
             data.preloader.title = document.getElementById('cfgPreloaderTitle').value;
             data.preloader.subtitle = document.getElementById('cfgPreloaderSub').value;
+            data.preloader.duration_ms = parseInt(document.getElementById('cfgPreloaderDuration').value) || 4500;
 
             saveSiteData(data);
-            alert('¡Logo real y configuración de pantalla de carga (Preloader) guardados correctamente!');
+            alert('¡Configuración guardada correctamente!');
         }
 
-        // CONTROL DEL PRELOADER ANIMADO
+        // CONTROL DEL PRELOADER ANIMADO CON DURACIÓN EXTENDIDA
         document.addEventListener('DOMContentLoaded', () => {
+            const currentData = getSiteData();
+            renderSite(currentData);
+
+            const duration = (currentData.preloader && currentData.preloader.duration_ms) ? currentData.preloader.duration_ms : 4500;
+            const stepInterval = Math.floor(duration / 35);
             let progress = 0;
+            
             const bar = document.getElementById('preloaderBar');
             const preloader = document.getElementById('pagePreloader');
             
             const interval = setInterval(() => {
-                progress += Math.floor(Math.random() * 15) + 10;
+                progress += Math.floor(Math.random() * 4) + 2;
                 if (progress >= 100) {
                     progress = 100;
                     if (bar) bar.style.width = '100%';
                     clearInterval(interval);
                     setTimeout(() => {
                         if (preloader) preloader.classList.add('preloader-hidden');
-                    }, 350);
+                    }, 500);
                 } else {
                     if (bar) bar.style.width = progress + '%';
                 }
-            }, 70);
-
-            const currentData = getSiteData();
-            renderSite(currentData);
+            }, stepInterval);
 
             if (sessionStorage.getItem('yd_admin_logged') === 'true') {
                 const overlay = document.getElementById('loginOverlay');
@@ -1421,7 +1436,7 @@ INDEX_HTML = """<!DOCTYPE html>
             data.company.mision = document.getElementById('cfgMision').value;
             data.company.vision = document.getElementById('cfgVision').value;
             saveSiteData(data);
-            alert('¡Información Institucional parametrizada y actualizada!');
+            alert('¡Información Institucional parametrizada!');
         }
 
         function saveContactParams(e) {
@@ -1434,7 +1449,7 @@ INDEX_HTML = """<!DOCTYPE html>
             data.contact.location = document.getElementById('cfgLocation').value;
             data.contact.schedule = document.getElementById('cfgSchedule').value;
             saveSiteData(data);
-            alert('¡Datos de Contacto parametrizados y actualizados!');
+            alert('¡Datos de Contacto parametrizados!');
         }
 
         function editProduct(id) {
@@ -1481,7 +1496,7 @@ INDEX_HTML = """<!DOCTYPE html>
 
             saveSiteData(data);
             closeProductModal();
-            alert('Producto guardado correctamente en CMS.');
+            alert('Producto guardado en CMS.');
         }
 
         function deleteProduct(id) {
@@ -1507,7 +1522,7 @@ INDEX_HTML = """<!DOCTYPE html>
                 desc: desc
             });
             saveSiteData(data);
-            alert('Servicio agregado al sitio.');
+            alert('Servicio agregado.');
         }
 
         function deleteService(id) {
