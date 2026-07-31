@@ -5,12 +5,12 @@ from fastapi.responses import HTMLResponse, JSONResponse
 from jinja2 import Template
 
 app = FastAPI(
-    title="YD Protección - Plataforma Web & CMS Admin Total",
-    description="Plataforma Web Corporativa con Panel de Administración Parametrizado 100% Personalizable para YD Protección",
-    version="5.0.0"
+    title="YD Protección - Plataforma Web & Preloader Splash",
+    description="Plataforma Web Corporativa con Animación de Carga Preloader para YD Protección",
+    version="5.1.0"
 )
 
-# DATOS BASE PARAMETRIZADOS INICIALES (Configuración de todo el sitio web)
+# DATOS BASE PARAMETRIZADOS INICIALES
 INITIAL_SITE_DATA = {
   "company": {
     "brand_name": "YD PROTECCIÓN",
@@ -193,7 +193,7 @@ INITIAL_SITE_DATA = {
       "specs": [
         "Resistencia a corte: EN388 Nivel 5 / ANSI A4",
         "Material: Microfibra sintética y caucho TPR",
-        "Cierre: Ajuste de velcro reinforced",
+        "Cierre: Ajuste de velcro reforzado",
         "Superficie: Antideslizante de agarre seguro"
       ]
     },
@@ -308,7 +308,7 @@ INITIAL_SITE_DATA = {
   ]
 }
 
-# Estilos CSS
+# Estilos CSS con Preloader Elegante
 EMBEDDED_CSS = """
 :root {
     --navy: #0B1C30;
@@ -338,6 +338,92 @@ body {
 h1, h2, h3, h4, h5 { font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif; text-transform: uppercase; font-weight: 800; }
 img { max-width: 100%; height: auto; display: block; }
 .container { max-width: 1240px; margin: 0 auto; padding: 0 20px; }
+
+/* PRELOADER SPLASH SCREEN */
+#pagePreloader {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: radial-gradient(circle at 50% 35%, rgba(255,102,0,0.18) 0%, rgba(5,14,26,1) 85%);
+    z-index: 999999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.65s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+}
+#pagePreloader.preloader-hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+.preloader-logo-ring {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 26px;
+}
+.preloader-ring-spin {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 4px solid rgba(255, 102, 0, 0.15);
+    border-top: 4px solid var(--orange);
+    border-radius: 50%;
+    animation: preloaderSpin 1.1s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+}
+.preloader-badge-center {
+    background: linear-gradient(135deg, var(--orange), var(--orange-light));
+    color: #FFF;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 2.4rem;
+    padding: 14px 22px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(255,102,0,0.45);
+    animation: preloaderPulse 1.8s ease-in-out infinite alternate;
+}
+@keyframes preloaderSpin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+@keyframes preloaderPulse {
+    0% { transform: scale(0.95); box-shadow: 0 5px 20px rgba(255,102,0,0.3); }
+    100% { transform: scale(1.05); box-shadow: 0 15px 35px rgba(255,102,0,0.65); }
+}
+.preloader-title {
+    color: #FFFFFF;
+    font-size: 1.5rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+}
+.preloader-title span { color: var(--orange); }
+.preloader-subtext {
+    color: #94A3B8;
+    font-size: 0.92rem;
+    margin-bottom: 28px;
+    letter-spacing: 0.5px;
+}
+.preloader-bar-bg {
+    width: 250px;
+    height: 6px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+}
+.preloader-bar-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--orange), var(--orange-light));
+    border-radius: 10px;
+    transition: width 0.04s linear;
+    box-shadow: 0 0 12px var(--orange);
+}
 
 /* HEADER / NAVBAR */
 .top-bar {
@@ -537,7 +623,7 @@ footer h2 { color: var(--orange); font-size: clamp(1.5rem, 3.5vw, 2.2rem); margi
 }
 """
 
-# Template HTML con Panel Admin CMS Totalmente Parametrizado
+# Template HTML con Preloader Splash Screen
 INDEX_HTML = """<!DOCTYPE html>
 <html lang="es">
 <head>
@@ -548,6 +634,19 @@ INDEX_HTML = """<!DOCTYPE html>
     <style>""" + EMBEDDED_CSS + """</style>
 </head>
 <body>
+
+    <!-- PRELOADER SPLASH SCREEN CON ANIMACIÓN ELEGANTE DE ENTRADA -->
+    <div id="pagePreloader">
+        <div class="preloader-logo-ring">
+            <div class="preloader-ring-spin"></div>
+            <div class="preloader-badge-center">YD</div>
+        </div>
+        <div class="preloader-title">PROTECCIÓN <span>EQUIPOS</span></div>
+        <div class="preloader-subtext">Cargando plataforma de seguridad...</div>
+        <div class="preloader-bar-bg">
+            <div class="preloader-bar-fill" id="preloaderBar"></div>
+        </div>
+    </div>
 
     <!-- TOPBAR -->
     <header class="top-bar">
@@ -798,7 +897,7 @@ INDEX_HTML = """<!DOCTYPE html>
         </section>
     </div>
 
-    <!-- ==================== PÁGINA 7: VISTA ADMIN CMS CMS TOTALMENTE PARAMETRIZADA ==================== -->
+    <!-- ==================== PÁGINA 7: VISTA ADMIN CMS ==================== -->
     <div id="page-admin" class="page-view">
         <div class="page-header-banner">
             <div class="container">
@@ -1026,7 +1125,7 @@ INDEX_HTML = """<!DOCTYPE html>
         </div>
     </footer>
 
-    <!-- ENGINE DE PARAMETRIZACIÓN TOTAL DEL SITIO EN TIEMPO REAL -->
+    <!-- ENGINE DE PRELOADER Y PARAMETRIZACIÓN TOTAL DEL SITIO EN TIEMPO REAL -->
     <script>
         const INITIAL_DATA = """ + json.dumps(INITIAL_SITE_DATA) + """;
 
@@ -1044,7 +1143,6 @@ INDEX_HTML = """<!DOCTYPE html>
         }
 
         function renderSite(data) {
-            // Renderizar Empresa / Hero
             const comp = data.company || INITIAL_DATA.company;
             document.getElementById('renderHeroTag').textContent = comp.hero_tag;
             document.getElementById('renderHeroSub').textContent = comp.hero_subtitle;
@@ -1054,7 +1152,6 @@ INDEX_HTML = """<!DOCTYPE html>
             document.getElementById('renderMision').textContent = comp.mision;
             document.getElementById('renderVision').textContent = comp.vision;
 
-            // Renderizar Contacto
             const cnt = data.contact || INITIAL_DATA.contact;
             document.getElementById('renderContactWa').textContent = cnt.whatsapp_display;
             document.getElementById('renderContactEmail').textContent = cnt.email;
@@ -1062,7 +1159,6 @@ INDEX_HTML = """<!DOCTYPE html>
             document.getElementById('renderContactLocation').textContent = cnt.location;
             document.getElementById('renderContactSchedule').textContent = cnt.schedule;
 
-            // Renderizar Productos
             const products = data.products || INITIAL_DATA.products;
             const pGrid = document.getElementById('productGrid');
             pGrid.innerHTML = products.map(p => `
@@ -1083,7 +1179,6 @@ INDEX_HTML = """<!DOCTYPE html>
                 </article>
             `).join('');
 
-            // Renderizar Servicios
             const services = data.services || INITIAL_DATA.services;
             const sGrid = document.getElementById('renderServicesGrid');
             sGrid.innerHTML = services.map(s => `
@@ -1095,7 +1190,6 @@ INDEX_HTML = """<!DOCTYPE html>
                 </div>
             `).join('');
 
-            // Renderizar Desglose Categorías
             const categories = data.categories_breakdown || INITIAL_DATA.categories_breakdown;
             const cGrid = document.getElementById('renderCategoriesBreakdown');
             cGrid.innerHTML = categories.map(c => `
@@ -1110,12 +1204,10 @@ INDEX_HTML = """<!DOCTYPE html>
                 </div>
             `).join('');
 
-            // Cargar formularios en el Admin CMS
             loadAdminForms(data);
         }
 
         function loadAdminForms(data) {
-            // Cargar Formulario Empresa
             const comp = data.company || INITIAL_DATA.company;
             document.getElementById('cfgHeroTitle').value = comp.hero_title;
             document.getElementById('cfgHeroTag').value = comp.hero_tag;
@@ -1124,7 +1216,6 @@ INDEX_HTML = """<!DOCTYPE html>
             document.getElementById('cfgMision').value = comp.mision;
             document.getElementById('cfgVision').value = comp.vision;
 
-            // Cargar Formulario Contacto
             const cnt = data.contact || INITIAL_DATA.contact;
             document.getElementById('cfgWa').value = cnt.whatsapp;
             document.getElementById('cfgWaDisplay').value = cnt.whatsapp_display;
@@ -1133,7 +1224,6 @@ INDEX_HTML = """<!DOCTYPE html>
             document.getElementById('cfgLocation').value = cnt.location;
             document.getElementById('cfgSchedule').value = cnt.schedule;
 
-            // Cargar Tabla Productos Admin
             const products = data.products || INITIAL_DATA.products;
             const pTable = document.getElementById('adminProductsTable');
             pTable.innerHTML = products.map(p => `
@@ -1150,7 +1240,6 @@ INDEX_HTML = """<!DOCTYPE html>
                 </tr>
             `).join('');
 
-            // Cargar Servicios Admin
             const services = data.services || INITIAL_DATA.services;
             const sAdminGrid = document.getElementById('adminServicesList');
             sAdminGrid.innerHTML = services.map(s => `
@@ -1163,7 +1252,41 @@ INDEX_HTML = """<!DOCTYPE html>
             `).join('');
         }
 
-        // GUARDAR PARAMETRIZACIÓN DE EMPRESA
+        // CONTROL DEL PRELOADER ANIMADO
+        document.addEventListener('DOMContentLoaded', () => {
+            let progress = 0;
+            const bar = document.getElementById('preloaderBar');
+            const preloader = document.getElementById('pagePreloader');
+            
+            const interval = setInterval(() => {
+                progress += Math.floor(Math.random() * 15) + 10;
+                if (progress >= 100) {
+                    progress = 100;
+                    if (bar) bar.style.width = '100%';
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        if (preloader) preloader.classList.add('preloader-hidden');
+                    }, 350);
+                } else {
+                    if (bar) bar.style.width = progress + '%';
+                }
+            }, 70);
+
+            const currentData = getSiteData();
+            renderSite(currentData);
+
+            if (sessionStorage.getItem('yd_admin_logged') === 'true') {
+                const overlay = document.getElementById('loginOverlay');
+                const content = document.getElementById('adminMainContent');
+                if (overlay) overlay.style.display = 'none';
+                if (content) content.style.display = 'block';
+            }
+
+            if (window.location.pathname.includes('/admin')) {
+                navigateToPage('admin');
+            }
+        });
+
         function saveCompanyParams(e) {
             e.preventDefault();
             const data = getSiteData();
@@ -1173,12 +1296,10 @@ INDEX_HTML = """<!DOCTYPE html>
             data.company.about_intro = document.getElementById('cfgAboutIntro').value;
             data.company.mision = document.getElementById('cfgMision').value;
             data.company.vision = document.getElementById('cfgVision').value;
-            
             saveSiteData(data);
             alert('¡Información Institucional parametrizada y actualizada!');
         }
 
-        // GUARDAR PARAMETRIZACIÓN DE CONTACTO
         function saveContactParams(e) {
             e.preventDefault();
             const data = getSiteData();
@@ -1188,12 +1309,10 @@ INDEX_HTML = """<!DOCTYPE html>
             data.contact.instagram = document.getElementById('cfgInsta').value;
             data.contact.location = document.getElementById('cfgLocation').value;
             data.contact.schedule = document.getElementById('cfgSchedule').value;
-
             saveSiteData(data);
             alert('¡Datos de Contacto parametrizados y actualizados!');
         }
 
-        // ACCIONES DE PRODUCTOS (CRUD)
         function editProduct(id) {
             const data = getSiteData();
             const p = data.products.find(x => x.id === id);
@@ -1207,7 +1326,6 @@ INDEX_HTML = """<!DOCTYPE html>
             document.getElementById('pImage').value = p.image;
             document.getElementById('pShortDesc').value = p.short_description;
             document.getElementById('pDesc').value = p.description || p.short_description;
-
             document.getElementById('productModal').classList.add('active');
         }
 
@@ -1251,7 +1369,6 @@ INDEX_HTML = """<!DOCTYPE html>
             }
         }
 
-        // AGREGAR / ELIMINAR SERVICIOS
         function addNewServicePrompt() {
             const title = prompt('Título del nuevo servicio:');
             if (!title) return;
@@ -1277,7 +1394,6 @@ INDEX_HTML = """<!DOCTYPE html>
             }
         }
 
-        // ROUTER Y NAVEGACIÓN
         function navigateToPage(pageId, categoryFilter = null) {
             document.querySelectorAll('.page-view').forEach(view => view.classList.remove('active-view'));
             document.querySelectorAll('.nav-link-btn').forEach(btn => btn.classList.remove('active-page'));
@@ -1326,22 +1442,6 @@ INDEX_HTML = """<!DOCTYPE html>
             }
         }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const currentData = getSiteData();
-            renderSite(currentData);
-
-            if (sessionStorage.getItem('yd_admin_logged') === 'true') {
-                const overlay = document.getElementById('loginOverlay');
-                const content = document.getElementById('adminMainContent');
-                if (overlay) overlay.style.display = 'none';
-                if (content) content.style.display = 'block';
-            }
-
-            if (window.location.pathname.includes('/admin')) {
-                navigateToPage('admin');
-            }
-        });
-
         function openModal(id) {
             const data = getSiteData();
             const p = data.products.find(x => x.id === id);
@@ -1383,7 +1483,7 @@ INDEX_HTML = """<!DOCTYPE html>
         function sendWhatsAppQuote(productId, title, category) {
             const data = getSiteData();
             const waNum = data.contact.whatsapp || '573000000000';
-            const msg = `Hola *YD Protección*, solicito cotización de:\n\n📌 *Producto:* ${title}\n🆔 *Código:* ${productId}\n\nPor favor me comparten precio y disponibilidad. ¡Gracias!`;
+            const msg = `Hola *YD Protección*, solicito cotización de:\n\n📌 *Producto:* ${title}\n🆔 *Código:* ${productId}\n\nPor favor me comparten precio and disponibilidad. ¡Gracias!`;
             window.open(`https://wa.me/${waNum}?text=${encodeURIComponent(msg)}`, '_blank');
         }
     </script>
