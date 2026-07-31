@@ -6,12 +6,12 @@ from fastapi.responses import HTMLResponse, JSONResponse
 from jinja2 import Template
 
 app = FastAPI(
-    title="YD Protección - Plataforma Web & CMS con Limpieza de Cache Móvil 11.0",
-    description="Plataforma Web Corporativa con Botones Inactivos por Defecto y Purga de Cache Móvil",
-    version="11.0.0"
+    title="YD Protección - Plataforma Web & CMS Ejecutivo 12.0",
+    description="Plataforma Web Corporativa con Dashboard CMS de Nivel Ejecutivo, Métricas en Tiempo Real y Sincronización Supabase Cloud Engine",
+    version="12.0.0"
 )
 
-# DATOS BASE PARAMETRIZADOS INICIALES TOTALES (Botones Admin y Analítica INACTIVOS por defecto)
+# DATOS BASE PARAMETRIZADOS INICIALES TOTALES
 INITIAL_SITE_DATA = {
   "company": {
     "brand_name": "YD PROTECCIÓN",
@@ -225,7 +225,7 @@ INITIAL_SITE_DATA = {
       "specs": [
         "Resistencia a corte: EN388 Nivel 5 / ANSI A4",
         "Material: Microfibra sintética y caucho TPR",
-        "Cierre: Ajuste de velcro reforzado",
+        "Cierre: Ajuste de velcro reinforced",
         "Superficie: Antideslizante de agarre seguro"
       ]
     },
@@ -552,6 +552,54 @@ section { padding: 60px 0; }
 }
 .section-subtitle { text-align: center; font-size: clamp(0.95rem, 2vw, 1.15rem); color: var(--text-muted); margin-bottom: 40px; }
 
+/* DESIGN SYSTEM EJECUTIVO CMS v12 */
+.admin-hero-banner {
+    background: linear-gradient(135deg, #050E1A 0%, #0B1C30 50%, #112844 100%);
+    color: #FFF; padding: 40px 25px; border-radius: 20px; border-left: 6px solid var(--orange);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.25); margin-bottom: 30px; position: relative; overflow: hidden;
+}
+.admin-hero-banner::after {
+    content: 'CMS 12.0'; position: absolute; right: -20px; bottom: -20px; font-size: 7rem;
+    font-weight: 900; color: rgba(255,102,0,0.05); font-family: 'Montserrat', sans-serif; pointer-events: none;
+}
+.admin-metrics-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 35px;
+}
+.admin-metric-card {
+    background: #FFFFFF; border-radius: 16px; padding: 22px 20px; box-shadow: var(--card-shadow);
+    border: 1px solid rgba(0,0,0,0.06); border-top: 4px solid var(--orange); transition: all 0.3s ease; display: flex; align-items: center; gap: 16px;
+}
+.admin-metric-card:hover { transform: translateY(-4px); box-shadow: var(--hover-shadow); }
+.admin-metric-icon {
+    width: 52px; height: 52px; border-radius: 14px; background: rgba(255,102,0,0.12); color: var(--orange);
+    display: flex; align-items: center; justify-content: center; font-size: 1.6rem; flex-shrink: 0;
+}
+.admin-metric-val { font-size: 1.8rem; font-weight: 900; color: var(--navy); line-height: 1; margin-bottom: 4px; font-family: 'Montserrat', sans-serif; }
+.admin-metric-lbl { font-size: 0.8rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* SWITCH TOGGLE ULTRA MODERNO */
+.switch-container { display: flex; align-items: center; gap: 12px; }
+.switch { position: relative; display: inline-block; width: 50px; height: 26px; flex-shrink: 0; }
+.switch input { opacity: 0; width: 0; height: 0; }
+.slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #CBD5E1; transition: .35s ease; border-radius: 34px; }
+.slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 4px; bottom: 4px; background-color: white; transition: .35s ease; border-radius: 50%; box-shadow: 0 2px 6px rgba(0,0,0,0.3); }
+input:checked + .slider { background-color: var(--orange); }
+input:checked + .slider:before { transform: translateX(24px); }
+
+/* TOAST FLOATING NOTIFICATIONS */
+#toastContainer {
+    position: fixed; top: 85px; right: 25px; z-index: 99999; display: flex; flex-direction: column; gap: 10px; pointer-events: none;
+}
+.toast-msg {
+    background: #0B1C30; color: #FFF; border-left: 5px solid var(--orange); padding: 14px 22px; border-radius: 12px;
+    font-weight: 700; font-size: 0.92rem; box-shadow: 0 10px 30px rgba(0,0,0,0.35); display: flex; align-items: center; gap: 10px;
+    animation: toastIn 0.35s cubic-bezier(0.4, 0, 0.2, 1) forwards; pointer-events: all;
+}
+@keyframes toastIn {
+    0% { opacity: 0; transform: translateX(60px); }
+    100% { opacity: 1; transform: translateX(0); }
+}
+
 /* DESGLOSE Y GRILLAS */
 .category-breakdown-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 24px; margin-top: 30px; }
 .category-breakdown-card {
@@ -635,8 +683,8 @@ section { padding: 60px 0; }
 .badge-admin { padding: 4px 10px; border-radius: 50px; font-size: 0.75rem; font-weight: bold; background: rgba(255,102,0,0.12); color: var(--orange); }
 
 .admin-tabs-bar { display: flex; gap: 10px; overflow-x: auto; margin-bottom: 25px; border-bottom: 2px solid #E2E8F0; padding-bottom: 10px; }
-.admin-tab-btn { background: #E2E8F0; color: var(--navy); border: none; padding: 10px 18px; border-radius: 8px; font-weight: 700; font-size: 0.88rem; cursor: pointer; transition: all 0.3s; white-space: nowrap; }
-.admin-tab-btn.active-tab { background: var(--orange); color: var(--white); }
+.admin-tab-btn { background: #E2E8F0; color: var(--navy); border: none; padding: 11px 20px; border-radius: 10px; font-weight: 800; font-size: 0.88rem; cursor: pointer; transition: all 0.3s; white-space: nowrap; }
+.admin-tab-btn.active-tab { background: var(--orange); color: var(--white); box-shadow: 0 4px 14px rgba(255,102,0,0.35); }
 
 /* FOOTER */
 footer { background-color: var(--navy-dark); color: var(--white); padding: 65px 20px 35px; text-align: center; border-top: 5px solid var(--orange); }
@@ -666,7 +714,7 @@ footer h2 { color: var(--orange); font-size: clamp(1.5rem, 3.5vw, 2.2rem); margi
 }
 """
 
-# Template HTML con Limpieza de Cache en Dispositivos Móviles
+# Template HTML con CMS Panel Ejecutivo Ultra Profesional 12.0
 INDEX_HTML = """<!DOCTYPE html>
 <html lang="es">
 <head>
@@ -678,6 +726,9 @@ INDEX_HTML = """<!DOCTYPE html>
     <style>""" + EMBEDDED_CSS + """</style>
 </head>
 <body>
+
+    <!-- CONTENEDOR DE NOTIFICACIONES TOAST FLOATING -->
+    <div id="toastContainer"></div>
 
     <!-- PRELOADER SPLASH SCREEN -->
     <div id="pagePreloader">
@@ -913,252 +964,294 @@ INDEX_HTML = """<!DOCTYPE html>
     <!-- CONTENEDOR DINÁMICO DE SECCIONES PERSONALIZADAS CREADAS DESDE EL CMS -->
     <div id="dynamicCustomPagesContainer"></div>
 
-    <!-- ==================== PÁGINA VISTA ADMIN CMS TOTAL 11.0 ==================== -->
+    <!-- ==================== PÁGINA VISTA ADMIN CMS EJECUTIVO 12.0 ==================== -->
     <div id="page-admin" class="page-view">
-        <div class="page-header-banner">
-            <div class="container">
-                <h1>Panel de Administración CMS Total</h1>
-                <p>Sincronización en la Nube activa para reflejar cambios instantáneamente en Celulares, Tablets y PCs</p>
+        <div class="container" style="padding-top: 30px; padding-bottom: 60px;">
+            
+            <!-- ENCABEZADO HERO DEL CMS -->
+            <div class="admin-hero-banner">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; position: relative; z-index: 2;">
+                    <div>
+                        <span style="background: rgba(255,102,0,0.2); border: 1px solid var(--orange); color: var(--orange); font-size: 0.78rem; font-weight: 900; padding: 4px 14px; border-radius: 50px; text-transform: uppercase;">PANEL DE CONTROL EJECUTIVO v12.0</span>
+                        <h1 style="font-size: clamp(1.8rem, 4vw, 2.5rem); margin-top: 8px; color: #FFF;">ADMINISTRACIÓN TOTAL YD PROTECCIÓN</h1>
+                        <p style="color: #CBD5E1; font-size: 0.95rem; margin-top: 4px;">Sincronización en tiempo real vía Supabase Cloud Sync Engine para Móviles, Tablets y PCs</p>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <div style="background: rgba(37,211,102,0.15); border: 1px solid #25D366; color: #25D366; padding: 8px 16px; border-radius: 50px; font-weight: 800; font-size: 0.85rem; display: flex; align-items: center; gap: 6px;">
+                            <span>☁️ NUBE CONECTADA</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
 
-        <section class="bg-white" style="padding-top: 15px;">
-            <div class="container">
-                <!-- MODAL LOGIN ADMIN -->
-                <div id="loginOverlay" style="background: var(--navy-dark); color: var(--white); padding: 35px; border-radius: 20px; max-width: 440px; margin: 0 auto 40px; text-align: center; border-top: 5px solid var(--orange);">
-                    <div class="brand-badge" style="display: inline-block; margin-bottom: 12px;">YD</div>
-                    <h3 style="color: #FFF; margin-bottom: 6px;">ACCESO ADMINISTRATIVO CMS</h3>
-                    <p style="color: #CBD5E1; font-size: 0.88rem; margin-bottom: 22px;">Ingresa credenciales para parametrizar el sitio</p>
+            <!-- MODAL LOGIN ADMIN -->
+            <div id="loginOverlay" style="background: var(--navy-dark); color: var(--white); padding: 40px 30px; border-radius: 20px; max-width: 440px; margin: 0 auto 40px; text-align: center; border-top: 6px solid var(--orange); box-shadow: 0 20px 40px rgba(0,0,0,0.4);">
+                <div class="brand-badge" style="display: inline-block; margin-bottom: 14px; font-size: 1.4rem; padding: 6px 14px;">YD</div>
+                <h3 style="color: #FFF; margin-bottom: 6px; letter-spacing: 0.5px;">ACCESO ADMINISTRATIVO CMS</h3>
+                <p style="color: #CBD5E1; font-size: 0.88rem; margin-bottom: 25px;">Ingresa credenciales para parametrizar la plataforma</p>
 
-                    <form onsubmit="handleAdminLogin(event)">
-                        <div style="margin-bottom: 14px; text-align: left;">
-                            <label style="font-weight:700; font-size:0.82rem; color:var(--orange);">USUARIO</label>
-                            <input type="text" id="admUser" class="contact-form-input" required placeholder="admin" value="admin">
+                <form onsubmit="handleAdminLogin(event)">
+                    <div style="margin-bottom: 16px; text-align: left;">
+                        <label style="font-weight:800; font-size:0.82rem; color:var(--orange);">USUARIO ADMINISTRADOR</label>
+                        <input type="text" id="admUser" class="contact-form-input" required placeholder="admin" value="admin" style="margin-top: 6px;">
+                    </div>
+                    <div style="margin-bottom: 22px; text-align: left;">
+                        <label style="font-weight:800; font-size:0.82rem; color:var(--orange);">CONTRASEÑA SECLAVE</label>
+                        <input type="password" id="admPass" class="contact-form-input" required placeholder="••••••••" value="yd2026" style="margin-top: 6px;">
+                    </div>
+                    <button type="submit" class="btn-submit-contact" style="padding: 16px; font-size: 1.05rem;">🔑 Entrar al Dashboard CMS</button>
+                </form>
+            </div>
+
+            <!-- CONTENIDO PRINCIPAL DEL CMS TRAS INICIAR SESIÓN -->
+            <div id="adminMainContent" style="display: none;">
+                
+                <!-- METRICAS EJECUTIVAS EN TIEMPO REAL -->
+                <div class="admin-metrics-grid">
+                    <div class="admin-metric-card">
+                        <div class="admin-metric-icon">📦</div>
+                        <div>
+                            <div class="admin-metric-val" id="metricProductsCount">0</div>
+                            <div class="admin-metric-lbl">Productos en Catálogo</div>
                         </div>
-                        <div style="margin-bottom: 20px; text-align: left;">
-                            <label style="font-weight:700; font-size:0.82rem; color:var(--orange);">CONTRASEÑA</label>
-                            <input type="password" id="admPass" class="contact-form-input" required placeholder="••••••••" value="yd2026">
+                    </div>
+                    <div class="admin-metric-card">
+                        <div class="admin-metric-icon">🏷️</div>
+                        <div>
+                            <div class="admin-metric-val" id="metricCategoriesCount">0</div>
+                            <div class="admin-metric-lbl">Categorías Activas</div>
                         </div>
-                        <button type="submit" class="btn-submit-contact">🔑 Iniciar Sesión CMS</button>
+                    </div>
+                    <div class="admin-metric-card">
+                        <div class="admin-metric-icon">🌐</div>
+                        <div>
+                            <div class="admin-metric-val" id="metricNavsCount">0</div>
+                            <div class="admin-metric-lbl">Links & Botones Web</div>
+                        </div>
+                    </div>
+                    <div class="admin-metric-card" style="border-top-color: #25D366;">
+                        <div class="admin-metric-icon" style="background: rgba(37,211,102,0.12); color: #25D366;">☁️</div>
+                        <div>
+                            <div class="admin-metric-val" style="color: #166534; font-size: 1.4rem;">ONLINE</div>
+                            <div class="admin-metric-lbl">Supabase Cloud Sync</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BARRA DE PESTAÑAS EJECUTIVAS -->
+                <div class="admin-tabs-bar">
+                    <button class="admin-tab-btn active-tab" onclick="switchAdminTab('nav_menu', this)">🍔 Menú & Botones</button>
+                    <button class="admin-tab-btn" onclick="switchAdminTab('logo_preloader', this)">🖼️ Logo & Preloader</button>
+                    <button class="admin-tab-btn" onclick="switchAdminTab('categories_manage', this)">🏷️ Categorías (CRUD)</button>
+                    <button class="admin-tab-btn" onclick="switchAdminTab('products', this)">📦 Catálogo Productos</button>
+                    <button class="admin-tab-btn" onclick="switchAdminTab('company', this)">🏢 Empresa & Hero</button>
+                    <button class="admin-tab-btn" onclick="switchAdminTab('contact', this)">📞 Canales Contacto</button>
+                    <button class="admin-tab-btn" onclick="switchAdminTab('services', this)">🛠️ Servicios</button>
+                    <button class="admin-tab-btn" onclick="switchAdminTab('footer_manage', this)">🦶 Pie de Página</button>
+                </div>
+
+                <!-- TAB MENÚ DE NAVEGACIÓN Y BOTONES CON SWITCHES ANIMADOS -->
+                <div id="tab-nav_menu" class="admin-tab-content">
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 22px;">
+                        <div>
+                            <h3 style="color: var(--navy); font-size: 1.3rem;">Administración del Menú Superior y Botones de Acción</h3>
+                            <p style="color: var(--text-muted); font-size: 0.9rem;">Usa los switches interactivos para activar u ocultar de inmediato cualquier botón en celulares y laptops</p>
+                        </div>
+                        <button class="btn-analytics" onclick="openNewSectionModal()">➕ Crear Nueva Sección Personalizada</button>
+                    </div>
+                    
+                    <form onsubmit="saveNavLinksParams(event)">
+                        <div class="grid-2" id="adminNavLinksList"></div>
+                        <button type="submit" class="btn-submit-contact" style="margin-top: 25px; padding: 16px; font-size: 1.05rem;">💾 Guardar Menú y Sincronizar en Nube</button>
                     </form>
                 </div>
 
-                <!-- PANEL ADMIN CON PESTAÑAS PARAMETRIZADAS (VISIBLE TRAS LOGIN) -->
-                <div id="adminMainContent" style="display: none;">
-                    <div class="admin-tabs-bar">
-                        <button class="admin-tab-btn active-tab" onclick="switchAdminTab('nav_menu', this)">🍔 Menú, Botones & Secciones</button>
-                        <button class="admin-tab-btn" onclick="switchAdminTab('logo_preloader', this)">🖼️ Logo & Preloader</button>
-                        <button class="admin-tab-btn" onclick="switchAdminTab('categories_manage', this)">🏷️ Categorías (CRUD)</button>
-                        <button class="admin-tab-btn" onclick="switchAdminTab('products', this)">📦 Productos</button>
-                        <button class="admin-tab-btn" onclick="switchAdminTab('company', this)">🏢 Empresa & Textos</button>
-                        <button class="admin-tab-btn" onclick="switchAdminTab('contact', this)">📞 Contacto</button>
-                        <button class="admin-tab-btn" onclick="switchAdminTab('services', this)">🛠️ Servicios</button>
-                        <button class="admin-tab-btn" onclick="switchAdminTab('footer_manage', this)">🦶 Pie de Página (Footer)</button>
-                    </div>
-
-                    <!-- TAB DE ADMINISTRACIÓN DEL MENÚ DE NAVEGACIÓN -->
-                    <div id="tab-nav_menu" class="admin-tab-content">
-                        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 20px;">
-                            <div>
-                                <h3 style="color: var(--navy);">Administración del Menú Superior y Secciones</h3>
-                                <p style="color: var(--text-muted); font-size: 0.9rem;">Activa, desactiva o edita el texto de cualquier botón del menú (incluyendo Panel Admin CMS y Analítica)</p>
+                <!-- TAB LOGO REAL Y PRELOADER -->
+                <div id="tab-logo_preloader" class="admin-tab-content" style="display: none;">
+                    <h3 style="color: var(--navy); margin-bottom: 18px; font-size: 1.3rem;">Logotipo Institucional y Configuración de Carga</h3>
+                    <form onsubmit="saveLogoAndPreloader(event)">
+                        <div style="background: #F8FAFC; padding: 25px; border-radius: 16px; margin-bottom: 24px; border: 1px solid #E2E8F0; border-left: 6px solid var(--orange);">
+                            <h4 style="color: var(--navy); margin-bottom: 12px; font-size: 1.1rem;">📁 CARGAR LOGO REAL DESDE LA PC</h4>
+                            <input type="file" id="logoFileInput" accept="image/*" class="contact-form-input" style="background: #FFF;" onchange="handleLogoFileSelect(event)">
+                            <div id="logoPreviewContainer" style="margin-top: 18px; display: none; align-items: center; gap: 18px;">
+                                <span style="font-weight: bold; font-size: 0.9rem; color: var(--navy);">Vista Previa Oficial:</span>
+                                <img id="logoPreviewImg" src="" style="height: 65px; max-width: 200px; object-fit: contain; background: #0B1C30; padding: 8px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+                                <button type="button" class="btn-detail" style="padding: 8px 16px; font-size: 0.82rem; background: #FEE2E2; color: #DC2626;" onclick="clearCustomLogo()">Remover Logo</button>
                             </div>
-                            <button class="btn-analytics" onclick="openNewSectionModal()">➕ Crear Nueva Sección Personalizada</button>
                         </div>
-                        
-                        <form onsubmit="saveNavLinksParams(event)">
-                            <div class="grid-2" id="adminNavLinksList"></div>
-                            <button type="submit" class="btn-submit-contact" style="margin-top: 25px;">💾 Guardar Menú y Sincronizar en Nube (Móviles & Desktop)</button>
-                        </form>
-                    </div>
 
-                    <!-- TAB DE LOGO REAL Y PRELOADER -->
-                    <div id="tab-logo_preloader" class="admin-tab-content" style="display: none;">
-                        <h3 style="color: var(--navy); margin-bottom: 15px;">Subir Logo Real desde la PC y Parametrizar Preloader</h3>
-                        <form onsubmit="saveLogoAndPreloader(event)">
-                            <div style="background: #F1F5F9; padding: 22px; border-radius: 14px; margin-bottom: 24px; border-left: 5px solid var(--orange);">
-                                <h4 style="color: var(--navy); margin-bottom: 10px;">📁 CARGAR LOGO REAL DEL SITIO DESDE LA PC</h4>
-                                <input type="file" id="logoFileInput" accept="image/*" class="contact-form-input" style="background: #FFF;" onchange="handleLogoFileSelect(event)">
-                                <div id="logoPreviewContainer" style="margin-top: 15px; display: none; align-items: center; gap: 15px;">
-                                    <span style="font-weight: bold; font-size: 0.85rem;">Vista previa:</span>
-                                    <img id="logoPreviewImg" src="" style="height: 60px; max-width: 180px; object-fit: contain; background: #0B1C30; padding: 6px; border-radius: 8px;">
-                                    <button type="button" class="btn-detail" style="padding: 6px 12px; font-size: 0.8rem;" onclick="clearCustomLogo()">Remover Logo</button>
-                                </div>
+                        <div style="background: #F8FAFC; padding: 25px; border-radius: 16px; margin-bottom: 24px; border: 1px solid #E2E8F0; border-left: 6px solid var(--navy);">
+                            <h4 style="color: var(--navy); margin-bottom: 12px; font-size: 1.1rem;">🎨 PRELOADER DE BIENVENIDA (PANTALLA DE CARGA)</h4>
+                            <div class="contact-form-group">
+                                <label>Tiempo de Retraso / Duración del Preloader (Segundos de espera)</label>
+                                <select id="cfgPreloaderDuration" class="contact-form-input">
+                                    <option value="4500">4.5 Segundos (Recomendado - Carga Completa)</option>
+                                    <option value="6000">6.0 Segundos (Presentación Extendida)</option>
+                                    <option value="3000">3.0 Segundos (Duración Media)</option>
+                                    <option value="2000">2.0 Segundos (Rápido)</option>
+                                </select>
                             </div>
-
-                            <div style="background: #F1F5F9; padding: 22px; border-radius: 14px; margin-bottom: 24px; border-left: 5px solid var(--navy);">
-                                <h4 style="color: var(--navy); margin-bottom: 10px;">🎨 PARAMETRIZAR PRELOADER (DURACIÓN Y ESTILO)</h4>
-                                <div class="contact-form-group">
-                                    <label>Tiempo de Carga / Duración del Preloader (Segundos de espera)</label>
-                                    <select id="cfgPreloaderDuration" class="contact-form-input">
-                                        <option value="4500">4.5 Segundos (Recomendado - Carga Completa)</option>
-                                        <option value="6000">6.0 Segundos (Mayor Retraso / Presentación Larga)</option>
-                                        <option value="3000">3.0 Segundos (Duración Media)</option>
-                                        <option value="2000">2.0 Segundos (Duración Rápida)</option>
-                                    </select>
-                                </div>
-                                <div class="contact-form-group">
-                                    <label>Fondo de la Pantalla de Carga (Estilo CSS Gradient entre Blanco, Gris y Negro)</label>
-                                    <select id="cfgPreloaderGradient" class="contact-form-input">
-                                        <option value="linear-gradient(135deg, #000000 0%, #2D3748 50%, #1A202C 100%)">Degradado Oscuro Elegante (Negro, Gris Oscuro y Grafito)</option>
-                                        <option value="linear-gradient(135deg, #FFFFFF 0%, #CBD5E1 50%, #475569 100%)">Degradado Claro Ejecutivo (Blanco, Gris Platino y Acero)</option>
-                                        <option value="linear-gradient(135deg, #050E1A 0%, #112844 50%, #FF6600 100%)">Degradado Institucional (Azul Marino y Naranja YD)</option>
-                                    </select>
-                                </div>
-                                <div class="contact-form-group">
-                                    <label>Título en Pantalla de Carga</label>
-                                    <input type="text" id="cfgPreloaderTitle" class="contact-form-input" required>
-                                </div>
-                                <div class="contact-form-group">
-                                    <label>Subtítulo en Pantalla de Carga</label>
-                                    <input type="text" id="cfgPreloaderSub" class="contact-form-input" required>
-                                </div>
+                            <div class="contact-form-group">
+                                <label>Fondo de la Pantalla de Carga (Degradado Opaco Blanco, Gris y Negro)</label>
+                                <select id="cfgPreloaderGradient" class="contact-form-input">
+                                    <option value="linear-gradient(135deg, #000000 0%, #2D3748 50%, #1A202C 100%)">Degradado Oscuro Elegante (Negro, Gris Oscuro y Grafito)</option>
+                                    <option value="linear-gradient(135deg, #FFFFFF 0%, #CBD5E1 50%, #475569 100%)">Degradado Claro Ejecutivo (Blanco, Gris Platino y Acero)</option>
+                                    <option value="linear-gradient(135deg, #050E1A 0%, #112844 50%, #FF6600 100%)">Degradado Institucional (Azul Marino y Naranja YD)</option>
+                                </select>
                             </div>
-                            <button type="submit" class="btn-submit-contact">💾 Guardar Logo y Preloader en Nube</button>
-                        </form>
-                    </div>
-
-                    <!-- TAB DE GESTIÓN COMPLETA DE CATEGORÍAS (CRUD) -->
-                    <div id="tab-categories_manage" class="admin-tab-content" style="display: none;">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                            <h3 style="color: var(--navy);">Gestión Completa de Categorías (CRUD)</h3>
-                            <button class="btn-analytics" onclick="openCategoryFormModal()">➕ Agregar Nueva Categoría</button>
+                            <div class="contact-form-group">
+                                <label>Título en Pantalla de Carga</label>
+                                <input type="text" id="cfgPreloaderTitle" class="contact-form-input" required>
+                            </div>
+                            <div class="contact-form-group">
+                                <label>Subtítulo en Pantalla de Carga</label>
+                                <input type="text" id="cfgPreloaderSub" class="contact-form-input" required>
+                            </div>
                         </div>
-                        <div style="overflow-x: auto;">
-                            <table class="admin-table">
-                                <thead>
-                                    <tr>
-                                        <th>Número</th>
-                                        <th>Título Categoría</th>
-                                        <th>Código</th>
-                                        <th>Descripción</th>
-                                        <th>Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="adminCategoriesTable"></tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <!-- TAB DE FOOTER -->
-                    <div id="tab-footer_manage" class="admin-tab-content" style="display: none;">
-                        <h3 style="color: var(--navy); margin-bottom: 15px;">Administración del Pie de Página (Footer)</h3>
-                        <form onsubmit="saveFooterParams(event)">
-                            <div class="contact-form-group">
-                                <label>Título del Footer</label>
-                                <input type="text" id="cfgFooterTitle" class="contact-form-input" required>
-                            </div>
-                            <div class="contact-form-group">
-                                <label>Subtítulo del Footer</label>
-                                <input type="text" id="cfgFooterSubtitle" class="contact-form-input" required>
-                            </div>
-                            <div class="contact-form-group">
-                                <label>Texto de Copyright y Derechos Reservados</label>
-                                <input type="text" id="cfgFooterCopyright" class="contact-form-input" required>
-                            </div>
-                            <button type="submit" class="btn-submit-contact">💾 Guardar Pie de Página en Nube</button>
-                        </form>
-                    </div>
-
-                    <!-- TAB PRODUCTOS -->
-                    <div id="tab-products" class="admin-tab-content" style="display: none;">
-                        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 20px;">
-                            <h3 style="color: var(--navy);">Gestión de Catálogo de Productos</h3>
-                            <button class="btn-analytics" onclick="openProductFormModal()">➕ Agregar Producto</button>
-                        </div>
-                        <div style="overflow-x: auto;">
-                            <table class="admin-table">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Imagen</th>
-                                        <th>Título</th>
-                                        <th>Categoría</th>
-                                        <th>Insignia</th>
-                                        <th>Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="adminProductsTable"></tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <!-- TAB EMPRESA -->
-                    <div id="tab-company" class="admin-tab-content" style="display: none;">
-                        <h3 style="color: var(--navy); margin-bottom: 15px;">Parametrización de Información Institucional</h3>
-                        <form onsubmit="saveCompanyParams(event)">
-                            <div class="contact-form-group">
-                                <label>Título del Hero Principal</label>
-                                <input type="text" id="cfgHeroTitle" class="contact-form-input" required>
-                            </div>
-                            <div class="contact-form-group">
-                                <label>Subtítulo del Hero</label>
-                                <input type="text" id="cfgHeroTag" class="contact-form-input" required>
-                            </div>
-                            <div class="contact-form-group">
-                                <label>Descripción del Hero Principal</label>
-                                <textarea id="cfgHeroDesc" class="contact-form-input" rows="2" required></textarea>
-                            </div>
-                            <div class="contact-form-group">
-                                <label>Texto "Quiénes Somos"</label>
-                                <textarea id="cfgAboutIntro" class="contact-form-input" rows="3" required></textarea>
-                            </div>
-                            <div class="contact-form-group">
-                                <label>Nuestra Misión</label>
-                                <textarea id="cfgMision" class="contact-form-input" rows="3" required></textarea>
-                            </div>
-                            <div class="contact-form-group">
-                                <label>Nuestra Visión</label>
-                                <textarea id="cfgVision" class="contact-form-input" rows="3" required></textarea>
-                            </div>
-                            <button type="submit" class="btn-submit-contact">💾 Guardar Cambios Institucionales en Nube</button>
-                        </form>
-                    </div>
-
-                    <!-- TAB CONTACTO -->
-                    <div id="tab-contact" class="admin-tab-content" style="display: none;">
-                        <h3 style="color: var(--navy); margin-bottom: 15px;">Parametrización de Datos de Contacto</h3>
-                        <form onsubmit="saveContactParams(event)">
-                            <div class="contact-form-group">
-                                <label>Número de WhatsApp para Cotizaciones (Ej: 573000000000)</label>
-                                <input type="text" id="cfgWa" class="contact-form-input" required>
-                            </div>
-                            <div class="contact-form-group">
-                                <label>Texto Visible del WhatsApp (Ej: +57 (300) 000-0000)</label>
-                                <input type="text" id="cfgWaDisplay" class="contact-form-input" required>
-                            </div>
-                            <div class="contact-form-group">
-                                <label>Correo Electrónico</label>
-                                <input type="email" id="cfgEmail" class="contact-form-input" required>
-                            </div>
-                            <div class="contact-form-group">
-                                <label>Instagram</label>
-                                <input type="text" id="cfgInsta" class="contact-form-input" required>
-                            </div>
-                            <div class="contact-form-group">
-                                <label>Ubicación / Ciudad</label>
-                                <input type="text" id="cfgLocation" class="contact-form-input" required>
-                            </div>
-                            <div class="contact-form-group">
-                                <label>Horarios de Atención</label>
-                                <input type="text" id="cfgSchedule" class="contact-form-input" required>
-                            </div>
-                            <button type="submit" class="btn-submit-contact">💾 Guardar Datos de Contacto en Nube</button>
-                        </form>
-                    </div>
-
-                    <!-- TAB SERVICIOS -->
-                    <div id="tab-services" class="admin-tab-content" style="display: none;">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                            <h3 style="color: var(--navy);">Parametrización de Servicios</h3>
-                            <button class="btn-analytics" onclick="addNewServicePrompt()">➕ Agregar Servicio</button>
-                        </div>
-                        <div class="grid-2" id="adminServicesList"></div>
-                    </div>
-
+                        <button type="submit" class="btn-submit-contact" style="padding: 16px; font-size: 1.05rem;">💾 Guardar Logo y Preloader en Nube</button>
+                    </form>
                 </div>
+
+                <!-- TAB CATEGORÍAS CRUD -->
+                <div id="tab-categories_manage" class="admin-tab-content" style="display: none;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px;">
+                        <h3 style="color: var(--navy); font-size: 1.3rem;">Gestión de Categorías y Líneas de Protección</h3>
+                        <button class="btn-analytics" onclick="openCategoryFormModal()">➕ Agregar Nueva Categoría</button>
+                    </div>
+                    <div style="overflow-x: auto; border-radius: 14px; box-shadow: var(--card-shadow);">
+                        <table class="admin-table" style="margin-top:0;">
+                            <thead>
+                                <tr>
+                                    <th>Número</th>
+                                    <th>Título Categoría</th>
+                                    <th>Código</th>
+                                    <th>Descripción</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminCategoriesTable"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- TAB FOOTER -->
+                <div id="tab-footer_manage" class="admin-tab-content" style="display: none;">
+                    <h3 style="color: var(--navy); margin-bottom: 18px; font-size: 1.3rem;">Pie de Página (Footer)</h3>
+                    <form onsubmit="saveFooterParams(event)">
+                        <div class="contact-form-group">
+                            <label>Título del Footer</label>
+                            <input type="text" id="cfgFooterTitle" class="contact-form-input" required>
+                        </div>
+                        <div class="contact-form-group">
+                            <label>Subtítulo del Footer</label>
+                            <input type="text" id="cfgFooterSubtitle" class="contact-form-input" required>
+                        </div>
+                        <div class="contact-form-group">
+                            <label>Texto de Copyright y Derechos Reservados</label>
+                            <input type="text" id="cfgFooterCopyright" class="contact-form-input" required>
+                        </div>
+                        <button type="submit" class="btn-submit-contact" style="padding: 16px; font-size: 1.05rem;">💾 Guardar Pie de Página en Nube</button>
+                    </form>
+                </div>
+
+                <!-- TAB PRODUCTOS CRUD -->
+                <div id="tab-products" class="admin-tab-content" style="display: none;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 22px;">
+                        <h3 style="color: var(--navy); font-size: 1.3rem;">Catálogo General de Productos</h3>
+                        <button class="btn-analytics" onclick="openProductFormModal()">➕ Agregar Nuevo Producto</button>
+                    </div>
+                    <div style="overflow-x: auto; border-radius: 14px; box-shadow: var(--card-shadow);">
+                        <table class="admin-table" style="margin-top:0;">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Imagen</th>
+                                    <th>Título</th>
+                                    <th>Categoría</th>
+                                    <th>Insignia</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminProductsTable"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- TAB EMPRESA -->
+                <div id="tab-company" class="admin-tab-content" style="display: none;">
+                    <h3 style="color: var(--navy); margin-bottom: 18px; font-size: 1.3rem;">Información Institucional & Secciones Principales</h3>
+                    <form onsubmit="saveCompanyParams(event)">
+                        <div class="contact-form-group">
+                            <label>Título del Hero Principal</label>
+                            <input type="text" id="cfgHeroTitle" class="contact-form-input" required>
+                        </div>
+                        <div class="contact-form-group">
+                            <label>Subtítulo del Hero</label>
+                            <input type="text" id="cfgHeroTag" class="contact-form-input" required>
+                        </div>
+                        <div class="contact-form-group">
+                            <label>Descripción del Hero Principal</label>
+                            <textarea id="cfgHeroDesc" class="contact-form-input" rows="2" required></textarea>
+                        </div>
+                        <div class="contact-form-group">
+                            <label>Texto "Quiénes Somos"</label>
+                            <textarea id="cfgAboutIntro" class="contact-form-input" rows="3" required></textarea>
+                        </div>
+                        <div class="contact-form-group">
+                            <label>Nuestra Misión</label>
+                            <textarea id="cfgMision" class="contact-form-input" rows="3" required></textarea>
+                        </div>
+                        <div class="contact-form-group">
+                            <label>Nuestra Visión</label>
+                            <textarea id="cfgVision" class="contact-form-input" rows="3" required></textarea>
+                        </div>
+                        <button type="submit" class="btn-submit-contact" style="padding: 16px; font-size: 1.05rem;">💾 Guardar Cambios Institucionales en Nube</button>
+                    </form>
+                </div>
+
+                <!-- TAB CONTACTO -->
+                <div id="tab-contact" class="admin-tab-content" style="display: none;">
+                    <h3 style="color: var(--navy); margin-bottom: 18px; font-size: 1.3rem;">Canales de Contacto y Atención</h3>
+                    <form onsubmit="saveContactParams(event)">
+                        <div class="contact-form-group">
+                            <label>Número de WhatsApp para Cotizaciones (Ej: 573000000000)</label>
+                            <input type="text" id="cfgWa" class="contact-form-input" required>
+                        </div>
+                        <div class="contact-form-group">
+                            <label>Texto Visible del WhatsApp (Ej: +57 (300) 000-0000)</label>
+                            <input type="text" id="cfgWaDisplay" class="contact-form-input" required>
+                        </div>
+                        <div class="contact-form-group">
+                            <label>Correo Electrónico</label>
+                            <input type="email" id="cfgEmail" class="contact-form-input" required>
+                        </div>
+                        <div class="contact-form-group">
+                            <label>Instagram</label>
+                            <input type="text" id="cfgInsta" class="contact-form-input" required>
+                        </div>
+                        <div class="contact-form-group">
+                            <label>Ubicación / Ciudad</label>
+                            <input type="text" id="cfgLocation" class="contact-form-input" required>
+                        </div>
+                        <div class="contact-form-group">
+                            <label>Horarios de Atención</label>
+                            <input type="text" id="cfgSchedule" class="contact-form-input" required>
+                        </div>
+                        <button type="submit" class="btn-submit-contact" style="padding: 16px; font-size: 1.05rem;">💾 Guardar Datos de Contacto en Nube</button>
+                    </form>
+                </div>
+
+                <!-- TAB SERVICIOS -->
+                <div id="tab-services" class="admin-tab-content" style="display: none;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px;">
+                        <h3 style="color: var(--navy); font-size: 1.3rem;">Servicios Corporativos</h3>
+                        <button class="btn-analytics" onclick="addNewServicePrompt()">➕ Agregar Servicio</button>
+                    </div>
+                    <div class="grid-2" id="adminServicesList"></div>
+                </div>
+
             </div>
-        </section>
+        </div>
     </div>
 
     <!-- MODAL CREAR NUEVA SECCIÓN PERSONALIZADA -->
@@ -1295,10 +1388,26 @@ INDEX_HTML = """<!DOCTYPE html>
         </div>
     </footer>
 
-    <!-- ENGINE DE SINCRONIZACIÓN EN LA NUBE Y PURGA DE CACHE MÓVIL (v11) -->
+    <!-- ENGINE DE SINCRONIZACIÓN Y CMS INTERACTIVO EJECUTIVO (v12) -->
     <script>
         const INITIAL_DATA = """ + json.dumps(INITIAL_SITE_DATA) + """;
         let tempLoadedLogoBase64 = "";
+
+        // NOTIFICACIONES FLOATING TOAST ELEGANTES
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toastContainer');
+            if (!container) return;
+            const toast = document.createElement('div');
+            toast.className = 'toast-msg';
+            toast.innerHTML = `<span>${type === 'success' ? '✅' : 'ℹ️'}</span> ${message}`;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateX(60px)';
+                toast.style.transition = 'all 0.4s ease';
+                setTimeout(() => toast.remove(), 400);
+            }, 3500);
+        }
 
         // PURGA AUTOMÁTICA DE VERSIONES ANTIGUAS DE CACHE LOCAL EN DISPOSITIVOS MÓVILES
         ['yd_site_config_v5','yd_site_config_v6','yd_site_config_v7','yd_site_config_v8','yd_site_config_v9','yd_site_config_v10'].forEach(k => {
@@ -1318,7 +1427,7 @@ INDEX_HTML = """<!DOCTYPE html>
         }
 
         function getLocalSiteData() {
-            const saved = localStorage.getItem('yd_site_config_v11');
+            const saved = localStorage.getItem('yd_site_config_v12');
             if (saved) {
                 try {
                     const parsed = JSON.parse(saved);
@@ -1331,14 +1440,14 @@ INDEX_HTML = """<!DOCTYPE html>
         async function getSiteData() {
             const cloudData = await fetchSupabaseSiteData();
             if (cloudData && cloudData.nav_links) {
-                localStorage.setItem('yd_site_config_v11', JSON.stringify(cloudData));
+                localStorage.setItem('yd_site_config_v12', JSON.stringify(cloudData));
                 return cloudData;
             }
             return getLocalSiteData();
         }
 
         async function saveSiteData(data) {
-            localStorage.setItem('yd_site_config_v11', JSON.stringify(data));
+            localStorage.setItem('yd_site_config_v12', JSON.stringify(data));
             renderSite(data);
 
             try {
@@ -1350,12 +1459,25 @@ INDEX_HTML = """<!DOCTYPE html>
             } catch(e) {}
         }
 
+        function updateAdminMetrics(data) {
+            const products = data.products || INITIAL_DATA.products;
+            const categories = data.categories_breakdown || INITIAL_DATA.categories_breakdown;
+            const navs = data.nav_links || INITIAL_DATA.nav_links;
+
+            document.getElementById('metricProductsCount').textContent = products.length;
+            document.getElementById('metricCategoriesCount').textContent = categories.length;
+            document.getElementById('metricNavsCount').textContent = navs.filter(n => n.enabled === true || n.enabled === "true").length;
+        }
+
         function renderSite(data) {
             const comp = data.company || INITIAL_DATA.company;
             const prel = data.preloader || INITIAL_SITE_DATA.preloader;
             const foot = data.footer || INITIAL_SITE_DATA.footer;
             const navs = data.nav_links || INITIAL_SITE_DATA.nav_links;
             const customSecs = data.custom_sections || INITIAL_SITE_DATA.custom_sections;
+
+            // Actualizar métricas ejecutivas
+            updateAdminMetrics(data);
 
             // Renderizar Preloader
             const preloaderEl = document.getElementById('pagePreloader');
@@ -1383,7 +1505,6 @@ INDEX_HTML = """<!DOCTYPE html>
             let actionHtml = '';
 
             navs.forEach(n => {
-                // SI enabled ES FALSE, NO SE MUESTRA EL BOTÓN BAJO NINGUNA CIRCUNSTANCIA
                 const isEnabled = (n.enabled === true || n.enabled === "true");
                 if (isEnabled) {
                     if (n.is_button) {
@@ -1532,25 +1653,32 @@ INDEX_HTML = """<!DOCTYPE html>
                 tempLoadedLogoBase64 = comp.logo_image;
             }
 
-            // Formulario Menú Links (CON CHECKBOX VERDADERO DE ESTADO)
+            // Formulario Menú Links CON SWITCHES ANIMADOS v12
             const navAdminGrid = document.getElementById('adminNavLinksList');
             if (navAdminGrid) {
                 navAdminGrid.innerHTML = navs.map(n => {
                     const isEnabled = (n.enabled === true || n.enabled === "true");
                     return `
-                        <div class="card-box" style="padding: 20px; border-top: 4px solid ${n.is_button ? 'var(--orange)' : 'var(--navy)'};">
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                                <span class="badge-admin" style="font-size: 0.78rem;">${n.is_button ? 'BOTÓN ACCIÓN' : 'LINK MENÚ'} (ID: ${n.id})</span>
-                                <label style="display: flex; align-items: center; gap: 6px; font-weight: bold; font-size: 0.85rem; cursor: pointer; color: var(--navy);">
-                                    <input type="checkbox" class="nav-enable-toggle" data-id="${n.id}" ${isEnabled ? 'checked' : ''} style="width: 18px; height: 18px; accent-color: var(--orange);">
-                                    ${isEnabled ? '🟢 ACTIVO' : '🔴 INACTIVO'}
-                                </label>
+                        <div class="card-box" style="padding: 24px; border-top: 5px solid ${n.is_button ? 'var(--orange)' : 'var(--navy)'};">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+                                <span class="badge-admin" style="font-size: 0.8rem;">${n.is_button ? 'BOTÓN DE ACCIÓN' : 'LINK DEL MENÚ'} (ID: ${n.id})</span>
+                                
+                                <div class="switch-container">
+                                    <label class="switch">
+                                        <input type="checkbox" class="nav-enable-toggle" data-id="${n.id}" ${isEnabled ? 'checked' : ''} onchange="updateSwitchLabel(this, '${n.id}')">
+                                        <span class="slider"></span>
+                                    </label>
+                                    <span id="switch-lbl-${n.id}" style="font-weight: 800; font-size: 0.85rem; color: ${isEnabled ? 'var(--orange)' : 'var(--text-muted)'};">
+                                        ${isEnabled ? '🟢 PUBLICADO' : '🔴 OCULTO'}
+                                    </span>
+                                </div>
                             </div>
-                            <label style="font-size:0.8rem; font-weight:bold; color:var(--navy);">Texto Visible en el Menú:</label>
+
+                            <label style="font-size:0.84rem; font-weight:bold; color:var(--navy);">Texto Visible en el Sitio Web:</label>
                             <input type="text" class="contact-form-input nav-label-input" data-id="${n.id}" value="${n.label}" style="margin-top: 6px;">
                             
                             ${n.is_custom ? `
-                                <button type="button" class="btn-detail" style="margin-top: 12px; width: 100%; background: #FEE2E2; color: #DC2626;" onclick="deleteCustomSection('${n.id}')">🗑️ Eliminar Sección Personalizada</button>
+                                <button type="button" class="btn-detail" style="margin-top: 14px; width: 100%; background: #FEE2E2; color: #DC2626;" onclick="deleteCustomSection('${n.id}')">🗑️ Eliminar Sección Personalizada</button>
                             ` : ''}
                         </div>
                     `;
@@ -1637,6 +1765,14 @@ INDEX_HTML = """<!DOCTYPE html>
             }
         }
 
+        function updateSwitchLabel(chk, id) {
+            const lbl = document.getElementById('switch-lbl-' + id);
+            if (lbl) {
+                lbl.textContent = chk.checked ? '🟢 PUBLICADO' : '🔴 OCULTO';
+                lbl.style.color = chk.checked ? 'var(--orange)' : 'var(--text-muted)';
+            }
+        }
+
         // GUARDAR MENÚ DE NAVEGACIÓN Y ESTADO DE ACTIVACIÓN/DESACTIVACIÓN
         async function saveNavLinksParams(e) {
             e.preventDefault();
@@ -1658,7 +1794,7 @@ INDEX_HTML = """<!DOCTYPE html>
             });
 
             await saveSiteData(data);
-            alert('¡Guardado en la Nube! Los botones marcados como inactivos ahora están ocultos en Móviles y Desktop.');
+            showToast('Menú y botones guardados en la Nube Supabase exitosamente.');
         }
 
         // CREAR NUEVA SECCIÓN PERSONALIZADA
@@ -1697,7 +1833,7 @@ INDEX_HTML = """<!DOCTYPE html>
 
             await saveSiteData(data);
             closeNewSectionModal();
-            alert('¡Nueva sección "' + label + '" creada con éxito y guardada en Nube!');
+            showToast('¡Nueva sección "' + label + '" creada con éxito!');
         }
 
         async function deleteCustomSection(id) {
@@ -1706,7 +1842,7 @@ INDEX_HTML = """<!DOCTYPE html>
                 data.nav_links = data.nav_links.filter(x => x.id !== id);
                 if (data.custom_sections) data.custom_sections = data.custom_sections.filter(x => x.id !== id);
                 await saveSiteData(data);
-                alert('Sección eliminada.');
+                showToast('Sección eliminada.');
             }
         }
 
@@ -1718,7 +1854,7 @@ INDEX_HTML = """<!DOCTYPE html>
             data.footer.subtitle = document.getElementById('cfgFooterSubtitle').value;
             data.footer.copyright = document.getElementById('cfgFooterCopyright').value;
             await saveSiteData(data);
-            alert('¡Pie de página (Footer) guardado en la Nube!');
+            showToast('Pie de página guardado en la Nube Supabase.');
         }
 
         // ACCIONES DE CATEGORÍAS (CRUD)
@@ -1774,7 +1910,7 @@ INDEX_HTML = """<!DOCTYPE html>
 
             await saveSiteData(data);
             closeCategoryModal();
-            alert('Categoría guardada en la Nube.');
+            showToast('Categoría guardada en la Nube Supabase.');
         }
 
         async function deleteCategory(id) {
@@ -1782,7 +1918,7 @@ INDEX_HTML = """<!DOCTYPE html>
                 const data = await getSiteData();
                 data.categories_breakdown = data.categories_breakdown.filter(x => x.id !== id);
                 await saveSiteData(data);
-                alert('Categoría eliminada.');
+                showToast('Categoría eliminada.');
             }
         }
 
@@ -1852,7 +1988,7 @@ INDEX_HTML = """<!DOCTYPE html>
             data.preloader.duration_ms = parseInt(document.getElementById('cfgPreloaderDuration').value) || 4500;
 
             await saveSiteData(data);
-            alert('¡Logo y Preloader guardados!');
+            showToast('Logo y Preloader guardados en la Nube Supabase.');
         }
 
         async function saveCompanyParams(e) {
@@ -1865,7 +2001,7 @@ INDEX_HTML = """<!DOCTYPE html>
             data.company.mision = document.getElementById('cfgMision').value;
             data.company.vision = document.getElementById('cfgVision').value;
             await saveSiteData(data);
-            alert('¡Información Institucional guardada!');
+            showToast('Información Institucional guardada en la Nube.');
         }
 
         async function saveContactParams(e) {
@@ -1878,7 +2014,7 @@ INDEX_HTML = """<!DOCTYPE html>
             data.contact.location = document.getElementById('cfgLocation').value;
             data.contact.schedule = document.getElementById('cfgSchedule').value;
             await saveSiteData(data);
-            alert('¡Datos de Contacto guardados!');
+            showToast('Datos de Contacto guardados en la Nube.');
         }
 
         async function editProduct(id) {
@@ -1925,7 +2061,7 @@ INDEX_HTML = """<!DOCTYPE html>
 
             await saveSiteData(data);
             closeProductModal();
-            alert('Producto guardado.');
+            showToast('Producto guardado en la Nube Supabase.');
         }
 
         async function deleteProduct(id) {
@@ -1933,7 +2069,7 @@ INDEX_HTML = """<!DOCTYPE html>
                 const data = await getSiteData();
                 data.products = data.products.filter(x => x.id !== id);
                 await saveSiteData(data);
-                alert('Producto eliminado.');
+                showToast('Producto eliminado.');
             }
         }
 
@@ -1951,7 +2087,7 @@ INDEX_HTML = """<!DOCTYPE html>
                 desc: desc
             });
             await saveSiteData(data);
-            alert('Servicio agregado.');
+            showToast('Servicio agregado con éxito.');
         }
 
         async function deleteService(id) {
@@ -1959,6 +2095,7 @@ INDEX_HTML = """<!DOCTYPE html>
                 const data = await getSiteData();
                 data.services = data.services.filter(x => x.id !== id);
                 await saveSiteData(data);
+                showToast('Servicio eliminado.');
             }
         }
 
@@ -2005,6 +2142,7 @@ INDEX_HTML = """<!DOCTYPE html>
                 document.getElementById('loginOverlay').style.display = 'none';
                 document.getElementById('adminMainContent').style.display = 'block';
                 sessionStorage.setItem('yd_admin_logged', 'true');
+                showToast('🔑 Sesión CMS iniciada con éxito.');
             } else {
                 alert('Credenciales incorrectas');
             }
@@ -2058,7 +2196,7 @@ INDEX_HTML = """<!DOCTYPE html>
 </body>
 </html>"""
 
-DATA_FILE_PATH = "/tmp/yd_site_config_v11.json"
+DATA_FILE_PATH = "/tmp/yd_site_config_v12.json"
 
 def load_server_data() -> dict:
     if os.path.exists(DATA_FILE_PATH):
