@@ -1,20 +1,19 @@
-# 📁 DOCUMENTACIÓN OFICIAL - PLATAFORMA YD PROTECCIÓN
+# 📚 SUITE DE DOCUMENTACIÓN OFICIAL - YD PROTECCIÓN
 
-Bienvenido al centro de documentación de la plataforma web y sistema CMS ejecutivo de **YD Protección**.
-
----
-
-## 📚 Documentos Disponibles:
-
-1. 📖 **[MANUAL_DE_USUARIO.md](./MANUAL_DE_USUARIO.md)**  
-   *Manual operativo para administradores, equipo de ventas y coordinadores de SST.*  
-   Incluye instrucciones paso a paso para gestionar productos, categorías, imágenes, enlaces del menú, botones y configuraciones de la página principal (Home) desde el Panel Admin (`/admin`).
-
-2. 🛠️ **[MANUAL_TECNICO.md](./MANUAL_TECNICO.md)**  
-   *Manual técnico de arquitectura para desarrolladores e ingenieros de TI.*  
-   Detalla la pila tecnológica (FastAPI Python, Vercel Serverless, ES6 Single Page Application), el motor de persistencia de datos v15.0 y las pautas para extender el código fuente.
+Bienvenido a la carpeta oficial de documentación del proyecto **YD Protección Plataforma Web & CMS v18.0**.
 
 ---
 
-**Repositorio de Código:** [github.com/Yada12131/proyectoYD](https://github.com/Yada12131/proyectoYD.git)  
-**URL de Producción:** [proyecto-yd.vercel.app](https://proyecto-yd.vercel.app)
+## 📁 DOCUMENTOS DISPONIBLES EN ESTA CARPETA
+
+| Documento | Descripción | Destinatarios |
+|---|---|---|
+| 📖 [**`MANUAL_DE_USUARIO.md`**](./MANUAL_DE_USUARIO.md) | Guía paso a paso para administrar el sitio web, editar productos, cambiar el home, gestionar el menú, subir el logo y usar la sidebar sticky v18.0. | Administradores, Equipo de Ventas, Coordinadores SST y Atención al Cliente. |
+| 🛠️ [**`MANUAL_TECNICO.md`**](./MANUAL_TECNICO.md) | Documentación de arquitectura, estructura de carpetas, servidor FastAPI, motor de persistencia nube/local y tokens de diseño CSS. | Equipo de Desarrollo, TI y Administradores de Infraestructura. |
+
+---
+
+## 🚀 ACCESOS RÁPIDOS
+- **Sitio Web Público:** [proyecto-yd.vercel.app](https://proyecto-yd.vercel.app)
+- **Panel Administrativo CMS:** [proyecto-yd.vercel.app/admin](https://proyecto-yd.vercel.app/admin)
+- **Repositorio GitHub:** [github.com/Yada12131/proyectoYD.git](https://github.com/Yada12131/proyectoYD.git)
