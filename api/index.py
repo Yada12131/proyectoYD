@@ -409,7 +409,7 @@ INITIAL_SITE_DATA = {
   ]
 }
 
-# ESTILOS CSS CON MENÚ HAMBURGUESA PREMIUM RESPONSIVE v24.0
+# ESTILOS CSS CON MENÚ HAMBURGUESA PREMIUM RESPONSIVE v25.0
 EMBEDDED_CSS = """
 :root {
     --navy: #0B1C30;
@@ -1862,7 +1862,7 @@ POST /api/site-data -> Guardado en /tmp/yd_site_config_v21.json
         </div>
     </footer>
 
-    <!-- ENGINE DE JS CON MENÚ HAMBURGUESA MÓVIL SLIDE DRAWER (v24.0) -->
+    <!-- ENGINE DE JS CON RENDERIZADO COMPLETO DEL PANEL CMS (v25.0) -->
     <script>
         const INITIAL_DATA = """ + json.dumps(INITIAL_SITE_DATA) + """;
         let tempLoadedLogoBase64 = "";
@@ -2118,7 +2118,7 @@ POST /api/site-data -> Guardado en /tmp/yd_site_config_v21.json
             if (docsBtn) docsBtn.textContent = foot.docs_button_text || "📖 Ver Manuales de Usuario & Técnico en Vivo (🔒 Clave: 144)";
 
             document.getElementById('renderFooterBrandDesc').textContent = foot.brand_desc || "Empresa colombiana especializada en suministro de EPP...";
-            document.getElementById('renderFooterCopyright').textContent = foot.copyright || "YD PROTECCIÓN © 2026";
+            document.getElementById('renderFooterCopyright').textContent = foot.copyright || "YESIKA & DANIEL | YD PROTECCIÓN © 2026";
 
             document.getElementById('renderFooterWa').textContent = cnt.whatsapp_display || "+57 (300) 000-0000";
             document.getElementById('renderFooterEmail').textContent = cnt.email || "contacto@ydproteccion.com";
@@ -2269,6 +2269,7 @@ POST /api/site-data -> Guardado en /tmp/yd_site_config_v21.json
             loadAdminForms(data);
         }
 
+        /* POBLADO DINÁMICO DE TODOS LOS MÓDULOS DEL PANEL CMS (v25.0) */
         function loadAdminForms(data) {
             const comp = data.company || INITIAL_DATA.company;
             const stats = data.stats_bar || INITIAL_SITE_DATA.stats_bar;
@@ -2277,14 +2278,47 @@ POST /api/site-data -> Guardado en /tmp/yd_site_config_v21.json
             const testimonials = data.testimonials || INITIAL_SITE_DATA.testimonials;
             const prel = data.preloader || INITIAL_SITE_DATA.preloader;
             const foot = data.footer || INITIAL_SITE_DATA.footer;
+            const navs = data.nav_links || INITIAL_SITE_DATA.nav_links;
+            const categories = data.categories_breakdown || INITIAL_SITE_DATA.categories_breakdown;
+            const products = data.products || INITIAL_SITE_DATA.products;
+            const services = data.services || INITIAL_SITE_DATA.services;
+            const cnt = data.contact || INITIAL_DATA.contact;
 
+            // 1. HOME PARAMS
             document.getElementById('cfgHomeHeroTag').value = comp.hero_tag || "Seguridad que salva vidas ★ Yesika & Daniel";
             document.getElementById('cfgHomeHeroSub').value = comp.hero_subtitle || "Seguridad y Emergencia a tu Alcance";
             document.getElementById('cfgHomeHeroTitle').value = comp.hero_title || "EQUIPOS DE PROTECCIÓN Y PREVENCIÓN";
             document.getElementById('cfgHomeHeroDesc').value = comp.hero_desc || "Soluciones especializadas...";
             document.getElementById('cfgHomeSearchPlaceholder').value = comp.search_placeholder || "Buscar producto en la tienda...";
 
-            // CARGAR FORMULARIO DEL FOOTER v21
+            // 2. RENDERING DEL MÓDULO MENÚ SUPERIOR & BOTONES (tab-nav_menu)
+            const navList = document.getElementById('adminNavLinksList');
+            if (navList) {
+                navList.innerHTML = navs.map(n => `
+                    <div style="background: #F8FAFC; padding: 18px; border-radius: 14px; border: 1px solid #E2E8F0; border-left: 5px solid ${n.is_button ? 'var(--orange)' : 'var(--navy)'}; display: flex; justify-content: space-between; align-items: center; gap: 14px;">
+                        <div style="flex-grow: 1;">
+                            <div style="font-size: 0.72rem; font-weight: 800; color: ${n.is_button ? 'var(--orange)' : 'var(--navy)'}; text-transform: uppercase; margin-bottom: 4px;">
+                                ${n.is_button ? '🚀 BOTÓN DESTACADO' : '🔗 ENLACE NAVEGACIÓN'} (ID: ${n.id})
+                            </div>
+                            <label style="font-weight: 800; font-size: 0.85rem; color: var(--navy); display: block; margin-bottom: 4px;">Nombre Visible en Menú</label>
+                            <input type="text" class="contact-form-input nav-label-input" data-id="${n.id}" value="${n.label}" style="padding: 10px 14px; font-size: 0.92rem; background: #FFF;">
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 6px; flex-shrink: 0;">
+                            <span style="font-size: 0.78rem; font-weight: 800; color: ${ (n.enabled === true || n.enabled === "true") ? 'var(--orange)' : 'var(--text-muted)' };">
+                                ${ (n.enabled === true || n.enabled === "true") ? '🟢 ACTIVO' : '🔴 OCULTO' }
+                            </span>
+                            <div class="switch-container">
+                                <label class="switch">
+                                    <input type="checkbox" class="nav-enable-toggle" data-id="${n.id}" ${ (n.enabled === true || n.enabled === "true") ? 'checked' : '' }>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            // 3. FOOTER PARAMS
             document.getElementById('cfgFooterTitle').value = foot.title || "HABLEMOS DE TU SEGURIDAD";
             document.getElementById('cfgFooterSubtitle').value = foot.subtitle || "Solicita cotización y asesoría personalizada de inmediato";
             
@@ -2299,6 +2333,7 @@ POST /api/site-data -> Guardado en /tmp/yd_site_config_v21.json
             document.getElementById('cfgFooterBrandDesc').value = foot.brand_desc || "Empresa colombiana especializada en suministro de EPP...";
             document.getElementById('cfgFooterCopyright').value = foot.copyright || "YESIKA & DANIEL | YD PROTECCIÓN © 2026";
 
+            // 4. PRELOADER & LOGO
             document.getElementById('cfgPreloaderDuration').value = prel.duration_ms || "4500";
             document.getElementById('cfgPreloaderGradient').value = prel.bg_gradient || "linear-gradient(135deg, #000000 0%, #2D3748 50%, #1A202C 100%)";
             document.getElementById('cfgPreloaderTitle').value = prel.title || "YD PROTECCIÓN";
@@ -2306,6 +2341,80 @@ POST /api/site-data -> Guardado en /tmp/yd_site_config_v21.json
 
             document.getElementById('logoPreviewImg').src = (comp.logo_image && comp.logo_image.trim() !== "") ? comp.logo_image : OFFICIAL_LOGO_BASE64;
             document.getElementById('logoPreviewContainer').style.display = 'flex';
+
+            // 5. CATEGORÍAS TABLE
+            const catTable = document.getElementById('adminCategoriesTable');
+            const catSelect = document.getElementById('pCategory');
+            if (catTable) {
+                catTable.innerHTML = categories.map(c => `
+                    <tr>
+                        <td><span class="badge-admin">${c.num}</span></td>
+                        <td><strong style="color: var(--navy);">${c.title}</strong></td>
+                        <td><code>${c.code}</code></td>
+                        <td style="max-width: 250px; font-size: 0.85rem; color: var(--text-muted);">${c.desc}</td>
+                        <td>
+                            <div style="display: flex; gap: 6px;">
+                                <button class="btn-detail" style="padding: 6px 12px; font-size: 0.8rem;" onclick="editCategory('${c.id}')">✏️ Editar</button>
+                                <button class="btn-detail" style="padding: 6px 12px; font-size: 0.8rem; background: #FEE2E2; color: #DC2626; border-color: #FCA5A5;" onclick="deleteCategory('${c.id}')">🗑️</button>
+                            </div>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+            if (catSelect) {
+                catSelect.innerHTML = categories.map(c => `<option value="${c.code}">${c.title}</option>`).join('');
+            }
+
+            // 6. PRODUCTOS TABLE
+            const prodTable = document.getElementById('adminProductsTable');
+            if (prodTable) {
+                prodTable.innerHTML = products.map(p => `
+                    <tr>
+                        <td><code>${p.id}</code></td>
+                        <td>
+                            <div style="width: 44px; height: 44px; border-radius: 8px; overflow: hidden; background: #000; border: 1px solid #CBD5E1;">
+                                <img src="${p.image}" style="width:100%; height:100%; object-fit:cover;" onerror="this.src='${p.fallback_image || ''}'">
+                            </div>
+                        </td>
+                        <td><strong style="color: var(--navy);">${p.title}</strong></td>
+                        <td><span class="badge-admin">${p.category_name}</span></td>
+                        <td>${p.badge ? `<span style="background: rgba(255,102,0,0.15); color: var(--orange); padding: 3px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: bold;">${p.badge}</span>` : '-'}</td>
+                        <td>
+                            <div style="display: flex; gap: 6px;">
+                                <button class="btn-detail" style="padding: 6px 12px; font-size: 0.8rem;" onclick="editProduct('${p.id}')">✏️ Editar</button>
+                                <button class="btn-detail" style="padding: 6px 12px; font-size: 0.8rem; background: #FEE2E2; color: #DC2626; border-color: #FCA5A5;" onclick="deleteProduct('${p.id}')">🗑️</button>
+                            </div>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+
+            // 7. SERVICIOS LIST
+            const servList = document.getElementById('adminServicesList');
+            if (servList) {
+                servList.innerHTML = services.map(s => `
+                    <div class="card-box" style="padding: 20px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                            <span style="font-size: 2rem;">${s.icon}</span>
+                            <button class="btn-detail" style="padding: 4px 10px; font-size: 0.78rem; background: #FEE2E2; color: #DC2626;" onclick="deleteService('${s.id}')">Eliminar</button>
+                        </div>
+                        <h4 style="font-size: 1.1em; color: var(--navy); margin-bottom: 6px;">${s.title}</h4>
+                        <p style="color: var(--text-muted); font-size: 0.88rem;">${s.desc}</p>
+                    </div>
+                `).join('');
+            }
+
+            // 8. COMPANY & CONTACT
+            document.getElementById('cfgAboutIntro').value = comp.about_intro || "";
+            document.getElementById('cfgMision').value = comp.mision || "";
+            document.getElementById('cfgVision').value = comp.vision || "";
+
+            document.getElementById('cfgWa').value = cnt.whatsapp || "";
+            document.getElementById('cfgWaDisplay').value = cnt.whatsapp_display || "";
+            document.getElementById('cfgEmail').value = cnt.email || "";
+            document.getElementById('cfgInsta').value = cnt.instagram || "";
+            document.getElementById('cfgLocation').value = cnt.location || "";
+            document.getElementById('cfgSchedule').value = cnt.schedule || "";
         }
 
         function updateFooterDocsToggleLabel(chk) {
