@@ -6,9 +6,9 @@ from fastapi.responses import HTMLResponse, JSONResponse
 from jinja2 import Template
 
 app = FastAPI(
-    title="YD Protección - Plataforma Web & CMS Ejecutivo 12.0",
-    description="Plataforma Web Corporativa con Dashboard CMS de Nivel Ejecutivo, Métricas en Tiempo Real y Sincronización Supabase Cloud Engine",
-    version="12.0.0"
+    title="YD Protección - Plataforma Web & CMS con Gestión Total de Inicio (Home) 13.0",
+    description="Plataforma Web Corporativa con Pestaña Administrable para la Sección Inicio (Home), Persistencia Permanente y Supabase Cloud Engine",
+    version="13.0.0"
 )
 
 # DATOS BASE PARAMETRIZADOS INICIALES TOTALES
@@ -21,10 +21,34 @@ INITIAL_SITE_DATA = {
     "hero_subtitle": "Seguridad y Emergencia a tu Alcance",
     "hero_title": "EQUIPOS DE PROTECCIÓN Y PREVENCIÓN",
     "hero_desc": "Soluciones especializadas para Defensa Civil, Brigadas de Emergencia, Protección Industrial y Dotación Institucional.",
+    "search_placeholder": "Buscar producto en la tienda (casco, botiquín, chaleco, linterna...)",
     "about_intro": "YD Protección es una empresa dedicada al suministro de equipos y soluciones integrales de seguridad industrial, elementos de protección personal (EPP), brigadas de emergencia y respuesta en socorrismo. Acompañamos a industrias e instituciones con productos 100% normativos y asesoría técnica especializada.",
     "mision": "Suministrar equipos de protección, emergencia y prevención de la más alta calidad y normatividad, brindando asesoría integral a empresas, brigadas e instituciones de socorro para preservar la vida y controlar riesgos operacionales.",
     "vision": "Ser reconocidos a nivel nacional como la empresa líder y aliada estratégica en soluciones de seguridad, prevención y atención de emergencias, destacándonos por la confiabilidad de nuestros productos, excelencia en el servicio y compromiso humano."
   },
+  "home_cards": [
+    {
+      "id": "card-1",
+      "title": "PROTECCIÓN PERSONAL (EPP)",
+      "desc": "Cascos dieléctricos, gafas UV400, guantes anti-corte y protección auditiva certificada.",
+      "btn_text": "Ver en Tienda",
+      "category_code": "proteccion_personal"
+    },
+    {
+      "id": "card-2",
+      "title": "EMERGENCIAS & RESCATE",
+      "desc": "Botiquines Tipo B, linternas tácticas 2000 lúmenes y equipos verticales de rescate.",
+      "btn_text": "Ver en Tienda",
+      "category_code": "emergencias_rescate"
+    },
+    {
+      "id": "card-3",
+      "title": "DEFENSA CIVIL & BRIGADAS",
+      "desc": "Chalecos reflectivos 3M, conos viales 90cm, megáfonos 50W y dotación personalizada.",
+      "btn_text": "Ver en Tienda",
+      "category_code": "defensa_civil"
+    }
+  ],
   "preloader": {
     "bg_gradient": "linear-gradient(135deg, #000000 0%, #2D3748 50%, #1A202C 100%)",
     "title": "YD PROTECCIÓN",
@@ -552,14 +576,14 @@ section { padding: 60px 0; }
 }
 .section-subtitle { text-align: center; font-size: clamp(0.95rem, 2vw, 1.15rem); color: var(--text-muted); margin-bottom: 40px; }
 
-/* DESIGN SYSTEM EJECUTIVO CMS v12 */
+/* DESIGN SYSTEM EJECUTIVO CMS v13 */
 .admin-hero-banner {
     background: linear-gradient(135deg, #050E1A 0%, #0B1C30 50%, #112844 100%);
     color: #FFF; padding: 40px 25px; border-radius: 20px; border-left: 6px solid var(--orange);
     box-shadow: 0 15px 35px rgba(0,0,0,0.25); margin-bottom: 30px; position: relative; overflow: hidden;
 }
 .admin-hero-banner::after {
-    content: 'CMS 12.0'; position: absolute; right: -20px; bottom: -20px; font-size: 7rem;
+    content: 'CMS 13.0'; position: absolute; right: -20px; bottom: -20px; font-size: 7rem;
     font-weight: 900; color: rgba(255,102,0,0.05); font-family: 'Montserrat', sans-serif; pointer-events: none;
 }
 .admin-metrics-grid {
@@ -714,7 +738,7 @@ footer h2 { color: var(--orange); font-size: clamp(1.5rem, 3.5vw, 2.2rem); margi
 }
 """
 
-# Template HTML con CMS Panel Ejecutivo Ultra Profesional 12.0
+# Template HTML con CMS Panel Ejecutivo Ultra Profesional 13.0 y Pestaña Administrable de Inicio (Home)
 INDEX_HTML = """<!DOCTYPE html>
 <html lang="es">
 <head>
@@ -763,7 +787,7 @@ INDEX_HTML = """<!DOCTYPE html>
         </div>
     </header>
 
-    <!-- ==================== PÁGINA 1: HOME ==================== -->
+    <!-- ==================== PÁGINA 1: HOME (TOTALMENTE ADMINISTRABLE) ==================== -->
     <div id="page-home" class="page-view active-view">
         <section class="hero">
             <div class="container">
@@ -787,26 +811,11 @@ INDEX_HTML = """<!DOCTYPE html>
 
         <section class="bg-white">
             <div class="container">
-                <h2 class="section-title">Soluciones Integrales</h2>
-                <p class="section-subtitle">Atención inmediata a requerimientos de seguridad industrial y emergencias</p>
+                <h2 class="section-title" id="renderHomeSectionTitle">Soluciones Integrales</h2>
+                <p class="section-subtitle" id="renderHomeSectionSub">Atención inmediata a requerimientos de seguridad industrial y emergencias</p>
                 
-                <div class="grid-3 mt-5">
-                    <div class="card-box" style="text-align: center;">
-                        <h4 style="font-size: 1.25em;">PROTECCIÓN PERSONAL (EPP)</h4>
-                        <p style="margin-bottom: 18px; color: var(--text-muted);">Cascos dieléctricos, gafas UV400, guantes anti-corte y protección auditiva certificada.</p>
-                        <button class="btn-detail" style="width:100%;" onclick="navigateToPage('tienda', 'proteccion_personal')">Ver en Tienda</button>
-                    </div>
-                    <div class="card-box navy-top" style="text-align: center;">
-                        <h4 style="font-size: 1.25em;">EMERGENCIAS & RESCATE</h4>
-                        <p style="margin-bottom: 18px; color: var(--text-muted);">Botiquines Tipo B, linternas tácticas 2000 lúmenes y equipos verticales de rescate.</p>
-                        <button class="btn-detail" style="width:100%;" onclick="navigateToPage('tienda', 'emergencias_rescate')">Ver en Tienda</button>
-                    </div>
-                    <div class="card-box" style="text-align: center;">
-                        <h4 style="font-size: 1.25em;">DEFENSA CIVIL & BRIGADAS</h4>
-                        <p style="margin-bottom: 18px; color: var(--text-muted);">Chalecos reflectivos 3M, conos viales 90cm, megáfonos 50W y dotación personalizada.</p>
-                        <button class="btn-detail" style="width:100%;" onclick="navigateToPage('tienda', 'defensa_civil')">Ver en Tienda</button>
-                    </div>
-                </div>
+                <!-- TARJETAS DINÁMICAS DEL HOME BANNER -->
+                <div class="grid-3 mt-5" id="renderHomeCardsGrid"></div>
             </div>
         </section>
     </div>
@@ -964,7 +973,7 @@ INDEX_HTML = """<!DOCTYPE html>
     <!-- CONTENEDOR DINÁMICO DE SECCIONES PERSONALIZADAS CREADAS DESDE EL CMS -->
     <div id="dynamicCustomPagesContainer"></div>
 
-    <!-- ==================== PÁGINA VISTA ADMIN CMS EJECUTIVO 12.0 ==================== -->
+    <!-- ==================== PÁGINA VISTA ADMIN CMS EJECUTIVO 13.0 ==================== -->
     <div id="page-admin" class="page-view">
         <div class="container" style="padding-top: 30px; padding-bottom: 60px;">
             
@@ -972,7 +981,7 @@ INDEX_HTML = """<!DOCTYPE html>
             <div class="admin-hero-banner">
                 <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; position: relative; z-index: 2;">
                     <div>
-                        <span style="background: rgba(255,102,0,0.2); border: 1px solid var(--orange); color: var(--orange); font-size: 0.78rem; font-weight: 900; padding: 4px 14px; border-radius: 50px; text-transform: uppercase;">PANEL DE CONTROL EJECUTIVO v12.0</span>
+                        <span style="background: rgba(255,102,0,0.2); border: 1px solid var(--orange); color: var(--orange); font-size: 0.78rem; font-weight: 900; padding: 4px 14px; border-radius: 50px; text-transform: uppercase;">PANEL DE CONTROL EJECUTIVO v13.0</span>
                         <h1 style="font-size: clamp(1.8rem, 4vw, 2.5rem); margin-top: 8px; color: #FFF;">ADMINISTRACIÓN TOTAL YD PROTECCIÓN</h1>
                         <p style="color: #CBD5E1; font-size: 0.95rem; margin-top: 4px;">Sincronización en tiempo real vía Supabase Cloud Sync Engine para Móviles, Tablets y PCs</p>
                     </div>
@@ -996,7 +1005,7 @@ INDEX_HTML = """<!DOCTYPE html>
                         <input type="text" id="admUser" class="contact-form-input" required placeholder="admin" value="admin" style="margin-top: 6px;">
                     </div>
                     <div style="margin-bottom: 22px; text-align: left;">
-                        <label style="font-weight:800; font-size:0.82rem; color:var(--orange);">CONTRASEÑA SECLAVE</label>
+                        <label style="font-weight:800; font-size:0.82rem; color:var(--orange);">CONTRASEÑA CLAVE</label>
                         <input type="password" id="admPass" class="contact-form-input" required placeholder="••••••••" value="yd2026" style="margin-top: 6px;">
                     </div>
                     <button type="submit" class="btn-submit-contact" style="padding: 16px; font-size: 1.05rem;">🔑 Entrar al Dashboard CMS</button>
@@ -1008,6 +1017,13 @@ INDEX_HTML = """<!DOCTYPE html>
                 
                 <!-- METRICAS EJECUTIVAS EN TIEMPO REAL -->
                 <div class="admin-metrics-grid">
+                    <div class="admin-metric-card">
+                        <div class="admin-metric-icon">🏠</div>
+                        <div>
+                            <div class="admin-metric-val" id="metricHomeStatus">ONLINE</div>
+                            <div class="admin-metric-lbl">Sección Inicio Parametrizada</div>
+                        </div>
+                    </div>
                     <div class="admin-metric-card">
                         <div class="admin-metric-icon">📦</div>
                         <div>
@@ -1022,13 +1038,6 @@ INDEX_HTML = """<!DOCTYPE html>
                             <div class="admin-metric-lbl">Categorías Activas</div>
                         </div>
                     </div>
-                    <div class="admin-metric-card">
-                        <div class="admin-metric-icon">🌐</div>
-                        <div>
-                            <div class="admin-metric-val" id="metricNavsCount">0</div>
-                            <div class="admin-metric-lbl">Links & Botones Web</div>
-                        </div>
-                    </div>
                     <div class="admin-metric-card" style="border-top-color: #25D366;">
                         <div class="admin-metric-icon" style="background: rgba(37,211,102,0.12); color: #25D366;">☁️</div>
                         <div>
@@ -1038,20 +1047,63 @@ INDEX_HTML = """<!DOCTYPE html>
                     </div>
                 </div>
 
-                <!-- BARRA DE PESTAÑAS EJECUTIVAS -->
+                <!-- BARRA DE PESTAÑAS EJECUTIVAS (CON PESTAÑA DEDICADA PARA HOME) -->
                 <div class="admin-tabs-bar">
-                    <button class="admin-tab-btn active-tab" onclick="switchAdminTab('nav_menu', this)">🍔 Menú & Botones</button>
+                    <button class="admin-tab-btn active-tab" onclick="switchAdminTab('home_manage', this)">🏠 Sección Inicio (Home)</button>
+                    <button class="admin-tab-btn" onclick="switchAdminTab('nav_menu', this)">🍔 Menú & Botones</button>
                     <button class="admin-tab-btn" onclick="switchAdminTab('logo_preloader', this)">🖼️ Logo & Preloader</button>
                     <button class="admin-tab-btn" onclick="switchAdminTab('categories_manage', this)">🏷️ Categorías (CRUD)</button>
                     <button class="admin-tab-btn" onclick="switchAdminTab('products', this)">📦 Catálogo Productos</button>
-                    <button class="admin-tab-btn" onclick="switchAdminTab('company', this)">🏢 Empresa & Hero</button>
+                    <button class="admin-tab-btn" onclick="switchAdminTab('company', this)">🏢 Empresa & Misión</button>
                     <button class="admin-tab-btn" onclick="switchAdminTab('contact', this)">📞 Canales Contacto</button>
                     <button class="admin-tab-btn" onclick="switchAdminTab('services', this)">🛠️ Servicios</button>
                     <button class="admin-tab-btn" onclick="switchAdminTab('footer_manage', this)">🦶 Pie de Página</button>
                 </div>
 
+                <!-- PESTAÑA 1 DEDICADA: GESTIÓN DE LA SECCIÓN INICIO (HOME) -->
+                <div id="tab-home_manage" class="admin-tab-content">
+                    <h3 style="color: var(--navy); margin-bottom: 18px; font-size: 1.3rem;">Parametrización Completa de la Página Principal (Home)</h3>
+                    
+                    <form onsubmit="saveHomeParams(event)">
+                        <!-- HERO BANNER CONFIGURATION -->
+                        <div style="background: #F8FAFC; padding: 25px; border-radius: 16px; margin-bottom: 24px; border: 1px solid #E2E8F0; border-left: 6px solid var(--orange);">
+                            <h4 style="color: var(--navy); margin-bottom: 14px; font-size: 1.1rem;">🚀 BANNER PRINCIPAL (HERO)</h4>
+                            
+                            <div class="contact-form-group">
+                                <label>Tag / Badge Superior Destacado</label>
+                                <input type="text" id="cfgHomeHeroTag" class="contact-form-input" required placeholder="Seguridad que salva vidas ★ Yesika & Daniel">
+                            </div>
+                            <div class="contact-form-group">
+                                <label>Subtítulo Secundario del Hero</label>
+                                <input type="text" id="cfgHomeHeroSub" class="contact-form-input" required placeholder="Seguridad y Emergencia a tu Alcance">
+                            </div>
+                            <div class="contact-form-group">
+                                <label>Título Principal del Hero (H1)</label>
+                                <input type="text" id="cfgHomeHeroTitle" class="contact-form-input" required placeholder="EQUIPOS DE PROTECCIÓN Y PREVENCIÓN">
+                            </div>
+                            <div class="contact-form-group">
+                                <label>Descripción Principal del Hero</label>
+                                <textarea id="cfgHomeHeroDesc" class="contact-form-input" rows="3" required></textarea>
+                            </div>
+                            <div class="contact-form-group">
+                                <label>Texto de Ayuda del Campo de Búsqueda (Placeholder)</label>
+                                <input type="text" id="cfgHomeSearchPlaceholder" class="contact-form-input" required placeholder="Buscar producto en la tienda...">
+                            </div>
+                        </div>
+
+                        <!-- HOME CARDS CONFIGURATION -->
+                        <div style="background: #F8FAFC; padding: 25px; border-radius: 16px; margin-bottom: 24px; border: 1px solid #E2E8F0; border-left: 6px solid var(--navy);">
+                            <h4 style="color: var(--navy); margin-bottom: 14px; font-size: 1.1rem;">🎴 TARJETAS DESTACADAS DE SOLUCIONES INTEGRALES</h4>
+                            
+                            <div class="grid-3" id="adminHomeCardsList"></div>
+                        </div>
+
+                        <button type="submit" class="btn-submit-contact" style="padding: 16px; font-size: 1.05rem;">💾 Guardar Sección Inicio en la Nube Supabase</button>
+                    </form>
+                </div>
+
                 <!-- TAB MENÚ DE NAVEGACIÓN Y BOTONES CON SWITCHES ANIMADOS -->
-                <div id="tab-nav_menu" class="admin-tab-content">
+                <div id="tab-nav_menu" class="admin-tab-content" style="display: none;">
                     <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 22px;">
                         <div>
                             <h3 style="color: var(--navy); font-size: 1.3rem;">Administración del Menú Superior y Botones de Acción</h3>
@@ -1179,20 +1231,8 @@ INDEX_HTML = """<!DOCTYPE html>
 
                 <!-- TAB EMPRESA -->
                 <div id="tab-company" class="admin-tab-content" style="display: none;">
-                    <h3 style="color: var(--navy); margin-bottom: 18px; font-size: 1.3rem;">Información Institucional & Secciones Principales</h3>
+                    <h3 style="color: var(--navy); margin-bottom: 18px; font-size: 1.3rem;">Información Institucional (Misión & Visión)</h3>
                     <form onsubmit="saveCompanyParams(event)">
-                        <div class="contact-form-group">
-                            <label>Título del Hero Principal</label>
-                            <input type="text" id="cfgHeroTitle" class="contact-form-input" required>
-                        </div>
-                        <div class="contact-form-group">
-                            <label>Subtítulo del Hero</label>
-                            <input type="text" id="cfgHeroTag" class="contact-form-input" required>
-                        </div>
-                        <div class="contact-form-group">
-                            <label>Descripción del Hero Principal</label>
-                            <textarea id="cfgHeroDesc" class="contact-form-input" rows="2" required></textarea>
-                        </div>
                         <div class="contact-form-group">
                             <label>Texto "Quiénes Somos"</label>
                             <textarea id="cfgAboutIntro" class="contact-form-input" rows="3" required></textarea>
@@ -1388,7 +1428,7 @@ INDEX_HTML = """<!DOCTYPE html>
         </div>
     </footer>
 
-    <!-- ENGINE DE SINCRONIZACIÓN Y CMS INTERACTIVO EJECUTIVO (v12) -->
+    <!-- ENGINE DE SINCRONIZACIÓN Y CMS INTERACTIVO CON PERSISTENCIA PRIORITARIA (v13) -->
     <script>
         const INITIAL_DATA = """ + json.dumps(INITIAL_SITE_DATA) + """;
         let tempLoadedLogoBase64 = "";
@@ -1409,11 +1449,6 @@ INDEX_HTML = """<!DOCTYPE html>
             }, 3500);
         }
 
-        // PURGA AUTOMÁTICA DE VERSIONES ANTIGUAS DE CACHE LOCAL EN DISPOSITIVOS MÓVILES
-        ['yd_site_config_v5','yd_site_config_v6','yd_site_config_v7','yd_site_config_v8','yd_site_config_v9','yd_site_config_v10'].forEach(k => {
-            try { localStorage.removeItem(k); } catch(e) {}
-        });
-
         async function fetchSupabaseSiteData() {
             try {
                 const res = await fetch('/api/site-data?t=' + Date.now());
@@ -1427,7 +1462,7 @@ INDEX_HTML = """<!DOCTYPE html>
         }
 
         function getLocalSiteData() {
-            const saved = localStorage.getItem('yd_site_config_v12');
+            const saved = localStorage.getItem('yd_custom_saved_v13');
             if (saved) {
                 try {
                     const parsed = JSON.parse(saved);
@@ -1438,16 +1473,26 @@ INDEX_HTML = """<!DOCTYPE html>
         }
 
         async function getSiteData() {
+            const userSaved = localStorage.getItem('yd_custom_saved_v13');
+            let baseData = INITIAL_DATA;
+            if (userSaved) {
+                try {
+                    const parsed = JSON.parse(userSaved);
+                    if (parsed && parsed.nav_links) baseData = parsed;
+                } catch(e) {}
+            }
+
             const cloudData = await fetchSupabaseSiteData();
-            if (cloudData && cloudData.nav_links) {
-                localStorage.setItem('yd_site_config_v12', JSON.stringify(cloudData));
+            if (cloudData && cloudData.nav_links && cloudData.is_user_edited) {
+                localStorage.setItem('yd_custom_saved_v13', JSON.stringify(cloudData));
                 return cloudData;
             }
-            return getLocalSiteData();
+            return baseData;
         }
 
         async function saveSiteData(data) {
-            localStorage.setItem('yd_site_config_v12', JSON.stringify(data));
+            data.is_user_edited = true;
+            localStorage.setItem('yd_custom_saved_v13', JSON.stringify(data));
             renderSite(data);
 
             try {
@@ -1466,11 +1511,11 @@ INDEX_HTML = """<!DOCTYPE html>
 
             document.getElementById('metricProductsCount').textContent = products.length;
             document.getElementById('metricCategoriesCount').textContent = categories.length;
-            document.getElementById('metricNavsCount').textContent = navs.filter(n => n.enabled === true || n.enabled === "true").length;
         }
 
         function renderSite(data) {
             const comp = data.company || INITIAL_DATA.company;
+            const homeCards = data.home_cards || INITIAL_SITE_DATA.home_cards;
             const prel = data.preloader || INITIAL_SITE_DATA.preloader;
             const foot = data.footer || INITIAL_SITE_DATA.footer;
             const navs = data.nav_links || INITIAL_SITE_DATA.nav_links;
@@ -1551,14 +1596,30 @@ INDEX_HTML = """<!DOCTYPE html>
             document.getElementById('renderFooterSubtitle').textContent = foot.subtitle || "Solicita cotización personalizada";
             document.getElementById('renderFooterCopyright').textContent = foot.copyright || "YD PROTECCIÓN © 2026";
 
-            // Renderizar Empresa / Hero
-            document.getElementById('renderHeroTag').textContent = comp.hero_tag;
-            document.getElementById('renderHeroSub').textContent = comp.hero_subtitle;
-            document.getElementById('renderHeroTitle').textContent = comp.hero_title;
-            document.getElementById('renderHeroDesc').textContent = comp.hero_desc;
+            // Renderizar Empresa / Hero / Home
+            document.getElementById('renderHeroTag').textContent = comp.hero_tag || "Seguridad que salva vidas ★ Yesika & Daniel";
+            document.getElementById('renderHeroSub').textContent = comp.hero_subtitle || "Seguridad y Emergencia a tu Alcance";
+            document.getElementById('renderHeroTitle').textContent = comp.hero_title || "EQUIPOS DE PROTECCIÓN Y PREVENCIÓN";
+            document.getElementById('renderHeroDesc').textContent = comp.hero_desc || "Soluciones especializadas...";
+            
+            const searchInp = document.getElementById('searchHomeInput');
+            if (searchInp) searchInp.placeholder = comp.search_placeholder || "Buscar producto en la tienda...";
+
             document.getElementById('renderAboutIntro').innerHTML = '<strong>' + comp.brand_name + '</strong> ' + comp.about_intro;
             document.getElementById('renderMision').textContent = comp.mision;
             document.getElementById('renderVision').textContent = comp.vision;
+
+            // Renderizar las 3 Tarjetas Destacadas del Home Dinámicamente
+            const homeCardsGrid = document.getElementById('renderHomeCardsGrid');
+            if (homeCardsGrid) {
+                homeCardsGrid.innerHTML = homeCards.map((c, i) => `
+                    <div class="card-box ${i === 1 ? 'navy-top' : ''}" style="text-align: center;">
+                        <h4 style="font-size: 1.25em;">${c.title}</h4>
+                        <p style="margin-bottom: 18px; color: var(--text-muted);">${c.desc}</p>
+                        <button class="btn-detail" style="width:100%;" onclick="navigateToPage('tienda', '${c.category_code}')">${c.btn_text || 'Ver en Tienda'}</button>
+                    </div>
+                `).join('');
+            }
 
             const cnt = data.contact || INITIAL_DATA.contact;
             document.getElementById('renderContactWa').textContent = cnt.whatsapp_display;
@@ -1637,9 +1698,39 @@ INDEX_HTML = """<!DOCTYPE html>
 
         function loadAdminForms(data) {
             const comp = data.company || INITIAL_DATA.company;
+            const homeCards = data.home_cards || INITIAL_SITE_DATA.home_cards;
             const prel = data.preloader || INITIAL_SITE_DATA.preloader;
             const foot = data.footer || INITIAL_SITE_DATA.footer;
             const navs = data.nav_links || INITIAL_SITE_DATA.nav_links;
+
+            // Formulario Pestaña Inicio (Home)
+            document.getElementById('cfgHomeHeroTag').value = comp.hero_tag || "Seguridad que salva vidas ★ Yesika & Daniel";
+            document.getElementById('cfgHomeHeroSub').value = comp.hero_subtitle || "Seguridad y Emergencia a tu Alcance";
+            document.getElementById('cfgHomeHeroTitle').value = comp.hero_title || "EQUIPOS DE PROTECCIÓN Y PREVENCIÓN";
+            document.getElementById('cfgHomeHeroDesc').value = comp.hero_desc || "Soluciones especializadas...";
+            document.getElementById('cfgHomeSearchPlaceholder').value = comp.search_placeholder || "Buscar producto en la tienda...";
+
+            // Formulario Tarjetas Destacadas del Home
+            const cardsAdminContainer = document.getElementById('adminHomeCardsList');
+            if (cardsAdminContainer) {
+                cardsAdminContainer.innerHTML = homeCards.map((c, i) => `
+                    <div class="card-box" style="padding: 20px;">
+                        <h5 style="color: var(--orange); margin-bottom: 10px;">TARJETA 0${i + 1} DE INICIO</h5>
+                        <div class="contact-form-group">
+                            <label style="font-size:0.8rem;">Título de la Tarjeta</label>
+                            <input type="text" class="contact-form-input home-card-title" data-idx="${i}" value="${c.title}">
+                        </div>
+                        <div class="contact-form-group">
+                            <label style="font-size:0.8rem;">Descripción</label>
+                            <textarea class="contact-form-input home-card-desc" data-idx="${i}" rows="3">${c.desc}</textarea>
+                        </div>
+                        <div class="contact-form-group">
+                            <label style="font-size:0.8rem;">Texto del Botón</label>
+                            <input type="text" class="contact-form-input home-card-btn" data-idx="${i}" value="${c.btn_text || 'Ver en Tienda'}">
+                        </div>
+                    </div>
+                `).join('');
+            }
 
             // Formulario Preloader / Logo
             document.getElementById('cfgPreloaderDuration').value = prel.duration_ms || "4500";
@@ -1653,7 +1744,7 @@ INDEX_HTML = """<!DOCTYPE html>
                 tempLoadedLogoBase64 = comp.logo_image;
             }
 
-            // Formulario Menú Links CON SWITCHES ANIMADOS v12
+            // Formulario Menú Links CON SWITCHES ANIMADOS v13
             const navAdminGrid = document.getElementById('adminNavLinksList');
             if (navAdminGrid) {
                 navAdminGrid.innerHTML = navs.map(n => {
@@ -1715,9 +1806,6 @@ INDEX_HTML = """<!DOCTYPE html>
             }
 
             // Formulario Empresa
-            document.getElementById('cfgHeroTitle').value = comp.hero_title;
-            document.getElementById('cfgHeroTag').value = comp.hero_tag;
-            document.getElementById('cfgHeroDesc').value = comp.hero_desc;
             document.getElementById('cfgAboutIntro').value = comp.about_intro;
             document.getElementById('cfgMision').value = comp.mision;
             document.getElementById('cfgVision').value = comp.vision;
@@ -1763,6 +1851,41 @@ INDEX_HTML = """<!DOCTYPE html>
                     </div>
                 `).join('');
             }
+        }
+
+        // GUARDAR PARAMETRIZACIÓN DE LA SECCIÓN INICIO (HOME)
+        async function saveHomeParams(e) {
+            e.preventDefault();
+            const data = await getSiteData();
+            data.company.hero_tag = document.getElementById('cfgHomeHeroTag').value;
+            data.company.hero_subtitle = document.getElementById('cfgHomeHeroSub').value;
+            data.company.hero_title = document.getElementById('cfgHomeHeroTitle').value;
+            data.company.hero_desc = document.getElementById('cfgHomeHeroDesc').value;
+            data.company.search_placeholder = document.getElementById('cfgHomeSearchPlaceholder').value;
+
+            // Guardar Tarjetas del Home
+            const cardTitles = document.querySelectorAll('.home-card-title');
+            const cardDescs = document.querySelectorAll('.home-card-desc');
+            const cardBtns = document.querySelectorAll('.home-card-btn');
+
+            cardTitles.forEach((inp, idx) => {
+                if (data.home_cards && data.home_cards[idx]) {
+                    data.home_cards[idx].title = inp.value;
+                }
+            });
+            cardDescs.forEach((inp, idx) => {
+                if (data.home_cards && data.home_cards[idx]) {
+                    data.home_cards[idx].desc = inp.value;
+                }
+            });
+            cardBtns.forEach((inp, idx) => {
+                if (data.home_cards && data.home_cards[idx]) {
+                    data.home_cards[idx].btn_text = inp.value;
+                }
+            });
+
+            await saveSiteData(data);
+            showToast('¡Sección Inicio (Home) guardada y sincronizada en la Nube!');
         }
 
         function updateSwitchLabel(chk, id) {
@@ -1994,9 +2117,6 @@ INDEX_HTML = """<!DOCTYPE html>
         async function saveCompanyParams(e) {
             e.preventDefault();
             const data = await getSiteData();
-            data.company.hero_title = document.getElementById('cfgHeroTitle').value;
-            data.company.hero_tag = document.getElementById('cfgHeroTag').value;
-            data.company.hero_desc = document.getElementById('cfgHeroDesc').value;
             data.company.about_intro = document.getElementById('cfgAboutIntro').value;
             data.company.mision = document.getElementById('cfgMision').value;
             data.company.vision = document.getElementById('cfgVision').value;
@@ -2196,7 +2316,7 @@ INDEX_HTML = """<!DOCTYPE html>
 </body>
 </html>"""
 
-DATA_FILE_PATH = "/tmp/yd_site_config_v12.json"
+DATA_FILE_PATH = "/tmp/yd_site_config_v13.json"
 
 def load_server_data() -> dict:
     if os.path.exists(DATA_FILE_PATH):
@@ -2228,6 +2348,7 @@ async def save_site_data_api(request: Request):
     try:
         data = await request.json()
         if isinstance(data, dict) and "nav_links" in data:
+            data["is_user_edited"] = True
             SAVED_CLOUD_SITE_DATA = data
             save_server_data(data)
             return JSONResponse(content={"status": "success", "message": "Datos guardados en servidor"})
