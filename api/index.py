@@ -6,9 +6,9 @@ from fastapi.responses import HTMLResponse, JSONResponse
 from jinja2 import Template
 
 app = FastAPI(
-    title="YD Protección - Plataforma Web & CMS con Gestión Total de Inicio (Home) 13.0",
-    description="Plataforma Web Corporativa con Pestaña Administrable para la Sección Inicio (Home), Persistencia Permanente y Supabase Cloud Engine",
-    version="13.0.0"
+    title="YD Protección - Plataforma Web & CMS Ejecutivo Enriquecido 14.0",
+    description="Plataforma Web Corporativa con Home Enriquecido, Cifras de Confianza, Pilares de Diferenciación, Testimonios y CMS de Grado Ejecutivo",
+    version="14.0.0"
 )
 
 # DATOS BASE PARAMETRIZADOS INICIALES TOTALES
@@ -26,6 +26,12 @@ INITIAL_SITE_DATA = {
     "mision": "Suministrar equipos de protección, emergencia y prevención de la más alta calidad y normatividad, brindando asesoría integral a empresas, brigadas e instituciones de socorro para preservar la vida y controlar riesgos operacionales.",
     "vision": "Ser reconocidos a nivel nacional como la empresa líder y aliada estratégica en soluciones de seguridad, prevención y atención de emergencias, destacándonos por la confiabilidad de nuestros productos, excelencia en el servicio y compromiso humano."
   },
+  "stats_bar": [
+    { "val": "+10 Años", "lbl": "Experiencia en el Sector" },
+    { "val": "+5.000", "lbl": "Equipos Entregados" },
+    { "val": "100%", "lbl": "Normas ANSI / CE / OSHA" },
+    { "val": "24/7", "lbl": "Atención Urgencias & Brigadas" }
+  ],
   "home_cards": [
     {
       "id": "card-1",
@@ -47,6 +53,40 @@ INITIAL_SITE_DATA = {
       "desc": "Chalecos reflectivos 3M, conos viales 90cm, megáfonos 50W y dotación personalizada.",
       "btn_text": "Ver en Tienda",
       "category_code": "defensa_civil"
+    }
+  ],
+  "why_choose_us": [
+    {
+      "icon": "🛡️",
+      "title": "Garantía & Normatividad Certificada",
+      "desc": "Todos nuestros equipos cumplen estrictamente con fichas técnicas oficiales y estándares ANSI, CE e ICONTEC."
+    },
+    {
+      "icon": "⚡",
+      "title": "Despacho Prioritario Nacional",
+      "desc": "Logística ágil y envíos urgentes para dotación corporativa y atención de contingencias de brigadas."
+    },
+    {
+      "icon": "📐",
+      "title": "Asesoría Técnica en Selección de EPP",
+      "desc": "Acompañamos a tu departamento de SST en la correcta elección del equipamiento según la matriz de riesgo."
+    },
+    {
+      "icon": "🦺",
+      "title": "Personalización & Bordado Institucional",
+      "desc": "Bordados 3D, estampados reflectivos 3M y marcación de cascos con la identidad visual de tu empresa."
+    }
+  ],
+  "testimonials": [
+    {
+      "quote": "YD Protección es nuestro aliado clave para la dotación de la brigada. Excelente calidad en cascos dieléctricos y botiquines reglamentarios.",
+      "author": "Ing. Carlos Mendoza",
+      "role": "Director SST - Grupo Industrial Antioquia"
+    },
+    {
+      "quote": "La rapidez en el envío de chalecos reflectivos 3M y linternas tácticas nos garantizó cumplir a tiempo con una auditoría de seguridad.",
+      "author": "Dra. Patricia Gómez",
+      "role": "Coordinadora de Emergencias & Socorrismo"
     }
   ],
   "preloader": {
@@ -364,7 +404,7 @@ INITIAL_SITE_DATA = {
   ]
 }
 
-# Estilos CSS
+# Estilos CSS Enriquecidos v14
 EMBEDDED_CSS = """
 :root {
     --navy: #0B1C30;
@@ -395,211 +435,105 @@ h1, h2, h3, h4, h5 { font-family: 'Montserrat', -apple-system, BlinkMacSystemFon
 img { max-width: 100%; height: auto; display: block; }
 .container { max-width: 1240px; margin: 0 auto; padding: 0 20px; }
 
-/* PRELOADER SPLASH SCREEN CON FONDO TOTALMENTE OPACO DEGRADADO */
+/* PRELOADER SPLASH SCREEN */
 #pagePreloader {
-    position: fixed;
-    top: 0; left: 0; width: 100vw; height: 100vh;
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
     background: linear-gradient(135deg, #000000 0%, #2D3748 50%, #1A202C 100%);
-    z-index: 999999;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    z-index: 999999; display: flex; flex-direction: column; align-items: center; justify-content: center;
     transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
-#pagePreloader.preloader-hidden {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-}
-.preloader-logo-ring {
-    position: relative;
-    width: 130px;
-    height: 130px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 24px;
-}
-.preloader-ring-spin {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border: 4px solid rgba(255, 102, 0, 0.2);
-    border-top: 4px solid var(--orange);
-    border-radius: 50%;
-    animation: preloaderSpin 1.4s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-}
-.preloader-badge-center {
-    background: linear-gradient(135deg, var(--orange), var(--orange-light));
-    color: #FFF;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 900;
-    font-size: 2.4rem;
-    padding: 14px 22px;
-    border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(255,102,0,0.45);
-    animation: preloaderPulse 2.2s ease-in-out infinite alternate;
-}
-.preloader-custom-logo-img {
-    max-width: 100px;
-    max-height: 100px;
-    object-fit: contain;
-    border-radius: 12px;
-    filter: drop-shadow(0 6px 15px rgba(255,102,0,0.5));
-    animation: preloaderPulse 2.2s ease-in-out infinite alternate;
-}
-@keyframes preloaderSpin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-@keyframes preloaderPulse {
-    0% { transform: scale(0.95); }
-    100% { transform: scale(1.05); }
-}
-.preloader-title {
-    color: #FFFFFF;
-    font-size: 1.5rem;
-    font-weight: 900;
-    letter-spacing: 2px;
-    margin-bottom: 6px;
-    text-transform: uppercase;
-}
+#pagePreloader.preloader-hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+.preloader-logo-ring { position: relative; width: 130px; height: 130px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px; }
+.preloader-ring-spin { position: absolute; width: 100%; height: 100%; border: 4px solid rgba(255, 102, 0, 0.2); border-top: 4px solid var(--orange); border-radius: 50%; animation: preloaderSpin 1.4s cubic-bezier(0.5, 0, 0.5, 1) infinite; }
+.preloader-badge-center { background: linear-gradient(135deg, var(--orange), var(--orange-light)); color: #FFF; font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 2.4rem; padding: 14px 22px; border-radius: 16px; box-shadow: 0 10px 30px rgba(255,102,0,0.45); animation: preloaderPulse 2.2s ease-in-out infinite alternate; }
+.preloader-custom-logo-img { max-width: 100px; max-height: 100px; object-fit: contain; border-radius: 12px; filter: drop-shadow(0 6px 15px rgba(255,102,0,0.5)); animation: preloaderPulse 2.2s ease-in-out infinite alternate; }
+@keyframes preloaderSpin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+@keyframes preloaderPulse { 0% { transform: scale(0.95); } 100% { transform: scale(1.05); } }
+.preloader-title { color: #FFFFFF; font-size: 1.5rem; font-weight: 900; letter-spacing: 2px; margin-bottom: 6px; text-transform: uppercase; }
 .preloader-title span { color: var(--orange); }
-.preloader-subtext {
-    color: #CBD5E1;
-    font-size: 0.92rem;
-    margin-bottom: 28px;
-    letter-spacing: 0.5px;
-}
-.preloader-bar-bg {
-    width: 260px;
-    height: 6px;
-    background: rgba(255,255,255,0.15);
-    border-radius: 10px;
-    overflow: hidden;
-    position: relative;
-}
-.preloader-bar-fill {
-    height: 100%;
-    width: 0%;
-    background: linear-gradient(90deg, var(--orange), var(--orange-light));
-    border-radius: 10px;
-    transition: width 0.08s linear;
-    box-shadow: 0 0 12px var(--orange);
-}
+.preloader-subtext { color: #CBD5E1; font-size: 0.92rem; margin-bottom: 28px; letter-spacing: 0.5px; }
+.preloader-bar-bg { width: 260px; height: 6px; background: rgba(255,255,255,0.15); border-radius: 10px; overflow: hidden; position: relative; }
+.preloader-bar-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--orange), var(--orange-light)); border-radius: 10px; transition: width 0.08s linear; box-shadow: 0 0 12px var(--orange); }
 
-/* HEADER / NAVBAR */
-.top-bar {
-    background: rgba(5, 14, 26, 0.96);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    color: var(--white);
-    padding: 14px 0;
-    border-bottom: 3px solid var(--orange);
-    position: sticky; top: 0; z-index: 1000;
-    box-shadow: 0 4px 25px rgba(0,0,0,0.3);
-}
+/* TOPBAR */
+.top-bar { background: rgba(5, 14, 26, 0.96); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); color: var(--white); padding: 14px 0; border-bottom: 3px solid var(--orange); position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 25px rgba(0,0,0,0.3); }
 .top-bar-content { display: flex; justify-content: space-between; align-items: center; gap: 15px; }
 .brand-logo-group { display: flex; align-items: center; gap: 10px; text-decoration: none; cursor: pointer; flex-shrink: 0; }
-.brand-badge {
-    background: linear-gradient(135deg, var(--orange), var(--orange-light));
-    color: #FFF; font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.15rem;
-    padding: 4px 10px; border-radius: 8px; box-shadow: 0 4px 12px rgba(255,102,0,0.3);
-}
-.brand-real-logo-img {
-    height: 42px; width: auto; max-width: 140px; object-fit: contain; border-radius: 6px;
-}
+.brand-badge { background: linear-gradient(135deg, var(--orange), var(--orange-light)); color: #FFF; font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.15rem; padding: 4px 10px; border-radius: 8px; box-shadow: 0 4px 12px rgba(255,102,0,0.3); }
+.brand-real-logo-img { height: 42px; width: auto; max-width: 140px; object-fit: contain; border-radius: 6px; }
 .brand-title { font-size: 1.25rem; font-weight: 900; letter-spacing: 0.5px; color: var(--white); }
 .brand-title span { color: var(--orange); }
 
 .nav-links { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
-.nav-link-btn {
-    color: #E2E8F0; text-decoration: none; font-weight: 700; font-size: 0.9rem;
-    transition: all 0.3s ease; position: relative; padding: 6px 2px; background: none; border: none; cursor: pointer; white-space: nowrap;
-}
+.nav-link-btn { color: #E2E8F0; text-decoration: none; font-weight: 700; font-size: 0.9rem; transition: all 0.3s ease; position: relative; padding: 6px 2px; background: none; border: none; cursor: pointer; white-space: nowrap; }
 .nav-link-btn:hover, .nav-link-btn.active-page { color: var(--orange); }
-.nav-link-btn::after {
-    content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 3px;
-    background: var(--orange); transition: width 0.3s ease; border-radius: 2px;
-}
+.nav-link-btn::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 3px; background: var(--orange); transition: width 0.3s ease; border-radius: 2px; }
 .nav-link-btn:hover::after, .nav-link-btn.active-page::after { width: 100%; }
 
-.btn-analytics {
-    background: linear-gradient(135deg, var(--orange), var(--orange-light));
-    color: var(--white); padding: 8px 18px; border-radius: 50px; text-decoration: none;
-    font-weight: 700; font-size: 0.85rem; box-shadow: 0 4px 14px rgba(255,102,0,0.35); transition: all 0.3s ease;
-    white-space: nowrap; flex-shrink: 0; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; border: none;
-}
+.btn-analytics { background: linear-gradient(135deg, var(--orange), var(--orange-light)); color: var(--white); padding: 8px 18px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 0.85rem; box-shadow: 0 4px 14px rgba(255,102,0,0.35); transition: all 0.3s ease; white-space: nowrap; flex-shrink: 0; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; border: none; }
 .btn-analytics:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255,102,0,0.5); }
 
 /* VISTAS */
 .page-view { display: none; opacity: 0; transition: opacity 0.35s ease-in-out; }
 .page-view.active-view { display: block; opacity: 1; }
 
-/* HERO */
-.hero {
-    background: radial-gradient(circle at 50% 20%, rgba(255,102,0,0.12) 0%, rgba(5,14,26,1) 75%);
-    color: var(--white); text-align: center; padding: 70px 20px 85px; position: relative; border-bottom: 1px solid rgba(255,255,255,0.08);
-}
-.hero-tag {
-    display: inline-block; background: rgba(255,102,0,0.15); border: 1px solid var(--orange);
-    color: var(--orange); padding: 6px 18px; border-radius: 50px; font-size: 0.8rem; font-weight: 800; letter-spacing: 1.2px; margin-bottom: 20px; text-transform: uppercase;
-}
+/* HERO & STATS BAR ENRIQUECIDOS */
+.hero { background: radial-gradient(circle at 50% 20%, rgba(255,102,0,0.14) 0%, rgba(5,14,26,1) 80%); color: var(--white); text-align: center; padding: 75px 20px 90px; position: relative; border-bottom: 1px solid rgba(255,255,255,0.08); }
+.hero-tag { display: inline-block; background: rgba(255,102,0,0.15); border: 1px solid var(--orange); color: var(--orange); padding: 6px 18px; border-radius: 50px; font-size: 0.8rem; font-weight: 800; letter-spacing: 1.2px; margin-bottom: 20px; text-transform: uppercase; }
 .hero h2 { font-size: clamp(1rem, 2.5vw, 1.4rem); font-weight: 400; letter-spacing: 2px; margin-bottom: 12px; color: #E2E8F0; }
-.hero h3 { font-size: clamp(1.6rem, 5vw, 2.7rem); margin-bottom: 16px; text-shadow: 0 4px 15px rgba(0,0,0,0.4); color: var(--white); letter-spacing: -0.5px; line-height: 1.25; }
-.hero p { font-size: clamp(1rem, 2.2vw, 1.2rem); max-width: 720px; margin: 0 auto 35px; color: #CBD5E1; line-height: 1.6; }
+.hero h3 { font-size: clamp(1.6rem, 5vw, 2.8rem); margin-bottom: 16px; text-shadow: 0 4px 15px rgba(0,0,0,0.4); color: var(--white); letter-spacing: -0.5px; line-height: 1.25; }
+.hero p { font-size: clamp(1rem, 2.2vw, 1.2rem); max-width: 760px; margin: 0 auto 35px; color: #CBD5E1; line-height: 1.6; }
+
+.stats-bar-wrapper { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; background: rgba(11,28,48,0.85); backdrop-filter: blur(12px); border: 1px solid rgba(255,102,0,0.3); border-radius: 20px; padding: 24px 20px; margin-top: 50px; box-shadow: 0 15px 35px rgba(0,0,0,0.3); }
+.stat-item { text-align: center; }
+.stat-val { font-size: 2.2rem; font-weight: 900; color: var(--orange); font-family: 'Montserrat', sans-serif; line-height: 1; margin-bottom: 4px; }
+.stat-lbl { font-size: 0.8rem; color: #E2E8F0; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* SECCIONES ENRIQUECIDAS DEL HOME */
+.why-us-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; margin-top: 35px; }
+.why-us-card { background: var(--white); border-radius: 18px; padding: 30px 22px; box-shadow: var(--card-shadow); border: 1px solid rgba(0,0,0,0.06); border-top: 5px solid var(--orange); transition: all 0.35s ease; text-align: center; }
+.why-us-card:hover { transform: translateY(-8px); box-shadow: var(--hover-shadow); }
+.why-us-icon { font-size: 2.8rem; margin-bottom: 14px; }
+
+.trust-badges-bar { display: flex; justify-content: center; align-items: center; gap: 30px; flex-wrap: wrap; margin-top: 40px; padding: 25px; background: #FFF; border-radius: 16px; box-shadow: var(--card-shadow); }
+.trust-badge-pill { background: #F1F5F9; border: 1px solid #CBD5E1; color: var(--navy); padding: 8px 18px; border-radius: 50px; font-weight: 800; font-size: 0.85rem; display: flex; align-items: center; gap: 8px; }
+
+.testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-top: 35px; }
+.testimonial-card { background: var(--navy); color: #FFF; padding: 30px 24px; border-radius: 18px; border-left: 5px solid var(--orange); position: relative; }
+.testimonial-quote { font-style: italic; font-size: 0.96rem; margin-bottom: 18px; line-height: 1.6; color: #E2E8F0; }
+.testimonial-author { font-weight: 800; color: var(--orange); font-size: 0.92rem; }
+.testimonial-role { font-size: 0.8rem; color: #CBD5E1; }
 
 .search-wrapper { max-width: 640px; margin: 0 auto; position: relative; }
-.search-input {
-    width: 100%; padding: 16px 20px 16px 50px; border-radius: 50px; border: 2px solid var(--orange);
-    background: #FFFFFF; font-size: 1rem; outline: none; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transition: all 0.3s ease;
-}
+.search-input { width: 100%; padding: 16px 20px 16px 50px; border-radius: 50px; border: 2px solid var(--orange); background: #FFFFFF; font-size: 1rem; outline: none; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transition: all 0.3s ease; }
 .search-input:focus { box-shadow: 0 0 30px rgba(255,102,0,0.5); }
 .search-icon { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); font-size: 1.15rem; }
 
 /* SECCIONES Y ENCABEZADOS DE PÁGINA */
-.page-header-banner {
-    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
-    color: var(--white); padding: 50px 20px; text-align: center; border-bottom: 4px solid var(--orange); margin-bottom: 35px;
-}
+.page-header-banner { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%); color: var(--white); padding: 50px 20px; text-align: center; border-bottom: 4px solid var(--orange); margin-bottom: 35px; }
 .page-header-banner h1 { font-size: clamp(1.6rem, 4vw, 2.4rem); margin-bottom: 10px; color: var(--white); }
 .page-header-banner p { font-size: clamp(0.95rem, 2vw, 1.15rem); color: #CBD5E1; max-width: 700px; margin: 0 auto; }
 
 section { padding: 60px 0; }
-.section-title {
-    text-align: center; color: var(--navy); font-size: clamp(1.8rem, 4vw, 2.5rem);
-    margin-bottom: 12px; position: relative; padding-bottom: 18px; letter-spacing: -0.5px;
-}
-.section-title::after {
-    content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 75px; height: 4px; background-color: var(--orange); border-radius: 4px;
-}
+.section-title { text-align: center; color: var(--navy); font-size: clamp(1.8rem, 4vw, 2.5rem); margin-bottom: 12px; position: relative; padding-bottom: 18px; letter-spacing: -0.5px; }
+.section-title::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 75px; height: 4px; background-color: var(--orange); border-radius: 4px; }
 .section-subtitle { text-align: center; font-size: clamp(0.95rem, 2vw, 1.15rem); color: var(--text-muted); margin-bottom: 40px; }
 
-/* DESIGN SYSTEM EJECUTIVO CMS v13 */
-.admin-hero-banner {
-    background: linear-gradient(135deg, #050E1A 0%, #0B1C30 50%, #112844 100%);
-    color: #FFF; padding: 40px 25px; border-radius: 20px; border-left: 6px solid var(--orange);
-    box-shadow: 0 15px 35px rgba(0,0,0,0.25); margin-bottom: 30px; position: relative; overflow: hidden;
-}
-.admin-hero-banner::after {
-    content: 'CMS 13.0'; position: absolute; right: -20px; bottom: -20px; font-size: 7rem;
-    font-weight: 900; color: rgba(255,102,0,0.05); font-family: 'Montserrat', sans-serif; pointer-events: none;
-}
-.admin-metrics-grid {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 35px;
-}
-.admin-metric-card {
-    background: #FFFFFF; border-radius: 16px; padding: 22px 20px; box-shadow: var(--card-shadow);
-    border: 1px solid rgba(0,0,0,0.06); border-top: 4px solid var(--orange); transition: all 0.3s ease; display: flex; align-items: center; gap: 16px;
-}
+/* DESIGN SYSTEM EJECUTIVO CMS v14 DE ALTA GAMA */
+.admin-hero-banner { background: linear-gradient(135deg, #050E1A 0%, #0B1C30 50%, #112844 100%); color: #FFF; padding: 40px 25px; border-radius: 20px; border-left: 6px solid var(--orange); box-shadow: 0 15px 35px rgba(0,0,0,0.25); margin-bottom: 30px; position: relative; overflow: hidden; }
+.admin-hero-banner::after { content: 'CMS 14.0'; position: absolute; right: -20px; bottom: -20px; font-size: 7rem; font-weight: 900; color: rgba(255,102,0,0.05); font-family: 'Montserrat', sans-serif; pointer-events: none; }
+.admin-metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 35px; }
+.admin-metric-card { background: #FFFFFF; border-radius: 16px; padding: 22px 20px; box-shadow: var(--card-shadow); border: 1px solid rgba(0,0,0,0.06); border-top: 4px solid var(--orange); transition: all 0.3s ease; display: flex; align-items: center; gap: 16px; }
 .admin-metric-card:hover { transform: translateY(-4px); box-shadow: var(--hover-shadow); }
-.admin-metric-icon {
-    width: 52px; height: 52px; border-radius: 14px; background: rgba(255,102,0,0.12); color: var(--orange);
-    display: flex; align-items: center; justify-content: center; font-size: 1.6rem; flex-shrink: 0;
-}
+.admin-metric-icon { width: 52px; height: 52px; border-radius: 14px; background: rgba(255,102,0,0.12); color: var(--orange); display: flex; align-items: center; justify-content: center; font-size: 1.6rem; flex-shrink: 0; }
 .admin-metric-val { font-size: 1.8rem; font-weight: 900; color: var(--navy); line-height: 1; margin-bottom: 4px; font-family: 'Montserrat', sans-serif; }
 .admin-metric-lbl { font-size: 0.8rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* FORMULARIOS CMS DE ALTA GAMA CON FOCUS GLOW */
+.contact-form-input { width: 100%; padding: 14px 18px; border-radius: 10px; border: 1px solid #CBD5E1; font-size: 0.96rem; outline: none; transition: all 0.3s ease; background: #FFFFFF; color: var(--navy); }
+.contact-form-input:focus { border-color: var(--orange); box-shadow: 0 0 0 4px rgba(255, 102, 0, 0.15); }
+.admin-section-box { background: #FFFFFF; padding: 28px 24px; border-radius: 18px; margin-bottom: 25px; border: 1px solid #E2E8F0; border-left: 6px solid var(--orange); box-shadow: var(--card-shadow); }
+.admin-section-box.navy-left { border-left-color: var(--navy); }
 
 /* SWITCH TOGGLE ULTRA MODERNO */
 .switch-container { display: flex; align-items: center; gap: 12px; }
@@ -611,25 +545,13 @@ input:checked + .slider { background-color: var(--orange); }
 input:checked + .slider:before { transform: translateX(24px); }
 
 /* TOAST FLOATING NOTIFICATIONS */
-#toastContainer {
-    position: fixed; top: 85px; right: 25px; z-index: 99999; display: flex; flex-direction: column; gap: 10px; pointer-events: none;
-}
-.toast-msg {
-    background: #0B1C30; color: #FFF; border-left: 5px solid var(--orange); padding: 14px 22px; border-radius: 12px;
-    font-weight: 700; font-size: 0.92rem; box-shadow: 0 10px 30px rgba(0,0,0,0.35); display: flex; align-items: center; gap: 10px;
-    animation: toastIn 0.35s cubic-bezier(0.4, 0, 0.2, 1) forwards; pointer-events: all;
-}
-@keyframes toastIn {
-    0% { opacity: 0; transform: translateX(60px); }
-    100% { opacity: 1; transform: translateX(0); }
-}
+#toastContainer { position: fixed; top: 85px; right: 25px; z-index: 99999; display: flex; flex-direction: column; gap: 10px; pointer-events: none; }
+.toast-msg { background: #0B1C30; color: #FFF; border-left: 5px solid var(--orange); padding: 14px 22px; border-radius: 12px; font-weight: 700; font-size: 0.92rem; box-shadow: 0 10px 30px rgba(0,0,0,0.35); display: flex; align-items: center; gap: 10px; animation: toastIn 0.35s cubic-bezier(0.4, 0, 0.2, 1) forwards; pointer-events: all; }
+@keyframes toastIn { 0% { opacity: 0; transform: translateX(60px); } 100% { opacity: 1; transform: translateX(0); } }
 
 /* DESGLOSE Y GRILLAS */
 .category-breakdown-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 24px; margin-top: 30px; }
-.category-breakdown-card {
-    background: var(--white); border-radius: 18px; padding: 28px 22px; box-shadow: var(--card-shadow);
-    border: 1px solid rgba(0,0,0,0.06); border-top: 6px solid var(--orange); transition: all 0.35s ease;
-}
+.category-breakdown-card { background: var(--white); border-radius: 18px; padding: 28px 22px; box-shadow: var(--card-shadow); border: 1px solid rgba(0,0,0,0.06); border-top: 6px solid var(--orange); transition: all 0.35s ease; }
 .category-breakdown-card:hover { transform: translateY(-6px); box-shadow: var(--hover-shadow); }
 .breakdown-num { display: inline-block; background: rgba(255,102,0,0.12); color: var(--orange); font-weight: 900; font-size: 1rem; padding: 4px 12px; border-radius: 50px; margin-bottom: 12px; }
 .breakdown-title { color: var(--navy); font-size: 1.25em; margin-bottom: 10px; }
@@ -641,30 +563,18 @@ input:checked + .slider:before { transform: translateX(24px); }
 .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
 .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
 
-.card-box {
-    background: var(--white); padding: 32px 24px; border-radius: 16px; box-shadow: var(--card-shadow);
-    border-top: 5px solid var(--orange); transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    border-left: 1px solid rgba(0,0,0,0.04); border-right: 1px solid rgba(0,0,0,0.04);
-}
+.card-box { background: var(--white); padding: 32px 24px; border-radius: 16px; box-shadow: var(--card-shadow); border-top: 5px solid var(--orange); transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1); border-left: 1px solid rgba(0,0,0,0.04); border-right: 1px solid rgba(0,0,0,0.04); }
 .card-box.navy-top { border-top: 5px solid var(--navy); }
 .card-box:hover { transform: translateY(-6px); box-shadow: var(--hover-shadow); }
 .card-box h4 { color: var(--navy); margin-bottom: 12px; font-size: 1.25em; }
 
 .categories-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; }
-.category-item {
-    background-color: var(--navy); color: var(--white); padding: 22px; border-radius: 16px;
-    display: flex; align-items: center; cursor: pointer; transition: all 0.35s ease; border-left: 5px solid transparent;
-}
-.category-item:hover, .category-item.active {
-    background-color: #112844; border-left: 5px solid var(--orange); transform: translateX(6px); box-shadow: 0 10px 25px rgba(11,28,48,0.25);
-}
+.category-item { background-color: var(--navy); color: var(--white); padding: 22px; border-radius: 16px; display: flex; align-items: center; cursor: pointer; transition: all 0.35s ease; border-left: 5px solid transparent; }
+.category-item:hover, .category-item.active { background-color: #112844; border-left: 5px solid var(--orange); transform: translateX(6px); box-shadow: 0 10px 25px rgba(11,28,48,0.25); }
 .category-item .number { font-family: 'Montserrat', sans-serif; font-size: 2.2em; font-weight: 900; color: var(--orange); margin-right: 18px; flex-shrink: 0; }
 
 .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 26px; }
-.product-card {
-    background-color: var(--white); border-radius: 16px; overflow: hidden; box-shadow: var(--card-shadow);
-    display: flex; flex-direction: column; transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid rgba(0,0,0,0.06);
-}
+.product-card { background-color: var(--white); border-radius: 16px; overflow: hidden; box-shadow: var(--card-shadow); display: flex; flex-direction: column; transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid rgba(0,0,0,0.06); }
 .product-card:hover { transform: translateY(-8px); box-shadow: var(--hover-shadow); }
 .product-image-box { background-color: #0F172A; height: 220px; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
 .product-image-box img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
@@ -695,8 +605,6 @@ input:checked + .slider:before { transform: translateX(24px); }
 .contact-section-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 35px; background: var(--white); padding: 45px 35px; border-radius: 20px; box-shadow: var(--card-shadow); border: 1px solid rgba(0,0,0,0.06); }
 .contact-form-group { margin-bottom: 18px; }
 .contact-form-group label { display: block; font-weight: 700; margin-bottom: 6px; color: var(--navy); font-size: 0.9rem; }
-.contact-form-input { width: 100%; padding: 13px 16px; border-radius: 8px; border: 1px solid #CBD5E1; font-size: 0.96rem; outline: none; transition: border-color 0.3s; }
-.contact-form-input:focus { border-color: var(--orange); }
 .btn-submit-contact { background: linear-gradient(135deg, var(--orange), var(--orange-light)); color: var(--white); border: none; padding: 15px 24px; border-radius: 8px; font-weight: 800; font-size: 1rem; cursor: pointer; width: 100%; box-shadow: 0 4px 15px rgba(255,102,0,0.3); transition: all 0.3s; }
 .btn-submit-contact:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255,102,0,0.5); }
 
@@ -738,7 +646,7 @@ footer h2 { color: var(--orange); font-size: clamp(1.5rem, 3.5vw, 2.2rem); margi
 }
 """
 
-# Template HTML con CMS Panel Ejecutivo Ultra Profesional 13.0 y Pestaña Administrable de Inicio (Home)
+# Template HTML con Home Enriquecido y CMS Ejecutivo v14.0
 INDEX_HTML = """<!DOCTYPE html>
 <html lang="es">
 <head>
@@ -787,7 +695,7 @@ INDEX_HTML = """<!DOCTYPE html>
         </div>
     </header>
 
-    <!-- ==================== PÁGINA 1: HOME (TOTALMENTE ADMINISTRABLE) ==================== -->
+    <!-- ==================== PÁGINA 1: HOME (ENRIQUECIDO Y ADMINISTRABLE) ==================== -->
     <div id="page-home" class="page-view active-view">
         <section class="hero">
             <div class="container">
@@ -806,16 +714,60 @@ INDEX_HTML = """<!DOCTYPE html>
                     <button class="btn-analytics" style="padding: 13px 26px; font-size: 0.95rem; border-radius: 8px; background: linear-gradient(135deg, var(--navy), #112844);" onclick="navigateToPage('tienda')">Ir a la Tienda</button>
                     <button class="btn-detail" style="padding: 13px 26px; font-size: 0.95rem; border-radius: 8px;" onclick="navigateToPage('contacto')">Contactar Asesor</button>
                 </div>
+
+                <!-- CIFRAS DE CONFIANZA (STATS BAR) -->
+                <div class="stats-bar-wrapper" id="renderStatsBar"></div>
             </div>
         </section>
 
+        <!-- SECCIÓN SOLUCIONES INTEGRALES DESTACADAS -->
         <section class="bg-white">
             <div class="container">
-                <h2 class="section-title" id="renderHomeSectionTitle">Soluciones Integrales</h2>
-                <p class="section-subtitle" id="renderHomeSectionSub">Atención inmediata a requerimientos de seguridad industrial y emergencias</p>
-                
-                <!-- TARJETAS DINÁMICAS DEL HOME BANNER -->
+                <h2 class="section-title">Soluciones Integrales</h2>
+                <p class="section-subtitle">Atención inmediata a requerimientos de seguridad industrial y emergencias</p>
                 <div class="grid-3 mt-5" id="renderHomeCardsGrid"></div>
+            </div>
+        </section>
+
+        <!-- NUEVA SECCIÓN: ¿POR QUÉ ELEGIR YD PROTECCIÓN? (PILARES) -->
+        <section style="background: #F1F5F9; border-top: 1px solid #E2E8F0; border-bottom: 1px solid #E2E8F0;">
+            <div class="container">
+                <h2 class="section-title">¿Por Qué Elegir YD Protección?</h2>
+                <p class="section-subtitle">Nuestros 4 pilares fundamentales de respaldo para empresas y brigadas</p>
+                <div class="why-us-grid" id="renderWhyUsGrid"></div>
+            </div>
+        </section>
+
+        <!-- NUEVA SECCIÓN: PRODUCTOS DESTACADOS DE LA SEMANA -->
+        <section class="bg-white">
+            <div class="container">
+                <h2 class="section-title">Destacados de la Semana</h2>
+                <p class="section-subtitle">Referencias normativas de alta demanda listas para despacho</p>
+                <div class="product-grid" id="homeFeaturedProductsGrid"></div>
+            </div>
+        </section>
+
+        <!-- NUEVA SECCIÓN: CERTIFICACIONES Y NORMAS CUMPLIDAS -->
+        <section style="background: var(--navy); color: #FFF; padding: 45px 0;">
+            <div class="container" style="text-align: center;">
+                <h3 style="color: var(--orange); margin-bottom: 10px;">CERTIFICACIONES Y NORMAS TÉCNICAS</h3>
+                <p style="color: #CBD5E1; max-width: 650px; margin: 0 auto 20px;">Nuestros equipos cumplen estrictamente con las regulaciones vigentes</p>
+                <div class="trust-badges-bar">
+                    <div class="trust-badge-pill">🛡️ ANSI Z89.1 (Cabeza)</div>
+                    <div class="trust-badge-pill">👓 ANSI Z87.1+ (Visual)</div>
+                    <div class="trust-badge-pill">🧤 EN388 Nivel 5 (Manos)</div>
+                    <div class="trust-badge-pill">🚨 Res. Primeros Auxilios</div>
+                    <div class="trust-badge-pill">🇨🇴 Norma ICONTEC / OSHA</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NUEVA SECCIÓN: TESTIMONIOS CORPORATIVOS -->
+        <section class="bg-white">
+            <div class="container">
+                <h2 class="section-title">Respaldado por Profesionales</h2>
+                <p class="section-subtitle">Opiniones de Directores de SST y Comandantes de Brigada</p>
+                <div class="testimonials-grid" id="renderTestimonialsGrid"></div>
             </div>
         </section>
     </div>
@@ -973,17 +925,17 @@ INDEX_HTML = """<!DOCTYPE html>
     <!-- CONTENEDOR DINÁMICO DE SECCIONES PERSONALIZADAS CREADAS DESDE EL CMS -->
     <div id="dynamicCustomPagesContainer"></div>
 
-    <!-- ==================== PÁGINA VISTA ADMIN CMS EJECUTIVO 13.0 ==================== -->
+    <!-- ==================== PÁGINA VISTA ADMIN CMS EJECUTIVO ULTRA PROFESIONAL 14.0 ==================== -->
     <div id="page-admin" class="page-view">
         <div class="container" style="padding-top: 30px; padding-bottom: 60px;">
             
-            <!-- ENCABEZADO HERO DEL CMS -->
+            <!-- ENCABEZADO HERO DEL CMS DE ALTA GAMA -->
             <div class="admin-hero-banner">
                 <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; position: relative; z-index: 2;">
                     <div>
-                        <span style="background: rgba(255,102,0,0.2); border: 1px solid var(--orange); color: var(--orange); font-size: 0.78rem; font-weight: 900; padding: 4px 14px; border-radius: 50px; text-transform: uppercase;">PANEL DE CONTROL EJECUTIVO v13.0</span>
+                        <span style="background: rgba(255,102,0,0.2); border: 1px solid var(--orange); color: var(--orange); font-size: 0.78rem; font-weight: 900; padding: 4px 14px; border-radius: 50px; text-transform: uppercase;">PANEL DE CONTROL EJECUTIVO v14.0</span>
                         <h1 style="font-size: clamp(1.8rem, 4vw, 2.5rem); margin-top: 8px; color: #FFF;">ADMINISTRACIÓN TOTAL YD PROTECCIÓN</h1>
-                        <p style="color: #CBD5E1; font-size: 0.95rem; margin-top: 4px;">Sincronización en tiempo real vía Supabase Cloud Sync Engine para Móviles, Tablets y PCs</p>
+                        <p style="color: #CBD5E1; font-size: 0.95rem; margin-top: 4px;">Control de Contenidos, Inicio Enriquecido y Sincronización Nube en Tiempo Real</p>
                     </div>
                     <div style="display: flex; align-items: center; gap: 12px;">
                         <div style="background: rgba(37,211,102,0.15); border: 1px solid #25D366; color: #25D366; padding: 8px 16px; border-radius: 50px; font-weight: 800; font-size: 0.85rem; display: flex; align-items: center; gap: 6px;">
@@ -997,7 +949,7 @@ INDEX_HTML = """<!DOCTYPE html>
             <div id="loginOverlay" style="background: var(--navy-dark); color: var(--white); padding: 40px 30px; border-radius: 20px; max-width: 440px; margin: 0 auto 40px; text-align: center; border-top: 6px solid var(--orange); box-shadow: 0 20px 40px rgba(0,0,0,0.4);">
                 <div class="brand-badge" style="display: inline-block; margin-bottom: 14px; font-size: 1.4rem; padding: 6px 14px;">YD</div>
                 <h3 style="color: #FFF; margin-bottom: 6px; letter-spacing: 0.5px;">ACCESO ADMINISTRATIVO CMS</h3>
-                <p style="color: #CBD5E1; font-size: 0.88rem; margin-bottom: 25px;">Ingresa credenciales para parametrizar la plataforma</p>
+                <p style="color: #CBD5E1; font-size: 0.88rem; margin-bottom: 25px;">Ingresa credenciales para acceder al panel de control</p>
 
                 <form onsubmit="handleAdminLogin(event)">
                     <div style="margin-bottom: 16px; text-align: left;">
@@ -1047,7 +999,7 @@ INDEX_HTML = """<!DOCTYPE html>
                     </div>
                 </div>
 
-                <!-- BARRA DE PESTAÑAS EJECUTIVAS (CON PESTAÑA DEDICADA PARA HOME) -->
+                <!-- BARRA DE PESTAÑAS EJECUTIVAS -->
                 <div class="admin-tabs-bar">
                     <button class="admin-tab-btn active-tab" onclick="switchAdminTab('home_manage', this)">🏠 Sección Inicio (Home)</button>
                     <button class="admin-tab-btn" onclick="switchAdminTab('nav_menu', this)">🍔 Menú & Botones</button>
@@ -1060,26 +1012,26 @@ INDEX_HTML = """<!DOCTYPE html>
                     <button class="admin-tab-btn" onclick="switchAdminTab('footer_manage', this)">🦶 Pie de Página</button>
                 </div>
 
-                <!-- PESTAÑA 1 DEDICADA: GESTIÓN DE LA SECCIÓN INICIO (HOME) -->
+                <!-- PESTAÑA DEDICADA: GESTIÓN COMPLETA DEL HOME ENRIQUECIDO -->
                 <div id="tab-home_manage" class="admin-tab-content">
                     <h3 style="color: var(--navy); margin-bottom: 18px; font-size: 1.3rem;">Parametrización Completa de la Página Principal (Home)</h3>
                     
                     <form onsubmit="saveHomeParams(event)">
                         <!-- HERO BANNER CONFIGURATION -->
-                        <div style="background: #F8FAFC; padding: 25px; border-radius: 16px; margin-bottom: 24px; border: 1px solid #E2E8F0; border-left: 6px solid var(--orange);">
+                        <div class="admin-section-box">
                             <h4 style="color: var(--navy); margin-bottom: 14px; font-size: 1.1rem;">🚀 BANNER PRINCIPAL (HERO)</h4>
                             
                             <div class="contact-form-group">
                                 <label>Tag / Badge Superior Destacado</label>
-                                <input type="text" id="cfgHomeHeroTag" class="contact-form-input" required placeholder="Seguridad que salva vidas ★ Yesika & Daniel">
+                                <input type="text" id="cfgHomeHeroTag" class="contact-form-input" required>
                             </div>
                             <div class="contact-form-group">
                                 <label>Subtítulo Secundario del Hero</label>
-                                <input type="text" id="cfgHomeHeroSub" class="contact-form-input" required placeholder="Seguridad y Emergencia a tu Alcance">
+                                <input type="text" id="cfgHomeHeroSub" class="contact-form-input" required>
                             </div>
                             <div class="contact-form-group">
                                 <label>Título Principal del Hero (H1)</label>
-                                <input type="text" id="cfgHomeHeroTitle" class="contact-form-input" required placeholder="EQUIPOS DE PROTECCIÓN Y PREVENCIÓN">
+                                <input type="text" id="cfgHomeHeroTitle" class="contact-form-input" required>
                             </div>
                             <div class="contact-form-group">
                                 <label>Descripción Principal del Hero</label>
@@ -1087,18 +1039,35 @@ INDEX_HTML = """<!DOCTYPE html>
                             </div>
                             <div class="contact-form-group">
                                 <label>Texto de Ayuda del Campo de Búsqueda (Placeholder)</label>
-                                <input type="text" id="cfgHomeSearchPlaceholder" class="contact-form-input" required placeholder="Buscar producto en la tienda...">
+                                <input type="text" id="cfgHomeSearchPlaceholder" class="contact-form-input" required>
                             </div>
                         </div>
 
+                        <!-- CIFRAS DE CONFIANZA CONFIGURATION -->
+                        <div class="admin-section-box navy-left">
+                            <h4 style="color: var(--navy); margin-bottom: 14px; font-size: 1.1rem;">📊 BARRA DE CIFRAS DE CONFIANZA (STATS)</h4>
+                            <div class="grid-4" id="adminStatsBarList"></div>
+                        </div>
+
                         <!-- HOME CARDS CONFIGURATION -->
-                        <div style="background: #F8FAFC; padding: 25px; border-radius: 16px; margin-bottom: 24px; border: 1px solid #E2E8F0; border-left: 6px solid var(--navy);">
+                        <div class="admin-section-box">
                             <h4 style="color: var(--navy); margin-bottom: 14px; font-size: 1.1rem;">🎴 TARJETAS DESTACADAS DE SOLUCIONES INTEGRALES</h4>
-                            
                             <div class="grid-3" id="adminHomeCardsList"></div>
                         </div>
 
-                        <button type="submit" class="btn-submit-contact" style="padding: 16px; font-size: 1.05rem;">💾 Guardar Sección Inicio en la Nube Supabase</button>
+                        <!-- ¿POR QUÉ ELEGIRNOS? CONFIGURATION -->
+                        <div class="admin-section-box navy-left">
+                            <h4 style="color: var(--navy); margin-bottom: 14px; font-size: 1.1rem;">🛡️ PILARES "¿POR QUÉ ELEGIR YD PROTECCIÓN?"</h4>
+                            <div class="grid-2" id="adminWhyUsList"></div>
+                        </div>
+
+                        <!-- TESTIMONIOS CONFIGURATION -->
+                        <div class="admin-section-box">
+                            <h4 style="color: var(--navy); margin-bottom: 14px; font-size: 1.1rem;">💬 TESTIMONIOS CORPORATIVOS</h4>
+                            <div class="grid-2" id="adminTestimonialsList"></div>
+                        </div>
+
+                        <button type="submit" class="btn-submit-contact" style="padding: 16px; font-size: 1.05rem;">💾 Guardar Todo el Home en la Nube Supabase</button>
                     </form>
                 </div>
 
@@ -1122,7 +1091,7 @@ INDEX_HTML = """<!DOCTYPE html>
                 <div id="tab-logo_preloader" class="admin-tab-content" style="display: none;">
                     <h3 style="color: var(--navy); margin-bottom: 18px; font-size: 1.3rem;">Logotipo Institucional y Configuración de Carga</h3>
                     <form onsubmit="saveLogoAndPreloader(event)">
-                        <div style="background: #F8FAFC; padding: 25px; border-radius: 16px; margin-bottom: 24px; border: 1px solid #E2E8F0; border-left: 6px solid var(--orange);">
+                        <div class="admin-section-box">
                             <h4 style="color: var(--navy); margin-bottom: 12px; font-size: 1.1rem;">📁 CARGAR LOGO REAL DESDE LA PC</h4>
                             <input type="file" id="logoFileInput" accept="image/*" class="contact-form-input" style="background: #FFF;" onchange="handleLogoFileSelect(event)">
                             <div id="logoPreviewContainer" style="margin-top: 18px; display: none; align-items: center; gap: 18px;">
@@ -1132,7 +1101,7 @@ INDEX_HTML = """<!DOCTYPE html>
                             </div>
                         </div>
 
-                        <div style="background: #F8FAFC; padding: 25px; border-radius: 16px; margin-bottom: 24px; border: 1px solid #E2E8F0; border-left: 6px solid var(--navy);">
+                        <div class="admin-section-box navy-left">
                             <h4 style="color: var(--navy); margin-bottom: 12px; font-size: 1.1rem;">🎨 PRELOADER DE BIENVENIDA (PANTALLA DE CARGA)</h4>
                             <div class="contact-form-group">
                                 <label>Tiempo de Retraso / Duración del Preloader (Segundos de espera)</label>
@@ -1428,7 +1397,7 @@ INDEX_HTML = """<!DOCTYPE html>
         </div>
     </footer>
 
-    <!-- ENGINE DE SINCRONIZACIÓN Y CMS INTERACTIVO CON PERSISTENCIA PRIORITARIA (v13) -->
+    <!-- ENGINE DE SINCRONIZACIÓN Y CMS INTERACTIVO CON PERSISTENCIA PRIORITARIA (v14) -->
     <script>
         const INITIAL_DATA = """ + json.dumps(INITIAL_SITE_DATA) + """;
         let tempLoadedLogoBase64 = "";
@@ -1462,7 +1431,7 @@ INDEX_HTML = """<!DOCTYPE html>
         }
 
         function getLocalSiteData() {
-            const saved = localStorage.getItem('yd_custom_saved_v13');
+            const saved = localStorage.getItem('yd_custom_saved_v14');
             if (saved) {
                 try {
                     const parsed = JSON.parse(saved);
@@ -1473,7 +1442,7 @@ INDEX_HTML = """<!DOCTYPE html>
         }
 
         async function getSiteData() {
-            const userSaved = localStorage.getItem('yd_custom_saved_v13');
+            const userSaved = localStorage.getItem('yd_custom_saved_v14');
             let baseData = INITIAL_DATA;
             if (userSaved) {
                 try {
@@ -1484,7 +1453,7 @@ INDEX_HTML = """<!DOCTYPE html>
 
             const cloudData = await fetchSupabaseSiteData();
             if (cloudData && cloudData.nav_links && cloudData.is_user_edited) {
-                localStorage.setItem('yd_custom_saved_v13', JSON.stringify(cloudData));
+                localStorage.setItem('yd_custom_saved_v14', JSON.stringify(cloudData));
                 return cloudData;
             }
             return baseData;
@@ -1492,7 +1461,7 @@ INDEX_HTML = """<!DOCTYPE html>
 
         async function saveSiteData(data) {
             data.is_user_edited = true;
-            localStorage.setItem('yd_custom_saved_v13', JSON.stringify(data));
+            localStorage.setItem('yd_custom_saved_v14', JSON.stringify(data));
             renderSite(data);
 
             try {
@@ -1507,21 +1476,21 @@ INDEX_HTML = """<!DOCTYPE html>
         function updateAdminMetrics(data) {
             const products = data.products || INITIAL_DATA.products;
             const categories = data.categories_breakdown || INITIAL_DATA.categories_breakdown;
-            const navs = data.nav_links || INITIAL_DATA.nav_links;
-
             document.getElementById('metricProductsCount').textContent = products.length;
             document.getElementById('metricCategoriesCount').textContent = categories.length;
         }
 
         function renderSite(data) {
             const comp = data.company || INITIAL_DATA.company;
+            const stats = data.stats_bar || INITIAL_SITE_DATA.stats_bar;
             const homeCards = data.home_cards || INITIAL_SITE_DATA.home_cards;
+            const whyUs = data.why_choose_us || INITIAL_SITE_DATA.why_choose_us;
+            const testimonials = data.testimonials || INITIAL_SITE_DATA.testimonials;
             const prel = data.preloader || INITIAL_SITE_DATA.preloader;
             const foot = data.footer || INITIAL_SITE_DATA.footer;
             const navs = data.nav_links || INITIAL_SITE_DATA.nav_links;
             const customSecs = data.custom_sections || INITIAL_SITE_DATA.custom_sections;
 
-            // Actualizar métricas ejecutivas
             updateAdminMetrics(data);
 
             // Renderizar Preloader
@@ -1542,7 +1511,7 @@ INDEX_HTML = """<!DOCTYPE html>
                 if (navLogoBox) navLogoBox.innerHTML = `<div class="brand-badge">YD</div>`;
             }
 
-            // Renderizar Menú de Navegación y Botones Accionables con FILTRADO ABSOLUTO (enabled === true)
+            // Renderizar Menú de Navegación
             const navContainer = document.getElementById('renderNavLinksContainer');
             const actionsContainer = document.getElementById('renderActionButtonsContainer');
 
@@ -1591,12 +1560,12 @@ INDEX_HTML = """<!DOCTYPE html>
                 `).join('');
             }
 
-            // Renderizar Footer Administrable
+            // Renderizar Footer
             document.getElementById('renderFooterTitle').textContent = foot.title || "HABLEMOS DE TU SEGURIDAD";
             document.getElementById('renderFooterSubtitle').textContent = foot.subtitle || "Solicita cotización personalizada";
             document.getElementById('renderFooterCopyright').textContent = foot.copyright || "YD PROTECCIÓN © 2026";
 
-            // Renderizar Empresa / Hero / Home
+            // Renderizar Hero & Buscador del Home
             document.getElementById('renderHeroTag').textContent = comp.hero_tag || "Seguridad que salva vidas ★ Yesika & Daniel";
             document.getElementById('renderHeroSub').textContent = comp.hero_subtitle || "Seguridad y Emergencia a tu Alcance";
             document.getElementById('renderHeroTitle').textContent = comp.hero_title || "EQUIPOS DE PROTECCIÓN Y PREVENCIÓN";
@@ -1605,11 +1574,18 @@ INDEX_HTML = """<!DOCTYPE html>
             const searchInp = document.getElementById('searchHomeInput');
             if (searchInp) searchInp.placeholder = comp.search_placeholder || "Buscar producto en la tienda...";
 
-            document.getElementById('renderAboutIntro').innerHTML = '<strong>' + comp.brand_name + '</strong> ' + comp.about_intro;
-            document.getElementById('renderMision').textContent = comp.mision;
-            document.getElementById('renderVision').textContent = comp.vision;
+            // Renderizar Stats Bar
+            const statsBox = document.getElementById('renderStatsBar');
+            if (statsBox) {
+                statsBox.innerHTML = stats.map(s => `
+                    <div class="stat-item">
+                        <div class="stat-val">${s.val}</div>
+                        <div class="stat-lbl">${s.lbl}</div>
+                    </div>
+                `).join('');
+            }
 
-            // Renderizar las 3 Tarjetas Destacadas del Home Dinámicamente
+            // Renderizar Tarjetas de Soluciones Integrales en el Home
             const homeCardsGrid = document.getElementById('renderHomeCardsGrid');
             if (homeCardsGrid) {
                 homeCardsGrid.innerHTML = homeCards.map((c, i) => `
@@ -1621,6 +1597,57 @@ INDEX_HTML = """<!DOCTYPE html>
                 `).join('');
             }
 
+            // Renderizar ¿Por qué elegirlos? (Why Us Grid)
+            const whyUsBox = document.getElementById('renderWhyUsGrid');
+            if (whyUsBox) {
+                whyUsBox.innerHTML = whyUs.map(w => `
+                    <div class="why-us-card">
+                        <div class="why-us-icon">${w.icon}</div>
+                        <h4 style="color: var(--navy); margin-bottom: 8px; font-size: 1.15em;">${w.title}</h4>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">${w.desc}</p>
+                    </div>
+                `).join('');
+            }
+
+            // Renderizar Productos Destacados de la Semana en el Home (Primeras 4 Referencias)
+            const products = data.products || INITIAL_DATA.products;
+            const homeFeaturedGrid = document.getElementById('homeFeaturedProductsGrid');
+            if (homeFeaturedGrid) {
+                homeFeaturedGrid.innerHTML = products.slice(0, 4).map(p => `
+                    <article class="product-card" data-id="${p.id}" data-category="${p.category}">
+                        <div class="product-image-box">
+                            <img src="${p.image}" alt="${p.title}" loading="lazy" onerror="this.src='${p.fallback_image || ''}'">
+                            ${p.badge ? `<span class="product-badge">${p.badge}</span>` : ''}
+                        </div>
+                        <div class="product-info">
+                            <span class="product-category-tag">${p.category_name}</span>
+                            <h4>${p.title}</h4>
+                            <p>${p.short_description}</p>
+                            <div class="btn-group">
+                                <button class="btn-detail" onclick="openModal('${p.id}')">Ver Ficha</button>
+                                <button class="btn-wa" onclick="sendWhatsAppQuote('${p.id}', '${p.title.replace(/'/g, "")}', '${p.category}')">Cotizar</button>
+                            </div>
+                        </div>
+                    </article>
+                `).join('');
+            }
+
+            // Renderizar Testimonios
+            const testBox = document.getElementById('renderTestimonialsGrid');
+            if (testBox) {
+                testBox.innerHTML = testimonials.map(t => `
+                    <div class="testimonial-card">
+                        <p class="testimonial-quote">"${t.quote}"</p>
+                        <div class="testimonial-author">${t.author}</div>
+                        <div class="testimonial-role">${t.role}</div>
+                    </div>
+                `).join('');
+            }
+
+            document.getElementById('renderAboutIntro').innerHTML = '<strong>' + comp.brand_name + '</strong> ' + comp.about_intro;
+            document.getElementById('renderMision').textContent = comp.mision;
+            document.getElementById('renderVision').textContent = comp.vision;
+
             const cnt = data.contact || INITIAL_DATA.contact;
             document.getElementById('renderContactWa').textContent = cnt.whatsapp_display;
             document.getElementById('renderContactEmail').textContent = cnt.email;
@@ -1628,7 +1655,7 @@ INDEX_HTML = """<!DOCTYPE html>
             document.getElementById('renderContactLocation').textContent = cnt.location;
             document.getElementById('renderContactSchedule').textContent = cnt.schedule;
 
-            // Renderizar Categorías Pills y Breakdown Administrables
+            // Renderizar Categorías Pills y Breakdown
             const categories = data.categories_breakdown || INITIAL_DATA.categories_breakdown;
             const cPills = document.getElementById('renderCategoriesPills');
             if (cPills) {
@@ -1660,8 +1687,7 @@ INDEX_HTML = """<!DOCTYPE html>
                 `).join('');
             }
 
-            // Renderizar Productos
-            const products = data.products || INITIAL_DATA.products;
+            // Renderizar Tienda Completa
             const pGrid = document.getElementById('productGrid');
             pGrid.innerHTML = products.map(p => `
                 <article class="product-card" data-id="${p.id}" data-category="${p.category}">
@@ -1698,7 +1724,10 @@ INDEX_HTML = """<!DOCTYPE html>
 
         function loadAdminForms(data) {
             const comp = data.company || INITIAL_DATA.company;
+            const stats = data.stats_bar || INITIAL_SITE_DATA.stats_bar;
             const homeCards = data.home_cards || INITIAL_SITE_DATA.home_cards;
+            const whyUs = data.why_choose_us || INITIAL_SITE_DATA.why_choose_us;
+            const testimonials = data.testimonials || INITIAL_SITE_DATA.testimonials;
             const prel = data.preloader || INITIAL_SITE_DATA.preloader;
             const foot = data.footer || INITIAL_SITE_DATA.footer;
             const navs = data.nav_links || INITIAL_SITE_DATA.nav_links;
@@ -1710,23 +1739,67 @@ INDEX_HTML = """<!DOCTYPE html>
             document.getElementById('cfgHomeHeroDesc').value = comp.hero_desc || "Soluciones especializadas...";
             document.getElementById('cfgHomeSearchPlaceholder').value = comp.search_placeholder || "Buscar producto en la tienda...";
 
+            // Formulario Cifras de Confianza (Stats)
+            const statsAdminContainer = document.getElementById('adminStatsBarList');
+            if (statsAdminContainer) {
+                statsAdminContainer.innerHTML = stats.map((s, i) => `
+                    <div style="background:#F1F5F9; padding:16px; border-radius:12px; border-left:4px solid var(--orange);">
+                        <label style="font-size:0.78rem; font-weight:bold;">Cifra ${i+1}</label>
+                        <input type="text" class="contact-form-input stat-val-input" data-idx="${i}" value="${s.val}" style="margin-bottom:8px;">
+                        <label style="font-size:0.78rem; font-weight:bold;">Etiqueta ${i+1}</label>
+                        <input type="text" class="contact-form-input stat-lbl-input" data-idx="${i}" value="${s.lbl}">
+                    </div>
+                `).join('');
+            }
+
             // Formulario Tarjetas Destacadas del Home
             const cardsAdminContainer = document.getElementById('adminHomeCardsList');
             if (cardsAdminContainer) {
                 cardsAdminContainer.innerHTML = homeCards.map((c, i) => `
-                    <div class="card-box" style="padding: 20px;">
-                        <h5 style="color: var(--orange); margin-bottom: 10px;">TARJETA 0${i + 1} DE INICIO</h5>
+                    <div style="background:#F1F5F9; padding:18px; border-radius:14px; border-top:4px solid var(--orange);">
+                        <h5 style="color: var(--orange); margin-bottom: 8px;">TARJETA 0${i + 1}</h5>
                         <div class="contact-form-group">
-                            <label style="font-size:0.8rem;">Título de la Tarjeta</label>
+                            <label style="font-size:0.78rem;">Título</label>
                             <input type="text" class="contact-form-input home-card-title" data-idx="${i}" value="${c.title}">
                         </div>
                         <div class="contact-form-group">
-                            <label style="font-size:0.8rem;">Descripción</label>
-                            <textarea class="contact-form-input home-card-desc" data-idx="${i}" rows="3">${c.desc}</textarea>
+                            <label style="font-size:0.78rem;">Descripción</label>
+                            <textarea class="contact-form-input home-card-desc" data-idx="${i}" rows="2">${c.desc}</textarea>
                         </div>
                         <div class="contact-form-group">
-                            <label style="font-size:0.8rem;">Texto del Botón</label>
+                            <label style="font-size:0.78rem;">Texto Botón</label>
                             <input type="text" class="contact-form-input home-card-btn" data-idx="${i}" value="${c.btn_text || 'Ver en Tienda'}">
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            // Formulario ¿Por qué Elegirnos?
+            const whyUsAdminContainer = document.getElementById('adminWhyUsList');
+            if (whyUsAdminContainer) {
+                whyUsAdminContainer.innerHTML = whyUs.map((w, i) => `
+                    <div style="background:#F1F5F9; padding:18px; border-radius:14px; border-left:4px solid var(--navy);">
+                        <div style="display:flex; gap:10px; margin-bottom:8px;">
+                            <input type="text" class="contact-form-input why-icon-input" data-idx="${i}" value="${w.icon}" style="width:60px; text-align:center; font-size:1.2rem;">
+                            <input type="text" class="contact-form-input why-title-input" data-idx="${i}" value="${w.title}">
+                        </div>
+                        <textarea class="contact-form-input why-desc-input" data-idx="${i}" rows="2">${w.desc}</textarea>
+                    </div>
+                `).join('');
+            }
+
+            // Formulario Testimonios
+            const testAdminContainer = document.getElementById('adminTestimonialsList');
+            if (testAdminContainer) {
+                testAdminContainer.innerHTML = testimonials.map((t, i) => `
+                    <div style="background:#F1F5F9; padding:18px; border-radius:14px; border-left:4px solid var(--orange);">
+                        <div class="contact-form-group">
+                            <label style="font-size:0.78rem;">Cita de Opinión</label>
+                            <textarea class="contact-form-input test-quote-input" data-idx="${i}" rows="2">${t.quote}</textarea>
+                        </div>
+                        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+                            <input type="text" class="contact-form-input test-author-input" data-idx="${i}" placeholder="Nombre Autor" value="${t.author}">
+                            <input type="text" class="contact-form-input test-role-input" data-idx="${i}" placeholder="Cargo / Empresa" value="${t.role}">
                         </div>
                     </div>
                 `).join('');
@@ -1744,7 +1817,7 @@ INDEX_HTML = """<!DOCTYPE html>
                 tempLoadedLogoBase64 = comp.logo_image;
             }
 
-            // Formulario Menú Links CON SWITCHES ANIMADOS v13
+            // Formulario Menú Links CON SWITCHES ANIMADOS v14
             const navAdminGrid = document.getElementById('adminNavLinksList');
             if (navAdminGrid) {
                 navAdminGrid.innerHTML = navs.map(n => {
@@ -1853,7 +1926,7 @@ INDEX_HTML = """<!DOCTYPE html>
             }
         }
 
-        // GUARDAR PARAMETRIZACIÓN DE LA SECCIÓN INICIO (HOME)
+        // GUARDAR PARAMETRIZACIÓN DE LA SECCIÓN INICIO (HOME ENRIQUECIDO v14)
         async function saveHomeParams(e) {
             e.preventDefault();
             const data = await getSiteData();
@@ -1863,29 +1936,60 @@ INDEX_HTML = """<!DOCTYPE html>
             data.company.hero_desc = document.getElementById('cfgHomeHeroDesc').value;
             data.company.search_placeholder = document.getElementById('cfgHomeSearchPlaceholder').value;
 
+            // Guardar Cifras Stats
+            const statVals = document.querySelectorAll('.stat-val-input');
+            const statLbls = document.querySelectorAll('.stat-lbl-input');
+            statVals.forEach((inp, idx) => {
+                if (data.stats_bar && data.stats_bar[idx]) data.stats_bar[idx].val = inp.value;
+            });
+            statLbls.forEach((inp, idx) => {
+                if (data.stats_bar && data.stats_bar[idx]) data.stats_bar[idx].lbl = inp.value;
+            });
+
             // Guardar Tarjetas del Home
             const cardTitles = document.querySelectorAll('.home-card-title');
             const cardDescs = document.querySelectorAll('.home-card-desc');
             const cardBtns = document.querySelectorAll('.home-card-btn');
-
             cardTitles.forEach((inp, idx) => {
-                if (data.home_cards && data.home_cards[idx]) {
-                    data.home_cards[idx].title = inp.value;
-                }
+                if (data.home_cards && data.home_cards[idx]) data.home_cards[idx].title = inp.value;
             });
             cardDescs.forEach((inp, idx) => {
-                if (data.home_cards && data.home_cards[idx]) {
-                    data.home_cards[idx].desc = inp.value;
-                }
+                if (data.home_cards && data.home_cards[idx]) data.home_cards[idx].desc = inp.value;
             });
             cardBtns.forEach((inp, idx) => {
-                if (data.home_cards && data.home_cards[idx]) {
-                    data.home_cards[idx].btn_text = inp.value;
-                }
+                if (data.home_cards && data.home_cards[idx]) data.home_cards[idx].btn_text = inp.value;
+            });
+
+            // Guardar Why Us
+            const whyIcons = document.querySelectorAll('.why-icon-input');
+            const whyTitles = document.querySelectorAll('.why-title-input');
+            const whyDescs = document.querySelectorAll('.why-desc-input');
+            whyIcons.forEach((inp, idx) => {
+                if (data.why_choose_us && data.why_choose_us[idx]) data.why_choose_us[idx].icon = inp.value;
+            });
+            whyTitles.forEach((inp, idx) => {
+                if (data.why_choose_us && data.why_choose_us[idx]) data.why_choose_us[idx].title = inp.value;
+            });
+            whyDescs.forEach((inp, idx) => {
+                if (data.why_choose_us && data.why_choose_us[idx]) data.why_choose_us[idx].desc = inp.value;
+            });
+
+            // Guardar Testimonios
+            const testQuotes = document.querySelectorAll('.test-quote-input');
+            const testAuthors = document.querySelectorAll('.test-author-input');
+            const testRoles = document.querySelectorAll('.test-role-input');
+            testQuotes.forEach((inp, idx) => {
+                if (data.testimonials && data.testimonials[idx]) data.testimonials[idx].quote = inp.value;
+            });
+            testAuthors.forEach((inp, idx) => {
+                if (data.testimonials && data.testimonials[idx]) data.testimonials[idx].author = inp.value;
+            });
+            testRoles.forEach((inp, idx) => {
+                if (data.testimonials && data.testimonials[idx]) data.testimonials[idx].role = inp.value;
             });
 
             await saveSiteData(data);
-            showToast('¡Sección Inicio (Home) guardada y sincronizada en la Nube!');
+            showToast('¡Home Enriquecido guardado y sincronizado en la Nube Supabase!');
         }
 
         function updateSwitchLabel(chk, id) {
@@ -2316,7 +2420,7 @@ INDEX_HTML = """<!DOCTYPE html>
 </body>
 </html>"""
 
-DATA_FILE_PATH = "/tmp/yd_site_config_v13.json"
+DATA_FILE_PATH = "/tmp/yd_site_config_v14.json"
 
 def load_server_data() -> dict:
     if os.path.exists(DATA_FILE_PATH):
