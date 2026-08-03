@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual Técnico | YD Protección</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #0B1C30;
+            --navy-dark: #050E1A;
+            --orange: #FF6600;
+            --orange-light: #FF8533;
+            --white: #FFFFFF;
+            --light-bg: #F8FAFC;
+            --text-dark: #0F172A;
+            --text-muted: #64748B;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Roboto', sans-serif; background: var(--light-bg); color: var(--text-dark); line-height: 1.7; padding-bottom: 60px; }
+        header { background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 100%); color: #FFF; padding: 40px 20px; text-align: center; border-bottom: 4px solid var(--orange); }
+        header h1 { font-family: 'Montserrat', sans-serif; font-size: 2.2rem; margin-bottom: 8px; color: #FFF; }
+        header p { color: #CBD5E1; font-size: 1.05rem; }
+        .badge { display: inline-block; background: var(--orange); color: #FFF; padding: 4px 12px; border-radius: 50px; font-weight: 800; font-size: 0.8rem; margin-bottom: 12px; text-transform: uppercase; }
+        .container { max-width: 1000px; margin: 40px auto 0; padding: 0 20px; }
+        .card { background: #FFF; border-radius: 16px; padding: 32px 28px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #E2E8F0; margin-bottom: 30px; border-left: 6px solid var(--navy); }
+        .card h2 { font-family: 'Montserrat', sans-serif; color: var(--navy); font-size: 1.4rem; margin-bottom: 14px; border-bottom: 2px solid #F1F5F9; padding-bottom: 8px; }
+        .card h3 { font-family: 'Montserrat', sans-serif; color: var(--orange); font-size: 1.1rem; margin: 18px 0 8px; }
+        ul, ol { padding-left: 24px; margin-bottom: 16px; }
+        li { margin-bottom: 6px; }
+        .code-box { background: #050E1A; color: #38BDF8; padding: 14px 18px; border-radius: 10px; font-family: monospace; font-size: 0.95rem; margin: 12px 0; border: 1px solid rgba(255,255,255,0.1); white-space: pre-wrap; }
+        footer { text-align: center; color: var(--text-muted); font-size: 0.88rem; margin-top: 50px; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="badge">Arquitectura & IT v18.0</div>
+        <h1>🛠️ MANUAL TÉCNICO & ARQUITECTURA</h1>
+        <p>FastAPI Serverless, Engine Supabase Cloud y SPA JavaScript | YD Protección</p>
+    </header>
+
+    <div class="container">
+        <div class="card">
+            <h2>1. ARQUITECTURA DEL SISTEMA</h2>
+            <p>La plataforma opera sobre un modelo híbrido <strong>SPA (Single-Page Application) + Serverless REST API</strong> desplegado en <strong>Vercel Serverless Functions</strong> (Python 3.11 + FastAPI).</p>
+        </div>
+
+        <div class="card">
+            <h2>2. ENDPOINTS REST API</h2>
+            <h3>GET /api/site-data</h3>
+            <p>Retorna la estructura JSON parametrizada del sitio web.</p>
+
+            <h3>POST /api/site-data</h3>
+            <p>Recibe las actualizaciones desde el CMS y persiste los cambios en la nube y `/tmp/yd_site_config_v18.json` con flag <code>is_user_edited: true</code>.</p>
+        </div>
+
+        <div class="card">
+            <h2>3. ESTRUCTURA DE ARCHIVOS</h2>
+            <div class="code-box">
+c:\Users\DanielOspina\Downloads\YD\catalogo\
+├── api/
+│   └── index.py            # Servidor FastAPI y SPA
+├── docs/                   # Documentación Oficial
+│   ├── MANUAL_DE_USUARIO.md
+│   ├── MANUAL_TECNICO.md
+│   ├── manual_usuario.html
+│   └── manual_tecnico.html
+└── vercel.json             # Rewrites Serverless
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        YD PROTECCIÓN © 2026 — Documentación Técnica IT
+    </footer>
+</body>
+</html>

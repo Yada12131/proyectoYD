@@ -6,9 +6,9 @@ from fastapi.responses import HTMLResponse, JSONResponse
 from jinja2 import Template
 
 app = FastAPI(
-    title="YD Protección - Plataforma Web & CMS Proporcional Sticky 18.0",
-    description="Plataforma Web Corporativa con Dashboard CMS Ancho Completo, Sidebar Lateral Izquierda Proporcional Sticky, Barra Flotante de Guardado Rápido y Sincronización Supabase Cloud Engine",
-    version="18.0.0"
+    title="YD Protección - Plataforma Web & Portal Documentación 19.0",
+    description="Plataforma Web Corporativa con Dashboard CMS Ancho Completo, Portal Web de Documentación Protegido por Clave 144, Sidebar Lateral Izquierda Proporcional Sticky y Sincronización Nube",
+    version="19.0.0"
 )
 
 # DATOS BASE PARAMETRIZADOS INICIALES TOTALES
@@ -107,6 +107,7 @@ INITIAL_SITE_DATA = {
     { "id": "tienda", "label": "Tienda", "enabled": True, "is_button": False },
     { "id": "servicios", "label": "Servicios", "enabled": True, "is_button": False },
     { "id": "contacto", "label": "Contacto", "enabled": True, "is_button": False },
+    { "id": "manuales", "label": "📖 Documentación (🔒144)", "enabled": True, "is_button": True },
     { "id": "admin", "label": "⚙️ Panel Admin CMS", "enabled": False, "is_button": True },
     { "id": "analytics", "label": "📊 Analítica", "enabled": False, "is_button": True, "url": "/dashboard" }
   ],
@@ -404,7 +405,7 @@ INITIAL_SITE_DATA = {
   ]
 }
 
-# Estilos CSS Full-Width SaaS Layout v18 con Sidebar Proporcional Sticky
+# Estilos CSS Full-Width SaaS Layout v19 con Portal de Documentación
 EMBEDDED_CSS = """
 :root {
     --navy: #0B1C30;
@@ -526,7 +527,7 @@ section { padding: 60px 0; }
 .section-title::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 75px; height: 4px; background-color: var(--orange); border-radius: 4px; }
 .section-subtitle { text-align: center; font-size: clamp(0.95rem, 2vw, 1.15rem); color: var(--text-muted); margin-bottom: 40px; }
 
-/* DESIGN SYSTEM EJECUTIVO CMS v18 CON SIDEBAR PROPORCIONAL STICKY */
+/* DESIGN SYSTEM EJECUTIVO CMS v19 CON SIDEBAR PROPORCIONAL STICKY */
 .admin-layout-wrapper { display: flex; gap: 24px; min-height: 650px; margin-bottom: 50px; width: 100%; align-items: flex-start; }
 .admin-sidebar {
     width: 290px; flex-shrink: 0;
@@ -562,7 +563,7 @@ section { padding: 60px 0; }
 .canvas-breadcrumb-title { font-size: 1.35rem; color: var(--navy); font-weight: 900; }
 
 .admin-hero-banner { background: linear-gradient(135deg, #050E1A 0%, #0B1C30 50%, #112844 100%); color: #FFF; padding: 30px 22px; border-radius: 18px; border-left: 6px solid var(--orange); box-shadow: 0 15px 35px rgba(0,0,0,0.25); margin-bottom: 25px; position: relative; overflow: hidden; width: 100%; }
-.admin-hero-banner::after { content: 'CMS 18.0'; position: absolute; right: -20px; bottom: -20px; font-size: 6rem; font-weight: 900; color: rgba(255,102,0,0.05); font-family: 'Montserrat', sans-serif; pointer-events: none; }
+.admin-hero-banner::after { content: 'CMS 19.0'; position: absolute; right: -20px; bottom: -20px; font-size: 6rem; font-weight: 900; color: rgba(255,102,0,0.05); font-family: 'Montserrat', sans-serif; pointer-events: none; }
 .admin-metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; margin-bottom: 30px; width: 100%; }
 .admin-metric-card { background: #FFFFFF; border-radius: 16px; padding: 20px 18px; box-shadow: var(--card-shadow); border: 1px solid rgba(0,0,0,0.06); border-top: 4px solid var(--orange); transition: all 0.3s ease; display: flex; align-items: center; gap: 14px; }
 .admin-metric-card:hover { transform: translateY(-4px); box-shadow: var(--hover-shadow); }
@@ -713,7 +714,6 @@ footer h2 { color: var(--orange); font-size: clamp(1.5rem, 3.5vw, 2.2rem); margi
 }
 """
 
-# Template HTML con CMS Panel con Sidebar Proporcional Sticky 18.0
 INDEX_HTML = """<!DOCTYPE html>
 <html lang="es">
 <head>
@@ -729,10 +729,10 @@ INDEX_HTML = """<!DOCTYPE html>
     <!-- CONTENEDOR DE NOTIFICACIONES TOAST FLOATING -->
     <div id="toastContainer"></div>
 
-    <!-- BARRA FLOTANTE DE GUARDADO RÁPIDO PARA EL CMS (STICKY ACTION BAR v18) -->
+    <!-- BARRA FLOTANTE DE GUARDADO RÁPIDO PARA EL CMS -->
     <div id="stickyAdminBar" class="sticky-admin-save-bar" style="display: none;">
         <div class="sticky-bar-text">
-            <span>⚡ CONSOLA DE CONTROL CMS v18.0</span>
+            <span>⚡ CONSOLA DE CONTROL CMS v19.0</span>
             <span style="color: #CBD5E1;">|</span>
             <span style="color: #25D366;">☁️ Sincronización Supabase Cloud Engine Activa</span>
         </div>
@@ -1001,10 +1001,84 @@ INDEX_HTML = """<!DOCTYPE html>
         </section>
     </div>
 
+    <!-- ==================== PÁGINA 7: DOCUMENTACIÓN WEB HTML PROTEGIDA CON CLAVE 144 ==================== -->
+    <div id="page-manuales" class="page-view">
+        <div class="container" style="padding-top: 30px; padding-bottom: 60px;">
+            <div class="page-header-banner" style="border-radius: 20px;">
+                <span class="hero-tag">ACCESO PROTEGIDO CON CLAVE CLAVE: 144</span>
+                <h1 style="color: #FFF;">PORTAL OFICIAL DE DOCUMENTACIÓN WEB</h1>
+                <p>Manuales de Usuario y Técnicos de YD Protección en formato HTML navegable</p>
+            </div>
+
+            <!-- MODAL ACCESO POR CLAVE 144 -->
+            <div id="docsAuthOverlay" style="background: var(--navy-dark); color: var(--white); padding: 40px 30px; border-radius: 20px; max-width: 440px; margin: 30px auto; text-align: center; border-top: 6px solid var(--orange); box-shadow: 0 20px 40px rgba(0,0,0,0.4);">
+                <div class="brand-badge" style="display: inline-block; margin-bottom: 14px; font-size: 1.4rem; padding: 6px 14px;">144</div>
+                <h3 style="color: #FFF; margin-bottom: 6px;">INGRESA LA CLAVE DE SEGURIDAD</h3>
+                <p style="color: #CBD5E1; font-size: 0.88rem; margin-bottom: 25px;">Ingresa la clave designada para consultar los manuales HTML</p>
+
+                <form onsubmit="handleDocsAuth(event)">
+                    <div style="margin-bottom: 22px; text-align: left;">
+                        <label style="font-weight:800; font-size:0.82rem; color:var(--orange);">CLAVE DE ACCESO</label>
+                        <div class="input-icon-wrapper">
+                            <span class="input-icon-box">🔑</span>
+                            <input type="password" id="docsPass" class="contact-form-input" required placeholder="Ingresa la clave (ej: 144)" autofocus>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-submit-contact" style="padding: 16px; font-size: 1.05rem;">🔓 Desbloquear Manuales HTML</button>
+                </form>
+            </div>
+
+            <!-- CONTENIDO DE DOCUMENTACIÓN DESBLOQUEADO CON LA CLAVE 144 -->
+            <div id="docsMainContent" style="display: none;">
+                <div style="display: flex; gap: 12px; margin-bottom: 25px; justify-content: center; flex-wrap: wrap;">
+                    <button class="btn-analytics" id="btnTabDocUser" onclick="switchDocTab('user')" style="padding: 12px 24px; font-size: 0.95rem;">📖 Manual de Usuario (HTML)</button>
+                    <button class="btn-analytics" id="btnTabDocTech" onclick="switchDocTab('tech')" style="padding: 12px 24px; font-size: 0.95rem; background: linear-gradient(135deg, var(--navy), #112844);" onclick="switchDocTab('tech')">🛠️ Manual Técnico & IT (HTML)</button>
+                </div>
+
+                <!-- VISOR 1: MANUAL DE USUARIO -->
+                <div id="docViewerUser" class="card-box" style="padding: 35px; border-left: 6px solid var(--orange);">
+                    <h2 style="color: var(--navy); font-size: 1.5rem; margin-bottom: 15px;">📖 MANUAL DE USUARIO CMS (v18.0)</h2>
+                    <p style="color: var(--text-muted); margin-bottom: 20px;">Guía explicativa para la administración y operación del sitio web.</p>
+                    
+                    <div style="background: #F8FAFC; padding: 20px; border-radius: 12px; border: 1px solid #E2E8F0; margin-bottom: 20px;">
+                        <h4 style="color: var(--orange); margin-bottom: 8px;">🔑 ACCESO AL PANEL CMS:</h4>
+                        <p>👉 URL: <code>https://proyecto-yd.vercel.app/admin</code> | Usuario: <code>admin</code> | Clave: <code>yd2026</code></p>
+                    </div>
+
+                    <h4 style="color: var(--navy); margin-top: 20px; margin-bottom: 10px;">📌 1. NAVEGACIÓN EN LA SIDEBAR IZQUIERDA STICKY:</h4>
+                    <p>La barra lateral de 290px se mantiene fija mientras navegas por los formularios y está organizada en 3 bloques:</p>
+                    <ul style="padding-left: 20px; margin-top: 8px; margin-bottom: 16px;">
+                        <li><strong>Portada & Navegación:</strong> <code>Sección Inicio</code>, <code>Menú & Botones</code>, <code>Logo & Preloader</code>.</li>
+                        <li><strong>Catálogo & Productos:</strong> <code>Categorías</code>, <code>Productos</code>, <code>Servicios</code>.</li>
+                        <li><strong>Institucional & Contacto:</strong> <code>Empresa & Misión</code>, <code>Canales Contacto</code>, <code>Pie de Página</code>.</li>
+                    </ul>
+
+                    <h4 style="color: var(--navy); margin-top: 20px; margin-bottom: 10px;">⚡ 2. BARRA FLOTANTE DE GUARDADO:</h4>
+                    <p>Utiliza el botón flotante inferior <strong>💾 Guardar Todo y Publicar</strong> para sincronizar de inmediato en la Nube Supabase y reflejar cambios en celulares y computadores.</p>
+                </div>
+
+                <!-- VISOR 2: MANUAL TÉCNICO -->
+                <div id="docViewerTech" class="card-box" style="padding: 35px; border-left: 6px solid var(--navy); display: none;">
+                    <h2 style="color: var(--navy); font-size: 1.5rem; margin-bottom: 15px;">🛠️ MANUAL TÉCNICO Y ARQUITECTURA (v18.0)</h2>
+                    <p style="color: var(--text-muted); margin-bottom: 20px;">Especificaciones para el equipo de desarrollo, TI e infraestructura.</p>
+                    
+                    <h4 style="color: var(--orange); margin-bottom: 8px;">🚀 STACK TECNOLÓGICO:</h4>
+                    <p>Python 3.11, FastAPI, Jinja2, Vanilla JS ES6+, HTML5 Semantic, CSS Tokens, Supabase Cloud Engine en Vercel Serverless Functions.</p>
+
+                    <h4 style="color: var(--navy); margin-top: 20px; margin-bottom: 10px;">🌐 ENDPOINTS REST API:</h4>
+                    <div style="background: #050E1A; color: #38BDF8; padding: 15px; border-radius: 10px; font-family: monospace; font-size: 0.9rem;">
+GET /api/site-data -> Devuelve JSON completo del sitio.
+POST /api/site-data -> Persiste JSON en Nube /tmp/yd_site_config_v18.json (is_user_edited: true).
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- CONTENEDOR DINÁMICO DE SECCIONES PERSONALIZADAS CREADAS DESDE EL CMS -->
     <div id="dynamicCustomPagesContainer"></div>
 
-    <!-- ==================== PÁGINA VISTA ADMIN CMS NIVEL SAAS FULL-WIDTH 18.0 ==================== -->
+    <!-- ==================== PÁGINA VISTA ADMIN CMS NIVEL SAAS FULL-WIDTH 19.0 ==================== -->
     <div id="page-admin" class="page-view">
         <div class="admin-fullwidth-container" style="padding-top: 30px; padding-bottom: 90px;">
             
@@ -1012,7 +1086,7 @@ INDEX_HTML = """<!DOCTYPE html>
             <div class="admin-hero-banner">
                 <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; position: relative; z-index: 2;">
                     <div>
-                        <span style="background: rgba(255,102,0,0.2); border: 1px solid var(--orange); color: var(--orange); font-size: 0.78rem; font-weight: 900; padding: 4px 14px; border-radius: 50px; text-transform: uppercase;">CONSOLA DE CONTROL CMS v18.0 STICKY</span>
+                        <span style="background: rgba(255,102,0,0.2); border: 1px solid var(--orange); color: var(--orange); font-size: 0.78rem; font-weight: 900; padding: 4px 14px; border-radius: 50px; text-transform: uppercase;">CONSOLA DE CONTROL CMS v19.0 STICKY</span>
                         <h1 style="font-size: clamp(1.8rem, 4vw, 2.5rem); margin-top: 8px; color: #FFF;">PANEL DE ADMINISTRACIÓN YD PROTECCIÓN</h1>
                         <p style="color: #CBD5E1; font-size: 0.95rem; margin-top: 4px;">Control Total con Layout Proporcional Sticky, Sidebar Lateral Agrupada y Sincronización Nube</p>
                     </div>
@@ -1092,7 +1166,7 @@ INDEX_HTML = """<!DOCTYPE html>
                     <aside class="admin-sidebar">
                         <div>
                             <div class="sidebar-header">
-                                <span class="sidebar-brand-badge">CONSOLA CMS v18</span>
+                                <span class="sidebar-brand-badge">CONSOLA CMS v19</span>
                                 <div class="sidebar-title">YD PROTECCIÓN</div>
                                 <div class="sidebar-user-card">
                                     <span>👤 Admin Logueado</span>
@@ -1579,19 +1653,25 @@ INDEX_HTML = """<!DOCTYPE html>
         </div>
     </div>
 
-    <!-- FOOTER ADMINISTRABLE -->
+    <!-- FOOTER ADMINISTRABLE CON BOTÓN DE ACCESO A LA DOCUMENTACIÓN WEB -->
     <footer>
         <div class="container">
             <h2 id="renderFooterTitle">HABLEMOS DE TU SEGURIDAD</h2>
             <p style="font-size: clamp(0.9rem, 2vw, 1.1rem);" id="renderFooterSubtitle">Solicita cotización y asesoría personalizada de inmediato</p>
             
+            <div style="margin-top: 25px;">
+                <button class="btn-analytics" style="background: rgba(255,255,255,0.1); border: 1px solid var(--orange); color: #FFF;" onclick="navigateToPage('manuales')">
+                    📖 Ver Manuales de Usuario & Técnico en Vivo (🔒 Clave: 144)
+                </button>
+            </div>
+
             <div class="footer-bottom">
                 <p id="renderFooterCopyright">YESIKA & DANIEL | YD PROTECCIÓN &copy; 2026 — Todos los Derechos Reservados</p>
             </div>
         </div>
     </footer>
 
-    <!-- ENGINE DE SINCRONIZACIÓN Y CMS INTERACTIVO NIVEL SAAS FULL-WIDTH STICKY (v18) -->
+    <!-- ENGINE DE SINCRONIZACIÓN Y CMS INTERACTIVO NIVEL SAAS FULL-WIDTH STICKY (v19) -->
     <script>
         const INITIAL_DATA = """ + json.dumps(INITIAL_SITE_DATA) + """;
         let tempLoadedLogoBase64 = "";
@@ -1625,6 +1705,39 @@ INDEX_HTML = """<!DOCTYPE html>
             }, 3500);
         }
 
+        // CONTROL DE ACCESO POR CLAVE 144 PARA MANUALES
+        function handleDocsAuth(e) {
+            e.preventDefault();
+            const inputPass = document.getElementById('docsPass').value;
+            if (inputPass === '144') {
+                document.getElementById('docsAuthOverlay').style.display = 'none';
+                document.getElementById('docsMainContent').style.display = 'block';
+                sessionStorage.setItem('yd_docs_logged', 'true');
+                showToast('🔓 Acceso a Documentación concedido.');
+            } else {
+                alert('Clave incorrecta. La clave de acceso es 144.');
+            }
+        }
+
+        function switchDocTab(type) {
+            const uBox = document.getElementById('docViewerUser');
+            const tBox = document.getElementById('docViewerTech');
+            const btnU = document.getElementById('btnTabDocUser');
+            const btnT = document.getElementById('btnTabDocTech');
+
+            if (type === 'user') {
+                uBox.style.display = 'block';
+                tBox.style.display = 'none';
+                btnU.style.background = 'linear-gradient(135deg, var(--orange), var(--orange-light))';
+                btnT.style.background = 'linear-gradient(135deg, var(--navy), #112844)';
+            } else {
+                uBox.style.display = 'none';
+                tBox.style.display = 'block';
+                btnT.style.background = 'linear-gradient(135deg, var(--orange), var(--orange-light))';
+                btnU.style.background = 'linear-gradient(135deg, var(--navy), #112844)';
+            }
+        }
+
         async function fetchSupabaseSiteData() {
             try {
                 const res = await fetch('/api/site-data?t=' + Date.now());
@@ -1638,7 +1751,7 @@ INDEX_HTML = """<!DOCTYPE html>
         }
 
         function getLocalSiteData() {
-            const saved = localStorage.getItem('yd_custom_saved_v18');
+            const saved = localStorage.getItem('yd_custom_saved_v19');
             if (saved) {
                 try {
                     const parsed = JSON.parse(saved);
@@ -1649,7 +1762,7 @@ INDEX_HTML = """<!DOCTYPE html>
         }
 
         async function getSiteData() {
-            const userSaved = localStorage.getItem('yd_custom_saved_v18');
+            const userSaved = localStorage.getItem('yd_custom_saved_v19');
             let baseData = INITIAL_DATA;
             if (userSaved) {
                 try {
@@ -1660,7 +1773,7 @@ INDEX_HTML = """<!DOCTYPE html>
 
             const cloudData = await fetchSupabaseSiteData();
             if (cloudData && cloudData.nav_links && cloudData.is_user_edited) {
-                localStorage.setItem('yd_custom_saved_v18', JSON.stringify(cloudData));
+                localStorage.setItem('yd_custom_saved_v19', JSON.stringify(cloudData));
                 return cloudData;
             }
             return baseData;
@@ -1668,7 +1781,7 @@ INDEX_HTML = """<!DOCTYPE html>
 
         async function saveSiteData(data) {
             data.is_user_edited = true;
-            localStorage.setItem('yd_custom_saved_v18', JSON.stringify(data));
+            localStorage.setItem('yd_custom_saved_v19', JSON.stringify(data));
             renderSite(data);
 
             try {
@@ -1749,6 +1862,8 @@ INDEX_HTML = """<!DOCTYPE html>
                     if (n.is_button) {
                         if (n.id === 'admin') {
                             actionHtml += `<button class="btn-analytics" style="background: linear-gradient(135deg, var(--navy), #112844);" onclick="navigateToPage('admin')">${n.label}</button>`;
+                        } else if (n.id === 'manuales') {
+                            actionHtml += `<button class="btn-analytics" style="background: linear-gradient(135deg, var(--orange), var(--orange-light));" onclick="navigateToPage('manuales')">${n.label}</button>`;
                         } else if (n.id === 'analytics') {
                             actionHtml += `<a href="${n.url || '/dashboard'}" class="btn-analytics">${n.label}</a>`;
                         } else {
@@ -2054,7 +2169,7 @@ INDEX_HTML = """<!DOCTYPE html>
                 tempLoadedLogoBase64 = comp.logo_image;
             }
 
-            // Formulario Menú Links CON SWITCHES ANIMADOS v18
+            // Formulario Menú Links CON SWITCHES ANIMADOS v19
             const navAdminGrid = document.getElementById('adminNavLinksList');
             if (navAdminGrid) {
                 navAdminGrid.innerHTML = navs.map(n => {
@@ -2424,8 +2539,17 @@ INDEX_HTML = """<!DOCTYPE html>
                 if (stickyBar) stickyBar.style.display = 'flex';
             }
 
+            if (sessionStorage.getItem('yd_docs_logged') === 'true') {
+                const docsOverlay = document.getElementById('docsAuthOverlay');
+                const docsContent = document.getElementById('docsMainContent');
+                if (docsOverlay) docsOverlay.style.display = 'none';
+                if (docsContent) docsContent.style.display = 'block';
+            }
+
             if (window.location.pathname.includes('/admin')) {
                 navigateToPage('admin');
+            } else if (window.location.pathname.includes('/manuales') || window.location.pathname.includes('/docs')) {
+                navigateToPage('manuales');
             }
         });
 
@@ -2676,7 +2800,7 @@ INDEX_HTML = """<!DOCTYPE html>
 </body>
 </html>"""
 
-DATA_FILE_PATH = "/tmp/yd_site_config_v18.json"
+DATA_FILE_PATH = "/tmp/yd_site_config_v19.json"
 
 def load_server_data() -> dict:
     if os.path.exists(DATA_FILE_PATH):
@@ -2723,6 +2847,8 @@ async def save_site_data_api(request: Request):
 @app.get("/tienda")
 @app.get("/servicios")
 @app.get("/contacto")
+@app.get("/manuales")
+@app.get("/docs")
 @app.get("/admin")
 @app.get("/dashboard")
 @app.get("/api")

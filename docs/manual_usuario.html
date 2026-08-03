@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual de Usuario | YD Protección</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #0B1C30;
+            --navy-dark: #050E1A;
+            --orange: #FF6600;
+            --orange-light: #FF8533;
+            --white: #FFFFFF;
+            --light-bg: #F8FAFC;
+            --text-dark: #0F172A;
+            --text-muted: #64748B;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Roboto', sans-serif; background: var(--light-bg); color: var(--text-dark); line-height: 1.7; padding-bottom: 60px; }
+        header { background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 100%); color: #FFF; padding: 40px 20px; text-align: center; border-bottom: 4px solid var(--orange); }
+        header h1 { font-family: 'Montserrat', sans-serif; font-size: 2.2rem; margin-bottom: 8px; color: #FFF; }
+        header p { color: #CBD5E1; font-size: 1.05rem; }
+        .badge { display: inline-block; background: var(--orange); color: #FFF; padding: 4px 12px; border-radius: 50px; font-weight: 800; font-size: 0.8rem; margin-bottom: 12px; text-transform: uppercase; }
+        .container { max-width: 1000px; margin: 40px auto 0; padding: 0 20px; }
+        .card { background: #FFF; border-radius: 16px; padding: 32px 28px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #E2E8F0; margin-bottom: 30px; border-left: 6px solid var(--orange); }
+        .card h2 { font-family: 'Montserrat', sans-serif; color: var(--navy); font-size: 1.4rem; margin-bottom: 14px; border-bottom: 2px solid #F1F5F9; padding-bottom: 8px; }
+        .card h3 { font-family: 'Montserrat', sans-serif; color: var(--orange); font-size: 1.1rem; margin: 18px 0 8px; }
+        ul, ol { padding-left: 24px; margin-bottom: 16px; }
+        li { margin-bottom: 6px; }
+        .code-box { background: #050E1A; color: #38BDF8; padding: 14px 18px; border-radius: 10px; font-family: monospace; font-size: 0.95rem; margin: 12px 0; border: 1px solid rgba(255,255,255,0.1); }
+        .alert-box { background: rgba(255,102,0,0.1); border: 1px solid var(--orange); padding: 16px 20px; border-radius: 12px; margin: 16px 0; color: var(--navy); }
+        footer { text-align: center; color: var(--text-muted); font-size: 0.88rem; margin-top: 50px; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="badge">Documentación Oficial v18.0</div>
+        <h1>📖 MANUAL DE USUARIO CMS</h1>
+        <p>Plataforma Web Corporativa & Panel de Administración | YD Protección</p>
+    </header>
+
+    <div class="container">
+        <div class="card">
+            <h2>1. INTRODUCCIÓN Y OBJETIVOS</h2>
+            <p>Este manual está diseñado para el personal designado de <strong>YD Protección</strong> (administradores, equipo comercial, coordinadores de SST y soporte). La plataforma cuenta con una consola <strong>CMS v18.0</strong> que permite parametrizar productos, categorías, imágenes y textos en tiempo real.</p>
+        </div>
+
+        <div class="card">
+            <h2>2. ACCESO AL PANEL CMS</h2>
+            <p>Para ingresar al panel de administración:</p>
+            <div class="code-box">https://proyecto-yd.vercel.app/admin</div>
+            <p>Credenciales por defecto:</p>
+            <ul>
+                <li><strong>Usuario:</strong> <code>admin</code></li>
+                <li><strong>Contraseña:</strong> <code>yd2026</code></li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>3. ESTRUCTURA DE LA SIDEBAR IZQUIERDA STICKY (v18.0)</h2>
+            <p>La consola cuenta con una barra lateral izquierda de 290px que se mantiene fija mientras navegas por los formularios:</p>
+            <h3>📌 Portada & Navegación</h3>
+            <ul>
+                <li><strong>🏠 Sección Inicio:</strong> Hero principal, cifras de confianza, tarjetas y testimonios.</li>
+                <li><strong>🍔 Menú & Botones:</strong> Switches de activación/ocultamiento de botones.</li>
+                <li><strong>🖼️ Logo & Preloader:</strong> Carga de logo desde PC y animación de entrada.</li>
+            </ul>
+            <h3>📦 Catálogo & Productos</h3>
+            <ul>
+                <li><strong>🏷️ Categorías:</strong> CRUD completo de líneas de protección.</li>
+                <li><strong>📦 Catálogo Productos:</strong> Gestión de imágenes y fichas técnicas.</li>
+                <li><strong>🛠️ Servicios:</strong> Servicios de dotación y matriz de riesgo.</li>
+            </ul>
+            <h3>🏢 Institucional & Contacto</h3>
+            <ul>
+                <li><strong>🏢 Empresa & Misión:</strong> Historia, Misión y Visión.</li>
+                <li><strong>📞 Canales Contacto:</strong> Número de WhatsApp, correo y ubicación.</li>
+                <li><strong>🦶 Pie de Página:</strong> Derechos reservados y copyright.</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>4. BARRA FLOTANTE DE GUARDADO RÁPIDO</h2>
+            <div class="alert-box">
+                <strong>⚡ TIP DE USO:</strong> Al realizar cambios en cualquier módulo, haz clic en el botón flotante inferior <strong>💾 Guardar Todo y Publicar</strong> para sincronizar de inmediato en la Nube Supabase.
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        YD PROTECCIÓN © 2026 — Documentación Protegida
+    </footer>
+</body>
+</html>
