@@ -6,9 +6,9 @@ from fastapi.responses import HTMLResponse, JSONResponse
 from jinja2 import Template
 
 app = FastAPI(
-    title="YD Protección - Plataforma Web & CMS Full-Width SaaS 17.0",
-    description="Plataforma Web Corporativa con Dashboard CMS Ancho Completo (Full-Width), Sidebar Lateral Izquierda, Barra Flotante de Guardado Rápido y Sincronización Supabase Cloud Engine",
-    version="17.0.0"
+    title="YD Protección - Plataforma Web & CMS Proporcional Sticky 18.0",
+    description="Plataforma Web Corporativa con Dashboard CMS Ancho Completo, Sidebar Lateral Izquierda Proporcional Sticky, Barra Flotante de Guardado Rápido y Sincronización Supabase Cloud Engine",
+    version="18.0.0"
 )
 
 # DATOS BASE PARAMETRIZADOS INICIALES TOTALES
@@ -59,7 +59,7 @@ INITIAL_SITE_DATA = {
     {
       "icon": "🛡️",
       "title": "Garantía & Normatividad Certificada",
-      "desc": "Todos nuestros equipos cumplen strictly con fichas técnicas oficiales y estándares ANSI, CE e ICONTEC."
+      "desc": "Todos nuestros equipos cumplen estrictamente con fichas técnicas oficiales y estándares ANSI, CE e ICONTEC."
     },
     {
       "icon": "⚡",
@@ -404,7 +404,7 @@ INITIAL_SITE_DATA = {
   ]
 }
 
-# Estilos CSS Full-Width SaaS Layout v17
+# Estilos CSS Full-Width SaaS Layout v18 con Sidebar Proporcional Sticky
 EMBEDDED_CSS = """
 :root {
     --navy: #0B1C30;
@@ -435,7 +435,7 @@ h1, h2, h3, h4, h5 { font-family: 'Montserrat', -apple-system, BlinkMacSystemFon
 img { max-width: 100%; height: auto; display: block; }
 .container { max-width: 1240px; margin: 0 auto; padding: 0 20px; }
 
-/* CONTENEDOR ANCHO COMPLETO PARA EL PANEL CMS (FULL-WIDTH FLUID LAYOUT) */
+/* CONTENEDOR ANCHO COMPLETO PARA EL PANEL CMS */
 .admin-fullwidth-container {
     max-width: 1680px;
     width: 100%;
@@ -526,40 +526,43 @@ section { padding: 60px 0; }
 .section-title::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 75px; height: 4px; background-color: var(--orange); border-radius: 4px; }
 .section-subtitle { text-align: center; font-size: clamp(0.95rem, 2vw, 1.15rem); color: var(--text-muted); margin-bottom: 40px; }
 
-/* DESIGN SYSTEM EJECUTIVO CMS v17 ANCHO COMPLETO (FULL-WIDTH FLUID) */
-.admin-layout-wrapper { display: flex; gap: 24px; min-height: 750px; margin-bottom: 50px; width: 100%; }
+/* DESIGN SYSTEM EJECUTIVO CMS v18 CON SIDEBAR PROPORCIONAL STICKY */
+.admin-layout-wrapper { display: flex; gap: 24px; min-height: 650px; margin-bottom: 50px; width: 100%; align-items: flex-start; }
 .admin-sidebar {
-    width: 280px; flex-shrink: 0;
+    width: 290px; flex-shrink: 0;
     background: linear-gradient(180deg, #050E1A 0%, #0B1C30 100%);
-    color: #FFFFFF; border-radius: 20px; padding: 24px 16px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.25); display: flex; flex-direction: column; justify-content: space-between;
-    border-left: 5px solid var(--orange);
+    color: #FFFFFF; border-radius: 20px; padding: 22px 16px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.25); display: flex; flex-direction: column;
+    border-left: 5px solid var(--orange); position: sticky; top: 90px;
+    align-self: flex-start; height: fit-content; max-height: calc(100vh - 110px); overflow-y: auto;
 }
-.sidebar-header { margin-bottom: 24px; padding-bottom: 18px; border-bottom: 1px solid rgba(255,255,255,0.1); }
-.sidebar-brand-badge { background: linear-gradient(135deg, var(--orange), var(--orange-light)); color: #FFF; font-weight: 900; font-size: 0.78rem; padding: 3px 10px; border-radius: 50px; text-transform: uppercase; }
-.sidebar-title { font-size: 1.15rem; font-weight: 900; margin-top: 8px; color: #FFF; letter-spacing: 0.5px; }
-.sidebar-user-card { background: rgba(255,255,255,0.06); padding: 12px; border-radius: 12px; margin-top: 12px; font-size: 0.82rem; color: #CBD5E1; display: flex; align-items: center; justify-content: space-between; }
+.sidebar-header { margin-bottom: 16px; padding-bottom: 14px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+.sidebar-brand-badge { background: linear-gradient(135deg, var(--orange), var(--orange-light)); color: #FFF; font-weight: 900; font-size: 0.75rem; padding: 3px 10px; border-radius: 50px; text-transform: uppercase; }
+.sidebar-title { font-size: 1.1rem; font-weight: 900; margin-top: 6px; color: #FFF; letter-spacing: 0.5px; }
+.sidebar-user-card { background: rgba(255,255,255,0.06); padding: 10px 12px; border-radius: 10px; margin-top: 10px; font-size: 0.8rem; color: #CBD5E1; display: flex; align-items: center; justify-content: space-between; }
 
-.sidebar-menu-list { display: flex; flex-direction: column; gap: 6px; overflow-y: auto; flex-grow: 1; padding-right: 4px; }
+.sidebar-group-title { font-size: 0.7rem; font-weight: 800; color: var(--orange); letter-spacing: 1px; margin: 12px 0 6px 4px; text-transform: uppercase; }
+.sidebar-menu-list { display: flex; flex-direction: column; gap: 4px; }
 .sidebar-menu-btn {
-    background: transparent; color: #CBD5E1; border: none; padding: 12px 16px; border-radius: 12px;
-    font-weight: 700; font-size: 0.88rem; cursor: pointer; transition: all 0.3s ease; text-align: left;
-    display: flex; align-items: center; gap: 12px; border-left: 4px solid transparent;
+    background: transparent; color: #CBD5E1; border: none; padding: 10px 14px; border-radius: 10px;
+    font-weight: 700; font-size: 0.86rem; cursor: pointer; transition: all 0.25s ease; text-align: left;
+    display: flex; align-items: center; justify-content: space-between; gap: 10px; border-left: 4px solid transparent;
 }
-.sidebar-menu-btn:hover { background: rgba(255,255,255,0.08); color: #FFF; transform: translateX(4px); }
-.sidebar-menu-btn.active-tab { background: rgba(255,102,0,0.15); color: #FFF; border-left-color: var(--orange); font-weight: 900; box-shadow: 0 4px 14px rgba(255,102,0,0.25); }
+.sidebar-menu-btn:hover { background: rgba(255,255,255,0.08); color: #FFF; transform: translateX(3px); }
+.sidebar-menu-btn.active-tab { background: rgba(255,102,0,0.18); color: #FFF; border-left-color: var(--orange); font-weight: 900; box-shadow: 0 4px 12px rgba(255,102,0,0.22); }
+.sidebar-btn-badge { background: rgba(255,255,255,0.15); color: #FFF; font-size: 0.7rem; padding: 2px 7px; border-radius: 50px; font-weight: 800; }
 
-.sidebar-footer { padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.1); display: flex; flex-direction: column; gap: 10px; }
+.sidebar-footer { margin-top: 18px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.1); display: flex; flex-direction: column; gap: 8px; }
 
 .admin-main-canvas {
-    flex-grow: 1; width: calc(100% - 304px); background: #FFFFFF; border-radius: 20px; padding: 32px 28px;
+    flex-grow: 1; width: calc(100% - 314px); background: #FFFFFF; border-radius: 20px; padding: 32px 28px;
     box-shadow: var(--card-shadow); border: 1px solid #E2E8F0; display: flex; flex-direction: column;
 }
 .canvas-breadcrumb { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 25px; padding-bottom: 16px; border-bottom: 2px solid #F1F5F9; }
 .canvas-breadcrumb-title { font-size: 1.35rem; color: var(--navy); font-weight: 900; }
 
 .admin-hero-banner { background: linear-gradient(135deg, #050E1A 0%, #0B1C30 50%, #112844 100%); color: #FFF; padding: 30px 22px; border-radius: 18px; border-left: 6px solid var(--orange); box-shadow: 0 15px 35px rgba(0,0,0,0.25); margin-bottom: 25px; position: relative; overflow: hidden; width: 100%; }
-.admin-hero-banner::after { content: 'CMS 17.0'; position: absolute; right: -20px; bottom: -20px; font-size: 6rem; font-weight: 900; color: rgba(255,102,0,0.05); font-family: 'Montserrat', sans-serif; pointer-events: none; }
+.admin-hero-banner::after { content: 'CMS 18.0'; position: absolute; right: -20px; bottom: -20px; font-size: 6rem; font-weight: 900; color: rgba(255,102,0,0.05); font-family: 'Montserrat', sans-serif; pointer-events: none; }
 .admin-metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; margin-bottom: 30px; width: 100%; }
 .admin-metric-card { background: #FFFFFF; border-radius: 16px; padding: 20px 18px; box-shadow: var(--card-shadow); border: 1px solid rgba(0,0,0,0.06); border-top: 4px solid var(--orange); transition: all 0.3s ease; display: flex; align-items: center; gap: 14px; }
 .admin-metric-card:hover { transform: translateY(-4px); box-shadow: var(--hover-shadow); }
@@ -681,6 +684,7 @@ footer h2 { color: var(--orange); font-size: clamp(1.5rem, 3.5vw, 2.2rem); margi
 @media (max-width: 1024px) {
     .admin-fullwidth-container { padding: 0 20px; }
     .admin-main-canvas { width: 100%; }
+    .admin-sidebar { position: relative; top: 0; width: 100%; max-height: none; }
 }
 
 @media (max-width: 860px) {
@@ -709,7 +713,7 @@ footer h2 { color: var(--orange); font-size: clamp(1.5rem, 3.5vw, 2.2rem); margi
 }
 """
 
-# Template HTML con CMS Panel Full-Width Fluid SaaS 17.0
+# Template HTML con CMS Panel con Sidebar Proporcional Sticky 18.0
 INDEX_HTML = """<!DOCTYPE html>
 <html lang="es">
 <head>
@@ -725,10 +729,10 @@ INDEX_HTML = """<!DOCTYPE html>
     <!-- CONTENEDOR DE NOTIFICACIONES TOAST FLOATING -->
     <div id="toastContainer"></div>
 
-    <!-- BARRA FLOTANTE DE GUARDADO RÁPIDO PARA EL CMS (STICKY ACTION BAR v17) -->
+    <!-- BARRA FLOTANTE DE GUARDADO RÁPIDO PARA EL CMS (STICKY ACTION BAR v18) -->
     <div id="stickyAdminBar" class="sticky-admin-save-bar" style="display: none;">
         <div class="sticky-bar-text">
-            <span>⚡ CONSOLA DE CONTROL CMS v17.0</span>
+            <span>⚡ CONSOLA DE CONTROL CMS v18.0</span>
             <span style="color: #CBD5E1;">|</span>
             <span style="color: #25D366;">☁️ Sincronización Supabase Cloud Engine Activa</span>
         </div>
@@ -1000,7 +1004,7 @@ INDEX_HTML = """<!DOCTYPE html>
     <!-- CONTENEDOR DINÁMICO DE SECCIONES PERSONALIZADAS CREADAS DESDE EL CMS -->
     <div id="dynamicCustomPagesContainer"></div>
 
-    <!-- ==================== PÁGINA VISTA ADMIN CMS NIVEL SAAS FULL-WIDTH 17.0 ==================== -->
+    <!-- ==================== PÁGINA VISTA ADMIN CMS NIVEL SAAS FULL-WIDTH 18.0 ==================== -->
     <div id="page-admin" class="page-view">
         <div class="admin-fullwidth-container" style="padding-top: 30px; padding-bottom: 90px;">
             
@@ -1008,9 +1012,9 @@ INDEX_HTML = """<!DOCTYPE html>
             <div class="admin-hero-banner">
                 <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; position: relative; z-index: 2;">
                     <div>
-                        <span style="background: rgba(255,102,0,0.2); border: 1px solid var(--orange); color: var(--orange); font-size: 0.78rem; font-weight: 900; padding: 4px 14px; border-radius: 50px; text-transform: uppercase;">CONSOLA DE CONTROL CMS v17.0 SAAS FULL-WIDTH</span>
+                        <span style="background: rgba(255,102,0,0.2); border: 1px solid var(--orange); color: var(--orange); font-size: 0.78rem; font-weight: 900; padding: 4px 14px; border-radius: 50px; text-transform: uppercase;">CONSOLA DE CONTROL CMS v18.0 STICKY</span>
                         <h1 style="font-size: clamp(1.8rem, 4vw, 2.5rem); margin-top: 8px; color: #FFF;">PANEL DE ADMINISTRACIÓN YD PROTECCIÓN</h1>
-                        <p style="color: #CBD5E1; font-size: 0.95rem; margin-top: 4px;">Control Total con Layout Ancho Completo, Sidebar Lateral Izquierda y Sincronización Nube</p>
+                        <p style="color: #CBD5E1; font-size: 0.95rem; margin-top: 4px;">Control Total con Layout Proporcional Sticky, Sidebar Lateral Agrupada y Sincronización Nube</p>
                     </div>
                     <div style="display: flex; align-items: center; gap: 12px;">
                         <button class="btn-detail" style="background: #FFF; color: var(--navy); font-weight: bold; border-radius: 50px; padding: 8px 18px;" onclick="navigateToPage('home')">🌐 Ver Sitio Público</button>
@@ -1046,7 +1050,7 @@ INDEX_HTML = """<!DOCTYPE html>
                 </form>
             </div>
 
-            <!-- CONTENIDO PRINCIPAL DEL CMS CON SIDEBAR LATERAL IZQUIERDA -->
+            <!-- CONTENIDO PRINCIPAL DEL CMS CON SIDEBAR LATERAL PROPORCIONAL STICKY -->
             <div id="adminMainContent" style="display: none;">
                 
                 <!-- METRICAS EJECUTIVAS EN TIEMPO REAL -->
@@ -1081,14 +1085,14 @@ INDEX_HTML = """<!DOCTYPE html>
                     </div>
                 </div>
 
-                <!-- LAYOUT ESTRUCTURAL: SIDEBAR LATERAL + CANVAS PRINCIPAL -->
+                <!-- LAYOUT ESTRUCTURAL: SIDEBAR LATERAL PROPORCIONAL + CANVAS PRINCIPAL -->
                 <div class="admin-layout-wrapper">
                     
-                    <!-- SIDEBAR LATERAL IZQUIERDA FIJA -->
+                    <!-- SIDEBAR LATERAL IZQUIERDA PROPORCIONAL STICKY -->
                     <aside class="admin-sidebar">
                         <div>
                             <div class="sidebar-header">
-                                <span class="sidebar-brand-badge">CONSOLA CMS v17</span>
+                                <span class="sidebar-brand-badge">CONSOLA CMS v18</span>
                                 <div class="sidebar-title">YD PROTECCIÓN</div>
                                 <div class="sidebar-user-card">
                                     <span>👤 Admin Logueado</span>
@@ -1096,33 +1100,44 @@ INDEX_HTML = """<!DOCTYPE html>
                                 </div>
                             </div>
 
+                            <div class="sidebar-group-title">📌 Portada & Navegación</div>
                             <nav class="sidebar-menu-list">
                                 <button class="sidebar-menu-btn active-tab" onclick="switchAdminTab('home_manage', this)">
-                                    <span>🏠</span> Sección Inicio (Home)
+                                    <span>🏠 Sección Inicio</span>
                                 </button>
                                 <button class="sidebar-menu-btn" onclick="switchAdminTab('nav_menu', this)">
-                                    <span>🍔</span> Menú & Botones Web
+                                    <span>🍔 Menú & Botones</span>
                                 </button>
                                 <button class="sidebar-menu-btn" onclick="switchAdminTab('logo_preloader', this)">
-                                    <span>🖼️</span> Logo & Preloader
+                                    <span>🖼️ Logo & Preloader</span>
                                 </button>
+                            </nav>
+
+                            <div class="sidebar-group-title">📦 Catálogo & Productos</div>
+                            <nav class="sidebar-menu-list">
                                 <button class="sidebar-menu-btn" onclick="switchAdminTab('categories_manage', this)">
-                                    <span>🏷️</span> Categorías (CRUD)
+                                    <span>🏷️ Categorías</span>
+                                    <span class="sidebar-btn-badge" id="sideBadgeCat">6</span>
                                 </button>
                                 <button class="sidebar-menu-btn" onclick="switchAdminTab('products', this)">
-                                    <span>📦</span> Catálogo Productos
-                                </button>
-                                <button class="sidebar-menu-btn" onclick="switchAdminTab('company', this)">
-                                    <span>🏢</span> Empresa & Misión
-                                </button>
-                                <button class="sidebar-menu-btn" onclick="switchAdminTab('contact', this)">
-                                    <span>📞</span> Canales Contacto
+                                    <span>📦 Productos</span>
+                                    <span class="sidebar-btn-badge" id="sideBadgeProd">9</span>
                                 </button>
                                 <button class="sidebar-menu-btn" onclick="switchAdminTab('services', this)">
-                                    <span>🛠️</span> Servicios Corporativos
+                                    <span>🛠️ Servicios</span>
+                                </button>
+                            </nav>
+
+                            <div class="sidebar-group-title">🏢 Institucional & Contacto</div>
+                            <nav class="sidebar-menu-list">
+                                <button class="sidebar-menu-btn" onclick="switchAdminTab('company', this)">
+                                    <span>🏢 Empresa & Misión</span>
+                                </button>
+                                <button class="sidebar-menu-btn" onclick="switchAdminTab('contact', this)">
+                                    <span>📞 Canales Contacto</span>
                                 </button>
                                 <button class="sidebar-menu-btn" onclick="switchAdminTab('footer_manage', this)">
-                                    <span>🦶</span> Pie de Página (Footer)
+                                    <span>🦶 Pie de Página</span>
                                 </button>
                             </nav>
                         </div>
@@ -1576,7 +1591,7 @@ INDEX_HTML = """<!DOCTYPE html>
         </div>
     </footer>
 
-    <!-- ENGINE DE SINCRONIZACIÓN Y CMS INTERACTIVO NIVEL SAAS FULL-WIDTH (v17) -->
+    <!-- ENGINE DE SINCRONIZACIÓN Y CMS INTERACTIVO NIVEL SAAS FULL-WIDTH STICKY (v18) -->
     <script>
         const INITIAL_DATA = """ + json.dumps(INITIAL_SITE_DATA) + """;
         let tempLoadedLogoBase64 = "";
@@ -1623,7 +1638,7 @@ INDEX_HTML = """<!DOCTYPE html>
         }
 
         function getLocalSiteData() {
-            const saved = localStorage.getItem('yd_custom_saved_v17');
+            const saved = localStorage.getItem('yd_custom_saved_v18');
             if (saved) {
                 try {
                     const parsed = JSON.parse(saved);
@@ -1634,7 +1649,7 @@ INDEX_HTML = """<!DOCTYPE html>
         }
 
         async function getSiteData() {
-            const userSaved = localStorage.getItem('yd_custom_saved_v17');
+            const userSaved = localStorage.getItem('yd_custom_saved_v18');
             let baseData = INITIAL_DATA;
             if (userSaved) {
                 try {
@@ -1645,7 +1660,7 @@ INDEX_HTML = """<!DOCTYPE html>
 
             const cloudData = await fetchSupabaseSiteData();
             if (cloudData && cloudData.nav_links && cloudData.is_user_edited) {
-                localStorage.setItem('yd_custom_saved_v17', JSON.stringify(cloudData));
+                localStorage.setItem('yd_custom_saved_v18', JSON.stringify(cloudData));
                 return cloudData;
             }
             return baseData;
@@ -1653,7 +1668,7 @@ INDEX_HTML = """<!DOCTYPE html>
 
         async function saveSiteData(data) {
             data.is_user_edited = true;
-            localStorage.setItem('yd_custom_saved_v17', JSON.stringify(data));
+            localStorage.setItem('yd_custom_saved_v18', JSON.stringify(data));
             renderSite(data);
 
             try {
@@ -1683,6 +1698,11 @@ INDEX_HTML = """<!DOCTYPE html>
             const categories = data.categories_breakdown || INITIAL_DATA.categories_breakdown;
             document.getElementById('metricProductsCount').textContent = products.length;
             document.getElementById('metricCategoriesCount').textContent = categories.length;
+            
+            const sideProd = document.getElementById('sideBadgeProd');
+            const sideCat = document.getElementById('sideBadgeCat');
+            if (sideProd) sideProd.textContent = products.length;
+            if (sideCat) sideCat.textContent = categories.length;
         }
 
         function renderSite(data) {
@@ -2034,7 +2054,7 @@ INDEX_HTML = """<!DOCTYPE html>
                 tempLoadedLogoBase64 = comp.logo_image;
             }
 
-            // Formulario Menú Links CON SWITCHES ANIMADOS v17
+            // Formulario Menú Links CON SWITCHES ANIMADOS v18
             const navAdminGrid = document.getElementById('adminNavLinksList');
             if (navAdminGrid) {
                 navAdminGrid.innerHTML = navs.map(n => {
@@ -2656,7 +2676,7 @@ INDEX_HTML = """<!DOCTYPE html>
 </body>
 </html>"""
 
-DATA_FILE_PATH = "/tmp/yd_site_config_v17.json"
+DATA_FILE_PATH = "/tmp/yd_site_config_v18.json"
 
 def load_server_data() -> dict:
     if os.path.exists(DATA_FILE_PATH):
