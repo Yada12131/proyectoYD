@@ -409,7 +409,7 @@ INITIAL_SITE_DATA = {
   ]
 }
 
-# ESTILOS CSS CON MENÚ HAMBURGUESA PREMIUM RESPONSIVE v25.0
+# ESTILOS CSS CON MENÚ HAMBURGUESA DE ALTA DEFINICIÓN NÍTIDO v26.0
 EMBEDDED_CSS = """
 :root {
     --navy: #0B1C30;
@@ -528,25 +528,25 @@ img { max-width: 100%; height: auto; display: block; }
     transition: all 0.3s ease;
 }
 
-/* OVERLAY DE FONDO OBSCURO AL ABRIR EL MENÚ */
+/* OVERLAY DE FONDO OSCURO SÚPER LIMPIO (SIN DESENFOQUE QUE BORRE EL TEXTO DENTRO DEL MENÚ MÓVIL) v26.0 */
 .mobile-drawer-backdrop {
     position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
-    background: rgba(0,0,0,0.7); backdrop-filter: blur(4px);
-    z-index: 99998; opacity: 0; pointer-events: none; transition: opacity 0.35s ease;
+    background: rgba(0, 0, 0, 0.75);
+    z-index: 99998; opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
 }
 .mobile-drawer-backdrop.drawer-open { opacity: 1; pointer-events: all; }
 
-/* DRAWER DESLIZABLE DEL MENÚ HAMBURGUESA */
+/* DRAWER NATIVO SÚPER NÍTIDO DE ALTO CONTRASTE v26.0 */
 .mobile-nav-drawer {
     position: fixed;
     top: 0;
     right: -100%;
-    width: 82%;
+    width: 85%;
     max-width: 320px;
     height: 100vh;
-    background: linear-gradient(180deg, #050E1A 0%, #0B1C30 100%);
-    box-shadow: -10px 0 35px rgba(0,0,0,0.6);
-    z-index: 99999;
+    background: #0B1C30 !important;
+    box-shadow: -10px 0 40px rgba(0,0,0,0.8);
+    z-index: 99999 !important;
     display: flex;
     flex-direction: column;
     transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
@@ -559,24 +559,24 @@ img { max-width: 100%; height: auto; display: block; }
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    background: rgba(0,0,0,0.2);
+    border-bottom: 2px solid rgba(255,102,0,0.3);
+    background: #050E1A;
 }
 .mobile-drawer-close {
-    background: rgba(255,255,255,0.12);
-    border: 1px solid rgba(255,255,255,0.2);
-    color: #FFF;
-    font-size: 1.6rem;
-    width: 38px;
-    height: 38px;
+    background: var(--orange) !important;
+    border: none;
+    color: #FFFFFF !important;
+    font-size: 1.5rem;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background 0.25s ease;
+    font-weight: bold;
+    box-shadow: 0 4px 12px rgba(255,102,0,0.4);
 }
-.mobile-drawer-close:hover { background: var(--orange); }
 
 .mobile-drawer-body {
     padding: 20px 16px;
@@ -584,37 +584,39 @@ img { max-width: 100%; height: auto; display: block; }
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 10px;
+    background: #0B1C30;
 }
+
 .mobile-drawer-link {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 13px 16px;
-    color: #E2E8F0;
+    gap: 14px;
+    padding: 14px 18px;
+    color: #FFFFFF !important;
     text-decoration: none;
-    font-weight: 700;
-    font-size: 0.95rem;
-    border-radius: 12px;
-    background: rgba(255,255,255,0.04);
-    border-left: 4px solid transparent;
+    font-weight: 800;
+    font-size: 1rem;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-left: 5px solid var(--orange);
     transition: all 0.25s ease;
-    border: none;
     text-align: left;
     width: 100%;
     cursor: pointer;
 }
 .mobile-drawer-link:hover, .mobile-drawer-link.active-page {
-    background: rgba(255,102,0,0.18);
-    color: #FFF;
-    border-left-color: var(--orange);
-    box-shadow: 0 4px 12px rgba(255,102,0,0.2);
+    background: linear-gradient(135deg, var(--orange), var(--orange-light)) !important;
+    color: #FFFFFF !important;
+    border-left-color: #FFFFFF;
+    box-shadow: 0 6px 18px rgba(255,102,0,0.4);
 }
 
 .mobile-drawer-footer {
     padding: 18px 20px;
     border-top: 1px solid rgba(255,255,255,0.1);
-    background: rgba(0,0,0,0.2);
+    background: #050E1A;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -902,10 +904,10 @@ INDEX_HTML = """<!DOCTYPE html>
         </div>
     </div>
 
-    <!-- OVERLAY FONDO OSCURO DEL MENÚ HAMBURGUESA -->
+    <!-- OVERLAY FONDO OSCURO DEL MENÚ HAMBURGUESA (SÚPER LIMPIO Y CRISTALINO v26) -->
     <div class="mobile-drawer-backdrop" id="mobileDrawerBackdrop" onclick="toggleMobileMenu()"></div>
 
-    <!-- TOPBAR CON MENÚ HAMBURGUESA INTEGRADO v24.0 -->
+    <!-- TOPBAR CON MENÚ HAMBURGUESA INTEGRADO v26.0 -->
     <header class="top-bar">
         <div class="container top-bar-content">
             <div class="brand-logo-group" onclick="navigateToPage('home')">
@@ -932,14 +934,14 @@ INDEX_HTML = """<!DOCTYPE html>
             </button>
         </div>
 
-        <!-- DRAWER NAVEGACIÓN HAMBURGUESA MÓVIL (V24.0) -->
+        <!-- DRAWER NAVEGACIÓN HAMBURGUESA MÓVIL ALTA DEFINICIÓN (V26.0) -->
         <div class="mobile-nav-drawer" id="mobileNavDrawer">
             <div class="mobile-drawer-header">
                 <div style="display: flex; align-items: center; gap: 10px;">
                     <div style="height: 38px; width: 38px; background: #FFF; border-radius: 8px; padding: 2px; border: 1px solid var(--orange); display:flex; align-items:center; justify-content:center;">
                         <img id="mobileDrawerLogoImg" src="" style="width: 100%; height: 100%; object-fit: contain;">
                     </div>
-                    <span style="font-weight: 900; color: #FFF; font-size: 1.05rem; letter-spacing: 0.5px;">MENÚ YD</span>
+                    <span style="font-weight: 900; color: #FFF; font-size: 1.15rem; letter-spacing: 0.5px;">MENÚ DE NAVEGACIÓN</span>
                 </div>
                 <button class="mobile-drawer-close" onclick="toggleMobileMenu()">&times;</button>
             </div>
@@ -947,8 +949,8 @@ INDEX_HTML = """<!DOCTYPE html>
             <div class="mobile-drawer-body" id="renderMobileNavDrawerLinks"></div>
 
             <div class="mobile-drawer-footer">
-                <button class="btn-wa" style="width: 100%; padding: 12px; font-size: 0.88rem; justify-content: center;" onclick="toggleMobileMenu(); navigateToPage('contacto');">
-                    💬 Contactar Asesor por WhatsApp
+                <button class="btn-wa" style="width: 100%; padding: 14px; font-size: 0.95rem; justify-content: center; font-weight: 900;" onclick="toggleMobileMenu(); navigateToPage('contacto');">
+                    💬 Contactar por WhatsApp
                 </button>
             </div>
         </div>
@@ -1862,7 +1864,7 @@ POST /api/site-data -> Guardado en /tmp/yd_site_config_v21.json
         </div>
     </footer>
 
-    <!-- ENGINE DE JS CON RENDERIZADO COMPLETO DEL PANEL CMS (v25.0) -->
+    <!-- ENGINE DE JS CON RENDERIZADO COMPLETO Y DRAWER MÓVIL ALTA DEFINICIÓN NÍTIDO (v26.0) -->
     <script>
         const INITIAL_DATA = """ + json.dumps(INITIAL_SITE_DATA) + """;
         let tempLoadedLogoBase64 = "";
@@ -1895,7 +1897,7 @@ POST /api/site-data -> Guardado en /tmp/yd_site_config_v21.json
             }, 3500);
         }
 
-        /* CONTROLADOR DEL MENÚ HAMBURGUESA MÓVIL v24.0 */
+        /* CONTROLADOR DEL MENÚ HAMBURGUESA MÓVIL v26.0 */
         function toggleMobileMenu() {
             const drawer = document.getElementById('mobileNavDrawer');
             const backdrop = document.getElementById('mobileDrawerBackdrop');
@@ -2060,7 +2062,7 @@ POST /api/site-data -> Guardado en /tmp/yd_site_config_v21.json
 
             if (brandTextGroup) brandTextGroup.style.display = 'flex';
 
-            // NAV LINKS (ESCRITORIO & MENÚ HAMBURGUESA MÓVIL)
+            // NAV LINKS (ESCRITORIO & MENÚ HAMBURGUESA MÓVIL SÚPER NÍTIDO v26.0)
             const navContainer = document.getElementById('renderNavLinksContainer');
             const actionsContainer = document.getElementById('renderActionButtonsContainer');
             const mobileDrawerContainer = document.getElementById('renderMobileNavDrawerLinks');
@@ -2092,11 +2094,11 @@ POST /api/site-data -> Guardado en /tmp/yd_site_config_v21.json
                         navHtml += `<button class="nav-link-btn" id="nav-${n.id}" onclick="navigateToPage('${n.id}')">${n.label}</button>`;
                     }
 
-                    // GENERACIÓN DEL ENLACE DENTRO DEL DRAWER HAMBURGUESA MÓVIL
+                    // GENERACIÓN DEL ENLACE DENTRO DEL DRAWER HAMBURGUESA MÓVIL ALTA VISIBILIDAD
                     mobileDrawerHtml += `
                         <button class="mobile-drawer-link" id="mobile-drawer-link-${n.id}" onclick="toggleMobileMenu(); navigateToPage('${n.id}')">
-                            <span>${icon}</span>
-                            <span>${n.label}</span>
+                            <span style="font-size: 1.25rem;">${icon}</span>
+                            <span style="font-weight: 800; font-size: 1rem; color: #FFFFFF !important;">${n.label}</span>
                         </button>
                     `;
                 }
