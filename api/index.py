@@ -6,9 +6,9 @@ from fastapi.responses import HTMLResponse, JSONResponse
 from jinja2 import Template
 
 app = FastAPI(
-    title="YD Protección - Plataforma Web & CMS Ejecutivo Enriquecido 14.0",
-    description="Plataforma Web Corporativa con Home Enriquecido, Cifras de Confianza, Pilares de Diferenciación, Testimonios y CMS de Grado Ejecutivo",
-    version="14.0.0"
+    title="YD Protección - Plataforma Web & CMS Ejecutivo Nivel SaaS 15.0",
+    description="Plataforma Web Corporativa con Dashboard CMS de Nivel SaaS, Barra Flotante de Guardado Rápido, Inputs con Íconos Prepend y Sincronización Supabase Cloud Engine",
+    version="15.0.0"
 )
 
 # DATOS BASE PARAMETRIZADOS INICIALES TOTALES
@@ -404,7 +404,7 @@ INITIAL_SITE_DATA = {
   ]
 }
 
-# Estilos CSS Enriquecidos v14
+# Estilos CSS Nivel SaaS v15
 EMBEDDED_CSS = """
 :root {
     --navy: #0B1C30;
@@ -477,7 +477,7 @@ img { max-width: 100%; height: auto; display: block; }
 .page-view { display: none; opacity: 0; transition: opacity 0.35s ease-in-out; }
 .page-view.active-view { display: block; opacity: 1; }
 
-/* HERO & STATS BAR ENRIQUECIDOS */
+/* HERO & STATS BAR */
 .hero { background: radial-gradient(circle at 50% 20%, rgba(255,102,0,0.14) 0%, rgba(5,14,26,1) 80%); color: var(--white); text-align: center; padding: 75px 20px 90px; position: relative; border-bottom: 1px solid rgba(255,255,255,0.08); }
 .hero-tag { display: inline-block; background: rgba(255,102,0,0.15); border: 1px solid var(--orange); color: var(--orange); padding: 6px 18px; border-radius: 50px; font-size: 0.8rem; font-weight: 800; letter-spacing: 1.2px; margin-bottom: 20px; text-transform: uppercase; }
 .hero h2 { font-size: clamp(1rem, 2.5vw, 1.4rem); font-weight: 400; letter-spacing: 2px; margin-bottom: 12px; color: #E2E8F0; }
@@ -489,7 +489,6 @@ img { max-width: 100%; height: auto; display: block; }
 .stat-val { font-size: 2.2rem; font-weight: 900; color: var(--orange); font-family: 'Montserrat', sans-serif; line-height: 1; margin-bottom: 4px; }
 .stat-lbl { font-size: 0.8rem; color: #E2E8F0; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
 
-/* SECCIONES ENRIQUECIDAS DEL HOME */
 .why-us-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; margin-top: 35px; }
 .why-us-card { background: var(--white); border-radius: 18px; padding: 30px 22px; box-shadow: var(--card-shadow); border: 1px solid rgba(0,0,0,0.06); border-top: 5px solid var(--orange); transition: all 0.35s ease; text-align: center; }
 .why-us-card:hover { transform: translateY(-8px); box-shadow: var(--hover-shadow); }
@@ -519,15 +518,34 @@ section { padding: 60px 0; }
 .section-title::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 75px; height: 4px; background-color: var(--orange); border-radius: 4px; }
 .section-subtitle { text-align: center; font-size: clamp(0.95rem, 2vw, 1.15rem); color: var(--text-muted); margin-bottom: 40px; }
 
-/* DESIGN SYSTEM EJECUTIVO CMS v14 DE ALTA GAMA */
+/* DESIGN SYSTEM EJECUTIVO CMS v15 DE NIVEL SAAS */
 .admin-hero-banner { background: linear-gradient(135deg, #050E1A 0%, #0B1C30 50%, #112844 100%); color: #FFF; padding: 40px 25px; border-radius: 20px; border-left: 6px solid var(--orange); box-shadow: 0 15px 35px rgba(0,0,0,0.25); margin-bottom: 30px; position: relative; overflow: hidden; }
-.admin-hero-banner::after { content: 'CMS 14.0'; position: absolute; right: -20px; bottom: -20px; font-size: 7rem; font-weight: 900; color: rgba(255,102,0,0.05); font-family: 'Montserrat', sans-serif; pointer-events: none; }
+.admin-hero-banner::after { content: 'CMS 15.0'; position: absolute; right: -20px; bottom: -20px; font-size: 7rem; font-weight: 900; color: rgba(255,102,0,0.05); font-family: 'Montserrat', sans-serif; pointer-events: none; }
 .admin-metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 35px; }
 .admin-metric-card { background: #FFFFFF; border-radius: 16px; padding: 22px 20px; box-shadow: var(--card-shadow); border: 1px solid rgba(0,0,0,0.06); border-top: 4px solid var(--orange); transition: all 0.3s ease; display: flex; align-items: center; gap: 16px; }
 .admin-metric-card:hover { transform: translateY(-4px); box-shadow: var(--hover-shadow); }
 .admin-metric-icon { width: 52px; height: 52px; border-radius: 14px; background: rgba(255,102,0,0.12); color: var(--orange); display: flex; align-items: center; justify-content: center; font-size: 1.6rem; flex-shrink: 0; }
 .admin-metric-val { font-size: 1.8rem; font-weight: 900; color: var(--navy); line-height: 1; margin-bottom: 4px; font-family: 'Montserrat', sans-serif; }
 .admin-metric-lbl { font-size: 0.8rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* INPUT GROUPS CON ÍCONOS PREPEND EN EL CMS */
+.input-icon-wrapper { display: flex; align-items: stretch; margin-top: 6px; }
+.input-icon-box { background: #F1F5F9; border: 1px solid #CBD5E1; border-right: none; border-radius: 10px 0 0 10px; padding: 12px 14px; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--navy); }
+.input-icon-wrapper .contact-form-input { border-radius: 0 10px 10px 0; margin-top: 0; }
+
+/* BARRA FLOTANTE INFERIOR DE GUARDADO RÁPIDO (STICKY ACTION BAR) */
+.sticky-admin-save-bar {
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); z-index: 10000;
+    background: rgba(5,14,26,0.95); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    padding: 12px 28px; border-radius: 50px; border: 2px solid var(--orange);
+    box-shadow: 0 12px 35px rgba(0,0,0,0.45); display: flex; align-items: center; gap: 20px;
+    animation: barSlideUp 0.4s ease forwards;
+}
+@keyframes barSlideUp {
+    0% { transform: translate(-50%, 60px); opacity: 0; }
+    100% { transform: translate(-50%, 0); opacity: 1; }
+}
+.sticky-bar-text { color: #FFF; font-weight: 800; font-size: 0.88rem; display: flex; align-items: center; gap: 8px; }
 
 /* FORMULARIOS CMS DE ALTA GAMA CON FOCUS GLOW */
 .contact-form-input { width: 100%; padding: 14px 18px; border-radius: 10px; border: 1px solid #CBD5E1; font-size: 0.96rem; outline: none; transition: all 0.3s ease; background: #FFFFFF; color: var(--navy); }
@@ -643,10 +661,11 @@ footer h2 { color: var(--orange); font-size: clamp(1.5rem, 3.5vw, 2.2rem); margi
     .product-grid, .grid-2, .grid-3, .grid-4, .categories-grid, .category-breakdown-grid { grid-template-columns: 1fr; }
     .btn-group { grid-template-columns: 1fr; }
     .modal-card { padding: 24px 16px; }
+    .sticky-admin-save-bar { width: 92%; padding: 10px 18px; flex-direction: column; gap: 8px; text-align: center; }
 }
 """
 
-# Template HTML con Home Enriquecido y CMS Ejecutivo v14.0
+# Template HTML con CMS Panel Ejecutivo Nivel SaaS 15.0
 INDEX_HTML = """<!DOCTYPE html>
 <html lang="es">
 <head>
@@ -661,6 +680,18 @@ INDEX_HTML = """<!DOCTYPE html>
 
     <!-- CONTENEDOR DE NOTIFICACIONES TOAST FLOATING -->
     <div id="toastContainer"></div>
+
+    <!-- BARRA FLOTANTE DE GUARDADO RÁPIDO PARA EL CMS (STICKY ACTION BAR v15) -->
+    <div id="stickyAdminBar" class="sticky-admin-save-bar" style="display: none;">
+        <div class="sticky-bar-text">
+            <span>⚡ CONSOLA DE CONTROL CMS v15.0</span>
+            <span style="color: #CBD5E1;">|</span>
+            <span style="color: #25D366;">☁️ Sincronización Supabase Cloud Engine Activa</span>
+        </div>
+        <button class="btn-analytics" style="padding: 10px 22px; font-size: 0.9rem;" onclick="triggerActiveTabSave()">
+            💾 Guardar Todo y Publicar
+        </button>
+    </div>
 
     <!-- PRELOADER SPLASH SCREEN -->
     <div id="pagePreloader">
@@ -695,7 +726,7 @@ INDEX_HTML = """<!DOCTYPE html>
         </div>
     </header>
 
-    <!-- ==================== PÁGINA 1: HOME (ENRIQUECIDO Y ADMINISTRABLE) ==================== -->
+    <!-- ==================== PÁGINA 1: HOME ==================== -->
     <div id="page-home" class="page-view active-view">
         <section class="hero">
             <div class="container">
@@ -729,7 +760,7 @@ INDEX_HTML = """<!DOCTYPE html>
             </div>
         </section>
 
-        <!-- NUEVA SECCIÓN: ¿POR QUÉ ELEGIR YD PROTECCIÓN? (PILARES) -->
+        <!-- SECCIÓN: ¿POR QUÉ ELEGIR YD PROTECCIÓN? -->
         <section style="background: #F1F5F9; border-top: 1px solid #E2E8F0; border-bottom: 1px solid #E2E8F0;">
             <div class="container">
                 <h2 class="section-title">¿Por Qué Elegir YD Protección?</h2>
@@ -738,7 +769,7 @@ INDEX_HTML = """<!DOCTYPE html>
             </div>
         </section>
 
-        <!-- NUEVA SECCIÓN: PRODUCTOS DESTACADOS DE LA SEMANA -->
+        <!-- SECCIÓN: PRODUCTOS DESTACADOS DE LA SEMANA -->
         <section class="bg-white">
             <div class="container">
                 <h2 class="section-title">Destacados de la Semana</h2>
@@ -747,7 +778,7 @@ INDEX_HTML = """<!DOCTYPE html>
             </div>
         </section>
 
-        <!-- NUEVA SECCIÓN: CERTIFICACIONES Y NORMAS CUMPLIDAS -->
+        <!-- SECCIÓN: CERTIFICACIONES Y NORMAS CUMPLIDAS -->
         <section style="background: var(--navy); color: #FFF; padding: 45px 0;">
             <div class="container" style="text-align: center;">
                 <h3 style="color: var(--orange); margin-bottom: 10px;">CERTIFICACIONES Y NORMAS TÉCNICAS</h3>
@@ -762,7 +793,7 @@ INDEX_HTML = """<!DOCTYPE html>
             </div>
         </section>
 
-        <!-- NUEVA SECCIÓN: TESTIMONIOS CORPORATIVOS -->
+        <!-- SECCIÓN: TESTIMONIOS CORPORATIVOS -->
         <section class="bg-white">
             <div class="container">
                 <h2 class="section-title">Respaldado por Profesionales</h2>
@@ -925,21 +956,22 @@ INDEX_HTML = """<!DOCTYPE html>
     <!-- CONTENEDOR DINÁMICO DE SECCIONES PERSONALIZADAS CREADAS DESDE EL CMS -->
     <div id="dynamicCustomPagesContainer"></div>
 
-    <!-- ==================== PÁGINA VISTA ADMIN CMS EJECUTIVO ULTRA PROFESIONAL 14.0 ==================== -->
+    <!-- ==================== PÁGINA VISTA ADMIN CMS NIVEL SAAS 15.0 ==================== -->
     <div id="page-admin" class="page-view">
-        <div class="container" style="padding-top: 30px; padding-bottom: 60px;">
+        <div class="container" style="padding-top: 30px; padding-bottom: 90px;">
             
-            <!-- ENCABEZADO HERO DEL CMS DE ALTA GAMA -->
+            <!-- ENCABEZADO HERO DEL CMS DE ALTA GAMA SAAS -->
             <div class="admin-hero-banner">
                 <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; position: relative; z-index: 2;">
                     <div>
-                        <span style="background: rgba(255,102,0,0.2); border: 1px solid var(--orange); color: var(--orange); font-size: 0.78rem; font-weight: 900; padding: 4px 14px; border-radius: 50px; text-transform: uppercase;">PANEL DE CONTROL EJECUTIVO v14.0</span>
-                        <h1 style="font-size: clamp(1.8rem, 4vw, 2.5rem); margin-top: 8px; color: #FFF;">ADMINISTRACIÓN TOTAL YD PROTECCIÓN</h1>
-                        <p style="color: #CBD5E1; font-size: 0.95rem; margin-top: 4px;">Control de Contenidos, Inicio Enriquecido y Sincronización Nube en Tiempo Real</p>
+                        <span style="background: rgba(255,102,0,0.2); border: 1px solid var(--orange); color: var(--orange); font-size: 0.78rem; font-weight: 900; padding: 4px 14px; border-radius: 50px; text-transform: uppercase;">CONSOLA DE CONTROL CMS v15.0 SAAS</span>
+                        <h1 style="font-size: clamp(1.8rem, 4vw, 2.5rem); margin-top: 8px; color: #FFF;">PANEL DE ADMINISTRACIÓN YD PROTECCIÓN</h1>
+                        <p style="color: #CBD5E1; font-size: 0.95rem; margin-top: 4px;">Sincronización en Tiempo Real Vía Supabase Cloud Engine con Inputs con Íconos Prepend y Barra Fija de Guardado</p>
                     </div>
                     <div style="display: flex; align-items: center; gap: 12px;">
+                        <button class="btn-detail" style="background: #FFF; color: var(--navy); font-weight: bold; border-radius: 50px; padding: 8px 18px;" onclick="navigateToPage('home')">🌐 Ver Sitio Público</button>
                         <div style="background: rgba(37,211,102,0.15); border: 1px solid #25D366; color: #25D366; padding: 8px 16px; border-radius: 50px; font-weight: 800; font-size: 0.85rem; display: flex; align-items: center; gap: 6px;">
-                            <span>☁️ NUBE CONECTADA</span>
+                            <span>☁️ NUBE ONLINE</span>
                         </div>
                     </div>
                 </div>
@@ -954,11 +986,17 @@ INDEX_HTML = """<!DOCTYPE html>
                 <form onsubmit="handleAdminLogin(event)">
                     <div style="margin-bottom: 16px; text-align: left;">
                         <label style="font-weight:800; font-size:0.82rem; color:var(--orange);">USUARIO ADMINISTRADOR</label>
-                        <input type="text" id="admUser" class="contact-form-input" required placeholder="admin" value="admin" style="margin-top: 6px;">
+                        <div class="input-icon-wrapper">
+                            <span class="input-icon-box">👤</span>
+                            <input type="text" id="admUser" class="contact-form-input" required placeholder="admin" value="admin">
+                        </div>
                     </div>
                     <div style="margin-bottom: 22px; text-align: left;">
                         <label style="font-weight:800; font-size:0.82rem; color:var(--orange);">CONTRASEÑA CLAVE</label>
-                        <input type="password" id="admPass" class="contact-form-input" required placeholder="••••••••" value="yd2026" style="margin-top: 6px;">
+                        <div class="input-icon-wrapper">
+                            <span class="input-icon-box">🔒</span>
+                            <input type="password" id="admPass" class="contact-form-input" required placeholder="••••••••" value="yd2026">
+                        </div>
                     </div>
                     <button type="submit" class="btn-submit-contact" style="padding: 16px; font-size: 1.05rem;">🔑 Entrar al Dashboard CMS</button>
                 </form>
@@ -999,7 +1037,7 @@ INDEX_HTML = """<!DOCTYPE html>
                     </div>
                 </div>
 
-                <!-- BARRA DE PESTAÑAS EJECUTIVAS -->
+                <!-- BARRA DE PESTAÑAS EJECUTIVAS DE ALTA GAMA -->
                 <div class="admin-tabs-bar">
                     <button class="admin-tab-btn active-tab" onclick="switchAdminTab('home_manage', this)">🏠 Sección Inicio (Home)</button>
                     <button class="admin-tab-btn" onclick="switchAdminTab('nav_menu', this)">🍔 Menú & Botones</button>
@@ -1012,26 +1050,35 @@ INDEX_HTML = """<!DOCTYPE html>
                     <button class="admin-tab-btn" onclick="switchAdminTab('footer_manage', this)">🦶 Pie de Página</button>
                 </div>
 
-                <!-- PESTAÑA DEDICADA: GESTIÓN COMPLETA DEL HOME ENRIQUECIDO -->
+                <!-- PESTAÑA DEDICADA: GESTIÓN COMPLETA DEL HOME ENRIQUECIDO CON INPUTS CON ÍCONOS -->
                 <div id="tab-home_manage" class="admin-tab-content">
                     <h3 style="color: var(--navy); margin-bottom: 18px; font-size: 1.3rem;">Parametrización Completa de la Página Principal (Home)</h3>
                     
-                    <form onsubmit="saveHomeParams(event)">
+                    <form id="form-home_manage" onsubmit="saveHomeParams(event)">
                         <!-- HERO BANNER CONFIGURATION -->
                         <div class="admin-section-box">
                             <h4 style="color: var(--navy); margin-bottom: 14px; font-size: 1.1rem;">🚀 BANNER PRINCIPAL (HERO)</h4>
                             
                             <div class="contact-form-group">
                                 <label>Tag / Badge Superior Destacado</label>
-                                <input type="text" id="cfgHomeHeroTag" class="contact-form-input" required>
+                                <div class="input-icon-wrapper">
+                                    <span class="input-icon-box">🏷️</span>
+                                    <input type="text" id="cfgHomeHeroTag" class="contact-form-input" required>
+                                </div>
                             </div>
                             <div class="contact-form-group">
                                 <label>Subtítulo Secundario del Hero</label>
-                                <input type="text" id="cfgHomeHeroSub" class="contact-form-input" required>
+                                <div class="input-icon-wrapper">
+                                    <span class="input-icon-box">📝</span>
+                                    <input type="text" id="cfgHomeHeroSub" class="contact-form-input" required>
+                                </div>
                             </div>
                             <div class="contact-form-group">
                                 <label>Título Principal del Hero (H1)</label>
-                                <input type="text" id="cfgHomeHeroTitle" class="contact-form-input" required>
+                                <div class="input-icon-wrapper">
+                                    <span class="input-icon-box">📌</span>
+                                    <input type="text" id="cfgHomeHeroTitle" class="contact-form-input" required>
+                                </div>
                             </div>
                             <div class="contact-form-group">
                                 <label>Descripción Principal del Hero</label>
@@ -1039,7 +1086,10 @@ INDEX_HTML = """<!DOCTYPE html>
                             </div>
                             <div class="contact-form-group">
                                 <label>Texto de Ayuda del Campo de Búsqueda (Placeholder)</label>
-                                <input type="text" id="cfgHomeSearchPlaceholder" class="contact-form-input" required>
+                                <div class="input-icon-wrapper">
+                                    <span class="input-icon-box">🔍</span>
+                                    <input type="text" id="cfgHomeSearchPlaceholder" class="contact-form-input" required>
+                                </div>
                             </div>
                         </div>
 
@@ -1081,7 +1131,7 @@ INDEX_HTML = """<!DOCTYPE html>
                         <button class="btn-analytics" onclick="openNewSectionModal()">➕ Crear Nueva Sección Personalizada</button>
                     </div>
                     
-                    <form onsubmit="saveNavLinksParams(event)">
+                    <form id="form-nav_menu" onsubmit="saveNavLinksParams(event)">
                         <div class="grid-2" id="adminNavLinksList"></div>
                         <button type="submit" class="btn-submit-contact" style="margin-top: 25px; padding: 16px; font-size: 1.05rem;">💾 Guardar Menú y Sincronizar en Nube</button>
                     </form>
@@ -1090,7 +1140,7 @@ INDEX_HTML = """<!DOCTYPE html>
                 <!-- TAB LOGO REAL Y PRELOADER -->
                 <div id="tab-logo_preloader" class="admin-tab-content" style="display: none;">
                     <h3 style="color: var(--navy); margin-bottom: 18px; font-size: 1.3rem;">Logotipo Institucional y Configuración de Carga</h3>
-                    <form onsubmit="saveLogoAndPreloader(event)">
+                    <form id="form-logo_preloader" onsubmit="saveLogoAndPreloader(event)">
                         <div class="admin-section-box">
                             <h4 style="color: var(--navy); margin-bottom: 12px; font-size: 1.1rem;">📁 CARGAR LOGO REAL DESDE LA PC</h4>
                             <input type="file" id="logoFileInput" accept="image/*" class="contact-form-input" style="background: #FFF;" onchange="handleLogoFileSelect(event)">
@@ -1122,11 +1172,17 @@ INDEX_HTML = """<!DOCTYPE html>
                             </div>
                             <div class="contact-form-group">
                                 <label>Título en Pantalla de Carga</label>
-                                <input type="text" id="cfgPreloaderTitle" class="contact-form-input" required>
+                                <div class="input-icon-wrapper">
+                                    <span class="input-icon-box">📌</span>
+                                    <input type="text" id="cfgPreloaderTitle" class="contact-form-input" required>
+                                </div>
                             </div>
                             <div class="contact-form-group">
                                 <label>Subtítulo en Pantalla de Carga</label>
-                                <input type="text" id="cfgPreloaderSub" class="contact-form-input" required>
+                                <div class="input-icon-wrapper">
+                                    <span class="input-icon-box">📝</span>
+                                    <input type="text" id="cfgPreloaderSub" class="contact-form-input" required>
+                                </div>
                             </div>
                         </div>
                         <button type="submit" class="btn-submit-contact" style="padding: 16px; font-size: 1.05rem;">💾 Guardar Logo y Preloader en Nube</button>
@@ -1158,18 +1214,27 @@ INDEX_HTML = """<!DOCTYPE html>
                 <!-- TAB FOOTER -->
                 <div id="tab-footer_manage" class="admin-tab-content" style="display: none;">
                     <h3 style="color: var(--navy); margin-bottom: 18px; font-size: 1.3rem;">Pie de Página (Footer)</h3>
-                    <form onsubmit="saveFooterParams(event)">
+                    <form id="form-footer_manage" onsubmit="saveFooterParams(event)">
                         <div class="contact-form-group">
                             <label>Título del Footer</label>
-                            <input type="text" id="cfgFooterTitle" class="contact-form-input" required>
+                            <div class="input-icon-wrapper">
+                                <span class="input-icon-box">📌</span>
+                                <input type="text" id="cfgFooterTitle" class="contact-form-input" required>
+                            </div>
                         </div>
                         <div class="contact-form-group">
                             <label>Subtítulo del Footer</label>
-                            <input type="text" id="cfgFooterSubtitle" class="contact-form-input" required>
+                            <div class="input-icon-wrapper">
+                                <span class="input-icon-box">📝</span>
+                                <input type="text" id="cfgFooterSubtitle" class="contact-form-input" required>
+                            </div>
                         </div>
                         <div class="contact-form-group">
                             <label>Texto de Copyright y Derechos Reservados</label>
-                            <input type="text" id="cfgFooterCopyright" class="contact-form-input" required>
+                            <div class="input-icon-wrapper">
+                                <span class="input-icon-box">©️</span>
+                                <input type="text" id="cfgFooterCopyright" class="contact-form-input" required>
+                            </div>
                         </div>
                         <button type="submit" class="btn-submit-contact" style="padding: 16px; font-size: 1.05rem;">💾 Guardar Pie de Página en Nube</button>
                     </form>
@@ -1201,7 +1266,7 @@ INDEX_HTML = """<!DOCTYPE html>
                 <!-- TAB EMPRESA -->
                 <div id="tab-company" class="admin-tab-content" style="display: none;">
                     <h3 style="color: var(--navy); margin-bottom: 18px; font-size: 1.3rem;">Información Institucional (Misión & Visión)</h3>
-                    <form onsubmit="saveCompanyParams(event)">
+                    <form id="form-company" onsubmit="saveCompanyParams(event)">
                         <div class="contact-form-group">
                             <label>Texto "Quiénes Somos"</label>
                             <textarea id="cfgAboutIntro" class="contact-form-input" rows="3" required></textarea>
@@ -1221,30 +1286,48 @@ INDEX_HTML = """<!DOCTYPE html>
                 <!-- TAB CONTACTO -->
                 <div id="tab-contact" class="admin-tab-content" style="display: none;">
                     <h3 style="color: var(--navy); margin-bottom: 18px; font-size: 1.3rem;">Canales de Contacto y Atención</h3>
-                    <form onsubmit="saveContactParams(event)">
+                    <form id="form-contact" onsubmit="saveContactParams(event)">
                         <div class="contact-form-group">
                             <label>Número de WhatsApp para Cotizaciones (Ej: 573000000000)</label>
-                            <input type="text" id="cfgWa" class="contact-form-input" required>
+                            <div class="input-icon-wrapper">
+                                <span class="input-icon-box">💬</span>
+                                <input type="text" id="cfgWa" class="contact-form-input" required>
+                            </div>
                         </div>
                         <div class="contact-form-group">
                             <label>Texto Visible del WhatsApp (Ej: +57 (300) 000-0000)</label>
-                            <input type="text" id="cfgWaDisplay" class="contact-form-input" required>
+                            <div class="input-icon-wrapper">
+                                <span class="input-icon-box">📱</span>
+                                <input type="text" id="cfgWaDisplay" class="contact-form-input" required>
+                            </div>
                         </div>
                         <div class="contact-form-group">
                             <label>Correo Electrónico</label>
-                            <input type="email" id="cfgEmail" class="contact-form-input" required>
+                            <div class="input-icon-wrapper">
+                                <span class="input-icon-box">✉️</span>
+                                <input type="email" id="cfgEmail" class="contact-form-input" required>
+                            </div>
                         </div>
                         <div class="contact-form-group">
                             <label>Instagram</label>
-                            <input type="text" id="cfgInsta" class="contact-form-input" required>
+                            <div class="input-icon-wrapper">
+                                <span class="input-icon-box">📸</span>
+                                <input type="text" id="cfgInsta" class="contact-form-input" required>
+                            </div>
                         </div>
                         <div class="contact-form-group">
                             <label>Ubicación / Ciudad</label>
-                            <input type="text" id="cfgLocation" class="contact-form-input" required>
+                            <div class="input-icon-wrapper">
+                                <span class="input-icon-box">📍</span>
+                                <input type="text" id="cfgLocation" class="contact-form-input" required>
+                            </div>
                         </div>
                         <div class="contact-form-group">
                             <label>Horarios de Atención</label>
-                            <input type="text" id="cfgSchedule" class="contact-form-input" required>
+                            <div class="input-icon-wrapper">
+                                <span class="input-icon-box">⏰</span>
+                                <input type="text" id="cfgSchedule" class="contact-form-input" required>
+                            </div>
                         </div>
                         <button type="submit" class="btn-submit-contact" style="padding: 16px; font-size: 1.05rem;">💾 Guardar Datos de Contacto en Nube</button>
                     </form>
@@ -1397,10 +1480,11 @@ INDEX_HTML = """<!DOCTYPE html>
         </div>
     </footer>
 
-    <!-- ENGINE DE SINCRONIZACIÓN Y CMS INTERACTIVO CON PERSISTENCIA PRIORITARIA (v14) -->
+    <!-- ENGINE DE SINCRONIZACIÓN Y CMS INTERACTIVO CON PERSISTENCIA PRIORITARIA SAAS (v15) -->
     <script>
         const INITIAL_DATA = """ + json.dumps(INITIAL_SITE_DATA) + """;
         let tempLoadedLogoBase64 = "";
+        let activeAdminTab = "home_manage";
 
         // NOTIFICACIONES FLOATING TOAST ELEGANTES
         function showToast(message, type = 'success') {
@@ -1431,7 +1515,7 @@ INDEX_HTML = """<!DOCTYPE html>
         }
 
         function getLocalSiteData() {
-            const saved = localStorage.getItem('yd_custom_saved_v14');
+            const saved = localStorage.getItem('yd_custom_saved_v15');
             if (saved) {
                 try {
                     const parsed = JSON.parse(saved);
@@ -1442,7 +1526,7 @@ INDEX_HTML = """<!DOCTYPE html>
         }
 
         async function getSiteData() {
-            const userSaved = localStorage.getItem('yd_custom_saved_v14');
+            const userSaved = localStorage.getItem('yd_custom_saved_v15');
             let baseData = INITIAL_DATA;
             if (userSaved) {
                 try {
@@ -1453,7 +1537,7 @@ INDEX_HTML = """<!DOCTYPE html>
 
             const cloudData = await fetchSupabaseSiteData();
             if (cloudData && cloudData.nav_links && cloudData.is_user_edited) {
-                localStorage.setItem('yd_custom_saved_v14', JSON.stringify(cloudData));
+                localStorage.setItem('yd_custom_saved_v15', JSON.stringify(cloudData));
                 return cloudData;
             }
             return baseData;
@@ -1461,7 +1545,7 @@ INDEX_HTML = """<!DOCTYPE html>
 
         async function saveSiteData(data) {
             data.is_user_edited = true;
-            localStorage.setItem('yd_custom_saved_v14', JSON.stringify(data));
+            localStorage.setItem('yd_custom_saved_v15', JSON.stringify(data));
             renderSite(data);
 
             try {
@@ -1471,6 +1555,19 @@ INDEX_HTML = """<!DOCTYPE html>
                     body: JSON.stringify(data)
                 });
             } catch(e) {}
+        }
+
+        function triggerActiveTabSave() {
+            const form = document.getElementById('form-' + activeAdminTab);
+            if (form) {
+                if (typeof form.requestSubmit === 'function') {
+                    form.requestSubmit();
+                } else {
+                    form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+                }
+            } else {
+                showToast('Selecciona una pestaña de configuración para guardar.', 'info');
+            }
         }
 
         function updateAdminMetrics(data) {
@@ -1597,7 +1694,7 @@ INDEX_HTML = """<!DOCTYPE html>
                 `).join('');
             }
 
-            // Renderizar ¿Por qué elegirlos? (Why Us Grid)
+            // Renderizar ¿Por qué elegirlos?
             const whyUsBox = document.getElementById('renderWhyUsGrid');
             if (whyUsBox) {
                 whyUsBox.innerHTML = whyUs.map(w => `
@@ -1609,7 +1706,7 @@ INDEX_HTML = """<!DOCTYPE html>
                 `).join('');
             }
 
-            // Renderizar Productos Destacados de la Semana en el Home (Primeras 4 Referencias)
+            // Renderizar Productos Destacados de la Semana en el Home
             const products = data.products || INITIAL_DATA.products;
             const homeFeaturedGrid = document.getElementById('homeFeaturedProductsGrid');
             if (homeFeaturedGrid) {
@@ -1745,9 +1842,15 @@ INDEX_HTML = """<!DOCTYPE html>
                 statsAdminContainer.innerHTML = stats.map((s, i) => `
                     <div style="background:#F1F5F9; padding:16px; border-radius:12px; border-left:4px solid var(--orange);">
                         <label style="font-size:0.78rem; font-weight:bold;">Cifra ${i+1}</label>
-                        <input type="text" class="contact-form-input stat-val-input" data-idx="${i}" value="${s.val}" style="margin-bottom:8px;">
-                        <label style="font-size:0.78rem; font-weight:bold;">Etiqueta ${i+1}</label>
-                        <input type="text" class="contact-form-input stat-lbl-input" data-idx="${i}" value="${s.lbl}">
+                        <div class="input-icon-wrapper">
+                            <span class="input-icon-box">📊</span>
+                            <input type="text" class="contact-form-input stat-val-input" data-idx="${i}" value="${s.val}">
+                        </div>
+                        <label style="font-size:0.78rem; font-weight:bold; margin-top:8px;">Etiqueta ${i+1}</label>
+                        <div class="input-icon-wrapper">
+                            <span class="input-icon-box">🏷️</span>
+                            <input type="text" class="contact-form-input stat-lbl-input" data-idx="${i}" value="${s.lbl}">
+                        </div>
                     </div>
                 `).join('');
             }
@@ -1760,7 +1863,10 @@ INDEX_HTML = """<!DOCTYPE html>
                         <h5 style="color: var(--orange); margin-bottom: 8px;">TARJETA 0${i + 1}</h5>
                         <div class="contact-form-group">
                             <label style="font-size:0.78rem;">Título</label>
-                            <input type="text" class="contact-form-input home-card-title" data-idx="${i}" value="${c.title}">
+                            <div class="input-icon-wrapper">
+                                <span class="input-icon-box">📌</span>
+                                <input type="text" class="contact-form-input home-card-title" data-idx="${i}" value="${c.title}">
+                            </div>
                         </div>
                         <div class="contact-form-group">
                             <label style="font-size:0.78rem;">Descripción</label>
@@ -1768,7 +1874,10 @@ INDEX_HTML = """<!DOCTYPE html>
                         </div>
                         <div class="contact-form-group">
                             <label style="font-size:0.78rem;">Texto Botón</label>
-                            <input type="text" class="contact-form-input home-card-btn" data-idx="${i}" value="${c.btn_text || 'Ver en Tienda'}">
+                            <div class="input-icon-wrapper">
+                                <span class="input-icon-box">🔘</span>
+                                <input type="text" class="contact-form-input home-card-btn" data-idx="${i}" value="${c.btn_text || 'Ver en Tienda'}">
+                            </div>
                         </div>
                     </div>
                 `).join('');
@@ -1817,7 +1926,7 @@ INDEX_HTML = """<!DOCTYPE html>
                 tempLoadedLogoBase64 = comp.logo_image;
             }
 
-            // Formulario Menú Links CON SWITCHES ANIMADOS v14
+            // Formulario Menú Links CON SWITCHES ANIMADOS v15
             const navAdminGrid = document.getElementById('adminNavLinksList');
             if (navAdminGrid) {
                 navAdminGrid.innerHTML = navs.map(n => {
@@ -1839,7 +1948,10 @@ INDEX_HTML = """<!DOCTYPE html>
                             </div>
 
                             <label style="font-size:0.84rem; font-weight:bold; color:var(--navy);">Texto Visible en el Sitio Web:</label>
-                            <input type="text" class="contact-form-input nav-label-input" data-id="${n.id}" value="${n.label}" style="margin-top: 6px;">
+                            <div class="input-icon-wrapper">
+                                <span class="input-icon-box">🔗</span>
+                                <input type="text" class="contact-form-input nav-label-input" data-id="${n.id}" value="${n.label}">
+                            </div>
                             
                             ${n.is_custom ? `
                                 <button type="button" class="btn-detail" style="margin-top: 14px; width: 100%; background: #FEE2E2; color: #DC2626;" onclick="deleteCustomSection('${n.id}')">🗑️ Eliminar Sección Personalizada</button>
@@ -1926,7 +2038,7 @@ INDEX_HTML = """<!DOCTYPE html>
             }
         }
 
-        // GUARDAR PARAMETRIZACIÓN DE LA SECCIÓN INICIO (HOME ENRIQUECIDO v14)
+        // GUARDAR PARAMETRIZACIÓN DE LA SECCIÓN INICIO
         async function saveHomeParams(e) {
             e.preventDefault();
             const data = await getSiteData();
@@ -1989,7 +2101,7 @@ INDEX_HTML = """<!DOCTYPE html>
             });
 
             await saveSiteData(data);
-            showToast('¡Home Enriquecido guardado y sincronizado en la Nube Supabase!');
+            showToast('¡Home Enriquecido guardado y publicado en la Nube!');
         }
 
         function updateSwitchLabel(chk, id) {
@@ -2178,8 +2290,10 @@ INDEX_HTML = """<!DOCTYPE html>
             if (sessionStorage.getItem('yd_admin_logged') === 'true') {
                 const overlay = document.getElementById('loginOverlay');
                 const content = document.getElementById('adminMainContent');
+                const stickyBar = document.getElementById('stickyAdminBar');
                 if (overlay) overlay.style.display = 'none';
                 if (content) content.style.display = 'block';
+                if (stickyBar) stickyBar.style.display = 'flex';
             }
 
             if (window.location.pathname.includes('/admin')) {
@@ -2350,6 +2464,7 @@ INDEX_HTML = """<!DOCTYPE html>
         }
 
         function switchAdminTab(tabName, btnEl) {
+            activeAdminTab = tabName;
             document.querySelectorAll('.admin-tab-content').forEach(el => el.style.display = 'none');
             document.querySelectorAll('.admin-tab-btn').forEach(el => el.classList.remove('active-tab'));
             
@@ -2365,6 +2480,7 @@ INDEX_HTML = """<!DOCTYPE html>
             if (u === 'admin' && p === 'yd2026') {
                 document.getElementById('loginOverlay').style.display = 'none';
                 document.getElementById('adminMainContent').style.display = 'block';
+                document.getElementById('stickyAdminBar').style.display = 'flex';
                 sessionStorage.setItem('yd_admin_logged', 'true');
                 showToast('🔑 Sesión CMS iniciada con éxito.');
             } else {
@@ -2420,7 +2536,7 @@ INDEX_HTML = """<!DOCTYPE html>
 </body>
 </html>"""
 
-DATA_FILE_PATH = "/tmp/yd_site_config_v14.json"
+DATA_FILE_PATH = "/tmp/yd_site_config_v15.json"
 
 def load_server_data() -> dict:
     if os.path.exists(DATA_FILE_PATH):
