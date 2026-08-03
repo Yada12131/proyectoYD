@@ -2,13 +2,13 @@ import json
 import os
 from typing import Optional, Dict, List
 from fastapi import FastAPI, Request, HTTPException
-from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi.responses import HTMLResponse, JSONResponse, FileResponse
 from jinja2 import Template
 
 app = FastAPI(
-    title="YD Protección - Plataforma Web & Portal Documentación 19.0",
-    description="Plataforma Web Corporativa con Dashboard CMS Ancho Completo, Portal Web de Documentación Protegido por Clave 144, Sidebar Lateral Izquierda Proporcional Sticky y Sincronización Nube",
-    version="19.0.0"
+    title="YD Protección - Plataforma Web & Logo SVG/PNG Nítido 20.0",
+    description="Plataforma Web Corporativa con Dashboard CMS Ancho Completo, Logo Institucional Nítido, Portal Web de Documentación Protegido por Clave 144 y Sincronización Nube",
+    version="20.0.0"
 )
 
 # DATOS BASE PARAMETRIZADOS INICIALES TOTALES
@@ -16,7 +16,7 @@ INITIAL_SITE_DATA = {
   "company": {
     "brand_name": "YD PROTECCIÓN",
     "brand_subtitle": "EQUIPOS",
-    "logo_image": "",
+    "logo_image": "/public/logo_yd_oficial.png",
     "hero_tag": "Seguridad que salva vidas ★ Yesika & Daniel",
     "hero_subtitle": "Seguridad y Emergencia a tu Alcance",
     "hero_title": "EQUIPOS DE PROTECCIÓN Y PREVENCIÓN",
@@ -405,7 +405,7 @@ INITIAL_SITE_DATA = {
   ]
 }
 
-# Estilos CSS Full-Width SaaS Layout v19 con Portal de Documentación
+# Estilos CSS Full-Width SaaS Layout v20 con Tarjeta Blanca para Logo Nítido
 EMBEDDED_CSS = """
 :root {
     --navy: #0B1C30;
@@ -452,10 +452,10 @@ img { max-width: 100%; height: auto; display: block; }
     transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 #pagePreloader.preloader-hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-.preloader-logo-ring { position: relative; width: 130px; height: 130px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px; }
+.preloader-logo-ring { position: relative; width: 150px; height: 150px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px; }
 .preloader-ring-spin { position: absolute; width: 100%; height: 100%; border: 4px solid rgba(255, 102, 0, 0.2); border-top: 4px solid var(--orange); border-radius: 50%; animation: preloaderSpin 1.4s cubic-bezier(0.5, 0, 0.5, 1) infinite; }
 .preloader-badge-center { background: linear-gradient(135deg, var(--orange), var(--orange-light)); color: #FFF; font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 2.4rem; padding: 14px 22px; border-radius: 16px; box-shadow: 0 10px 30px rgba(255,102,0,0.45); animation: preloaderPulse 2.2s ease-in-out infinite alternate; }
-.preloader-custom-logo-img { max-width: 100px; max-height: 100px; object-fit: contain; border-radius: 12px; filter: drop-shadow(0 6px 15px rgba(255,102,0,0.5)); animation: preloaderPulse 2.2s ease-in-out infinite alternate; }
+.preloader-custom-logo-img { max-width: 150px; max-height: 150px; object-fit: contain; background: #FFFFFF; padding: 8px 12px; border-radius: 16px; box-shadow: 0 10px 30px rgba(255,102,0,0.5); animation: preloaderPulse 2.2s ease-in-out infinite alternate; }
 @keyframes preloaderSpin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 @keyframes preloaderPulse { 0% { transform: scale(0.95); } 100% { transform: scale(1.05); } }
 .preloader-title { color: #FFFFFF; font-size: 1.5rem; font-weight: 900; letter-spacing: 2px; margin-bottom: 6px; text-transform: uppercase; }
@@ -464,12 +464,21 @@ img { max-width: 100%; height: auto; display: block; }
 .preloader-bar-bg { width: 260px; height: 6px; background: rgba(255,255,255,0.15); border-radius: 10px; overflow: hidden; position: relative; }
 .preloader-bar-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--orange), var(--orange-light)); border-radius: 10px; transition: width 0.08s linear; box-shadow: 0 0 12px var(--orange); }
 
-/* TOPBAR */
-.top-bar { background: rgba(5, 14, 26, 0.96); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); color: var(--white); padding: 14px 0; border-bottom: 3px solid var(--orange); position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 25px rgba(0,0,0,0.3); }
+/* TOPBAR CON ESTILIZACIÓN DE LOGO NÍTIDO */
+.top-bar { background: rgba(5, 14, 26, 0.96); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); color: var(--white); padding: 12px 0; border-bottom: 3px solid var(--orange); position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 25px rgba(0,0,0,0.3); }
 .top-bar-content { display: flex; justify-content: space-between; align-items: center; gap: 15px; }
-.brand-logo-group { display: flex; align-items: center; gap: 10px; text-decoration: none; cursor: pointer; flex-shrink: 0; }
+.brand-logo-group { display: flex; align-items: center; gap: 12px; text-decoration: none; cursor: pointer; flex-shrink: 0; }
 .brand-badge { background: linear-gradient(135deg, var(--orange), var(--orange-light)); color: #FFF; font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.15rem; padding: 4px 10px; border-radius: 8px; box-shadow: 0 4px 12px rgba(255,102,0,0.3); }
-.brand-real-logo-img { height: 42px; width: auto; max-width: 140px; object-fit: contain; border-radius: 6px; }
+
+/* TARJETA BLANCA PARA RESALTAR LOGO SVG/PNG CON MÁXIMA NITIDEZ */
+.brand-real-logo-img {
+    height: 56px; width: auto; max-width: 220px; object-fit: contain;
+    background: #FFFFFF; padding: 4px 10px; border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(255,102,0,0.35); border: 1px solid rgba(255,102,0,0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.brand-real-logo-img:hover { transform: scale(1.04); box-shadow: 0 6px 20px rgba(255,102,0,0.5); }
+
 .brand-title { font-size: 1.25rem; font-weight: 900; letter-spacing: 0.5px; color: var(--white); }
 .brand-title span { color: var(--orange); }
 
@@ -527,7 +536,7 @@ section { padding: 60px 0; }
 .section-title::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 75px; height: 4px; background-color: var(--orange); border-radius: 4px; }
 .section-subtitle { text-align: center; font-size: clamp(0.95rem, 2vw, 1.15rem); color: var(--text-muted); margin-bottom: 40px; }
 
-/* DESIGN SYSTEM EJECUTIVO CMS v19 CON SIDEBAR PROPORCIONAL STICKY */
+/* DESIGN SYSTEM EJECUTIVO CMS v20 CON SIDEBAR PROPORCIONAL STICKY */
 .admin-layout-wrapper { display: flex; gap: 24px; min-height: 650px; margin-bottom: 50px; width: 100%; align-items: flex-start; }
 .admin-sidebar {
     width: 290px; flex-shrink: 0;
@@ -563,7 +572,7 @@ section { padding: 60px 0; }
 .canvas-breadcrumb-title { font-size: 1.35rem; color: var(--navy); font-weight: 900; }
 
 .admin-hero-banner { background: linear-gradient(135deg, #050E1A 0%, #0B1C30 50%, #112844 100%); color: #FFF; padding: 30px 22px; border-radius: 18px; border-left: 6px solid var(--orange); box-shadow: 0 15px 35px rgba(0,0,0,0.25); margin-bottom: 25px; position: relative; overflow: hidden; width: 100%; }
-.admin-hero-banner::after { content: 'CMS 19.0'; position: absolute; right: -20px; bottom: -20px; font-size: 6rem; font-weight: 900; color: rgba(255,102,0,0.05); font-family: 'Montserrat', sans-serif; pointer-events: none; }
+.admin-hero-banner::after { content: 'CMS 20.0'; position: absolute; right: -20px; bottom: -20px; font-size: 6rem; font-weight: 900; color: rgba(255,102,0,0.05); font-family: 'Montserrat', sans-serif; pointer-events: none; }
 .admin-metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; margin-bottom: 30px; width: 100%; }
 .admin-metric-card { background: #FFFFFF; border-radius: 16px; padding: 20px 18px; box-shadow: var(--card-shadow); border: 1px solid rgba(0,0,0,0.06); border-top: 4px solid var(--orange); transition: all 0.3s ease; display: flex; align-items: center; gap: 14px; }
 .admin-metric-card:hover { transform: translateY(-4px); box-shadow: var(--hover-shadow); }
@@ -732,7 +741,7 @@ INDEX_HTML = """<!DOCTYPE html>
     <!-- BARRA FLOTANTE DE GUARDADO RÁPIDO PARA EL CMS -->
     <div id="stickyAdminBar" class="sticky-admin-save-bar" style="display: none;">
         <div class="sticky-bar-text">
-            <span>⚡ CONSOLA DE CONTROL CMS v19.0</span>
+            <span>⚡ CONSOLA DE CONTROL CMS v20.0</span>
             <span style="color: #CBD5E1;">|</span>
             <span style="color: #25D366;">☁️ Sincronización Supabase Cloud Engine Activa</span>
         </div>
@@ -763,7 +772,7 @@ INDEX_HTML = """<!DOCTYPE html>
                 <div id="navbarLogoContainer" style="display: flex; align-items: center; gap: 10px;">
                     <div class="brand-badge">YD</div>
                 </div>
-                <div class="brand-title"><span id="renderBrandTitle">PROTECCIÓN</span> <span id="renderBrandSub">EQUIPOS</span></div>
+                <div class="brand-title" id="renderBrandTextGroup"><span id="renderBrandTitle">PROTECCIÓN</span> <span id="renderBrandSub">EQUIPOS</span></div>
             </div>
 
             <!-- CONTENEDOR DE LINKS Y BOTONES DEL MENÚ ADMINISTRABLE -->
@@ -830,7 +839,7 @@ INDEX_HTML = """<!DOCTYPE html>
         <section style="background: var(--navy); color: #FFF; padding: 45px 0;">
             <div class="container" style="text-align: center;">
                 <h3 style="color: var(--orange); margin-bottom: 10px;">CERTIFICACIONES Y NORMAS TÉCNICAS</h3>
-                <p style="color: #CBD5E1; max-width: 650px; margin: 0 auto 20px;">Nuestros equipos cumplen estrictamente con las regulaciones vigentes</p>
+                <p style="color: #CBD5E1; max-width: 650px; margin: 0 auto 20px;">Nuestros equipos cumplen strictly con las regulaciones vigentes</p>
                 <div class="trust-badges-bar">
                     <div class="trust-badge-pill">🛡️ ANSI Z89.1 (Cabeza)</div>
                     <div class="trust-badge-pill">👓 ANSI Z87.1+ (Visual)</div>
@@ -1037,7 +1046,7 @@ INDEX_HTML = """<!DOCTYPE html>
 
                 <!-- VISOR 1: MANUAL DE USUARIO -->
                 <div id="docViewerUser" class="card-box" style="padding: 35px; border-left: 6px solid var(--orange);">
-                    <h2 style="color: var(--navy); font-size: 1.5rem; margin-bottom: 15px;">📖 MANUAL DE USUARIO CMS (v18.0)</h2>
+                    <h2 style="color: var(--navy); font-size: 1.5rem; margin-bottom: 15px;">📖 MANUAL DE USUARIO CMS (v20.0)</h2>
                     <p style="color: var(--text-muted); margin-bottom: 20px;">Guía explicativa para la administración y operación del sitio web.</p>
                     
                     <div style="background: #F8FAFC; padding: 20px; border-radius: 12px; border: 1px solid #E2E8F0; margin-bottom: 20px;">
@@ -1059,7 +1068,7 @@ INDEX_HTML = """<!DOCTYPE html>
 
                 <!-- VISOR 2: MANUAL TÉCNICO -->
                 <div id="docViewerTech" class="card-box" style="padding: 35px; border-left: 6px solid var(--navy); display: none;">
-                    <h2 style="color: var(--navy); font-size: 1.5rem; margin-bottom: 15px;">🛠️ MANUAL TÉCNICO Y ARQUITECTURA (v18.0)</h2>
+                    <h2 style="color: var(--navy); font-size: 1.5rem; margin-bottom: 15px;">🛠️ MANUAL TÉCNICO Y ARQUITECTURA (v20.0)</h2>
                     <p style="color: var(--text-muted); margin-bottom: 20px;">Especificaciones para el equipo de desarrollo, TI e infraestructura.</p>
                     
                     <h4 style="color: var(--orange); margin-bottom: 8px;">🚀 STACK TECNOLÓGICO:</h4>
@@ -1068,7 +1077,7 @@ INDEX_HTML = """<!DOCTYPE html>
                     <h4 style="color: var(--navy); margin-top: 20px; margin-bottom: 10px;">🌐 ENDPOINTS REST API:</h4>
                     <div style="background: #050E1A; color: #38BDF8; padding: 15px; border-radius: 10px; font-family: monospace; font-size: 0.9rem;">
 GET /api/site-data -> Devuelve JSON completo del sitio.
-POST /api/site-data -> Persiste JSON en Nube /tmp/yd_site_config_v18.json (is_user_edited: true).
+POST /api/site-data -> Persiste JSON en Nube /tmp/yd_site_config_v20.json (is_user_edited: true).
                     </div>
                 </div>
             </div>
@@ -1078,7 +1087,7 @@ POST /api/site-data -> Persiste JSON en Nube /tmp/yd_site_config_v18.json (is_us
     <!-- CONTENEDOR DINÁMICO DE SECCIONES PERSONALIZADAS CREADAS DESDE EL CMS -->
     <div id="dynamicCustomPagesContainer"></div>
 
-    <!-- ==================== PÁGINA VISTA ADMIN CMS NIVEL SAAS FULL-WIDTH 19.0 ==================== -->
+    <!-- ==================== PÁGINA VISTA ADMIN CMS NIVEL SAAS FULL-WIDTH 20.0 ==================== -->
     <div id="page-admin" class="page-view">
         <div class="admin-fullwidth-container" style="padding-top: 30px; padding-bottom: 90px;">
             
@@ -1086,9 +1095,9 @@ POST /api/site-data -> Persiste JSON en Nube /tmp/yd_site_config_v18.json (is_us
             <div class="admin-hero-banner">
                 <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; position: relative; z-index: 2;">
                     <div>
-                        <span style="background: rgba(255,102,0,0.2); border: 1px solid var(--orange); color: var(--orange); font-size: 0.78rem; font-weight: 900; padding: 4px 14px; border-radius: 50px; text-transform: uppercase;">CONSOLA DE CONTROL CMS v19.0 STICKY</span>
+                        <span style="background: rgba(255,102,0,0.2); border: 1px solid var(--orange); color: var(--orange); font-size: 0.78rem; font-weight: 900; padding: 4px 14px; border-radius: 50px; text-transform: uppercase;">CONSOLA DE CONTROL CMS v20.0 STICKY</span>
                         <h1 style="font-size: clamp(1.8rem, 4vw, 2.5rem); margin-top: 8px; color: #FFF;">PANEL DE ADMINISTRACIÓN YD PROTECCIÓN</h1>
-                        <p style="color: #CBD5E1; font-size: 0.95rem; margin-top: 4px;">Control Total con Layout Proporcional Sticky, Sidebar Lateral Agrupada y Sincronización Nube</p>
+                        <p style="color: #CBD5E1; font-size: 0.95rem; margin-top: 4px;">Control Total con Layout Proporcional Sticky, Logo SVG/PNG Nítido y Sincronización Nube</p>
                     </div>
                     <div style="display: flex; align-items: center; gap: 12px;">
                         <button class="btn-detail" style="background: #FFF; color: var(--navy); font-weight: bold; border-radius: 50px; padding: 8px 18px;" onclick="navigateToPage('home')">🌐 Ver Sitio Público</button>
@@ -1166,7 +1175,7 @@ POST /api/site-data -> Persiste JSON en Nube /tmp/yd_site_config_v18.json (is_us
                     <aside class="admin-sidebar">
                         <div>
                             <div class="sidebar-header">
-                                <span class="sidebar-brand-badge">CONSOLA CMS v19</span>
+                                <span class="sidebar-brand-badge">CONSOLA CMS v20</span>
                                 <div class="sidebar-title">YD PROTECCIÓN</div>
                                 <div class="sidebar-user-card">
                                     <span>👤 Admin Logueado</span>
@@ -1324,11 +1333,11 @@ POST /api/site-data -> Persiste JSON en Nube /tmp/yd_site_config_v18.json (is_us
                             <h3 style="color: var(--navy); margin-bottom: 18px; font-size: 1.3rem;">Logotipo Institucional y Configuración de Carga</h3>
                             <form id="form-logo_preloader" onsubmit="saveLogoAndPreloader(event)">
                                 <div class="admin-section-box">
-                                    <h4 style="color: var(--navy); margin-bottom: 12px; font-size: 1.1rem;">📁 CARGAR LOGO REAL DESDE LA PC</h4>
-                                    <input type="file" id="logoFileInput" accept="image/*" class="contact-form-input" style="background: #FFF;" onchange="handleLogoFileSelect(event)">
+                                    <h4 style="color: var(--navy); margin-bottom: 12px; font-size: 1.1rem;">📁 CARGAR LOGO REAL DESDE LA PC (FORMATO SVG / PNG / JPG)</h4>
+                                    <input type="file" id="logoFileInput" accept="image/*,.svg" class="contact-form-input" style="background: #FFF;" onchange="handleLogoFileSelect(event)">
                                     <div id="logoPreviewContainer" style="margin-top: 18px; display: none; align-items: center; gap: 18px;">
                                         <span style="font-weight: bold; font-size: 0.9rem; color: var(--navy);">Vista Previa Oficial:</span>
-                                        <img id="logoPreviewImg" src="" style="height: 65px; max-width: 200px; object-fit: contain; background: #0B1C30; padding: 8px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+                                        <img id="logoPreviewImg" src="" class="brand-real-logo-img">
                                         <button type="button" class="btn-detail" style="padding: 8px 16px; font-size: 0.82rem; background: #FEE2E2; color: #DC2626;" onclick="clearCustomLogo()">Remover Logo</button>
                                     </div>
                                 </div>
@@ -1671,7 +1680,7 @@ POST /api/site-data -> Persiste JSON en Nube /tmp/yd_site_config_v18.json (is_us
         </div>
     </footer>
 
-    <!-- ENGINE DE SINCRONIZACIÓN Y CMS INTERACTIVO NIVEL SAAS FULL-WIDTH STICKY (v19) -->
+    <!-- ENGINE DE SINCRONIZACIÓN Y CMS INTERACTIVO NIVEL SAAS FULL-WIDTH STICKY (v20) -->
     <script>
         const INITIAL_DATA = """ + json.dumps(INITIAL_SITE_DATA) + """;
         let tempLoadedLogoBase64 = "";
@@ -1751,7 +1760,7 @@ POST /api/site-data -> Persiste JSON en Nube /tmp/yd_site_config_v18.json (is_us
         }
 
         function getLocalSiteData() {
-            const saved = localStorage.getItem('yd_custom_saved_v19');
+            const saved = localStorage.getItem('yd_custom_saved_v20');
             if (saved) {
                 try {
                     const parsed = JSON.parse(saved);
@@ -1762,7 +1771,7 @@ POST /api/site-data -> Persiste JSON en Nube /tmp/yd_site_config_v18.json (is_us
         }
 
         async function getSiteData() {
-            const userSaved = localStorage.getItem('yd_custom_saved_v19');
+            const userSaved = localStorage.getItem('yd_custom_saved_v20');
             let baseData = INITIAL_DATA;
             if (userSaved) {
                 try {
@@ -1773,7 +1782,7 @@ POST /api/site-data -> Persiste JSON en Nube /tmp/yd_site_config_v18.json (is_us
 
             const cloudData = await fetchSupabaseSiteData();
             if (cloudData && cloudData.nav_links && cloudData.is_user_edited) {
-                localStorage.setItem('yd_custom_saved_v19', JSON.stringify(cloudData));
+                localStorage.setItem('yd_custom_saved_v20', JSON.stringify(cloudData));
                 return cloudData;
             }
             return baseData;
@@ -1781,7 +1790,7 @@ POST /api/site-data -> Persiste JSON en Nube /tmp/yd_site_config_v18.json (is_us
 
         async function saveSiteData(data) {
             data.is_user_edited = true;
-            localStorage.setItem('yd_custom_saved_v19', JSON.stringify(data));
+            localStorage.setItem('yd_custom_saved_v20', JSON.stringify(data));
             renderSite(data);
 
             try {
@@ -1837,16 +1846,19 @@ POST /api/site-data -> Persiste JSON en Nube /tmp/yd_site_config_v18.json (is_us
             document.getElementById('preloaderTitle').textContent = prel.title || "YD PROTECCIÓN";
             document.getElementById('preloaderSubtitle').textContent = prel.subtitle || "Cargando plataforma de seguridad...";
 
-            // Renderizar Logo Real
+            // Renderizar Logo Real con Máxima Nitidez
             const pLogoBox = document.getElementById('preloaderLogoContainer');
             const navLogoBox = document.getElementById('navbarLogoContainer');
+            const brandTextGroup = document.getElementById('renderBrandTextGroup');
 
             if (comp.logo_image && comp.logo_image.trim() !== "") {
                 if (pLogoBox) pLogoBox.innerHTML = `<img src="${comp.logo_image}" class="preloader-custom-logo-img">`;
-                if (navLogoBox) navLogoBox.innerHTML = `<img src="${comp.logo_image}" class="brand-real-logo-img">`;
+                if (navLogoBox) navLogoBox.innerHTML = `<img src="${comp.logo_image}" class="brand-real-logo-img" alt="YD Protección Logo">`;
+                if (brandTextGroup) brandTextGroup.style.display = 'none'; // El logo ya contiene el escudo y texto oficial YD PROTECCIÓN TOTAL
             } else {
                 if (pLogoBox) pLogoBox.innerHTML = `<div class="preloader-badge-center">YD</div>`;
                 if (navLogoBox) navLogoBox.innerHTML = `<div class="brand-badge">YD</div>`;
+                if (brandTextGroup) brandTextGroup.style.display = 'block';
             }
 
             // Renderizar Menú de Navegación
@@ -2169,7 +2181,7 @@ POST /api/site-data -> Persiste JSON en Nube /tmp/yd_site_config_v18.json (is_us
                 tempLoadedLogoBase64 = comp.logo_image;
             }
 
-            // Formulario Menú Links CON SWITCHES ANIMADOS v19
+            // Formulario Menú Links CON SWITCHES ANIMADOS v20
             const navAdminGrid = document.getElementById('adminNavLinksList');
             if (navAdminGrid) {
                 navAdminGrid.innerHTML = navs.map(n => {
@@ -2272,7 +2284,7 @@ POST /api/site-data -> Persiste JSON en Nube /tmp/yd_site_config_v18.json (is_us
             if (sAdminGrid) {
                 sAdminGrid.innerHTML = services.map(s => `
                     <div class="card-box">
-                        <div style="font-size: 2rem;">${s.icon}</div>
+                        <div style="font-size: 2.5rem; margin-bottom: 12px;">${s.icon}</div>
                         <h4>${s.title}</h4>
                         <p style="color: var(--text-muted); font-size: 0.9rem;">${s.desc}</p>
                         <button class="btn-detail" style="margin-top: 12px; background: #FEE2E2; color: #DC2626;" onclick="deleteService('${s.id}')">Eliminar Servicio</button>
@@ -2559,7 +2571,8 @@ POST /api/site-data -> Persiste JSON en Nube /tmp/yd_site_config_v18.json (is_us
             const reader = new FileReader();
             reader.onload = function(evt) {
                 tempLoadedLogoBase64 = evt.target.result;
-                document.getElementById('logoPreviewImg').src = tempLoadedLogoBase64;
+                const prev = document.getElementById('logoPreviewImg');
+                if (prev) prev.src = tempLoadedLogoBase64;
                 document.getElementById('logoPreviewContainer').style.display = 'flex';
             };
             reader.readAsDataURL(file);
@@ -2800,7 +2813,7 @@ POST /api/site-data -> Persiste JSON en Nube /tmp/yd_site_config_v18.json (is_us
 </body>
 </html>"""
 
-DATA_FILE_PATH = "/tmp/yd_site_config_v19.json"
+DATA_FILE_PATH = "/tmp/yd_site_config_v20.json"
 
 def load_server_data() -> dict:
     if os.path.exists(DATA_FILE_PATH):
@@ -2819,6 +2832,14 @@ def save_server_data(data: dict):
         pass
 
 SAVED_CLOUD_SITE_DATA = load_server_data()
+
+@app.get("/public/logo_yd_oficial.png")
+@app.get("/logo_yd_oficial.png")
+async def get_official_logo():
+    logo_path = os.path.join(os.path.dirname(__file__), "..", "public", "logo_yd_oficial.png")
+    if os.path.exists(logo_path):
+        return FileResponse(logo_path, media_type="image/png")
+    raise HTTPException(status_code=404, detail="Logo not found")
 
 @app.get("/api/site-data")
 async def get_site_data_api():
