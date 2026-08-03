@@ -1209,30 +1209,179 @@ INDEX_HTML = """<!DOCTYPE html>
                     <button class="btn-analytics" id="btnTabDocTech" onclick="switchDocTab('tech')" style="padding: 12px 24px; font-size: 0.95rem; background: linear-gradient(135deg, var(--navy), #112844);">🛠️ Manual Técnico & IT (HTML)</button>
                 </div>
 
-                <div id="docViewerUser" class="card-box" style="padding: 35px; border-left: 6px solid var(--orange);">
-                    <h2 style="color: var(--navy); font-size: 1.5rem; margin-bottom: 15px;">📖 MANUAL DE USUARIO CMS (v21.0)</h2>
-                    <p style="color: var(--text-muted); margin-bottom: 20px;">Guía explicativa para la administración del sitio web.</p>
-                    
-                    <div style="background: #F8FAFC; padding: 20px; border-radius: 12px; border: 1px solid #E2E8F0; margin-bottom: 20px;">
-                        <h4 style="color: var(--orange); margin-bottom: 8px;">🔑 ACCESO AL PANEL CMS:</h4>
-                        <p>👉 URL: <code>https://proyecto-yd.vercel.app/admin</code> | Usuario: <code>admin</code> | Clave: <code>yd2026</code></p>
+                                <div id="docViewerUser" class="card-box" style="padding: 35px; border-left: 6px solid var(--orange);">
+                    <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #F1F5F9; padding-bottom: 18px; margin-bottom: 25px; flex-wrap: wrap; gap: 10px;">
+                        <div>
+                            <span style="background: rgba(255,102,0,0.15); color: var(--orange); font-size: 0.8rem; font-weight: 900; padding: 4px 12px; border-radius: 50px;">DOCUMENTACIÓN COMPLETA PARA ADMINISTRADORES</span>
+                            <h2 style="color: var(--navy); font-size: 1.7rem; margin-top: 6px;">📖 MANUAL DE USUARIO CMS (v26.0)</h2>
+                        </div>
+                        <span style="font-weight: 800; font-size: 0.88rem; color: var(--navy); background: #F1F5F9; padding: 8px 16px; border-radius: 10px;">🔑 CLAVE DE ACCESO: 144</span>
                     </div>
 
-                    <h4 style="color: var(--navy); margin-top: 20px; margin-bottom: 10px;">📌 1. NAVEGACIÓN EN LA SIDEBAR IZQUIERDA STICKY:</h4>
-                    <p>Accede a todos los módulos desde la barra lateral izquierda, incluyendo el nuevo módulo de <strong>Pie de Página (Footer)</strong>.</p>
+                    <!-- TARJETA CREDENCIALES -->
+                    <div style="background: linear-gradient(135deg, #050E1A 0%, #0B1C30 100%); color: #FFF; padding: 22px; border-radius: 16px; border-left: 5px solid var(--orange); margin-bottom: 30px; box-shadow: 0 10px 25px rgba(0,0,0,0.2);">
+                        <h4 style="color: var(--orange); margin-bottom: 10px; font-size: 1.1rem; display: flex; align-items: center; gap: 8px;">🔑 CREDENCIALES DE ACCESO OFICIALES:</h4>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; font-size: 0.95rem;">
+                            <div>🌐 <strong>URL del Panel Admin:</strong> <br><code style="color: #38BDF8;">https://proyecto-yd.vercel.app/admin</code></div>
+                            <div>👤 <strong>Usuario Administrador:</strong> <br><code style="color: #38BDF8;">admin</code></div>
+                            <div>🔒 <strong>Contraseña CMS:</strong> <br><code style="color: #38BDF8;">yd2026</code></div>
+                            <div>🔑 <strong>Clave Portal Documentación:</strong> <br><code style="color: #38BDF8;">144</code></div>
+                        </div>
+                    </div>
+
+                    <!-- SECCIÓN 1 -->
+                    <div style="margin-bottom: 30px;">
+                        <h3 style="color: var(--navy); font-size: 1.3rem; margin-bottom: 12px; display: flex; align-items: center; gap: 10px;">
+                            <span>📌 1. NAVEGACIÓN EN LA BARRA LATERAL (SIDEBAR STICKY)</span>
+                        </h3>
+                        <p style="color: var(--text-dark); line-height: 1.7; margin-bottom: 12px;">
+                            El panel de administración cuenta con una barra lateral izquierda fija (sticky) que permanece accesible mientras navegas. Los módulos están organizados en 3 categorías principales:
+                        </p>
+                        <ul class="breakdown-list" style="margin-left: 10px;">
+                            <li><strong>📌 Portada & Navegación:</strong> Edición del Banner Principal (Hero), Menú Superior & Botones y Carga del Logotipo.</li>
+                            <li><strong>📦 Catálogo & Productos:</strong> Gestión de Categorías (CRUD), Catálogo de Productos y Servicios Corporativos.</li>
+                            <li><strong>🏢 Institucional & Contacto:</strong> Información de la Empresa, Canales de Contacto (WhatsApp/Email) y Pie de Página (Footer).</li>
+                        </ul>
+                    </div>
+
+                    <!-- SECCIÓN 2 -->
+                    <div style="margin-bottom: 30px;">
+                        <h3 style="color: var(--navy); font-size: 1.3rem; margin-bottom: 12px;">🍔 2. ACTIVACIÓN U OCULTAMIENTO DE MENÚS Y BOTONES</h3>
+                        <p style="color: var(--text-dark); line-height: 1.7; margin-bottom: 12px;">
+                            Desde la pestaña <strong>"Menú & Botones"</strong> puedes controlar la visibilidad de cualquier elemento en la web:
+                        </p>
+                        <div style="background: #F8FAFC; padding: 18px; border-radius: 12px; border: 1px solid #E2E8F0; margin-bottom: 12px;">
+                            <p style="margin-bottom: 8px;">🟢 <strong>Switch ACTIVO:</strong> El botón aparece inmediatamente en la barra superior y en el menú hamburguesa móvil.</p>
+                            <p>🔴 <strong>Switch OCULTO:</strong> El botón se oculta de la vista pública sin eliminar la sección.</p>
+                        </div>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">
+                            💡 Puedes hacer clic en <strong>"➕ Crear Nueva Sección Personalizada"</strong> para añadir páginas adicionales con su propio título, subtítulo y texto descriptivo.
+                        </p>
+                    </div>
+
+                    <!-- SECCIÓN 3 -->
+                    <div style="margin-bottom: 30px;">
+                        <h3 style="color: var(--navy); font-size: 1.3rem; margin-bottom: 12px;">🖼️ 3. CAMBIO DE LOGOTIPO INSTITUCIONAL</h3>
+                        <p style="color: var(--text-dark); line-height: 1.7; margin-bottom: 12px;">
+                            Para actualizar el escudo o logo corporativo de YD Protección:
+                        </p>
+                        <ol style="margin-left: 20px; color: var(--text-dark); line-height: 1.8;">
+                            <li>Ingresa a la pestaña <strong>"🖼️ Logo & Preloader"</strong>.</li>
+                            <li>Haz clic en <strong>"Seleccionar Archivo"</strong> y escoge una imagen de tu computadora (formatos recomendados: SVG, PNG con fondo transparente o JPG).</li>
+                            <li>Verifica la <strong>Vista Previa Oficial</strong> en la tarjeta blanca.</li>
+                            <li>Haz clic en <strong>"💾 Guardar Logo y Preloader en Nube"</strong>.</li>
+                        </ol>
+                    </div>
+
+                    <!-- SECCIÓN 4 -->
+                    <div style="margin-bottom: 30px;">
+                        <h3 style="color: var(--navy); font-size: 1.3rem; margin-bottom: 12px;">📦 4. GESTIÓN DE PRODUCTOS Y COTIZACIONES</h3>
+                        <p style="color: var(--text-dark); line-height: 1.7; margin-bottom: 12px;">
+                            Cada producto registrado se integra automáticamente con el catálogo y el sistema de cotizaciones directas por WhatsApp:
+                        </p>
+                        <ul class="breakdown-list" style="margin-left: 10px;">
+                            <li><strong>Insignias Destacadas:</strong> Puedes asignar etiquetas como <code>MÁS VENDIDO</code>, <code>NORMATIVO</code>, <code>POPULAR</code> o <code>PRO</code>.</li>
+                            <li><strong>Cotización WhatsApp:</strong> Al hacer clic en <em>"Cotizar"</em>, la plataforma abre WhatsApp pre-llenando el mensaje con el título e ID del producto exacto.</li>
+                        </ul>
+                    </div>
+
+                    <!-- SECCIÓN 5 -->
+                    <div style="margin-bottom: 20px;">
+                        <h3 style="color: var(--navy); font-size: 1.3rem; margin-bottom: 12px;">🦶 5. GESTIÓN DEL PIE DE PÁGINA (FOOTER)</h3>
+                        <p style="color: var(--text-dark); line-height: 1.7;">
+                            En el módulo <strong>"Pie de Página"</strong> puedes editar el texto del llamado a la acción final, controlar la visibilidad del botón de acceso a estos manuales y modificar el mensaje de derechos reservados (Copyright).
+                        </p>
+                    </div>
                 </div>
 
                 <div id="docViewerTech" class="card-box" style="padding: 35px; border-left: 6px solid var(--navy); display: none;">
-                    <h2 style="color: var(--navy); font-size: 1.5rem; margin-bottom: 15px;">🛠️ MANUAL TÉCNICO Y ARQUITECTURA (v21.0)</h2>
-                    <p style="color: var(--text-muted); margin-bottom: 20px;">Especificaciones de infraestructura y servidor.</p>
-                    
-                    <div style="background: #050E1A; color: #38BDF8; padding: 15px; border-radius: 10px; font-family: monospace; font-size: 0.9rem;">
-GET /api/site-data -> JSON de configuración
-POST /api/site-data -> Guardado en /tmp/yd_site_config_v21.json
+                    <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #F1F5F9; padding-bottom: 18px; margin-bottom: 25px; flex-wrap: wrap; gap: 10px;">
+                        <div>
+                            <span style="background: rgba(11,28,48,0.12); color: var(--navy); font-size: 0.8rem; font-weight: 900; padding: 4px 12px; border-radius: 50px;">DOCUMENTACIÓN DE ARQUITECTURA E INFRAESTRUCTURA IT</span>
+                            <h2 style="color: var(--navy); font-size: 1.7rem; margin-top: 6px;">🛠️ MANUAL TÉCNICO Y ARQUITECTURA (v26.0)</h2>
+                        </div>
+                        <span style="font-weight: 800; font-size: 0.88rem; color: #FFF; background: var(--navy); padding: 8px 16px; border-radius: 10px;">REPOSITORIO: Yada12131/proyectoYD</span>
                     </div>
-                </div>
-            </div>
-        </div>
+
+                    <!-- SECCIÓN 1: STACK TECNOLÓGICO -->
+                    <div style="margin-bottom: 30px;">
+                        <h3 style="color: var(--navy); font-size: 1.3rem; margin-bottom: 12px;">⚡ 1. STACK TECNOLÓGICO Y SERVERLESS PIPELINE</h3>
+                        <p style="color: var(--text-dark); line-height: 1.7; margin-bottom: 14px;">
+                            La aplicación está construida sobre una arquitectura serverless ultrarrápida alojada en la infraestructura global de <strong>Vercel</strong>:
+                        </p>
+                        <div style="background: #050E1A; color: #E2E8F0; padding: 20px; border-radius: 14px; font-family: monospace; font-size: 0.88rem; line-height: 1.8; margin-bottom: 15px;">
+• Backend Runtime: Python 3.14 / FastAPI (ASGI Server Engine)
+• Micro-Framework API Entrypoint: api/index.py (Exporta 'app' y 'handler')
+• Template Engine: Jinja2 Render Engine para la plantilla HTML SPA
+• Deployment Pipeline: Vercel Serverless Functions + GitHub Automatic CI/CD
+• Repositorio Git Remote: https://github.com/Yada12131/proyectoYD.git
+                        </div>
+                    </div>
+
+                    <!-- SECCIÓN 2: DUAL-ENGINE PERSISTENCE -->
+                    <div style="margin-bottom: 30px;">
+                        <h3 style="color: var(--navy); font-size: 1.3rem; margin-bottom: 12px;">💾 2. MOTOR DE PERSISTENCIA HÍBRIDO (DUAL-ENGINE PERSISTENCE)</h3>
+                        <p style="color: var(--text-dark); line-height: 1.7; margin-bottom: 14px;">
+                            Para garantizar cero latencia para el usuario y sincronización entre dispositivos, la plataforma implementa una estrategia de almacenamiento de dos niveles:
+                        </p>
+                        <div class="grid-2">
+                            <div style="background: #F8FAFC; padding: 18px; border-radius: 12px; border: 1px solid #E2E8F0;">
+                                <h4 style="color: var(--orange); margin-bottom: 8px;">💻 Nivel 1: Browser LocalStorage</h4>
+                                <p style="font-size: 0.88rem; color: var(--text-dark);">
+                                    Guarda el estado completo del sitio bajo la clave <code>yd_custom_saved_v21</code> para carga instantánea offline.
+                                </p>
+                            </div>
+                            <div style="background: #F8FAFC; padding: 18px; border-radius: 12px; border: 1px solid #E2E8F0;">
+                                <h4 style="color: var(--navy); margin-bottom: 8px;">☁️ Nivel 2: Server API & Storage</h4>
+                                <p style="font-size: 0.88rem; color: var(--text-dark);">
+                                    Persiste el JSON en <code>/tmp/yd_site_config_v21.json</code> en el servidor serverless y sincroniza mediante la API Supabase.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SECCIÓN 3: ENDPOINTS DE LA API -->
+                    <div style="margin-bottom: 30px;">
+                        <h3 style="color: var(--navy); font-size: 1.3rem; margin-bottom: 12px;">🔌 3. ENDPOINTS DE LA API RESTFUL</h3>
+                        <div style="overflow-x: auto;">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>Método</th>
+                                        <th>Ruta Endpoint</th>
+                                        <th>Descripción & Payload</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="badge-admin" style="background: #DCFCE7; color: #15803D;">GET</span></td>
+                                        <td><code>/api/site-data</code></td>
+                                        <td>Devuelve el JSON con toda la configuración, productos, categorías y enlaces activos.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge-admin" style="background: #DBEAFE; color: #1D4ED8;">POST</span></td>
+                                        <td><code>/api/site-data</code></td>
+                                        <td>Recibe el payload JSON actualizado y lo escribe en el almacenamiento del servidor.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge-admin" style="background: #F3E8FF; color: #6B21A8;">GET</span></td>
+                                        <td><code>/{full_path:path}</code></td>
+                                        <td>Catch-all de enrutamiento SPA que renderiza la plantilla HTML para subrutas directas.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- SECCIÓN 4: MOTOR DE MENÚ MÓVIL Y RENDERING LOGO BASE64 -->
+                    <div style="margin-bottom: 20px;">
+                        <h3 style="color: var(--navy); font-size: 1.3rem; margin-bottom: 12px;">📱 4. MOTOR MÓVIL Y OPTIMIZACIÓN DE ASSETS</h3>
+                        <ul class="breakdown-list" style="margin-left: 10px;">
+                            <li><strong>Menú Hamburguesa Drawer (v26.0):</strong> Activado en viewports <code><= 768px</code>. Utiliza un contenedor fijo con z-index <code>99999</code> y overlay traslúcido <code>rgba(0,0,0,0.75)</code> sin desenfoques de hardware GPU que afecten navegadores móviles.</li>
+                            <li><strong>Vectorización Escudo YD Base64:</strong> El logotipo del escudo se procesó mediante Pillow recortando las coordenadas <code>635x655px</code> del gráfico original y embebiéndolo como cadena Base64 Data URI dentro de la aplicación Python para prevenir peticiones HTTP fallidas.</li>
+                        </ul>
+                    </div>
+                </div></div>
     </div>
 
     <div id="dynamicCustomPagesContainer"></div>
