@@ -6,9 +6,9 @@ from fastapi.responses import HTMLResponse, JSONResponse
 from jinja2 import Template
 
 app = FastAPI(
-    title="YD Protección - Plataforma Web & CMS Ejecutivo Nivel SaaS 15.0",
-    description="Plataforma Web Corporativa con Dashboard CMS de Nivel SaaS, Barra Flotante de Guardado Rápido, Inputs con Íconos Prepend y Sincronización Supabase Cloud Engine",
-    version="15.0.0"
+    title="YD Protección - Plataforma Web & CMS Ejecutivo con Sidebar Lateral 16.0",
+    description="Plataforma Web Corporativa con Dashboard CMS con Sidebar Lateral Izquierda, Barra Flotante de Guardado Rápido, Inputs con Íconos Prepend y Sincronización Supabase Cloud Engine",
+    version="16.0.0"
 )
 
 # DATOS BASE PARAMETRIZADOS INICIALES TOTALES
@@ -404,7 +404,7 @@ INITIAL_SITE_DATA = {
   ]
 }
 
-# Estilos CSS Nivel SaaS v15
+# Estilos CSS Nivel SaaS v16 con Left Sidebar
 EMBEDDED_CSS = """
 :root {
     --navy: #0B1C30;
@@ -518,22 +518,53 @@ section { padding: 60px 0; }
 .section-title::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 75px; height: 4px; background-color: var(--orange); border-radius: 4px; }
 .section-subtitle { text-align: center; font-size: clamp(0.95rem, 2vw, 1.15rem); color: var(--text-muted); margin-bottom: 40px; }
 
-/* DESIGN SYSTEM EJECUTIVO CMS v15 DE NIVEL SAAS */
-.admin-hero-banner { background: linear-gradient(135deg, #050E1A 0%, #0B1C30 50%, #112844 100%); color: #FFF; padding: 40px 25px; border-radius: 20px; border-left: 6px solid var(--orange); box-shadow: 0 15px 35px rgba(0,0,0,0.25); margin-bottom: 30px; position: relative; overflow: hidden; }
-.admin-hero-banner::after { content: 'CMS 15.0'; position: absolute; right: -20px; bottom: -20px; font-size: 7rem; font-weight: 900; color: rgba(255,102,0,0.05); font-family: 'Montserrat', sans-serif; pointer-events: none; }
-.admin-metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 35px; }
-.admin-metric-card { background: #FFFFFF; border-radius: 16px; padding: 22px 20px; box-shadow: var(--card-shadow); border: 1px solid rgba(0,0,0,0.06); border-top: 4px solid var(--orange); transition: all 0.3s ease; display: flex; align-items: center; gap: 16px; }
+/* DESIGN SYSTEM EJECUTIVO CMS v16 CON SIDEBAR LATERAL IZQUIERDA */
+.admin-layout-wrapper { display: flex; gap: 24px; min-height: 750px; margin-bottom: 50px; }
+.admin-sidebar {
+    width: 280px; flex-shrink: 0;
+    background: linear-gradient(180deg, #050E1A 0%, #0B1C30 100%);
+    color: #FFFFFF; border-radius: 20px; padding: 24px 16px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.25); display: flex; flex-direction: column; justify-content: space-between;
+    border-left: 5px solid var(--orange);
+}
+.sidebar-header { margin-bottom: 24px; padding-bottom: 18px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+.sidebar-brand-badge { background: linear-gradient(135deg, var(--orange), var(--orange-light)); color: #FFF; font-weight: 900; font-size: 0.78rem; padding: 3px 10px; border-radius: 50px; text-transform: uppercase; }
+.sidebar-title { font-size: 1.15rem; font-weight: 900; margin-top: 8px; color: #FFF; letter-spacing: 0.5px; }
+.sidebar-user-card { background: rgba(255,255,255,0.06); padding: 12px; border-radius: 12px; margin-top: 12px; font-size: 0.82rem; color: #CBD5E1; display: flex; align-items: center; justify-content: space-between; }
+
+.sidebar-menu-list { display: flex; flex-direction: column; gap: 6px; overflow-y: auto; flex-grow: 1; padding-right: 4px; }
+.sidebar-menu-btn {
+    background: transparent; color: #CBD5E1; border: none; padding: 12px 16px; border-radius: 12px;
+    font-weight: 700; font-size: 0.88rem; cursor: pointer; transition: all 0.3s ease; text-align: left;
+    display: flex; align-items: center; gap: 12px; border-left: 4px solid transparent;
+}
+.sidebar-menu-btn:hover { background: rgba(255,255,255,0.08); color: #FFF; transform: translateX(4px); }
+.sidebar-menu-btn.active-tab { background: rgba(255,102,0,0.15); color: #FFF; border-left-color: var(--orange); font-weight: 900; box-shadow: 0 4px 14px rgba(255,102,0,0.25); }
+
+.sidebar-footer { padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.1); display: flex; flex-direction: column; gap: 10px; }
+
+.admin-main-canvas {
+    flex-grow: 1; background: #FFFFFF; border-radius: 20px; padding: 32px 28px;
+    box-shadow: var(--card-shadow); border: 1px solid #E2E8F0; display: flex; flex-direction: column;
+}
+.canvas-breadcrumb { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 25px; padding-bottom: 16px; border-bottom: 2px solid #F1F5F9; }
+.canvas-breadcrumb-title { font-size: 1.35rem; color: var(--navy); font-weight: 900; }
+
+.admin-hero-banner { background: linear-gradient(135deg, #050E1A 0%, #0B1C30 50%, #112844 100%); color: #FFF; padding: 30px 22px; border-radius: 18px; border-left: 6px solid var(--orange); box-shadow: 0 15px 35px rgba(0,0,0,0.25); margin-bottom: 25px; position: relative; overflow: hidden; }
+.admin-hero-banner::after { content: 'CMS 16.0'; position: absolute; right: -20px; bottom: -20px; font-size: 6rem; font-weight: 900; color: rgba(255,102,0,0.05); font-family: 'Montserrat', sans-serif; pointer-events: none; }
+.admin-metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 18px; margin-bottom: 30px; }
+.admin-metric-card { background: #FFFFFF; border-radius: 16px; padding: 20px 18px; box-shadow: var(--card-shadow); border: 1px solid rgba(0,0,0,0.06); border-top: 4px solid var(--orange); transition: all 0.3s ease; display: flex; align-items: center; gap: 14px; }
 .admin-metric-card:hover { transform: translateY(-4px); box-shadow: var(--hover-shadow); }
-.admin-metric-icon { width: 52px; height: 52px; border-radius: 14px; background: rgba(255,102,0,0.12); color: var(--orange); display: flex; align-items: center; justify-content: center; font-size: 1.6rem; flex-shrink: 0; }
-.admin-metric-val { font-size: 1.8rem; font-weight: 900; color: var(--navy); line-height: 1; margin-bottom: 4px; font-family: 'Montserrat', sans-serif; }
-.admin-metric-lbl { font-size: 0.8rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+.admin-metric-icon { width: 48px; height: 48px; border-radius: 12px; background: rgba(255,102,0,0.12); color: var(--orange); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0; }
+.admin-metric-val { font-size: 1.7rem; font-weight: 900; color: var(--navy); line-height: 1; margin-bottom: 4px; font-family: 'Montserrat', sans-serif; }
+.admin-metric-lbl { font-size: 0.78rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
 
 /* INPUT GROUPS CON ÍCONOS PREPEND EN EL CMS */
 .input-icon-wrapper { display: flex; align-items: stretch; margin-top: 6px; }
 .input-icon-box { background: #F1F5F9; border: 1px solid #CBD5E1; border-right: none; border-radius: 10px 0 0 10px; padding: 12px 14px; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--navy); }
 .input-icon-wrapper .contact-form-input { border-radius: 0 10px 10px 0; margin-top: 0; }
 
-/* BARRA FLOTANTE INFERIOR DE GUARDADO RÁPIDO (STICKY ACTION BAR) */
+/* BARRA FLOTANTE INFERIOR DE GUARDADO RÁPIDO */
 .sticky-admin-save-bar {
     position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); z-index: 10000;
     background: rgba(5,14,26,0.95); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
@@ -632,10 +663,6 @@ input:checked + .slider:before { transform: translateX(24px); }
 .admin-table tr:hover { background: #F8FAFC; }
 .badge-admin { padding: 4px 10px; border-radius: 50px; font-size: 0.75rem; font-weight: bold; background: rgba(255,102,0,0.12); color: var(--orange); }
 
-.admin-tabs-bar { display: flex; gap: 10px; overflow-x: auto; margin-bottom: 25px; border-bottom: 2px solid #E2E8F0; padding-bottom: 10px; }
-.admin-tab-btn { background: #E2E8F0; color: var(--navy); border: none; padding: 11px 20px; border-radius: 10px; font-weight: 800; font-size: 0.88rem; cursor: pointer; transition: all 0.3s; white-space: nowrap; }
-.admin-tab-btn.active-tab { background: var(--orange); color: var(--white); box-shadow: 0 4px 14px rgba(255,102,0,0.35); }
-
 /* FOOTER */
 footer { background-color: var(--navy-dark); color: var(--white); padding: 65px 20px 35px; text-align: center; border-top: 5px solid var(--orange); }
 footer h2 { color: var(--orange); font-size: clamp(1.5rem, 3.5vw, 2.2rem); margin-bottom: 12px; }
@@ -649,6 +676,9 @@ footer h2 { color: var(--orange); font-size: clamp(1.5rem, 3.5vw, 2.2rem); margi
     .nav-links { justify-content: center; overflow-x: auto; padding-bottom: 6px; -webkit-overflow-scrolling: touch; gap: 14px; }
     .btn-analytics { align-self: center; }
     .contact-section-wrapper { grid-template-columns: 1fr; padding: 30px 20px; }
+    .admin-layout-wrapper { flex-direction: column; }
+    .admin-sidebar { width: 100%; min-height: auto; }
+    .sidebar-menu-list { flex-direction: row; overflow-x: auto; padding-bottom: 10px; }
 }
 
 @media (max-width: 600px) {
@@ -665,7 +695,7 @@ footer h2 { color: var(--orange); font-size: clamp(1.5rem, 3.5vw, 2.2rem); margi
 }
 """
 
-# Template HTML con CMS Panel Ejecutivo Nivel SaaS 15.0
+# Template HTML con CMS Panel con Sidebar Lateral Izquierda 16.0
 INDEX_HTML = """<!DOCTYPE html>
 <html lang="es">
 <head>
@@ -681,10 +711,10 @@ INDEX_HTML = """<!DOCTYPE html>
     <!-- CONTENEDOR DE NOTIFICACIONES TOAST FLOATING -->
     <div id="toastContainer"></div>
 
-    <!-- BARRA FLOTANTE DE GUARDADO RÁPIDO PARA EL CMS (STICKY ACTION BAR v15) -->
+    <!-- BARRA FLOTANTE DE GUARDADO RÁPIDO PARA EL CMS (STICKY ACTION BAR v16) -->
     <div id="stickyAdminBar" class="sticky-admin-save-bar" style="display: none;">
         <div class="sticky-bar-text">
-            <span>⚡ CONSOLA DE CONTROL CMS v15.0</span>
+            <span>⚡ CONSOLA DE CONTROL CMS v16.0</span>
             <span style="color: #CBD5E1;">|</span>
             <span style="color: #25D366;">☁️ Sincronización Supabase Cloud Engine Activa</span>
         </div>
@@ -956,7 +986,7 @@ INDEX_HTML = """<!DOCTYPE html>
     <!-- CONTENEDOR DINÁMICO DE SECCIONES PERSONALIZADAS CREADAS DESDE EL CMS -->
     <div id="dynamicCustomPagesContainer"></div>
 
-    <!-- ==================== PÁGINA VISTA ADMIN CMS NIVEL SAAS 15.0 ==================== -->
+    <!-- ==================== PÁGINA VISTA ADMIN CMS NIVEL SAAS CON SIDEBAR LATERAL 16.0 ==================== -->
     <div id="page-admin" class="page-view">
         <div class="container" style="padding-top: 30px; padding-bottom: 90px;">
             
@@ -964,9 +994,9 @@ INDEX_HTML = """<!DOCTYPE html>
             <div class="admin-hero-banner">
                 <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; position: relative; z-index: 2;">
                     <div>
-                        <span style="background: rgba(255,102,0,0.2); border: 1px solid var(--orange); color: var(--orange); font-size: 0.78rem; font-weight: 900; padding: 4px 14px; border-radius: 50px; text-transform: uppercase;">CONSOLA DE CONTROL CMS v15.0 SAAS</span>
+                        <span style="background: rgba(255,102,0,0.2); border: 1px solid var(--orange); color: var(--orange); font-size: 0.78rem; font-weight: 900; padding: 4px 14px; border-radius: 50px; text-transform: uppercase;">CONSOLA DE CONTROL CMS v16.0 SAAS</span>
                         <h1 style="font-size: clamp(1.8rem, 4vw, 2.5rem); margin-top: 8px; color: #FFF;">PANEL DE ADMINISTRACIÓN YD PROTECCIÓN</h1>
-                        <p style="color: #CBD5E1; font-size: 0.95rem; margin-top: 4px;">Sincronización en Tiempo Real Vía Supabase Cloud Engine con Inputs con Íconos Prepend y Barra Fija de Guardado</p>
+                        <p style="color: #CBD5E1; font-size: 0.95rem; margin-top: 4px;">Control Total con Sidebar Lateral Izquierda y Sincronización Supabase Cloud Engine</p>
                     </div>
                     <div style="display: flex; align-items: center; gap: 12px;">
                         <button class="btn-detail" style="background: #FFF; color: var(--navy); font-weight: bold; border-radius: 50px; padding: 8px 18px;" onclick="navigateToPage('home')">🌐 Ver Sitio Público</button>
@@ -1002,7 +1032,7 @@ INDEX_HTML = """<!DOCTYPE html>
                 </form>
             </div>
 
-            <!-- CONTENIDO PRINCIPAL DEL CMS TRAS INICIAR SESIÓN -->
+            <!-- CONTENIDO PRINCIPAL DEL CMS CON SIDEBAR LATERAL IZQUIERDA -->
             <div id="adminMainContent" style="display: none;">
                 
                 <!-- METRICAS EJECUTIVAS EN TIEMPO REAL -->
@@ -1037,309 +1067,361 @@ INDEX_HTML = """<!DOCTYPE html>
                     </div>
                 </div>
 
-                <!-- BARRA DE PESTAÑAS EJECUTIVAS DE ALTA GAMA -->
-                <div class="admin-tabs-bar">
-                    <button class="admin-tab-btn active-tab" onclick="switchAdminTab('home_manage', this)">🏠 Sección Inicio (Home)</button>
-                    <button class="admin-tab-btn" onclick="switchAdminTab('nav_menu', this)">🍔 Menú & Botones</button>
-                    <button class="admin-tab-btn" onclick="switchAdminTab('logo_preloader', this)">🖼️ Logo & Preloader</button>
-                    <button class="admin-tab-btn" onclick="switchAdminTab('categories_manage', this)">🏷️ Categorías (CRUD)</button>
-                    <button class="admin-tab-btn" onclick="switchAdminTab('products', this)">📦 Catálogo Productos</button>
-                    <button class="admin-tab-btn" onclick="switchAdminTab('company', this)">🏢 Empresa & Misión</button>
-                    <button class="admin-tab-btn" onclick="switchAdminTab('contact', this)">📞 Canales Contacto</button>
-                    <button class="admin-tab-btn" onclick="switchAdminTab('services', this)">🛠️ Servicios</button>
-                    <button class="admin-tab-btn" onclick="switchAdminTab('footer_manage', this)">🦶 Pie de Página</button>
-                </div>
-
-                <!-- PESTAÑA DEDICADA: GESTIÓN COMPLETA DEL HOME ENRIQUECIDO CON INPUTS CON ÍCONOS -->
-                <div id="tab-home_manage" class="admin-tab-content">
-                    <h3 style="color: var(--navy); margin-bottom: 18px; font-size: 1.3rem;">Parametrización Completa de la Página Principal (Home)</h3>
+                <!-- LAYOUT ESTRUCTURAL: SIDEBAR LATERAL + CANVAS PRINCIPAL -->
+                <div class="admin-layout-wrapper">
                     
-                    <form id="form-home_manage" onsubmit="saveHomeParams(event)">
-                        <!-- HERO BANNER CONFIGURATION -->
-                        <div class="admin-section-box">
-                            <h4 style="color: var(--navy); margin-bottom: 14px; font-size: 1.1rem;">🚀 BANNER PRINCIPAL (HERO)</h4>
-                            
-                            <div class="contact-form-group">
-                                <label>Tag / Badge Superior Destacado</label>
-                                <div class="input-icon-wrapper">
-                                    <span class="input-icon-box">🏷️</span>
-                                    <input type="text" id="cfgHomeHeroTag" class="contact-form-input" required>
-                                </div>
-                            </div>
-                            <div class="contact-form-group">
-                                <label>Subtítulo Secundario del Hero</label>
-                                <div class="input-icon-wrapper">
-                                    <span class="input-icon-box">📝</span>
-                                    <input type="text" id="cfgHomeHeroSub" class="contact-form-input" required>
-                                </div>
-                            </div>
-                            <div class="contact-form-group">
-                                <label>Título Principal del Hero (H1)</label>
-                                <div class="input-icon-wrapper">
-                                    <span class="input-icon-box">📌</span>
-                                    <input type="text" id="cfgHomeHeroTitle" class="contact-form-input" required>
-                                </div>
-                            </div>
-                            <div class="contact-form-group">
-                                <label>Descripción Principal del Hero</label>
-                                <textarea id="cfgHomeHeroDesc" class="contact-form-input" rows="3" required></textarea>
-                            </div>
-                            <div class="contact-form-group">
-                                <label>Texto de Ayuda del Campo de Búsqueda (Placeholder)</label>
-                                <div class="input-icon-wrapper">
-                                    <span class="input-icon-box">🔍</span>
-                                    <input type="text" id="cfgHomeSearchPlaceholder" class="contact-form-input" required>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- CIFRAS DE CONFIANZA CONFIGURATION -->
-                        <div class="admin-section-box navy-left">
-                            <h4 style="color: var(--navy); margin-bottom: 14px; font-size: 1.1rem;">📊 BARRA DE CIFRAS DE CONFIANZA (STATS)</h4>
-                            <div class="grid-4" id="adminStatsBarList"></div>
-                        </div>
-
-                        <!-- HOME CARDS CONFIGURATION -->
-                        <div class="admin-section-box">
-                            <h4 style="color: var(--navy); margin-bottom: 14px; font-size: 1.1rem;">🎴 TARJETAS DESTACADAS DE SOLUCIONES INTEGRALES</h4>
-                            <div class="grid-3" id="adminHomeCardsList"></div>
-                        </div>
-
-                        <!-- ¿POR QUÉ ELEGIRNOS? CONFIGURATION -->
-                        <div class="admin-section-box navy-left">
-                            <h4 style="color: var(--navy); margin-bottom: 14px; font-size: 1.1rem;">🛡️ PILARES "¿POR QUÉ ELEGIR YD PROTECCIÓN?"</h4>
-                            <div class="grid-2" id="adminWhyUsList"></div>
-                        </div>
-
-                        <!-- TESTIMONIOS CONFIGURATION -->
-                        <div class="admin-section-box">
-                            <h4 style="color: var(--navy); margin-bottom: 14px; font-size: 1.1rem;">💬 TESTIMONIOS CORPORATIVOS</h4>
-                            <div class="grid-2" id="adminTestimonialsList"></div>
-                        </div>
-
-                        <button type="submit" class="btn-submit-contact" style="padding: 16px; font-size: 1.05rem;">💾 Guardar Todo el Home en la Nube Supabase</button>
-                    </form>
-                </div>
-
-                <!-- TAB MENÚ DE NAVEGACIÓN Y BOTONES CON SWITCHES ANIMADOS -->
-                <div id="tab-nav_menu" class="admin-tab-content" style="display: none;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 22px;">
+                    <!-- SIDEBAR LATERAL IZQUIERDA FIJA -->
+                    <aside class="admin-sidebar">
                         <div>
-                            <h3 style="color: var(--navy); font-size: 1.3rem;">Administración del Menú Superior y Botones de Acción</h3>
-                            <p style="color: var(--text-muted); font-size: 0.9rem;">Usa los switches interactivos para activar u ocultar de inmediato cualquier botón en celulares y laptops</p>
-                        </div>
-                        <button class="btn-analytics" onclick="openNewSectionModal()">➕ Crear Nueva Sección Personalizada</button>
-                    </div>
-                    
-                    <form id="form-nav_menu" onsubmit="saveNavLinksParams(event)">
-                        <div class="grid-2" id="adminNavLinksList"></div>
-                        <button type="submit" class="btn-submit-contact" style="margin-top: 25px; padding: 16px; font-size: 1.05rem;">💾 Guardar Menú y Sincronizar en Nube</button>
-                    </form>
-                </div>
-
-                <!-- TAB LOGO REAL Y PRELOADER -->
-                <div id="tab-logo_preloader" class="admin-tab-content" style="display: none;">
-                    <h3 style="color: var(--navy); margin-bottom: 18px; font-size: 1.3rem;">Logotipo Institucional y Configuración de Carga</h3>
-                    <form id="form-logo_preloader" onsubmit="saveLogoAndPreloader(event)">
-                        <div class="admin-section-box">
-                            <h4 style="color: var(--navy); margin-bottom: 12px; font-size: 1.1rem;">📁 CARGAR LOGO REAL DESDE LA PC</h4>
-                            <input type="file" id="logoFileInput" accept="image/*" class="contact-form-input" style="background: #FFF;" onchange="handleLogoFileSelect(event)">
-                            <div id="logoPreviewContainer" style="margin-top: 18px; display: none; align-items: center; gap: 18px;">
-                                <span style="font-weight: bold; font-size: 0.9rem; color: var(--navy);">Vista Previa Oficial:</span>
-                                <img id="logoPreviewImg" src="" style="height: 65px; max-width: 200px; object-fit: contain; background: #0B1C30; padding: 8px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
-                                <button type="button" class="btn-detail" style="padding: 8px 16px; font-size: 0.82rem; background: #FEE2E2; color: #DC2626;" onclick="clearCustomLogo()">Remover Logo</button>
-                            </div>
-                        </div>
-
-                        <div class="admin-section-box navy-left">
-                            <h4 style="color: var(--navy); margin-bottom: 12px; font-size: 1.1rem;">🎨 PRELOADER DE BIENVENIDA (PANTALLA DE CARGA)</h4>
-                            <div class="contact-form-group">
-                                <label>Tiempo de Retraso / Duración del Preloader (Segundos de espera)</label>
-                                <select id="cfgPreloaderDuration" class="contact-form-input">
-                                    <option value="4500">4.5 Segundos (Recomendado - Carga Completa)</option>
-                                    <option value="6000">6.0 Segundos (Presentación Extendida)</option>
-                                    <option value="3000">3.0 Segundos (Duración Media)</option>
-                                    <option value="2000">2.0 Segundos (Rápido)</option>
-                                </select>
-                            </div>
-                            <div class="contact-form-group">
-                                <label>Fondo de la Pantalla de Carga (Degradado Opaco Blanco, Gris y Negro)</label>
-                                <select id="cfgPreloaderGradient" class="contact-form-input">
-                                    <option value="linear-gradient(135deg, #000000 0%, #2D3748 50%, #1A202C 100%)">Degradado Oscuro Elegante (Negro, Gris Oscuro y Grafito)</option>
-                                    <option value="linear-gradient(135deg, #FFFFFF 0%, #CBD5E1 50%, #475569 100%)">Degradado Claro Ejecutivo (Blanco, Gris Platino y Acero)</option>
-                                    <option value="linear-gradient(135deg, #050E1A 0%, #112844 50%, #FF6600 100%)">Degradado Institucional (Azul Marino y Naranja YD)</option>
-                                </select>
-                            </div>
-                            <div class="contact-form-group">
-                                <label>Título en Pantalla de Carga</label>
-                                <div class="input-icon-wrapper">
-                                    <span class="input-icon-box">📌</span>
-                                    <input type="text" id="cfgPreloaderTitle" class="contact-form-input" required>
+                            <div class="sidebar-header">
+                                <span class="sidebar-brand-badge">CONSOLA CMS v16</span>
+                                <div class="sidebar-title">YD PROTECCIÓN</div>
+                                <div class="sidebar-user-card">
+                                    <span>👤 Admin Logueado</span>
+                                    <span style="color: #25D366; font-size: 0.7rem;">🟢 NUBE</span>
                                 </div>
                             </div>
-                            <div class="contact-form-group">
-                                <label>Subtítulo en Pantalla de Carga</label>
-                                <div class="input-icon-wrapper">
-                                    <span class="input-icon-box">📝</span>
-                                    <input type="text" id="cfgPreloaderSub" class="contact-form-input" required>
+
+                            <nav class="sidebar-menu-list">
+                                <button class="sidebar-menu-btn active-tab" onclick="switchAdminTab('home_manage', this)">
+                                    <span>🏠</span> Sección Inicio (Home)
+                                </button>
+                                <button class="sidebar-menu-btn" onclick="switchAdminTab('nav_menu', this)">
+                                    <span>🍔</span> Menú & Botones Web
+                                </button>
+                                <button class="sidebar-menu-btn" onclick="switchAdminTab('logo_preloader', this)">
+                                    <span>🖼️</span> Logo & Preloader
+                                </button>
+                                <button class="sidebar-menu-btn" onclick="switchAdminTab('categories_manage', this)">
+                                    <span>🏷️</span> Categorías (CRUD)
+                                </button>
+                                <button class="sidebar-menu-btn" onclick="switchAdminTab('products', this)">
+                                    <span>📦</span> Catálogo Productos
+                                </button>
+                                <button class="sidebar-menu-btn" onclick="switchAdminTab('company', this)">
+                                    <span>🏢</span> Empresa & Misión
+                                </button>
+                                <button class="sidebar-menu-btn" onclick="switchAdminTab('contact', this)">
+                                    <span>📞</span> Canales Contacto
+                                </button>
+                                <button class="sidebar-menu-btn" onclick="switchAdminTab('services', this)">
+                                    <span>🛠️</span> Servicios Corporativos
+                                </button>
+                                <button class="sidebar-menu-btn" onclick="switchAdminTab('footer_manage', this)">
+                                    <span>🦶</span> Pie de Página (Footer)
+                                </button>
+                            </nav>
+                        </div>
+
+                        <div class="sidebar-footer">
+                            <button class="btn-analytics" style="width: 100%; justify-content: center;" onclick="navigateToPage('home')">
+                                🌐 Ver Sitio Público
+                            </button>
+                            <button class="btn-detail" style="width: 100%; text-align: center; background: rgba(255,255,255,0.08); color: #FF6600; border-color: rgba(255,102,0,0.3);" onclick="handleAdminLogout()">
+                                🚪 Cerrar Sesión
+                            </button>
+                        </div>
+                    </aside>
+
+                    <!-- CANVAS PRINCIPAL DE EDICIÓN -->
+                    <main class="admin-main-canvas">
+                        
+                        <div class="canvas-breadcrumb">
+                            <div class="canvas-breadcrumb-title" id="canvasActiveTabTitle">🏠 Sección Inicio (Home)</div>
+                            <span style="font-size: 0.85rem; color: var(--text-muted); font-weight: bold;" id="canvasActiveTabDesc">Configuración General de Portada</span>
+                        </div>
+
+                        <!-- PESTAÑA DEDICADA: GESTIÓN COMPLETA DEL HOME ENRIQUECIDO -->
+                        <div id="tab-home_manage" class="admin-tab-content">
+                            <form id="form-home_manage" onsubmit="saveHomeParams(event)">
+                                <!-- HERO BANNER CONFIGURATION -->
+                                <div class="admin-section-box">
+                                    <h4 style="color: var(--navy); margin-bottom: 14px; font-size: 1.1rem;">🚀 BANNER PRINCIPAL (HERO)</h4>
+                                    
+                                    <div class="contact-form-group">
+                                        <label>Tag / Badge Superior Destacado</label>
+                                        <div class="input-icon-wrapper">
+                                            <span class="input-icon-box">🏷️</span>
+                                            <input type="text" id="cfgHomeHeroTag" class="contact-form-input" required>
+                                        </div>
+                                    </div>
+                                    <div class="contact-form-group">
+                                        <label>Subtítulo Secundario del Hero</label>
+                                        <div class="input-icon-wrapper">
+                                            <span class="input-icon-box">📝</span>
+                                            <input type="text" id="cfgHomeHeroSub" class="contact-form-input" required>
+                                        </div>
+                                    </div>
+                                    <div class="contact-form-group">
+                                        <label>Título Principal del Hero (H1)</label>
+                                        <div class="input-icon-wrapper">
+                                            <span class="input-icon-box">📌</span>
+                                            <input type="text" id="cfgHomeHeroTitle" class="contact-form-input" required>
+                                        </div>
+                                    </div>
+                                    <div class="contact-form-group">
+                                        <label>Descripción Principal del Hero</label>
+                                        <textarea id="cfgHomeHeroDesc" class="contact-form-input" rows="3" required></textarea>
+                                    </div>
+                                    <div class="contact-form-group">
+                                        <label>Texto de Ayuda del Campo de Búsqueda (Placeholder)</label>
+                                        <div class="input-icon-wrapper">
+                                            <span class="input-icon-box">🔍</span>
+                                            <input type="text" id="cfgHomeSearchPlaceholder" class="contact-form-input" required>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <button type="submit" class="btn-submit-contact" style="padding: 16px; font-size: 1.05rem;">💾 Guardar Logo y Preloader en Nube</button>
-                    </form>
-                </div>
 
-                <!-- TAB CATEGORÍAS CRUD -->
-                <div id="tab-categories_manage" class="admin-tab-content" style="display: none;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px;">
-                        <h3 style="color: var(--navy); font-size: 1.3rem;">Gestión de Categorías y Líneas de Protección</h3>
-                        <button class="btn-analytics" onclick="openCategoryFormModal()">➕ Agregar Nueva Categoría</button>
-                    </div>
-                    <div style="overflow-x: auto; border-radius: 14px; box-shadow: var(--card-shadow);">
-                        <table class="admin-table" style="margin-top:0;">
-                            <thead>
-                                <tr>
-                                    <th>Número</th>
-                                    <th>Título Categoría</th>
-                                    <th>Código</th>
-                                    <th>Descripción</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody id="adminCategoriesTable"></tbody>
-                        </table>
-                    </div>
-                </div>
+                                <!-- CIFRAS DE CONFIANZA CONFIGURATION -->
+                                <div class="admin-section-box navy-left">
+                                    <h4 style="color: var(--navy); margin-bottom: 14px; font-size: 1.1rem;">📊 BARRA DE CIFRAS DE CONFIANZA (STATS)</h4>
+                                    <div class="grid-4" id="adminStatsBarList"></div>
+                                </div>
 
-                <!-- TAB FOOTER -->
-                <div id="tab-footer_manage" class="admin-tab-content" style="display: none;">
-                    <h3 style="color: var(--navy); margin-bottom: 18px; font-size: 1.3rem;">Pie de Página (Footer)</h3>
-                    <form id="form-footer_manage" onsubmit="saveFooterParams(event)">
-                        <div class="contact-form-group">
-                            <label>Título del Footer</label>
-                            <div class="input-icon-wrapper">
-                                <span class="input-icon-box">📌</span>
-                                <input type="text" id="cfgFooterTitle" class="contact-form-input" required>
-                            </div>
-                        </div>
-                        <div class="contact-form-group">
-                            <label>Subtítulo del Footer</label>
-                            <div class="input-icon-wrapper">
-                                <span class="input-icon-box">📝</span>
-                                <input type="text" id="cfgFooterSubtitle" class="contact-form-input" required>
-                            </div>
-                        </div>
-                        <div class="contact-form-group">
-                            <label>Texto de Copyright y Derechos Reservados</label>
-                            <div class="input-icon-wrapper">
-                                <span class="input-icon-box">©️</span>
-                                <input type="text" id="cfgFooterCopyright" class="contact-form-input" required>
-                            </div>
-                        </div>
-                        <button type="submit" class="btn-submit-contact" style="padding: 16px; font-size: 1.05rem;">💾 Guardar Pie de Página en Nube</button>
-                    </form>
-                </div>
+                                <!-- HOME CARDS CONFIGURATION -->
+                                <div class="admin-section-box">
+                                    <h4 style="color: var(--navy); margin-bottom: 14px; font-size: 1.1rem;">🎴 TARJETAS DESTACADAS DE SOLUCIONES INTEGRALES</h4>
+                                    <div class="grid-3" id="adminHomeCardsList"></div>
+                                </div>
 
-                <!-- TAB PRODUCTOS CRUD -->
-                <div id="tab-products" class="admin-tab-content" style="display: none;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 22px;">
-                        <h3 style="color: var(--navy); font-size: 1.3rem;">Catálogo General de Productos</h3>
-                        <button class="btn-analytics" onclick="openProductFormModal()">➕ Agregar Nuevo Producto</button>
-                    </div>
-                    <div style="overflow-x: auto; border-radius: 14px; box-shadow: var(--card-shadow);">
-                        <table class="admin-table" style="margin-top:0;">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Imagen</th>
-                                    <th>Título</th>
-                                    <th>Categoría</th>
-                                    <th>Insignia</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody id="adminProductsTable"></tbody>
-                        </table>
-                    </div>
-                </div>
+                                <!-- ¿POR QUÉ ELEGIRNOS? CONFIGURATION -->
+                                <div class="admin-section-box navy-left">
+                                    <h4 style="color: var(--navy); margin-bottom: 14px; font-size: 1.1rem;">🛡️ PILARES "¿POR QUÉ ELEGIR YD PROTECCIÓN?"</h4>
+                                    <div class="grid-2" id="adminWhyUsList"></div>
+                                </div>
 
-                <!-- TAB EMPRESA -->
-                <div id="tab-company" class="admin-tab-content" style="display: none;">
-                    <h3 style="color: var(--navy); margin-bottom: 18px; font-size: 1.3rem;">Información Institucional (Misión & Visión)</h3>
-                    <form id="form-company" onsubmit="saveCompanyParams(event)">
-                        <div class="contact-form-group">
-                            <label>Texto "Quiénes Somos"</label>
-                            <textarea id="cfgAboutIntro" class="contact-form-input" rows="3" required></textarea>
-                        </div>
-                        <div class="contact-form-group">
-                            <label>Nuestra Misión</label>
-                            <textarea id="cfgMision" class="contact-form-input" rows="3" required></textarea>
-                        </div>
-                        <div class="contact-form-group">
-                            <label>Nuestra Visión</label>
-                            <textarea id="cfgVision" class="contact-form-input" rows="3" required></textarea>
-                        </div>
-                        <button type="submit" class="btn-submit-contact" style="padding: 16px; font-size: 1.05rem;">💾 Guardar Cambios Institucionales en Nube</button>
-                    </form>
-                </div>
+                                <!-- TESTIMONIOS CONFIGURATION -->
+                                <div class="admin-section-box">
+                                    <h4 style="color: var(--navy); margin-bottom: 14px; font-size: 1.1rem;">💬 TESTIMONIOS CORPORATIVOS</h4>
+                                    <div class="grid-2" id="adminTestimonialsList"></div>
+                                </div>
 
-                <!-- TAB CONTACTO -->
-                <div id="tab-contact" class="admin-tab-content" style="display: none;">
-                    <h3 style="color: var(--navy); margin-bottom: 18px; font-size: 1.3rem;">Canales de Contacto y Atención</h3>
-                    <form id="form-contact" onsubmit="saveContactParams(event)">
-                        <div class="contact-form-group">
-                            <label>Número de WhatsApp para Cotizaciones (Ej: 573000000000)</label>
-                            <div class="input-icon-wrapper">
-                                <span class="input-icon-box">💬</span>
-                                <input type="text" id="cfgWa" class="contact-form-input" required>
-                            </div>
+                                <button type="submit" class="btn-submit-contact" style="padding: 16px; font-size: 1.05rem;">💾 Guardar Todo el Home en la Nube Supabase</button>
+                            </form>
                         </div>
-                        <div class="contact-form-group">
-                            <label>Texto Visible del WhatsApp (Ej: +57 (300) 000-0000)</label>
-                            <div class="input-icon-wrapper">
-                                <span class="input-icon-box">📱</span>
-                                <input type="text" id="cfgWaDisplay" class="contact-form-input" required>
-                            </div>
-                        </div>
-                        <div class="contact-form-group">
-                            <label>Correo Electrónico</label>
-                            <div class="input-icon-wrapper">
-                                <span class="input-icon-box">✉️</span>
-                                <input type="email" id="cfgEmail" class="contact-form-input" required>
-                            </div>
-                        </div>
-                        <div class="contact-form-group">
-                            <label>Instagram</label>
-                            <div class="input-icon-wrapper">
-                                <span class="input-icon-box">📸</span>
-                                <input type="text" id="cfgInsta" class="contact-form-input" required>
-                            </div>
-                        </div>
-                        <div class="contact-form-group">
-                            <label>Ubicación / Ciudad</label>
-                            <div class="input-icon-wrapper">
-                                <span class="input-icon-box">📍</span>
-                                <input type="text" id="cfgLocation" class="contact-form-input" required>
-                            </div>
-                        </div>
-                        <div class="contact-form-group">
-                            <label>Horarios de Atención</label>
-                            <div class="input-icon-wrapper">
-                                <span class="input-icon-box">⏰</span>
-                                <input type="text" id="cfgSchedule" class="contact-form-input" required>
-                            </div>
-                        </div>
-                        <button type="submit" class="btn-submit-contact" style="padding: 16px; font-size: 1.05rem;">💾 Guardar Datos de Contacto en Nube</button>
-                    </form>
-                </div>
 
-                <!-- TAB SERVICIOS -->
-                <div id="tab-services" class="admin-tab-content" style="display: none;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px;">
-                        <h3 style="color: var(--navy); font-size: 1.3rem;">Servicios Corporativos</h3>
-                        <button class="btn-analytics" onclick="addNewServicePrompt()">➕ Agregar Servicio</button>
-                    </div>
-                    <div class="grid-2" id="adminServicesList"></div>
+                        <!-- TAB MENÚ DE NAVEGACIÓN Y BOTONES CON SWITCHES ANIMADOS -->
+                        <div id="tab-nav_menu" class="admin-tab-content" style="display: none;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 22px;">
+                                <div>
+                                    <h3 style="color: var(--navy); font-size: 1.3rem;">Administración del Menú Superior y Botones de Acción</h3>
+                                    <p style="color: var(--text-muted); font-size: 0.9rem;">Usa los switches interactivos para activar u ocultar de inmediato cualquier botón en celulares y laptops</p>
+                                </div>
+                                <button class="btn-analytics" onclick="openNewSectionModal()">➕ Crear Nueva Sección Personalizada</button>
+                            </div>
+                            
+                            <form id="form-nav_menu" onsubmit="saveNavLinksParams(event)">
+                                <div class="grid-2" id="adminNavLinksList"></div>
+                                <button type="submit" class="btn-submit-contact" style="margin-top: 25px; padding: 16px; font-size: 1.05rem;">💾 Guardar Menú y Sincronizar en Nube</button>
+                            </form>
+                        </div>
+
+                        <!-- TAB LOGO REAL Y PRELOADER -->
+                        <div id="tab-logo_preloader" class="admin-tab-content" style="display: none;">
+                            <h3 style="color: var(--navy); margin-bottom: 18px; font-size: 1.3rem;">Logotipo Institucional y Configuración de Carga</h3>
+                            <form id="form-logo_preloader" onsubmit="saveLogoAndPreloader(event)">
+                                <div class="admin-section-box">
+                                    <h4 style="color: var(--navy); margin-bottom: 12px; font-size: 1.1rem;">📁 CARGAR LOGO REAL DESDE LA PC</h4>
+                                    <input type="file" id="logoFileInput" accept="image/*" class="contact-form-input" style="background: #FFF;" onchange="handleLogoFileSelect(event)">
+                                    <div id="logoPreviewContainer" style="margin-top: 18px; display: none; align-items: center; gap: 18px;">
+                                        <span style="font-weight: bold; font-size: 0.9rem; color: var(--navy);">Vista Previa Oficial:</span>
+                                        <img id="logoPreviewImg" src="" style="height: 65px; max-width: 200px; object-fit: contain; background: #0B1C30; padding: 8px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+                                        <button type="button" class="btn-detail" style="padding: 8px 16px; font-size: 0.82rem; background: #FEE2E2; color: #DC2626;" onclick="clearCustomLogo()">Remover Logo</button>
+                                    </div>
+                                </div>
+
+                                <div class="admin-section-box navy-left">
+                                    <h4 style="color: var(--navy); margin-bottom: 12px; font-size: 1.1rem;">🎨 PRELOADER DE BIENVENIDA (PANTALLA DE CARGA)</h4>
+                                    <div class="contact-form-group">
+                                        <label>Tiempo de Retraso / Duración del Preloader (Segundos de espera)</label>
+                                        <select id="cfgPreloaderDuration" class="contact-form-input">
+                                            <option value="4500">4.5 Segundos (Recomendado - Carga Completa)</option>
+                                            <option value="6000">6.0 Segundos (Presentación Extendida)</option>
+                                            <option value="3000">3.0 Segundos (Duración Media)</option>
+                                            <option value="2000">2.0 Segundos (Rápido)</option>
+                                        </select>
+                                    </div>
+                                    <div class="contact-form-group">
+                                        <label>Fondo de la Pantalla de Carga (Degradado Opaco Blanco, Gris y Negro)</label>
+                                        <select id="cfgPreloaderGradient" class="contact-form-input">
+                                            <option value="linear-gradient(135deg, #000000 0%, #2D3748 50%, #1A202C 100%)">Degradado Oscuro Elegante (Negro, Gris Oscuro y Grafito)</option>
+                                            <option value="linear-gradient(135deg, #FFFFFF 0%, #CBD5E1 50%, #475569 100%)">Degradado Claro Ejecutivo (Blanco, Gris Platino y Acero)</option>
+                                            <option value="linear-gradient(135deg, #050E1A 0%, #112844 50%, #FF6600 100%)">Degradado Institucional (Azul Marino y Naranja YD)</option>
+                                        </select>
+                                    </div>
+                                    <div class="contact-form-group">
+                                        <label>Título en Pantalla de Carga</label>
+                                        <div class="input-icon-wrapper">
+                                            <span class="input-icon-box">📌</span>
+                                            <input type="text" id="cfgPreloaderTitle" class="contact-form-input" required>
+                                        </div>
+                                    </div>
+                                    <div class="contact-form-group">
+                                        <label>Subtítulo en Pantalla de Carga</label>
+                                        <div class="input-icon-wrapper">
+                                            <span class="input-icon-box">📝</span>
+                                            <input type="text" id="cfgPreloaderSub" class="contact-form-input" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn-submit-contact" style="padding: 16px; font-size: 1.05rem;">💾 Guardar Logo y Preloader en Nube</button>
+                            </form>
+                        </div>
+
+                        <!-- TAB CATEGORÍAS CRUD -->
+                        <div id="tab-categories_manage" class="admin-tab-content" style="display: none;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px;">
+                                <h3 style="color: var(--navy); font-size: 1.3rem;">Gestión de Categorías y Líneas de Protección</h3>
+                                <button class="btn-analytics" onclick="openCategoryFormModal()">➕ Agregar Nueva Categoría</button>
+                            </div>
+                            <div style="overflow-x: auto; border-radius: 14px; box-shadow: var(--card-shadow);">
+                                <table class="admin-table" style="margin-top:0;">
+                                    <thead>
+                                        <tr>
+                                            <th>Número</th>
+                                            <th>Título Categoría</th>
+                                            <th>Código</th>
+                                            <th>Descripción</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="adminCategoriesTable"></tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- TAB FOOTER -->
+                        <div id="tab-footer_manage" class="admin-tab-content" style="display: none;">
+                            <h3 style="color: var(--navy); margin-bottom: 18px; font-size: 1.3rem;">Pie de Página (Footer)</h3>
+                            <form id="form-footer_manage" onsubmit="saveFooterParams(event)">
+                                <div class="contact-form-group">
+                                    <label>Título del Footer</label>
+                                    <div class="input-icon-wrapper">
+                                        <span class="input-icon-box">📌</span>
+                                        <input type="text" id="cfgFooterTitle" class="contact-form-input" required>
+                                    </div>
+                                </div>
+                                <div class="contact-form-group">
+                                    <label>Subtítulo del Footer</label>
+                                    <div class="input-icon-wrapper">
+                                        <span class="input-icon-box">📝</span>
+                                        <input type="text" id="cfgFooterSubtitle" class="contact-form-input" required>
+                                    </div>
+                                </div>
+                                <div class="contact-form-group">
+                                    <label>Texto de Copyright y Derechos Reservados</label>
+                                    <div class="input-icon-wrapper">
+                                        <span class="input-icon-box">©️</span>
+                                        <input type="text" id="cfgFooterCopyright" class="contact-form-input" required>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn-submit-contact" style="padding: 16px; font-size: 1.05rem;">💾 Guardar Pie de Página en Nube</button>
+                            </form>
+                        </div>
+
+                        <!-- TAB PRODUCTOS CRUD -->
+                        <div id="tab-products" class="admin-tab-content" style="display: none;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 22px;">
+                                <h3 style="color: var(--navy); font-size: 1.3rem;">Catálogo General de Productos</h3>
+                                <button class="btn-analytics" onclick="openProductFormModal()">➕ Agregar Nuevo Producto</button>
+                            </div>
+                            <div style="overflow-x: auto; border-radius: 14px; box-shadow: var(--card-shadow);">
+                                <table class="admin-table" style="margin-top:0;">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Imagen</th>
+                                            <th>Título</th>
+                                            <th>Categoría</th>
+                                            <th>Insignia</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="adminProductsTable"></tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- TAB EMPRESA -->
+                        <div id="tab-company" class="admin-tab-content" style="display: none;">
+                            <h3 style="color: var(--navy); margin-bottom: 18px; font-size: 1.3rem;">Información Institucional (Misión & Visión)</h3>
+                            <form id="form-company" onsubmit="saveCompanyParams(event)">
+                                <div class="contact-form-group">
+                                    <label>Texto "Quiénes Somos"</label>
+                                    <textarea id="cfgAboutIntro" class="contact-form-input" rows="3" required></textarea>
+                                </div>
+                                <div class="contact-form-group">
+                                    <label>Nuestra Misión</label>
+                                    <textarea id="cfgMision" class="contact-form-input" rows="3" required></textarea>
+                                </div>
+                                <div class="contact-form-group">
+                                    <label>Nuestra Visión</label>
+                                    <textarea id="cfgVision" class="contact-form-input" rows="3" required></textarea>
+                                </div>
+                                <button type="submit" class="btn-submit-contact" style="padding: 16px; font-size: 1.05rem;">💾 Guardar Cambios Institucionales en Nube</button>
+                            </form>
+                        </div>
+
+                        <!-- TAB CONTACTO -->
+                        <div id="tab-contact" class="admin-tab-content" style="display: none;">
+                            <h3 style="color: var(--navy); margin-bottom: 18px; font-size: 1.3rem;">Canales de Contacto y Atención</h3>
+                            <form id="form-contact" onsubmit="saveContactParams(event)">
+                                <div class="contact-form-group">
+                                    <label>Número de WhatsApp para Cotizaciones (Ej: 573000000000)</label>
+                                    <div class="input-icon-wrapper">
+                                        <span class="input-icon-box">💬</span>
+                                        <input type="text" id="cfgWa" class="contact-form-input" required>
+                                    </div>
+                                </div>
+                                <div class="contact-form-group">
+                                    <label>Texto Visible del WhatsApp (Ej: +57 (300) 000-0000)</label>
+                                    <div class="input-icon-wrapper">
+                                        <span class="input-icon-box">📱</span>
+                                        <input type="text" id="cfgWaDisplay" class="contact-form-input" required>
+                                    </div>
+                                </div>
+                                <div class="contact-form-group">
+                                    <label>Correo Electrónico</label>
+                                    <div class="input-icon-wrapper">
+                                        <span class="input-icon-box">✉️</span>
+                                        <input type="email" id="cfgEmail" class="contact-form-input" required>
+                                    </div>
+                                </div>
+                                <div class="contact-form-group">
+                                    <label>Instagram</label>
+                                    <div class="input-icon-wrapper">
+                                        <span class="input-icon-box">📸</span>
+                                        <input type="text" id="cfgInsta" class="contact-form-input" required>
+                                    </div>
+                                </div>
+                                <div class="contact-form-group">
+                                    <label>Ubicación / Ciudad</label>
+                                    <div class="input-icon-wrapper">
+                                        <span class="input-icon-box">📍</span>
+                                        <input type="text" id="cfgLocation" class="contact-form-input" required>
+                                    </div>
+                                </div>
+                                <div class="contact-form-group">
+                                    <label>Horarios de Atención</label>
+                                    <div class="input-icon-wrapper">
+                                        <span class="input-icon-box">⏰</span>
+                                        <input type="text" id="cfgSchedule" class="contact-form-input" required>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn-submit-contact" style="padding: 16px; font-size: 1.05rem;">💾 Guardar Datos de Contacto en Nube</button>
+                            </form>
+                        </div>
+
+                        <!-- TAB SERVICIOS -->
+                        <div id="tab-services" class="admin-tab-content" style="display: none;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px;">
+                                <h3 style="color: var(--navy); font-size: 1.3rem;">Servicios Corporativos</h3>
+                                <button class="btn-analytics" onclick="addNewServicePrompt()">➕ Agregar Servicio</button>
+                            </div>
+                            <div class="grid-2" id="adminServicesList"></div>
+                        </div>
+
+                    </main>
                 </div>
 
             </div>
@@ -1480,11 +1562,23 @@ INDEX_HTML = """<!DOCTYPE html>
         </div>
     </footer>
 
-    <!-- ENGINE DE SINCRONIZACIÓN Y CMS INTERACTIVO CON PERSISTENCIA PRIORITARIA SAAS (v15) -->
+    <!-- ENGINE DE SINCRONIZACIÓN Y CMS INTERACTIVO CON SIDEBAR LATERAL IZQUIERDA (v16) -->
     <script>
         const INITIAL_DATA = """ + json.dumps(INITIAL_SITE_DATA) + """;
         let tempLoadedLogoBase64 = "";
         let activeAdminTab = "home_manage";
+
+        const TAB_TITLES = {
+            "home_manage": { title: "🏠 Sección Inicio (Home)", desc: "Configuración General de la Portada Principal" },
+            "nav_menu": { title: "🍔 Menú Superior & Botones", desc: "Switches de Publicación y Nuevas Secciones" },
+            "logo_preloader": { title: "🖼️ Logo Institucional & Preloader", desc: "Carga del Logo desde PC y Pantalla de Bienvenida" },
+            "categories_manage": { title: "🏷️ Gestión de Categorías (CRUD)", desc: "Administración de Líneas de Protección" },
+            "products": { title: "📦 Catálogo General de Productos", desc: "Gestión de Referencias, Imágenes y Fichas Técnicas" },
+            "company": { title: "🏢 Información Institucional", desc: "Quiénes Somos, Misión y Visión de YD Protección" },
+            "contact": { title: "📞 Canales de Contacto & WhatsApp", desc: "Líneas de Atención y Horarios Corporativos" },
+            "services": { title: "🛠️ Servicios Corporativos", desc: "Soluciones de Dotación y Matriz de Riesgo" },
+            "footer_manage": { title: "🦶 Pie de Página (Footer)", desc: "Títulos y Derechos Reservados" }
+        };
 
         // NOTIFICACIONES FLOATING TOAST ELEGANTES
         function showToast(message, type = 'success') {
@@ -1515,7 +1609,7 @@ INDEX_HTML = """<!DOCTYPE html>
         }
 
         function getLocalSiteData() {
-            const saved = localStorage.getItem('yd_custom_saved_v15');
+            const saved = localStorage.getItem('yd_custom_saved_v16');
             if (saved) {
                 try {
                     const parsed = JSON.parse(saved);
@@ -1526,7 +1620,7 @@ INDEX_HTML = """<!DOCTYPE html>
         }
 
         async function getSiteData() {
-            const userSaved = localStorage.getItem('yd_custom_saved_v15');
+            const userSaved = localStorage.getItem('yd_custom_saved_v16');
             let baseData = INITIAL_DATA;
             if (userSaved) {
                 try {
@@ -1537,7 +1631,7 @@ INDEX_HTML = """<!DOCTYPE html>
 
             const cloudData = await fetchSupabaseSiteData();
             if (cloudData && cloudData.nav_links && cloudData.is_user_edited) {
-                localStorage.setItem('yd_custom_saved_v15', JSON.stringify(cloudData));
+                localStorage.setItem('yd_custom_saved_v16', JSON.stringify(cloudData));
                 return cloudData;
             }
             return baseData;
@@ -1545,7 +1639,7 @@ INDEX_HTML = """<!DOCTYPE html>
 
         async function saveSiteData(data) {
             data.is_user_edited = true;
-            localStorage.setItem('yd_custom_saved_v15', JSON.stringify(data));
+            localStorage.setItem('yd_custom_saved_v16', JSON.stringify(data));
             renderSite(data);
 
             try {
@@ -1566,7 +1660,7 @@ INDEX_HTML = """<!DOCTYPE html>
                     form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
                 }
             } else {
-                showToast('Selecciona una pestaña de configuración para guardar.', 'info');
+                showToast('Selecciona un módulo en la sidebar izquierda para guardar.', 'info');
             }
         }
 
@@ -1926,7 +2020,7 @@ INDEX_HTML = """<!DOCTYPE html>
                 tempLoadedLogoBase64 = comp.logo_image;
             }
 
-            // Formulario Menú Links CON SWITCHES ANIMADOS v15
+            // Formulario Menú Links CON SWITCHES ANIMADOS v16
             const navAdminGrid = document.getElementById('adminNavLinksList');
             if (navAdminGrid) {
                 navAdminGrid.innerHTML = navs.map(n => {
@@ -2466,11 +2560,15 @@ INDEX_HTML = """<!DOCTYPE html>
         function switchAdminTab(tabName, btnEl) {
             activeAdminTab = tabName;
             document.querySelectorAll('.admin-tab-content').forEach(el => el.style.display = 'none');
-            document.querySelectorAll('.admin-tab-btn').forEach(el => el.classList.remove('active-tab'));
+            document.querySelectorAll('.sidebar-menu-btn').forEach(el => el.classList.remove('active-tab'));
             
             const target = document.getElementById('tab-' + tabName);
             if (target) target.style.display = 'block';
             if (btnEl) btnEl.classList.add('active-tab');
+
+            const info = TAB_TITLES[tabName] || { title: tabName, desc: "Módulo Administrativo" };
+            document.getElementById('canvasActiveTabTitle').textContent = info.title;
+            document.getElementById('canvasActiveTabDesc').textContent = info.desc;
         }
 
         function handleAdminLogin(e) {
@@ -2486,6 +2584,14 @@ INDEX_HTML = """<!DOCTYPE html>
             } else {
                 alert('Credenciales incorrectas');
             }
+        }
+
+        function handleAdminLogout() {
+            sessionStorage.removeItem('yd_admin_logged');
+            document.getElementById('loginOverlay').style.display = 'block';
+            document.getElementById('adminMainContent').style.display = 'none';
+            document.getElementById('stickyAdminBar').style.display = 'none';
+            showToast('🚪 Sesión cerrada correctamente.', 'info');
         }
 
         async function openModal(id) {
@@ -2536,7 +2642,7 @@ INDEX_HTML = """<!DOCTYPE html>
 </body>
 </html>"""
 
-DATA_FILE_PATH = "/tmp/yd_site_config_v15.json"
+DATA_FILE_PATH = "/tmp/yd_site_config_v16.json"
 
 def load_server_data() -> dict:
     if os.path.exists(DATA_FILE_PATH):
