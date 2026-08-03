@@ -409,7 +409,7 @@ INITIAL_SITE_DATA = {
   ]
 }
 
-# ESTILOS CSS CON CORRECCIÓN TOTAL RESPONSIVE MOBILE (ZERO OVERFLOW) v23.0
+# ESTILOS CSS CON MENÚ HAMBURGUESA PREMIUM RESPONSIVE v24.0
 EMBEDDED_CSS = """
 :root {
     --navy: #0B1C30;
@@ -475,7 +475,7 @@ img { max-width: 100%; height: auto; display: block; }
 .preloader-bar-bg { width: 260px; max-width: 80%; height: 6px; background: rgba(255,255,255,0.15); border-radius: 10px; overflow: hidden; position: relative; }
 .preloader-bar-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--orange), var(--orange-light)); border-radius: 10px; transition: width 0.08s linear; box-shadow: 0 0 12px var(--orange); }
 
-/* TOPBAR RESPONSIVA CON CERO ANCHO SOBRANTE */
+/* TOPBAR RESPONSIVA CON NAVEGACIÓN Y MENÚ HAMBURGUESA */
 .top-bar { background: rgba(5, 14, 26, 0.96); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); color: var(--white); padding: 10px 0; border-bottom: 3px solid var(--orange); position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 25px rgba(0,0,0,0.3); width: 100%; box-sizing: border-box; }
 .top-bar-content { display: flex; justify-content: space-between; align-items: center; gap: 15px; width: 100%; }
 .brand-logo-group { display: flex; align-items: center; gap: 12px; text-decoration: none; cursor: pointer; flex-shrink: 0; }
@@ -483,7 +483,7 @@ img { max-width: 100%; height: auto; display: block; }
 
 /* TARJETA DEL ESCUDO ESCALADA Y CUADRADA NÍTIDA */
 .brand-real-logo-box {
-    height: 54px; width: 54px; background: #FFFFFF; border-radius: 12px;
+    height: 52px; width: 52px; background: #FFFFFF; border-radius: 12px;
     display: flex; align-items: center; justify-content: center;
     box-shadow: 0 4px 18px rgba(255,102,0,0.4); border: 2px solid var(--orange);
     transition: transform 0.3s ease, box-shadow 0.3s ease; flex-shrink: 0; padding: 3px;
@@ -493,6 +493,8 @@ img { max-width: 100%; height: auto; display: block; }
 
 .brand-title { display: flex; flex-direction: column; justify-content: center; }
 
+/* DESKTOP NAV GROUP */
+.desktop-nav-group { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; justify-content: flex-end; flex-grow: 1; max-width: 100%; }
 .nav-links { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
 .nav-link-btn { color: #E2E8F0; text-decoration: none; font-weight: 700; font-size: 0.9rem; transition: all 0.3s ease; position: relative; padding: 6px 2px; background: none; border: none; cursor: pointer; white-space: nowrap; }
 .nav-link-btn:hover, .nav-link-btn.active-page { color: var(--orange); }
@@ -501,6 +503,122 @@ img { max-width: 100%; height: auto; display: block; }
 
 .btn-analytics { background: linear-gradient(135deg, var(--orange), var(--orange-light)); color: var(--white); padding: 8px 18px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 0.85rem; box-shadow: 0 4px 14px rgba(255,102,0,0.35); transition: all 0.3s ease; white-space: nowrap; flex-shrink: 0; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; border: none; max-width: 100%; }
 .btn-analytics:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255,102,0,0.5); }
+
+/* BOTÓN DE MENÚ HAMBURGUESA (MÓVIL) */
+.mobile-hamburger-btn {
+    display: none;
+    background: rgba(255, 102, 0, 0.15);
+    border: 2px solid var(--orange);
+    border-radius: 10px;
+    padding: 9px 11px;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 4px;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+    z-index: 1001;
+}
+.mobile-hamburger-btn:hover { background: var(--orange); }
+.hamburger-bar {
+    width: 22px;
+    height: 2.5px;
+    background-color: #FFFFFF;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+/* OVERLAY DE FONDO OBSCURO AL ABRIR EL MENÚ */
+.mobile-drawer-backdrop {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+    background: rgba(0,0,0,0.7); backdrop-filter: blur(4px);
+    z-index: 99998; opacity: 0; pointer-events: none; transition: opacity 0.35s ease;
+}
+.mobile-drawer-backdrop.drawer-open { opacity: 1; pointer-events: all; }
+
+/* DRAWER DESLIZABLE DEL MENÚ HAMBURGUESA */
+.mobile-nav-drawer {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 82%;
+    max-width: 320px;
+    height: 100vh;
+    background: linear-gradient(180deg, #050E1A 0%, #0B1C30 100%);
+    box-shadow: -10px 0 35px rgba(0,0,0,0.6);
+    z-index: 99999;
+    display: flex;
+    flex-direction: column;
+    transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    border-left: 4px solid var(--orange);
+}
+.mobile-nav-drawer.drawer-open { right: 0; }
+
+.mobile-drawer-header {
+    padding: 18px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    background: rgba(0,0,0,0.2);
+}
+.mobile-drawer-close {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #FFF;
+    font-size: 1.6rem;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.25s ease;
+}
+.mobile-drawer-close:hover { background: var(--orange); }
+
+.mobile-drawer-body {
+    padding: 20px 16px;
+    flex-grow: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.mobile-drawer-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 13px 16px;
+    color: #E2E8F0;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.95rem;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.04);
+    border-left: 4px solid transparent;
+    transition: all 0.25s ease;
+    border: none;
+    text-align: left;
+    width: 100%;
+    cursor: pointer;
+}
+.mobile-drawer-link:hover, .mobile-drawer-link.active-page {
+    background: rgba(255,102,0,0.18);
+    color: #FFF;
+    border-left-color: var(--orange);
+    box-shadow: 0 4px 12px rgba(255,102,0,0.2);
+}
+
+.mobile-drawer-footer {
+    padding: 18px 20px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    background: rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
 
 .page-view { display: none; opacity: 0; transition: opacity 0.35s ease-in-out; width: 100%; }
 .page-view.active-view { display: block; opacity: 1; }
@@ -699,7 +817,7 @@ footer { background-color: var(--navy-dark); color: var(--white); padding: 65px 
 
 .footer-bottom { margin-top: 35px; padding-top: 22px; border-top: 1px solid rgba(255,255,255,0.08); font-size: 0.85em; color: #94A3B8; text-align: center; }
 
-/* MEDIA QUERIES RESPONSIVAS PARA DISPOSITIVOS MÓVILES (CERO ESPACIO BLANCO SOBRANTE) */
+/* MEDIA QUERIES RESPONSIVAS Y ACTIVACIÓN DE MENÚ HAMBURGUESA */
 @media (max-width: 1024px) {
     .admin-fullwidth-container { padding: 0 16px; }
     .admin-main-canvas { width: 100%; }
@@ -708,43 +826,11 @@ footer { background-color: var(--navy-dark); color: var(--white); padding: 65px 
 }
 
 @media (max-width: 768px) {
-    .top-bar { padding: 8px 0; }
-    .top-bar-content { flex-direction: column; align-items: center; gap: 10px; text-align: center; }
-    .brand-logo-group { justify-content: center; gap: 10px; width: 100%; }
-    .brand-real-logo-box { height: 48px; width: 48px; }
+    .desktop-nav-group { display: none !important; }
+    .mobile-hamburger-btn { display: flex !important; }
+    .top-bar { padding: 10px 0; }
+    .top-bar-content { flex-direction: row !important; justify-content: space-between !important; align-items: center !important; }
     
-    /* MENÚ DE NAVEGACIÓN EN SLIDER HORIZONTAL DESLIZABLE (TOUCH SMOOTH) */
-    .nav-links {
-        display: flex !important;
-        flex-wrap: nowrap !important;
-        overflow-x: auto !important;
-        white-space: nowrap !important;
-        width: 100% !important;
-        max-width: 100% !important;
-        padding: 4px 10px !important;
-        gap: 14px !important;
-        justify-content: flex-start !important;
-        scrollbar-width: none;
-        -webkit-overflow-scrolling: touch;
-    }
-    .nav-links::-webkit-scrollbar { display: none; }
-    
-    .nav-link-btn { font-size: 0.86rem; padding: 4px 6px; }
-    
-    #renderActionButtonsContainer {
-        display: flex;
-        justify-content: center;
-        width: 100%;
-        margin-top: 4px;
-    }
-    #renderActionButtonsContainer .btn-analytics {
-        width: 100%;
-        max-width: 340px;
-        justify-content: center;
-        font-size: 0.82rem;
-        padding: 9px 16px;
-    }
-
     .hero { padding: 45px 15px 55px; }
     .hero h3 { font-size: 1.55rem; line-height: 1.25; }
     .hero p { font-size: 0.95rem; margin-bottom: 24px; }
@@ -816,7 +902,10 @@ INDEX_HTML = """<!DOCTYPE html>
         </div>
     </div>
 
-    <!-- TOPBAR -->
+    <!-- OVERLAY FONDO OSCURO DEL MENÚ HAMBURGUESA -->
+    <div class="mobile-drawer-backdrop" id="mobileDrawerBackdrop" onclick="toggleMobileMenu()"></div>
+
+    <!-- TOPBAR CON MENÚ HAMBURGUESA INTEGRADO v24.0 -->
     <header class="top-bar">
         <div class="container top-bar-content">
             <div class="brand-logo-group" onclick="navigateToPage('home')">
@@ -829,9 +918,38 @@ INDEX_HTML = """<!DOCTYPE html>
                 </div>
             </div>
 
-            <div style="display: flex; gap: 14px; align-items: center; flex-wrap: wrap; justify-content: flex-end; flex-grow: 1; max-width: 100%;">
+            <!-- DESKTOP NAV -->
+            <div class="desktop-nav-group">
                 <nav class="nav-links" id="renderNavLinksContainer"></nav>
                 <div id="renderActionButtonsContainer" style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;"></div>
+            </div>
+
+            <!-- BOTÓN MENÚ HAMBURGUESA (MÓVIL) -->
+            <button class="mobile-hamburger-btn" id="mobileHamburgerBtn" onclick="toggleMobileMenu()" aria-label="Abrir Menú">
+                <span class="hamburger-bar"></span>
+                <span class="hamburger-bar"></span>
+                <span class="hamburger-bar"></span>
+            </button>
+        </div>
+
+        <!-- DRAWER NAVEGACIÓN HAMBURGUESA MÓVIL (V24.0) -->
+        <div class="mobile-nav-drawer" id="mobileNavDrawer">
+            <div class="mobile-drawer-header">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <div style="height: 38px; width: 38px; background: #FFF; border-radius: 8px; padding: 2px; border: 1px solid var(--orange); display:flex; align-items:center; justify-content:center;">
+                        <img id="mobileDrawerLogoImg" src="" style="width: 100%; height: 100%; object-fit: contain;">
+                    </div>
+                    <span style="font-weight: 900; color: #FFF; font-size: 1.05rem; letter-spacing: 0.5px;">MENÚ YD</span>
+                </div>
+                <button class="mobile-drawer-close" onclick="toggleMobileMenu()">&times;</button>
+            </div>
+
+            <div class="mobile-drawer-body" id="renderMobileNavDrawerLinks"></div>
+
+            <div class="mobile-drawer-footer">
+                <button class="btn-wa" style="width: 100%; padding: 12px; font-size: 0.88rem; justify-content: center;" onclick="toggleMobileMenu(); navigateToPage('contacto');">
+                    💬 Contactar Asesor por WhatsApp
+                </button>
             </div>
         </div>
     </header>
@@ -1744,7 +1862,7 @@ POST /api/site-data -> Guardado en /tmp/yd_site_config_v21.json
         </div>
     </footer>
 
-    <!-- ENGINE DE JS CON ESCUDO EJECUTIVO DE ALTA DEFINICIÓN (v23.0) -->
+    <!-- ENGINE DE JS CON MENÚ HAMBURGUESA MÓVIL SLIDE DRAWER (v24.0) -->
     <script>
         const INITIAL_DATA = """ + json.dumps(INITIAL_SITE_DATA) + """;
         let tempLoadedLogoBase64 = "";
@@ -1775,6 +1893,22 @@ POST /api/site-data -> Guardado en /tmp/yd_site_config_v21.json
                 toast.style.transition = 'all 0.4s ease';
                 setTimeout(() => toast.remove(), 400);
             }, 3500);
+        }
+
+        /* CONTROLADOR DEL MENÚ HAMBURGUESA MÓVIL v24.0 */
+        function toggleMobileMenu() {
+            const drawer = document.getElementById('mobileNavDrawer');
+            const backdrop = document.getElementById('mobileDrawerBackdrop');
+            if (drawer && backdrop) {
+                const isOpen = drawer.classList.contains('drawer-open');
+                if (isOpen) {
+                    drawer.classList.remove('drawer-open');
+                    backdrop.classList.remove('drawer-open');
+                } else {
+                    drawer.classList.add('drawer-open');
+                    backdrop.classList.add('drawer-open');
+                }
+            }
         }
 
         function handleDocsAuth(e) {
@@ -1900,11 +2034,13 @@ POST /api/site-data -> Guardado en /tmp/yd_site_config_v21.json
             const pLogoBox = document.getElementById('preloaderLogoContainer');
             const navLogoBox = document.getElementById('navbarLogoContainer');
             const footerLogoBox = document.getElementById('footerLogoContainer');
+            const drawerLogoImg = document.getElementById('mobileDrawerLogoImg');
             const brandTextGroup = document.getElementById('renderBrandTextGroup');
 
             const logoSrc = (comp.logo_image && comp.logo_image.trim() !== "") ? comp.logo_image : OFFICIAL_LOGO_BASE64;
 
             if (pLogoBox) pLogoBox.innerHTML = `<img src="${logoSrc}" class="preloader-custom-logo-img" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\\'preloader-badge-center\\'>YD</div>';">`;
+            if (drawerLogoImg) drawerLogoImg.src = logoSrc;
             
             if (navLogoBox) {
                 navLogoBox.innerHTML = `
@@ -1924,15 +2060,23 @@ POST /api/site-data -> Guardado en /tmp/yd_site_config_v21.json
 
             if (brandTextGroup) brandTextGroup.style.display = 'flex';
 
-            // NAV LINKS
+            // NAV LINKS (ESCRITORIO & MENÚ HAMBURGUESA MÓVIL)
             const navContainer = document.getElementById('renderNavLinksContainer');
             const actionsContainer = document.getElementById('renderActionButtonsContainer');
+            const mobileDrawerContainer = document.getElementById('renderMobileNavDrawerLinks');
 
             let navHtml = '';
             let actionHtml = '';
+            let mobileDrawerHtml = '';
+
+            const navIcons = {
+                'home': '🏠', 'quienes-somos': '👥', 'categorias': '🏷️', 'tienda': '📦',
+                'servicios': '🛠️', 'contacto': '📞', 'manuales': '📖', 'admin': '⚙️', 'analytics': '📊'
+            };
 
             navs.forEach(n => {
                 const isEnabled = (n.enabled === true || n.enabled === "true");
+                const icon = navIcons[n.id] || '📌';
                 if (isEnabled) {
                     if (n.is_button) {
                         if (n.id === 'admin') {
@@ -1947,11 +2091,20 @@ POST /api/site-data -> Guardado en /tmp/yd_site_config_v21.json
                     } else {
                         navHtml += `<button class="nav-link-btn" id="nav-${n.id}" onclick="navigateToPage('${n.id}')">${n.label}</button>`;
                     }
+
+                    // GENERACIÓN DEL ENLACE DENTRO DEL DRAWER HAMBURGUESA MÓVIL
+                    mobileDrawerHtml += `
+                        <button class="mobile-drawer-link" id="mobile-drawer-link-${n.id}" onclick="toggleMobileMenu(); navigateToPage('${n.id}')">
+                            <span>${icon}</span>
+                            <span>${n.label}</span>
+                        </button>
+                    `;
                 }
             });
 
             if (navContainer) navContainer.innerHTML = navHtml;
             if (actionsContainer) actionsContainer.innerHTML = actionHtml;
+            if (mobileDrawerContainer) mobileDrawerContainer.innerHTML = mobileDrawerHtml;
 
             // RENDER FOOTER COMPLETO Y TOTALMENTE ADMINISTRABLE
             document.getElementById('renderFooterTitle').textContent = foot.title || "HABLEMOS DE TU SEGURIDAD";
@@ -2468,12 +2621,15 @@ POST /api/site-data -> Guardado en /tmp/yd_site_config_v21.json
         function navigateToPage(pageId, categoryFilter = null) {
             document.querySelectorAll('.page-view').forEach(view => view.classList.remove('active-view'));
             document.querySelectorAll('.nav-link-btn').forEach(btn => btn.classList.remove('active-page'));
+            document.querySelectorAll('.mobile-drawer-link').forEach(btn => btn.classList.remove('active-page'));
 
             const targetPage = document.getElementById('page-' + pageId);
             const targetBtn = document.getElementById('nav-' + pageId);
+            const targetDrawerBtn = document.getElementById('mobile-drawer-link-' + pageId);
 
             if (targetPage) targetPage.classList.add('active-view');
             if (targetBtn) targetBtn.classList.add('active-page');
+            if (targetDrawerBtn) targetDrawerBtn.classList.add('active-page');
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
             if (categoryFilter) filterCatalogCategory(categoryFilter);
