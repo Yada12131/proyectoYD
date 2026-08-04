@@ -2872,31 +2872,21 @@ INDEX_HTML = """<!DOCTYPE html>
             }
         }
 
-        document.addEventListener('DOMContentLoaded', async () => {
-            const currentData = await getSiteData();
-            renderSite(currentData);
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. RENDERING INSTANTÁNEO SÍNCRONO (0ms) CON CACHÉ LOCAL O INITIAL DATA
+            let initialDataToRender = INITIAL_DATA;
+            const userSaved = localStorage.getItem('yd_custom_saved_v21');
+            if (userSaved) {
+                try {
+                    const parsed = JSON.parse(userSaved);
+                    if (parsed && parsed.nav_links) initialDataToRender = parsed;
+                } catch(e) {}
+            }
 
-            const duration = (currentData.preloader && currentData.preloader.duration_ms) ? currentData.preloader.duration_ms : 4500;
-            const stepInterval = Math.floor(duration / 35);
-            let progress = 0;
-            
-            const bar = document.getElementById('preloaderBar');
-            const preloader = document.getElementById('pagePreloader');
-            
-            const interval = setInterval(() => {
-                progress += Math.floor(Math.random() * 4) + 2;
-                if (progress >= 100) {
-                    progress = 100;
-                    if (bar) bar.style.width = '100%';
-                    clearInterval(interval);
-                    setTimeout(() => {
-                        if (preloader) preloader.classList.add('preloader-hidden');
-                    }, 500);
-                } else {
-                    if (bar) bar.style.width = progress + '%';
-                }
-            }, stepInterval);
+            // Renderizar la interfaz de inmediato sin esperar la red
+            renderSite(initialDataToRender);
 
+            // 2. ENRUTAMIENTO Y ACCESO AL ADMIN INSTANTÁNEO (0ms)
             if (sessionStorage.getItem('yd_admin_logged') === 'true') {
                 const overlay = document.getElementById('loginOverlay');
                 const content = document.getElementById('adminMainContent');
@@ -2918,6 +2908,36 @@ INDEX_HTML = """<!DOCTYPE html>
             } else if (window.location.pathname.includes('/manuales') || window.location.pathname.includes('/docs')) {
                 navigateToPage('manuales');
             }
+
+            // 3. ANIMACIÓN DE PRELOADER RÁPIDA Y FLUIDA
+            const duration = (initialDataToRender.preloader && initialDataToRender.preloader.duration_ms) ? initialDataToRender.preloader.duration_ms : 3000;
+            const stepInterval = Math.floor(duration / 30);
+            let progress = 0;
+            
+            const bar = document.getElementById('preloaderBar');
+            const preloader = document.getElementById('pagePreloader');
+            
+            const interval = setInterval(() => {
+                progress += Math.floor(Math.random() * 6) + 3;
+                if (progress >= 100) {
+                    progress = 100;
+                    if (bar) bar.style.width = '100%';
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        if (preloader) preloader.classList.add('preloader-hidden');
+                    }, 300);
+                } else {
+                    if (bar) bar.style.width = progress + '%';
+                }
+            }, stepInterval);
+
+            // 4. SINCRONIZACIÓN ASÍNCRONA CON LA NUBE EN SEGUNDO PLANO
+            fetchSupabaseSiteData().then(cloudData => {
+                if (cloudData && cloudData.nav_links && cloudData.is_user_edited) {
+                    localStorage.setItem('yd_custom_saved_v21', JSON.stringify(cloudData));
+                    renderSite(cloudData);
+                }
+            }).catch(err => {});
         });
 
         async function saveCompanyParams(e) {
