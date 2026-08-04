@@ -2442,6 +2442,84 @@ INDEX_HTML = """<!DOCTYPE html>
             document.getElementById('cfgHomeHeroDesc').value = comp.hero_desc || "Soluciones especializadas...";
             document.getElementById('cfgHomeSearchPlaceholder').value = comp.search_placeholder || "Buscar producto en la tienda...";
 
+            // 1.1 RENDERIZADO DE STATS BAR (BARRA DE 4 CIFRAS DE CONFIANZA)
+            const statsBox = document.getElementById('adminStatsBarList');
+            if (statsBox) {
+                statsBox.innerHTML = stats.map((s, idx) => `
+                    <div style="background: #F8FAFC; padding: 14px; border-radius: 12px; border: 1px solid #E2E8F0;">
+                        <label style="font-weight: 800; font-size: 0.78rem; color: var(--orange); display: block; margin-bottom: 4px;">CIFRA #${idx + 1}</label>
+                        <input type="text" class="contact-form-input stat-val-input" value="${s.val}" style="padding: 8px 12px; margin-bottom: 8px; font-weight: bold; background: #FFF;" placeholder="Ej: +10 Años">
+                        <label style="font-size: 0.75rem; color: var(--navy); font-weight: bold; display: block; margin-bottom: 2px;">Etiqueta Descriptiva</label>
+                        <input type="text" class="contact-form-input stat-lbl-input" value="${s.lbl}" style="padding: 8px 12px; font-size: 0.85rem; background: #FFF;" placeholder="Ej: Experiencia">
+                    </div>
+                `).join('');
+            }
+
+            // 1.2 RENDERIZADO DE TARJETAS DE SOLUCIONES INTEGRALES (HOME CARDS)
+            const cardsBox = document.getElementById('adminHomeCardsList');
+            if (cardsBox) {
+                cardsBox.innerHTML = homeCards.map((c, idx) => `
+                    <div style="background: #F8FAFC; padding: 16px; border-radius: 14px; border: 1px solid #E2E8F0; border-top: 4px solid var(--orange);">
+                        <label style="font-weight: 800; font-size: 0.8rem; color: var(--navy); display: block; margin-bottom: 4px;">TARJETA #${idx + 1} - TÍTULO</label>
+                        <input type="text" class="contact-form-input home-card-title-input" value="${c.title}" style="padding: 8px 12px; margin-bottom: 8px; font-weight: bold; background: #FFF;">
+                        <label style="font-size: 0.78rem; color: var(--text-muted); font-weight: bold; display: block; margin-bottom: 2px;">Descripción Corta</label>
+                        <textarea class="contact-form-input home-card-desc-input" rows="2" style="padding: 8px 12px; font-size: 0.85rem; margin-bottom: 8px; background: #FFF;">${c.desc}</textarea>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                            <div>
+                                <label style="font-size: 0.75rem; color: var(--navy); font-weight: bold;">Texto Botón</label>
+                                <input type="text" class="contact-form-input home-card-btn-input" value="${c.btn_text || 'Ver en Tienda'}" style="padding: 6px 10px; font-size: 0.82rem; background: #FFF;">
+                            </div>
+                            <div>
+                                <label style="font-size: 0.75rem; color: var(--navy); font-weight: bold;">Código Categoría</label>
+                                <input type="text" class="contact-form-input home-card-cat-input" value="${c.category_code || 'proteccion_personal'}" style="padding: 6px 10px; font-size: 0.82rem; background: #FFF;">
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            // 1.3 RENDERIZADO DE PILARES "¿POR QUÉ ELEGIR YD PROTECCIÓN?"
+            const whyBox = document.getElementById('adminWhyUsList');
+            if (whyBox) {
+                whyBox.innerHTML = whyUs.map((w, idx) => `
+                    <div style="background: #F8FAFC; padding: 16px; border-radius: 14px; border: 1px solid #E2E8F0;">
+                        <div style="display: flex; gap: 10px; margin-bottom: 8px;">
+                            <div style="width: 50px;">
+                                <label style="font-size: 0.75rem; color: var(--orange); font-weight: bold;">Icono</label>
+                                <input type="text" class="contact-form-input why-icon-input" value="${w.icon}" style="padding: 6px; text-align: center; font-size: 1.2rem; background: #FFF;">
+                            </div>
+                            <div style="flex-grow: 1;">
+                                <label style="font-size: 0.75rem; color: var(--navy); font-weight: bold;">Título Pilar #${idx + 1}</label>
+                                <input type="text" class="contact-form-input why-title-input" value="${w.title}" style="padding: 6px 10px; font-weight: bold; background: #FFF;">
+                            </div>
+                        </div>
+                        <label style="font-size: 0.75rem; color: var(--text-muted); font-weight: bold;">Explicación del Pilar</label>
+                        <textarea class="contact-form-input why-desc-input" rows="2" style="padding: 8px 10px; font-size: 0.85rem; background: #FFF;">${w.desc}</textarea>
+                    </div>
+                `).join('');
+            }
+
+            // 1.4 RENDERIZADO DE TESTIMONIOS CORPORATIVOS
+            const testBox = document.getElementById('adminTestimonialsList');
+            if (testBox) {
+                testBox.innerHTML = testimonials.map((t, idx) => `
+                    <div style="background: #F8FAFC; padding: 16px; border-radius: 14px; border: 1px solid #E2E8F0; border-left: 4px solid var(--navy);">
+                        <label style="font-size: 0.78rem; color: var(--navy); font-weight: bold; display: block; margin-bottom: 2px;">Testimonio / Cita #${idx + 1}</label>
+                        <textarea class="contact-form-input test-quote-input" rows="2" style="padding: 8px 10px; font-size: 0.85rem; margin-bottom: 8px; background: #FFF;">${t.quote}</textarea>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                            <div>
+                                <label style="font-size: 0.75rem; color: var(--orange); font-weight: bold;">Autor / Nombre</label>
+                                <input type="text" class="contact-form-input test-author-input" value="${t.author}" style="padding: 6px 10px; font-size: 0.82rem; font-weight: bold; background: #FFF;">
+                            </div>
+                            <div>
+                                <label style="font-size: 0.75rem; color: var(--navy); font-weight: bold;">Cargo / Empresa</label>
+                                <input type="text" class="contact-form-input test-role-input" value="${t.role}" style="padding: 6px 10px; font-size: 0.82rem; background: #FFF;">
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
             // 2. RENDERING DEL MÓDULO MENÚ SUPERIOR & BOTONES (tab-nav_menu)
             const navList = document.getElementById('adminNavLinksList');
             if (navList) {
@@ -2602,8 +2680,61 @@ INDEX_HTML = """<!DOCTYPE html>
             data.company.hero_desc = document.getElementById('cfgHomeHeroDesc').value;
             data.company.search_placeholder = document.getElementById('cfgHomeSearchPlaceholder').value;
 
+            // 1. Guardar Cifras Stats Bar
+            const statVals = document.querySelectorAll('.stat-val-input');
+            const statLbls = document.querySelectorAll('.stat-lbl-input');
+            data.stats_bar = [];
+            statVals.forEach((vInput, i) => {
+                data.stats_bar.push({
+                    val: vInput.value,
+                    lbl: statLbls[i] ? statLbls[i].value : ''
+                });
+            });
+
+            // 2. Guardar Tarjetas Home Cards
+            const cardTitles = document.querySelectorAll('.home-card-title-input');
+            const cardDescs = document.querySelectorAll('.home-card-desc-input');
+            const cardBtns = document.querySelectorAll('.home-card-btn-input');
+            const cardCats = document.querySelectorAll('.home-card-cat-input');
+            data.home_cards = [];
+            cardTitles.forEach((tInput, i) => {
+                data.home_cards.push({
+                    id: 'card-' + (i + 1),
+                    title: tInput.value,
+                    desc: cardDescs[i] ? cardDescs[i].value : '',
+                    btn_text: cardBtns[i] ? cardBtns[i].value : 'Ver en Tienda',
+                    category_code: cardCats[i] ? cardCats[i].value : 'proteccion_personal'
+                });
+            });
+
+            // 3. Guardar Pilares Por Qué Elegirnos
+            const whyIcons = document.querySelectorAll('.why-icon-input');
+            const whyTitles = document.querySelectorAll('.why-title-input');
+            const whyDescs = document.querySelectorAll('.why-desc-input');
+            data.why_choose_us = [];
+            whyIcons.forEach((iInput, i) => {
+                data.why_choose_us.push({
+                    icon: iInput.value,
+                    title: whyTitles[i] ? whyTitles[i].value : '',
+                    desc: whyDescs[i] ? whyDescs[i].value : ''
+                });
+            });
+
+            // 4. Guardar Testimonios Corporativos
+            const testQuotes = document.querySelectorAll('.test-quote-input');
+            const testAuthors = document.querySelectorAll('.test-author-input');
+            const testRoles = document.querySelectorAll('.test-role-input');
+            data.testimonials = [];
+            testQuotes.forEach((qInput, i) => {
+                data.testimonials.push({
+                    quote: qInput.value,
+                    author: testAuthors[i] ? testAuthors[i].value : '',
+                    role: testRoles[i] ? testRoles[i].value : ''
+                });
+            });
+
             await saveSiteData(data);
-            showToast('¡Home guardado y publicado en la Nube!');
+            showToast('¡Sección Inicio (Home) y todos sus módulos guardados y publicados!');
         }
 
         function handleLogoFileSelect(e) {
