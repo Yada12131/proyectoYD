@@ -2913,10 +2913,13 @@ INDEX_HTML = """<!DOCTYPE html>
                 if (docsContent) docsContent.style.display = 'block';
             }
 
-            if (window.location.pathname.includes('/admin')) {
+            const currentUrlPath = (window.location.pathname + window.location.search + window.location.hash).toLowerCase();
+            if (currentUrlPath.includes('admin')) {
                 navigateToPage('admin');
-            } else if (window.location.pathname.includes('/manuales') || window.location.pathname.includes('/docs')) {
+            } else if (currentUrlPath.includes('manuales') || currentUrlPath.includes('docs')) {
                 navigateToPage('manuales');
+            } else {
+                navigateToPage('home');
             }
 
             // 3. ANIMACIÓN DE PRELOADER RÁPIDA Y FLUIDA
@@ -3040,7 +3043,10 @@ INDEX_HTML = """<!DOCTYPE html>
         }
 
         function navigateToPage(pageId, categoryFilter = null) {
-            document.querySelectorAll('.page-view').forEach(view => view.classList.remove('active-view'));
+            document.querySelectorAll('.page-view').forEach(view => {
+                view.classList.remove('active-view');
+                view.style.display = 'none';
+            });
             document.querySelectorAll('.nav-link-btn').forEach(btn => btn.classList.remove('active-page'));
             document.querySelectorAll('.mobile-drawer-link').forEach(btn => btn.classList.remove('active-page'));
 
@@ -3048,9 +3054,31 @@ INDEX_HTML = """<!DOCTYPE html>
             const targetBtn = document.getElementById('nav-' + pageId);
             const targetDrawerBtn = document.getElementById('mobile-drawer-link-' + pageId);
 
-            if (targetPage) targetPage.classList.add('active-view');
+            if (targetPage) {
+                targetPage.classList.add('active-view');
+                targetPage.style.display = 'block';
+            }
             if (targetBtn) targetBtn.classList.add('active-page');
             if (targetDrawerBtn) targetDrawerBtn.classList.add('active-page');
+
+            if (pageId === 'admin') {
+                const isLogged = (sessionStorage.getItem('yd_admin_logged') === 'true');
+                const overlay = document.getElementById('loginOverlay');
+                const content = document.getElementById('adminMainContent');
+                const stickyBar = document.getElementById('stickyAdminBar');
+
+                if (isLogged) {
+                    if (overlay) overlay.style.display = 'none';
+                    if (content) content.style.display = 'block';
+                    if (stickyBar) stickyBar.style.display = 'flex';
+                    const firstBtn = document.querySelector('.sidebar-menu-btn');
+                    switchAdminTab(activeAdminTab || 'home_manage', firstBtn);
+                } else {
+                    if (overlay) overlay.style.display = 'block';
+                    if (content) content.style.display = 'none';
+                    if (stickyBar) stickyBar.style.display = 'none';
+                }
+            }
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
             if (categoryFilter) filterCatalogCategory(categoryFilter);
