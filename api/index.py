@@ -870,6 +870,9 @@ INDEX_HTML = """<!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>YD Protección | Plataforma Web Oficial</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <style>""" + EMBEDDED_CSS + """</style>
@@ -2894,6 +2897,13 @@ INDEX_HTML = """<!DOCTYPE html>
                 if (overlay) overlay.style.display = 'none';
                 if (content) content.style.display = 'block';
                 if (stickyBar) stickyBar.style.display = 'flex';
+                
+                // Activar pestaña inicial implícitamente para garantizar renderizado de inputs (v29.0)
+                const firstBtn = document.querySelector('.sidebar-menu-btn');
+                switchAdminTab('home_manage', firstBtn);
+            } else {
+                const overlay = document.getElementById('loginOverlay');
+                if (overlay) overlay.style.display = 'block';
             }
 
             if (sessionStorage.getItem('yd_docs_logged') === 'true') {
