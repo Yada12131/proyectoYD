@@ -623,7 +623,7 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 .page-view { display: none; opacity: 0; transition: opacity 0.35s ease-in-out; width: 100%; }
-.page-view.active-view { display: block; opacity: 1; }
+.page-view.active-view { display: block !important; opacity: 1 !important; visibility: visible !important; height: auto !important; min-height: 100vh; }
 
 .hero { background: radial-gradient(circle at 50% 20%, rgba(255,102,0,0.14) 0%, rgba(5,14,26,1) 80%); color: var(--white); text-align: center; padding: 75px 20px 90px; position: relative; border-bottom: 1px solid rgba(255,255,255,0.08); width: 100%; box-sizing: border-box; }
 .hero-tag { display: inline-block; background: rgba(255,102,0,0.15); border: 1px solid var(--orange); color: var(--orange); padding: 6px 18px; border-radius: 50px; font-size: 0.8rem; font-weight: 800; letter-spacing: 1.2px; margin-bottom: 20px; text-transform: uppercase; max-width: 100%; }
@@ -2937,7 +2937,10 @@ INDEX_HTML = """<!DOCTYPE html>
                     if (bar) bar.style.width = '100%';
                     clearInterval(interval);
                     setTimeout(() => {
-                        if (preloader) preloader.classList.add('preloader-hidden');
+                        if (preloader) {
+                            preloader.classList.add('preloader-hidden');
+                            preloader.style.display = 'none';
+                        }
                     }, 300);
                 } else {
                     if (bar) bar.style.width = progress + '%';
@@ -3236,7 +3239,12 @@ async def save_site_data_api(request: Request):
 async def main_site_pages(request: Request):
     try:
         rendered = Template(INDEX_HTML).render()
-        return HTMLResponse(content=rendered)
+        headers = {
+            "Cache-Control": "no-store, no-cache, must-revalidate, max-age=0",
+            "Pragma": "no-cache",
+            "Expires": "0",
+        }
+        return HTMLResponse(content=rendered, headers=headers)
     except Exception as e:
         return HTMLResponse(content=f"<h1>Error renderizando sitio web</h1><p>{str(e)}</p>")
 
