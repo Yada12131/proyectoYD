@@ -2167,14 +2167,14 @@ INDEX_HTML = """<!DOCTYPE html>
 
         function renderSite(data) {
             const comp = data.company || INITIAL_DATA.company;
-            const stats = data.stats_bar || INITIAL_SITE_DATA.stats_bar;
-            const homeCards = data.home_cards || INITIAL_SITE_DATA.home_cards;
-            const whyUs = data.why_choose_us || INITIAL_SITE_DATA.why_choose_us;
-            const testimonials = data.testimonials || INITIAL_SITE_DATA.testimonials;
-            const prel = data.preloader || INITIAL_SITE_DATA.preloader;
-            const foot = data.footer || INITIAL_SITE_DATA.footer;
-            const navs = data.nav_links || INITIAL_SITE_DATA.nav_links;
-            const customSecs = data.custom_sections || INITIAL_SITE_DATA.custom_sections;
+            const stats = data.stats_bar || INITIAL_DATA.stats_bar;
+            const homeCards = data.home_cards || INITIAL_DATA.home_cards;
+            const whyUs = data.why_choose_us || INITIAL_DATA.why_choose_us;
+            const testimonials = data.testimonials || INITIAL_DATA.testimonials;
+            const prel = data.preloader || INITIAL_DATA.preloader;
+            const foot = data.footer || INITIAL_DATA.footer;
+            const navs = data.nav_links || INITIAL_DATA.nav_links;
+            const customSecs = data.custom_sections || INITIAL_DATA.custom_sections;
             const cnt = data.contact || INITIAL_DATA.contact;
 
             updateAdminMetrics(data);
@@ -2426,16 +2426,16 @@ INDEX_HTML = """<!DOCTYPE html>
         /* POBLADO DINÁMICO DE TODOS LOS MÓDULOS DEL PANEL CMS (v25.0) */
         function loadAdminForms(data) {
             const comp = data.company || INITIAL_DATA.company;
-            const stats = data.stats_bar || INITIAL_SITE_DATA.stats_bar;
-            const homeCards = data.home_cards || INITIAL_SITE_DATA.home_cards;
-            const whyUs = data.why_choose_us || INITIAL_SITE_DATA.why_choose_us;
-            const testimonials = data.testimonials || INITIAL_SITE_DATA.testimonials;
-            const prel = data.preloader || INITIAL_SITE_DATA.preloader;
-            const foot = data.footer || INITIAL_SITE_DATA.footer;
-            const navs = data.nav_links || INITIAL_SITE_DATA.nav_links;
-            const categories = data.categories_breakdown || INITIAL_SITE_DATA.categories_breakdown;
-            const products = data.products || INITIAL_SITE_DATA.products;
-            const services = data.services || INITIAL_SITE_DATA.services;
+            const stats = data.stats_bar || INITIAL_DATA.stats_bar;
+            const homeCards = data.home_cards || INITIAL_DATA.home_cards;
+            const whyUs = data.why_choose_us || INITIAL_DATA.why_choose_us;
+            const testimonials = data.testimonials || INITIAL_DATA.testimonials;
+            const prel = data.preloader || INITIAL_DATA.preloader;
+            const foot = data.footer || INITIAL_DATA.footer;
+            const navs = data.nav_links || INITIAL_DATA.nav_links;
+            const categories = data.categories_breakdown || INITIAL_DATA.categories_breakdown;
+            const products = data.products || INITIAL_DATA.products;
+            const services = data.services || INITIAL_DATA.services;
             const cnt = data.contact || INITIAL_DATA.contact;
 
             // 1. HOME PARAMS
